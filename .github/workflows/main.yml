@@ -12,10 +12,10 @@ permissions:
 jobs:
   Flow:
     name: Build & Push
-    #runs-on: self-hosted
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Configure AWS Credentials for DEVELOPMENT
         if: github.ref == 'refs/heads/development'
@@ -24,22 +24,26 @@ jobs:
           role-to-assume: ${{ secrets.DEVELOPMENT_AWS_WEB_PORTAL_IAM_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
           mask-aws-account-id: 'true'
-     
+      
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       
-      - name: Build and push
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
           file: ./Dockerfile
           push: true
-          tags:  ${{ secrets.ECR_REPOSITORY }}:latest
-      - name: ECS Service
+          tags: ${{ secrets.ECR_REPOSITORY }}:latest
+      
+      - name: Update ECS Service
         uses: scribd/amazon-ecs-service-action@v1
         with:
           spec: |
-            {"cluster": "portal-development-cluster", "serviceName": "development-portal-service"}
+            {
+              "cluster": "GCSE-Simulator-Development-Cluster-2",
+              "serviceName": "GCSE-Simulator-Development-Service"
+            }
           force-new-deployment: true
           wait-until-deployment-complete: true
-  
+
