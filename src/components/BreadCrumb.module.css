@@ -1,0 +1,41 @@
+.container {
+  padding-inline: 10vw;
+}
+
+.breadcrumbSection {
+  background-color: var(--background-light);
+  padding-block: var(--padding-s);
+}
+
+.pageTitle {
+  font-size: var(--font-xl);
+  font-weight: 500;
+  color: var(--kredirel-dark-blue);
+  margin-bottom: 8px;
+}
+
+.breadcrumb {
+  display: flex;
+  gap: 8px;
+  font-size: var(--font-l);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.breadcrumb a {
+  color: #333;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #4b4ba6;
+}
+
+.breadcrumbInactive {
+  color: #666;
+}
+
+.separator {
+  margin: 0 4px;
+  color: #999;
+}

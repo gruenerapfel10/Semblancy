@@ -1,0 +1,44 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@aws-amplify/auth": "^6.11.4",
+    "@aws-amplify/storage": "^6.7.12",
+    "@aws-amplify/ui-react": "^6.9.2",
+    "@aws-sdk/client-s3": "^3.758.0",
+    "@aws-sdk/lib-storage": "^3.758.0",
+    "@aws-sdk/s3-request-presigner": "^3.758.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "aws-amplify": "^6.13.2",
+    "date-fns": "^4.1.0",
+    "dom-to-image": "^2.6.0",
+    "jspdf": "^3.0.0",
+    "next": "^15.2.0",
+    "papaparse": "^5.5.2",
+    "puppeteer-core": "^24.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0"
+  },
+  "devDependencies": {
+    "@aws-amplify/backend": "^1.14.1",
+    "@aws-amplify/backend-cli": "^1.4.11",
+    "@svgr/webpack": "^8.1.0",
+    "aws-cdk": "^2.1002.0",
+    "aws-cdk-lib": "^2.181.1",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

@@ -1,0 +1,220 @@
+/* login.module.css */
+
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 2rem;
+}
+
+.logoContainer {
+  margin-bottom: 2rem;
+}
+
+.formCard {
+  background: white;
+  border-radius: 10px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a3f;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #00d2ff;
+}
+
+.forgotPassword {
+  text-align: right;
+  margin-bottom: 1.5rem;
+}
+
+.forgotPassword a {
+  color: #00d2ff;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.forgotPassword a:hover {
+  text-decoration: underline;
+}
+
+.primaryButton {
+  width: 100%;
+  background-color: #00d2ff;
+  color: white;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.primaryButton:hover {
+  background-color: #00bce0;
+}
+
+.primaryButton:disabled {
+  background-color: #b3e7ff;
+  cursor: not-allowed;
+}
+
+.orDivider {
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.orDivider::before,
+.orDivider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: calc(50% - 1.5rem);
+  height: 1px;
+  background-color: #ddd;
+}
+
+.orDivider::before {
+  left: 0;
+}
+
+.orDivider::after {
+  right: 0;
+}
+
+.orDivider span {
+  background: white;
+  padding: 0 1rem;
+  position: relative;
+  color: #666;
+}
+
+.demoButton {
+  width: 100%;
+  background-color: transparent;
+  color: #00d2ff;
+  border: 2px solid #00d2ff;
+  border-radius: 2rem;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.demoButton:hover {
+  background-color: #f0f7ff;
+}
+
+.demoButton:disabled {
+  border-color: #b3e7ff;
+  color: #b3e7ff;
+  cursor: not-allowed;
+}
+
+.switchAuthMode {
+  text-align: center;
+  color: #666;
+}
+
+.switchAuthMode a {
+  color: #00d2ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.switchAuthMode a:hover {
+  text-decoration: underline;
+}
+
+.errorMessage {
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.successMessage {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.secondaryButton {
+  width: 100%;
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 2rem;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.secondaryButton:hover {
+  background-color: #f1f1f1;
+}
+
+.infoText {
+  margin-bottom: 1.5rem;
+  color: #666;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .formCard {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}

@@ -1,0 +1,148 @@
+/* signup.module.css */
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 20px;
+  }
+  
+  .logoContainer {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .logo {
+    max-width: 200px;
+    height: auto;
+  }
+  
+  .formCard {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    color: #1a1a45;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  .formGroup {
+    margin-bottom: 20px;
+  }
+  
+  .formGroup label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #0099ff;
+  }
+  
+  .signupButton, .secondaryButton {
+    width: 100%;
+    background-color: #00d2ff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .signupButton:hover {
+    background-color: #00bce0;
+  }
+  
+  .signupButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .error {
+    color: #e74c3c;
+    margin-bottom: 15px;
+  }
+  
+  .termsText {
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    margin: 15px 0;
+  }
+  
+  .loginLink {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .loginLink a {
+    color: #00d2ff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .loginLink a:hover {
+    text-decoration: underline;
+  }
+  
+  .confirmButton {
+    width: 100%;
+    background-color: #00d2ff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .confirmButton:hover {
+    background-color: #00bce0;
+  }
+  
+  .confirmButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .formCard {
+      padding: 25px;
+    }
+    
+    .title {
+      font-size: 22px;
+    }
+  }

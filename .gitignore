@@ -1,0 +1,7 @@
+node_modules
+amplify
+.vscode
+.next
+.firebase
+.firebaserc
+firebase.json

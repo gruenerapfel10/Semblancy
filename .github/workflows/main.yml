@@ -1,0 +1,45 @@
+name: Build Push Deploy
+
+on:
+  push:
+    branches:
+      - development
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  Flow:
+    name: Build & Push
+    #runs-on: self-hosted
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials for DEVELOPMENT
+        if: github.ref == 'refs/heads/development'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.DEVELOPMENT_AWS_WEB_PORTAL_IAM_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          mask-aws-account-id: 'true'
+     
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          file: ./Dockerfile
+          push: true
+          tags:  ${{ secrets.ECR_REPOSITORY }}:latest
+      - name: ECS Service
+        uses: scribd/amazon-ecs-service-action@v1
+        with:
+          spec: |
+            {"cluster": "portal-development-cluster", "serviceName": "development-portal-service"}
+          force-new-deployment: true
+          wait-until-deployment-complete: true
+  
