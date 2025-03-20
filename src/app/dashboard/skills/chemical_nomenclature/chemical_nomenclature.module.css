@@ -1,0 +1,339 @@
+/* chemical-nomenclature.module.css */
+
+.gameContainer {
+  width: 100%;
+  max-width: 800px;
+  min-height: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.statsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  background: rgba(var(--primary-color-rgb, 255, 255, 255), 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slideUp 0.3s ease-out;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--text-color-75);
+  margin-bottom: 0.25rem;
+}
+
+.statValue {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.gameContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.compoundContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(var(--primary-color-rgb, 255, 255, 255), 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.compoundContainer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.formulaDisplay {
+  flex: 1;
+}
+
+.formulaDisplay h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-color-75);
+}
+
+.skeletalFormula {
+  font-size: 2rem;
+  font-weight: 500;
+  padding: 1rem;
+  background: rgba(var(--primary-color-rgb, 255, 255, 255), 0.05);
+  border-radius: 10px;
+  display: inline-block;
+  min-width: 200px;
+  text-align: center;
+  color: var(--text-color);
+  letter-spacing: 1px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.timerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(var(--primary-color-rgb, 255, 255, 255), 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.timer {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.answerForm {
+  margin-top: 1rem;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.answerInput {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--input-background);
+  color: var(--input-text);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.answerInput:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--brand-color), 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.answerInput:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submitButton {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background: var(--brand-color);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 70, 255, 0.2);
+}
+
+.submitButton:hover {
+  background: var(--brand-color-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 70, 255, 0.3);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 70, 255, 0.2);
+}
+
+.feedbackContainer {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  animation: slideUp 0.3s ease-out;
+  text-align: center;
+}
+
+.correctFeedback {
+  background: rgba(0, 200, 0, 0.1);
+  border: 1px solid rgba(0, 200, 0, 0.2);
+}
+
+.incorrectFeedback {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.feedbackMessage {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.correctFeedback .feedbackMessage {
+  color: rgba(0, 200, 0, 0.9);
+}
+
+.incorrectFeedback .feedbackMessage {
+  color: rgba(255, 0, 0, 0.9);
+}
+
+.correctAnswer {
+  font-size: 1.1rem;
+  color: var(--text-color-75);
+}
+
+.correctAnswer span {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .gameContainer {
+    padding: 1.5rem;
+    min-height: auto;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .statsContainer {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .compoundContainer {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .timerContainer {
+    width: 60px;
+    height: 60px;
+  }
+
+  .skeletalFormula {
+    font-size: 1.5rem;
+  }
+
+  .inputContainer {
+    flex-direction: column;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .gameContainer {
+  background: rgba(8, 16, 24, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .compoundContainer {
+  background: rgba(14, 17, 34, 0.7);
+}
+
+[data-theme="dark"] .statsContainer {
+  background: rgba(25, 29, 33, 0.5);
+}
+
+[data-theme="dark"] .timerContainer {
+  background: rgba(25, 29, 33, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .correctFeedback {
+  background: rgba(0, 150, 0, 0.2);
+  border: 1px solid rgba(0, 150, 0, 0.3);
+}
+
+[data-theme="dark"] .incorrectFeedback {
+  background: rgba(200, 0, 0, 0.2);
+  border: 1px solid rgba(200, 0, 0, 0.3);
+}

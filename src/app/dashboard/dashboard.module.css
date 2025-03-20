@@ -4,7 +4,7 @@
 .container {
   background-color: #fff;
   padding: 2.5em 0;
-  height: calc(100vh - 12vh);
+  height: calc(100vh - 8vh);
   z-index: 10;
 }
 
@@ -349,7 +349,7 @@
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
-  height: calc(100vh - 12vh);
+  height: calc(100vh - 8vh);
 }
 
 /* Top Navbar */
@@ -422,7 +422,7 @@
 
 /* Side Menu */
 .sideMenu {
-  background-color: var(--kredirel-dark-blue);
+  background-color: var(--brand-color-mc);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -433,7 +433,7 @@
 }
 
 .sideMenu::after {
-  --_corner-color: var(--kredirel-dark-blue);
+  --_corner-color: var(--brand-color-mc);
   --_size: 1vw;
   content: "";
   position: absolute;
@@ -722,4 +722,27 @@
   position: absolute;
   top: 0;
   right: 1rem;
+}
+
+/* Add this to your dashboard.module.css file */
+
+/* Spinning animation for loading icons */
+@keyframes spinLoading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinningIcon {
+  animation: spinLoading 1s linear infinite;
+  color: var(--kredirel-dark-blue); /* Use a highlight color to make it more visible */
+}
+
+/* Add visual feedback on hover */
+.menuItems li a:hover .spinningIcon {
+  color: #2684fc; /* Highlight color for spinning icon on hover */
+}
+
+/* Apply different styling to active menu items that are also loading */
+.activeMenuItem .spinningIcon {
+  color: #2684fc !important; /* Use the accent color for active items */
 }

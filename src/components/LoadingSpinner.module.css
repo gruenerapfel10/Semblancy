@@ -18,7 +18,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: var(--background-color);
   z-index: 1;
 }
 
@@ -35,9 +35,9 @@
   height: 100%;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: var(--kredirel-dark-blue);
-  border-left-color: var(--kredirel-dark-blue);
-  animation: spinner-rotate 0.8s ease infinite;
+  border-top-color: var(--brand-color);
+  border-left-color: var(--brand-color);
+  animation: spinner-rotate 0.4s ease infinite;
 }
 
 .inner {
@@ -53,10 +53,10 @@
 }
 
 .text {
-  margin-top: 1rem;
-  color: #041e42;
-  font-size: 0.95rem;
-  font-weight: 500;
+  margin-top: 4rem;
+  color: var(--text-color);
+  font-size: var(--font-m);
+  font-weight: 600;
 }
 
 @keyframes spinner-rotate {

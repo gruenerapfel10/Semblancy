@@ -1,19 +1,78 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import styles from "./how-it-works.module.css";
+import { SearchIndicator } from "@/components/SearchTrigger";
+import { 
+  Home, 
+  BookOpen, 
+  Award, 
+  Users, 
+  Clock, 
+  Map, 
+  FileText, 
+  Bookmark, 
+  BarChart2, 
+  Grid, 
+  FileCode, 
+  List, 
+  ChevronRight,
+  Play,
+  Zap,
+  HelpCircle,
+  Check
+} from "lucide-react";
 
 export default function HowItWorksPage() {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeSection, setActiveSection] = useState("overview");
   const [activeFaq, setActiveFaq] = useState(null);
-  const workflowRef = useRef(null);
+  const [scrollY, setScrollY] = useState(0);
+  
+  const sectionRefs = {
+    overview: useRef(null),
+    mocks: useRef(null),
+    competition: useRef(null),
+    forums: useRef(null),
+    examFinder: useRef(null),
+    pastPapers: useRef(null),
+    notes: useRef(null),
+    skills: useRef(null),
+    flashcards: useRef(null),
+    specifications: useRef(null)
+  };
+  
+  // Parallax effect on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+      
+      // Update active section based on scroll position
+      const sectionPositions = Object.entries(sectionRefs).map(([key, ref]) => ({
+        id: key,
+        top: ref.current?.getBoundingClientRect().top || 0
+      }));
+      
+      const currentSection = sectionPositions
+        .filter(section => section.top <= 100)
+        .sort((a, b) => b.top - a.top)[0];
+      
+      if (currentSection && currentSection.id !== activeSection) {
+        setActiveSection(currentSection.id);
+      }
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [activeSection]);
   
   // Animation observer for scroll-based animations
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add(styles.animated);
+          entry.target.classList.add(styles.animateIn);
         }
       });
     }, { threshold: 0.2 });
@@ -24,391 +83,980 @@ export default function HowItWorksPage() {
     return () => elements.forEach(el => observer.unobserve(el));
   }, []);
   
-  // Handle workflow step animation
-  const handleWorkflowStep = (step) => {
-    setActiveTab(step);
-    const progressBar = document.querySelector(`.${styles.progressBar}`);
-    progressBar.style.width = `${(step + 1) * 25}%`;
-  };
-  
   // Toggle FAQ item
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
+  
+  // Scroll to section
+  const scrollToSection = (sectionId) => {
+    setActiveSection(sectionId);
+    sectionRefs[sectionId].current.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  // FAQ data
+  const faqs = [
+    {
+      question: "How accurate are the mock exams?",
+      answer: "Our mock exams are created by experienced GCSE examiners and teachers, closely following the latest exam board specifications. We regularly update our question bank to reflect any changes in curriculum or exam format, ensuring that you're practicing with the most relevant and accurate materials available."
+    },
+    {
+      question: "Can I access GCSE Simulator on mobile devices?",
+      answer: "Yes, GCSE Simulator is fully responsive and works on smartphones, tablets, laptops, and desktop computers. You can study on any device with a web browser, and your progress will sync across all your devices when you're logged in to your account."
+    },
+    {
+      question: "How does the AI generate personalized study plans?",
+      answer: "Our AI analyzes your performance across all subjects and topics, identifying patterns in your strengths and weaknesses. It considers factors like your target grades, time available to study, upcoming exam dates, and your learning history to create an optimized study schedule that prioritizes areas needing improvement while maintaining knowledge in stronger areas."
+    },
+    {
+      question: "Are the past papers official exam board papers?",
+      answer: "Yes, our past papers section includes official exam board papers from AQA, Edexcel, OCR, WJEC, and others. These are complemented by our own custom-created papers that follow the same format and difficulty level to give you even more practice material."
+    },
+    {
+      question: "Can teachers monitor student progress?",
+      answer: "Yes, we offer a Teacher Dashboard for educators and schools. Teachers can monitor student progress, assign specific revision tasks, view analytics on class performance, and identify areas where students may need additional support. Contact our education team for more information on school licenses."
+    },
+    {
+      question: "How often is the content updated?",
+      answer: "We update our content continuously throughout the academic year. Curriculum changes, new past papers, and feature improvements are rolled out regularly. Major updates are announced in our Changelog section, and we make special efforts to update content immediately following any exam board specification changes."
+    }
+  ];
 
   return (
     <div className={styles.container}>
-      {/* Hero Section with Animation */}
-      <div className={styles.heroSection}>
-        <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>How Prosemble Works</h1>
-          <p className={styles.heroSubtitle}>
-            Transform your data into powerful ML predictions with our AI-driven platform
-          </p>
-          <div className={styles.heroButtons}>
-            <button className={styles.primaryButton}>Get Started</button>
-            <button className={styles.secondaryButton}>Watch Demo</button>
-          </div>
-        </div>
-        <div className={styles.heroAnimation}>
-          <div className={styles.animationElement}></div>
-          <div className={styles.animationElement}></div>
-          <div className={styles.animationElement}></div>
-          <div className={styles.floatingData}>
-            <div className={styles.dataPoint}></div>
-            <div className={styles.dataPoint}></div>
-            <div className={styles.dataPoint}></div>
-            <div className={styles.dataPoint}></div>
-            <div className={styles.dataPoint}></div>
-          </div>
-        </div>
+      {/* Floating search indicator */}
+      <SearchIndicator />
+    
+      {/* Background elements */}
+      <div className={styles.backgroundElements}>
+        <div 
+          className={`${styles.sphere} ${styles.sphere1}`} 
+          style={{ transform: `translate3d(${scrollY * 0.05}px, ${-scrollY * 0.03}px, 0)` }}
+        ></div>
+        <div 
+          className={`${styles.sphere} ${styles.sphere2}`} 
+          style={{ transform: `translate3d(${-scrollY * 0.07}px, ${scrollY * 0.04}px, 0)` }}
+        ></div>
+        <div 
+          className={`${styles.sphere} ${styles.sphere3}`} 
+          style={{ transform: `translate3d(${scrollY * 0.09}px, ${scrollY * 0.02}px, 0)` }}
+        ></div>
+        <div className={styles.grid}></div>
       </div>
-
-      {/* Feature Grid Section */}
-      <section className={styles.featuresSection}>
-        <h2 className={styles.sectionTitle}>What Prosemble Does For You</h2>
-        <p className={styles.sectionSubtitle}>
-          Our platform streamlines the process of turning your biochemical data into accurate predictions
-        </p>
+      
+      {/* Hero Section */}
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <div className={styles.heroTagline}>
+            <span className={styles.pill}>Platform Guide</span>
+          </div>
+          
+          <h1 className={styles.heroTitle}>
+            How GCSE Simulator <span className={styles.highlight}>Works</span>
+          </h1>
+          
+          <p className={styles.heroSubtitle}>
+            A comprehensive guide to all features and tools available in the GCSE Simulator platform to maximize your exam preparation.
+          </p>
+        </div>
         
-        <div className={styles.featureGrid}>
-          <div className={`${styles.featureCard} ${styles.animateOnScroll}`}>
-            <div className={styles.featureIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              </svg>
-            </div>
-            <h3>Data Organization</h3>
-            <p>Upload, organize, and manage your biochemical datasets in one secure place</p>
-          </div>
-          
-          <div className={`${styles.featureCard} ${styles.animateOnScroll}`}>
-            <div className={styles.featureIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-              </svg>
-            </div>
-            <h3>AI Analysis</h3>
-            <p>Our specialized ML models analyze your data to find patterns and make predictions</p>
-          </div>
-          
-          <div className={`${styles.featureCard} ${styles.animateOnScroll}`}>
-            <div className={styles.featureIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="8 14 12 16 16 14"></polyline>
-                <polyline points="8 10 12 12 16 10"></polyline>
-                <line x1="12" y1="12" x2="12" y2="16"></line>
-              </svg>
-            </div>
-            <h3>Predictive Results</h3>
-            <p>Get accurate predictions and valuable insights based on your real biochemical data</p>
-          </div>
-          
-          <div className={`${styles.featureCard} ${styles.animateOnScroll}`}>
-            <div className={styles.featureIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="3" y1="9" x2="21" y2="9"></line>
-                <line x1="9" y1="21" x2="9" y2="9"></line>
-                <circle cx="16" cy="16" r="3"></circle>
-              </svg>
-            </div>
-            <h3>Visual Reports</h3>
-            <p>Visualize your data and results with interactive graphs and detailed reports</p>
+        <div className={styles.heroVisual}>
+          <div className={styles.visualContainer}>
+            <div className={styles.visualCircle}></div>
+            <div className={styles.visualGrid}></div>
+            <div className={styles.visualDots}></div>
           </div>
         </div>
       </section>
-
-      {/* Interactive Workflow Section */}
-      <section className={styles.workflowSection} ref={workflowRef}>
-        <h2 className={styles.sectionTitle}>The Prosemble Workflow</h2>
-        <p className={styles.sectionSubtitle}>
-          Four simple steps to transform your data into powerful predictions
-        </p>
+      
+      {/* Main Content */}
+      <div className={styles.contentLayout}>
+        {/* Navigation Sidebar */}
+        <aside className={styles.sidebar}>
+          <nav className={styles.navigation}>
+            <div className={styles.navTitle}>Platform Features</div>
+            
+            <div className={styles.navLinks}>
+              <button 
+                className={`${styles.navLink} ${activeSection === 'overview' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('overview')}
+              >
+                <Home size={18} />
+                <span>Overview Dashboard</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'mocks' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('mocks')}
+              >
+                <BookOpen size={18} />
+                <span>Mock Exams</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'competition' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('competition')}
+              >
+                <Award size={18} />
+                <span>Competition</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'forums' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('forums')}
+              >
+                <Users size={18} />
+                <span>Forums</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'examFinder' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('examFinder')}
+              >
+                <Map size={18} />
+                <span>Exam Centre Finder</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'pastPapers' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('pastPapers')}
+              >
+                <FileText size={18} />
+                <span>Past Papers</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'notes' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('notes')}
+              >
+                <Bookmark size={18} />
+                <span>Notes</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'skills' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('skills')}
+              >
+                <BarChart2 size={18} />
+                <span>Skills Tracking</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'flashcards' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('flashcards')}
+              >
+                <Grid size={18} />
+                <span>Flashcards</span>
+              </button>
+              
+              <button 
+                className={`${styles.navLink} ${activeSection === 'specifications' ? styles.activeLink : ''}`}
+                onClick={() => scrollToSection('specifications')}
+              >
+                <FileCode size={18} />
+                <span>Specifications</span>
+              </button>
+            </div>
+          </nav>
+        </aside>
         
-        <div className={styles.workflowContainer}>
-          <div className={styles.workflowTabs}>
-            <div className={styles.progressBarContainer}>
-              <div className={styles.progressBar}></div>
-              <div className={styles.progressMarkers}>
-                <div className={`${styles.marker} ${activeTab >= 0 ? styles.active : ''}`} onClick={() => handleWorkflowStep(0)}></div>
-                <div className={`${styles.marker} ${activeTab >= 1 ? styles.active : ''}`} onClick={() => handleWorkflowStep(1)}></div>
-                <div className={`${styles.marker} ${activeTab >= 2 ? styles.active : ''}`} onClick={() => handleWorkflowStep(2)}></div>
-                <div className={`${styles.marker} ${activeTab >= 3 ? styles.active : ''}`} onClick={() => handleWorkflowStep(3)}></div>
-              </div>
+        {/* Main Content Sections */}
+        <main className={styles.mainContent}>
+          {/* Overview Section */}
+          <section 
+            ref={sectionRefs.overview}
+            id="overview" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <Home size={24} className={styles.sectionIcon} />
+              <h2>Overview Dashboard</h2>
             </div>
             
-            <div className={styles.workflowButtons}>
-              <button 
-                className={`${styles.workflowButton} ${activeTab === 0 ? styles.active : ''}`}
-                onClick={() => handleWorkflowStep(0)}
-              >
-                1. Create Project
-              </button>
-              <button 
-                className={`${styles.workflowButton} ${activeTab === 1 ? styles.active : ''}`}
-                onClick={() => handleWorkflowStep(1)}
-              >
-                2. Upload Data
-              </button>
-              <button 
-                className={`${styles.workflowButton} ${activeTab === 2 ? styles.active : ''}`}
-                onClick={() => handleWorkflowStep(2)}
-              >
-                3. AI Processing
-              </button>
-              <button 
-                className={`${styles.workflowButton} ${activeTab === 3 ? styles.active : ''}`}
-                onClick={() => handleWorkflowStep(3)}
-              >
-                4. Get Results
-              </button>
-            </div>
-          </div>
-          
-          <div className={styles.workflowContent}>
-            <div className={`${styles.workflowPanel} ${activeTab === 0 ? styles.active : ''}`}>
-              <div className={styles.panelContent}>
-                <h3>Create Your Project</h3>
-                <p>Start by creating a new project and defining your prediction goals. Name your project, add a description, and set up the parameters for your biochemical analysis.</p>
-                <ul className={styles.stepFeatures}>
-                  <li>Simple project creation</li>
-                  <li>Customizable parameters</li>
-                  <li>Secure project storage</li>
-                </ul>
-              </div>
-              <div className={styles.panelVisual}>
-                <div className={styles.createProjectAnimation}>
-                  <div className={styles.projectCard}></div>
-                  <div className={styles.projectForm}></div>
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>The Overview Dashboard is your central hub for tracking progress across all your GCSE subjects. Here you'll find your personalized study plan, upcoming exams, recent activity, and performance metrics.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Zap size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>AI-Generated Study Plan</h3>
+                      <p>Daily and weekly study recommendations based on your performance data and upcoming exams</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <BarChart2 size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Performance Analytics</h3>
+                      <p>Visual representations of your strengths and areas for improvement across all subjects</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Clock size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Exam Countdown</h3>
+                      <p>Automatic countdowns to your upcoming exams with preparation reminders</p>
+                    </div>
+                  </div>
                 </div>
               </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Overview Dashboard Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Overview Dashboard gives you a complete snapshot of your GCSE preparation journey
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>The Overview Dashboard uses our proprietary algorithm to analyze your performance data across all practice questions, mock exams, and revision activities. Our AI identifies patterns in your learning and adapts recommendations in real-time as you continue to use the platform.</p>
+                <ul className={styles.technicalList}>
+                  <li>Personalized grade predictions based on current performance</li>
+                  <li>Topic-by-topic breakdown of strengths and weaknesses</li>
+                  <li>Time management suggestions based on your study habits</li>
+                  <li>Integration with all other platform features for seamless navigation</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          {/* Mock Exams Section */}
+          <section 
+            ref={sectionRefs.mocks}
+            id="mocks" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <BookOpen size={24} className={styles.sectionIcon} />
+              <h2>Mock Exams</h2>
             </div>
             
-            <div className={`${styles.workflowPanel} ${activeTab === 1 ? styles.active : ''}`}>
-              <div className={styles.panelContent}>
-                <h3>Upload Your Data</h3>
-                <p>Import your biochemical data files. We support CSV, Excel, and other common data formats. Organize your data and prepare it for AI processing.</p>
-                <ul className={styles.stepFeatures}>
-                  <li>Supports multiple file formats</li>
-                  <li>Bulk upload capability</li>
-                  <li>Automatic data validation</li>
-                </ul>
-              </div>
-              <div className={styles.panelVisual}>
-                <div className={styles.uploadAnimation}>
-                  <div className={styles.fileIcon}></div>
-                  <div className={styles.uploadArrow}></div>
-                  <div className={styles.platformIcon}></div>
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Our Mock Exams system provides realistic exam simulations that mirror the format, timing, and difficulty of actual GCSE examinations. Prepare for the real thing by testing your knowledge under authentic exam conditions.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Clock size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Timed Exam Environment</h3>
+                      <p>Experience realistic exam conditions with accurate timing and pressure</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <FileText size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Examiner-Standard Marking</h3>
+                      <p>Get your work marked according to official exam board criteria with detailed feedback</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <BarChart2 size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Performance Analysis</h3>
+                      <p>Receive detailed breakdowns of your performance by question type and topic</p>
+                    </div>
+                  </div>
                 </div>
               </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Mock Exam System Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  Our Mock Exams closely replicate the experience of sitting a real GCSE exam
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>The Mock Exam system is built on our database of over 50,000 GCSE-standard questions, categorized by difficulty, topic, and question type. Our AI-powered marking system has been trained on thousands of real student answers to provide accurate grading and feedback.</p>
+                <ul className={styles.technicalList}>
+                  <li>Full papers matching current exam board specifications (AQA, Edexcel, OCR)</li>
+                  <li>Automatic saving of your progress if you lose connection</li>
+                  <li>Mixed-topic papers to test breadth of knowledge</li>
+                  <li>Topic-specific mini-mocks for targeted practice</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          {/* Competition Section */}
+          <section 
+            ref={sectionRefs.competition}
+            id="competition" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <Award size={24} className={styles.sectionIcon} />
+              <h2>Competition</h2>
             </div>
             
-            <div className={`${styles.workflowPanel} ${activeTab === 2 ? styles.active : ''}`}>
-              <div className={styles.panelContent}>
-                <h3>AI Processes Your Data</h3>
-                <p>Our specialized machine learning models analyze your data, identifying patterns and generating accurate predictions specific to biochemical properties.</p>
-                <ul className={styles.stepFeatures}>
-                  <li>Advanced ML algorithms</li>
-                  <li>Biochemical-specific models</li>
-                  <li>High accuracy predictions</li>
-                </ul>
-              </div>
-              <div className={styles.panelVisual}>
-                <div className={styles.processingAnimation}>
-                  <div className={styles.dataNode}></div>
-                  <div className={styles.processingNode}></div>
-                  <div className={styles.aiNode}></div>
-                  <div className={styles.processingPath1}></div>
-                  <div className={styles.processingPath2}></div>
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Make revision fun and engaging with our Competition feature. Challenge friends, classmates, or students from around the country in subject-specific quizzes and tests to add a motivating competitive element to your studies.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Users size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Head-to-Head Challenges</h3>
+                      <p>Compete directly against friends or join random matchups in your subject areas</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Award size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Leaderboards</h3>
+                      <p>Track your ranking against other students locally, nationally, or globally</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Zap size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Daily Challenges</h3>
+                      <p>New challenges every day to test different areas of the curriculum</p>
+                    </div>
+                  </div>
                 </div>
               </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Competition Feature Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Competition feature makes revision more engaging through friendly competition
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>Our Competition system uses a sophisticated matchmaking algorithm to pair you with students of similar ability levels. All challenges draw from our extensive question bank, with difficulty automatically adjusted based on participants' skill levels.</p>
+                <ul className={styles.technicalList}>
+                  <li>Real-time multiplayer quizzes with live scoring</li>
+                  <li>Private competition rooms for study groups or classes</li>
+                  <li>Skill-based matchmaking for fair competition</li>
+                  <li>Achievement badges and rewards for consistent participation</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          {/* Forums Section */}
+          <section 
+            ref={sectionRefs.forums}
+            id="forums" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <Users size={24} className={styles.sectionIcon} />
+              <h2>Forums</h2>
             </div>
             
-            <div className={`${styles.workflowPanel} ${activeTab === 3 ? styles.active : ''}`}>
-              <div className={styles.panelContent}>
-                <h3>Get Your Results</h3>
-                <p>View and download comprehensive reports with accurate predictions, visualizations, and actionable insights from your biochemical data.</p>
-                <ul className={styles.stepFeatures}>
-                  <li>Interactive visualizations</li>
-                  <li>Downloadable reports</li>
-                  <li>Data-driven recommendations</li>
-                </ul>
-              </div>
-              <div className={styles.panelVisual}>
-                <div className={styles.resultsAnimation}>
-                  <div className={styles.chartBar1}></div>
-                  <div className={styles.chartBar2}></div>
-                  <div className={styles.chartBar3}></div>
-                  <div className={styles.reportIcon}></div>
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Our Forums provide a supportive community where you can ask questions, share study resources, and connect with fellow GCSE students. Get help with difficult topics or collaborate on revision strategies in subject-specific discussion boards.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <HelpCircle size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Q&A Sections</h3>
+                      <p>Ask questions and get answers from peers and qualified teachers</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <FileText size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Resource Sharing</h3>
+                      <p>Exchange notes, flashcards, and revision materials with other students</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Users size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Study Groups</h3>
+                      <p>Form private or public study groups for collaborative learning</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases Grid */}
-      <section className={`${styles.useCasesSection} ${styles.animateOnScroll}`}>
-        <h2 className={styles.sectionTitle}>What You Can Do With Prosemble</h2>
-        
-        <div className={styles.useCasesGrid}>
-          <div className={styles.useCase}>
-            <div className={styles.useCaseIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-            </div>
-            <h3>Molecule Property Prediction</h3>
-            <p>Predict biochemical properties of molecules based on structural data</p>
-          </div>
-          
-          <div className={styles.useCase}>
-            <div className={styles.useCaseIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-              </svg>
-            </div>
-            <h3>Reaction Outcome Analysis</h3>
-            <p>Analyze potential outcomes of biochemical reactions</p>
-          </div>
-          
-          <div className={styles.useCase}>
-            <div className={styles.useCaseIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M18 20V10"></path>
-                <path d="M12 20V4"></path>
-                <path d="M6 20v-6"></path>
-              </svg>
-            </div>
-            <h3>Trend Identification</h3>
-            <p>Identify patterns and trends in complex biochemical datasets</p>
-          </div>
-          
-          <div className={styles.useCase}>
-            <div className={styles.useCaseIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <circle cx="12" cy="12" r="6"></circle>
-                <circle cx="12" cy="12" r="2"></circle>
-              </svg>
-            </div>
-            <h3>Target Compound Discovery</h3>
-            <p>Identify promising compounds for further research and development</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Interactive FAQ Section */}
-      <section className={styles.faqSection}>
-        <h2 className={styles.sectionTitle}>Frequently Asked Questions</h2>
-        
-        <div className={styles.faqContainer}>
-          {[
-            {
-              question: "How long does data processing take?",
-              answer: "Processing time depends on the volume and complexity of your data. Most projects complete within 24 hours, while larger datasets may take between 48-72 hours. Our system notifies you when your results are ready."
-            },
-            {
-              question: "What file formats are supported?",
-              answer: "We support CSV, Excel (XLSX, XLS), JSON, TSV, SDF, mol2, PDB, SMILES, and other standard biochemical data formats. If you have a specific format requirement, please contact our support team."
-            },
-            {
-              question: "How accurate are the predictions?",
-              answer: "Our models achieve 85-95% accuracy depending on the type of biochemical data and prediction task. Each report includes confidence scores and statistical validation metrics to help you assess reliability."
-            },
-            {
-              question: "How secure is my data?",
-              answer: "All data is encrypted during transfer and storage using AES-256 encryption. We employ industry-standard security protocols, regular security audits, and strict access controls to ensure your information remains protected."
-            },
-            {
-              question: "Can I export the results and predictions?",
-              answer: "Yes, all results and predictions can be exported in multiple formats including CSV, Excel, PDF reports, and interactive visualizations. You can also integrate results with other systems via our API."
-            },
-            {
-              question: "Do you provide custom ML models?",
-              answer: "Yes, for enterprise customers we offer custom machine learning model development tailored to your specific biochemical data and prediction needs. Contact our sales team to discuss your requirements."
-            }
-          ].map((faq, index) => (
-            <div 
-              key={index} 
-              className={`${styles.faqItem} ${activeFaq === index ? styles.active : ''}`}
-              onClick={() => toggleFaq(index)}
-            >
-              <div className={styles.faqQuestion}>
-                <h3>{faq.question}</h3>
-                <span className={styles.faqToggle}>
-                  {activeFaq === index ? '−' : '+'}
-                </span>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Forums Interface Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Forums connect you with a community of students and educators for collaborative learning
+                </div>
               </div>
-              <div className={styles.faqAnswer}>
-                <p>{faq.answer}</p>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>Our Forums feature rich text editing, mathematical equation support, image embedding, and code formatting to facilitate discussions about any GCSE subject. All forums are moderated to ensure a safe, supportive environment.</p>
+                <ul className={styles.technicalList}>
+                  <li>Subject-specific boards with topic categorization</li>
+                  <li>Formula rendering for mathematics and sciences</li>
+                  <li>Teacher-verified answers highlighted for accuracy</li>
+                  <li>Reputation system to recognize helpful community members</li>
+                </ul>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Call to Action Section */}
-      <section className={styles.ctaSection}>
-        <div className={styles.ctaContent}>
-          <h2>Ready to transform your biochemical data?</h2>
-          <p>Start making accurate predictions with Prosemble today</p>
-          <div className={styles.ctaButtons}>
-            <button className={styles.primaryButton}>Get Started</button>
-            <button className={styles.outlineButton}>Schedule Demo</button>
-          </div>
-        </div>
-        <div className={styles.ctaGraphic}>
-          <div className={styles.graphicElement}></div>
-          <div className={styles.graphicElement}></div>
-          <div className={styles.graphicElement}></div>
-        </div>
-      </section>
-
-      {/* Support Section */}
-      <section className={styles.supportSection}>
-        <h2>Need Additional Help?</h2>
-        <p>
-          Our dedicated support team is available to help you get the most out of Prosemble
-        </p>
-        <div className={styles.supportOptions}>
-          <a href="#" className={styles.supportOption}>
-            <div className={styles.supportIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-              </svg>
-            </div>
-            <h3>Live Chat</h3>
-            <p>Chat with our support team Mon-Fri, 9AM-6PM EST</p>
-          </a>
+          </section>
           
-          <a href="#" className={styles.supportOption}>
-            <div className={styles.supportIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="12"></line>
-                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-              </svg>
+          {/* Exam Centre Finder Section */}
+          <section 
+            ref={sectionRefs.examFinder}
+            id="examFinder" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <Map size={24} className={styles.sectionIcon} />
+              <h2>Exam Centre Finder</h2>
             </div>
-            <h3>Help Center</h3>
-            <p>Browse our documentation and tutorials</p>
-          </a>
+            
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Our Exam Centre Finder helps you locate your nearest exam venues, particularly useful for private candidates or those sitting exams at unfamiliar locations. Find detailed information about each centre including facilities, accessibility features, and contact details.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Map size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Interactive Map</h3>
+                      <p>Search for exam centres with our location-based mapping tool</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <FileText size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Detailed Centre Information</h3>
+                      <p>Access comprehensive details about facilities, requirements, and contacts</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Clock size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Travel Planning</h3>
+                      <p>Calculate journey times and plan your route to ensure on-time arrival</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Exam Centre Finder Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Exam Centre Finder helps you locate and get information about your exam venues
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>Our Exam Centre Finder uses geolocation data from exam boards combined with transportation APIs to help you find and plan journeys to your exam centre. The database is updated regularly throughout the academic year.</p>
+                <ul className={styles.technicalList}>
+                  <li>Comprehensive database of official GCSE exam centres across the UK</li>
+                  <li>Filtering by exam board, subject, and accessibility requirements</li>
+                  <li>Integration with mapping services for directions</li>
+                  <li>Centre reviews and tips from previous candidates</li>
+                </ul>
+              </div>
+            </div>
+          </section>
           
-          <a href="#" className={styles.supportOption}>
-            <div className={styles.supportIcon}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
+          {/* Past Papers Section */}
+          <section 
+            ref={sectionRefs.pastPapers}
+            id="pastPapers" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <FileText size={24} className={styles.sectionIcon} />
+              <h2>Past Papers</h2>
             </div>
-            <h3>Email Support</h3>
-            <p>Get help at support@prosemble.com</p>
-          </a>
-        </div>
-      </section>
+            
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Our comprehensive Past Papers section gives you access to actual GCSE exam papers from previous years, complete with mark schemes and examiner reports. Practice with authentic materials to familiarize yourself with the format and style of questions you'll face in your exams.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <FileText size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Authentic Exam Papers</h3>
+                      <p>Access official past papers from all major exam boards (AQA, Edexcel, OCR, WJEC)</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <BookOpen size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Mark Schemes</h3>
+                      <p>Review official marking guidelines to understand how examiners award points</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <BarChart2 size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Performance Tracking</h3>
+                      <p>Track your scores and improvement across multiple practice papers</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Past Papers System Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Past Papers section provides official exam materials with marking assistance
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>Our Past Papers database includes over 1,000 official GCSE papers spanning the last 10 years across all subjects and exam boards. Papers are fully searchable by year, topic, difficulty, and question type.</p>
+                <ul className={styles.technicalList}>
+                  <li>Searchable question bank for topic-specific practice</li>
+                  <li>Interactive marking system that follows official mark schemes</li>
+                  <li>Examiner commentary explaining common mistakes</li>
+                  <li>Grade boundary information to help gauge performance</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          {/* Notes Section */}
+          <section 
+            ref={sectionRefs.notes}
+            id="notes" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <Bookmark size={24} className={styles.sectionIcon} />
+              <h2>Notes</h2>
+            </div>
+            
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Our Notes system allows you to create, organize, and access your study notes across all GCSE subjects. With rich text formatting, image insertion, and equation support, you can create comprehensive revision materials tailored to your learning style.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <FileText size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Rich Text Editor</h3>
+                      <p>Create beautifully formatted notes with images, equations, and highlighting</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Grid size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Organization System</h3>
+                      <p>Structure notes by subject, topic, and subtopic for easy retrieval</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Users size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Collaborative Features</h3>
+                      <p>Share and collaborate on notes with classmates or study groups</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Notes System Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Notes system helps you create, organize, and revise with digital study materials
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>Our Notes system features cloud synchronization, version history, and integration with other platform features like flashcards and past papers. Notes are automatically linked to relevant curriculum topics for easy reference during targeted revision.</p>
+                <ul className={styles.technicalList}>
+                  <li>Full LaTeX support for mathematical equations</li>
+                  <li>Automatic saving and version history</li>
+                  <li>Export options (PDF, Word, HTML)</li>
+                  <li>Voice recording integration for audio notes</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          {/* Skills Section */}
+          <section 
+            ref={sectionRefs.skills}
+            id="skills" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <BarChart2 size={24} className={styles.sectionIcon} />
+              <h2>Skills Tracking</h2>
+            </div>
+            
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Our Skills Tracking feature provides detailed insights into your mastery of specific GCSE skills and assessment objectives. Monitor your progress across different skill categories and identify areas that need additional focus in your revision plan.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <BarChart2 size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Skill Breakdown</h3>
+                      <p>View your performance across specific skills required by exam boards</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Zap size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Progress Indicators</h3>
+                      <p>Track improvement over time with visual progress indicators</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <BookOpen size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Targeted Practice</h3>
+                      <p>Get recommended questions and resources based on your skill levels</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Skills Tracking Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Skills Tracking feature shows your progress across assessment objectives and competencies
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>Our Skills Tracking system is aligned with official assessment objectives from all major exam boards. The platform analyzes your performance across all activities to provide a comprehensive view of your skill mastery.</p>
+                <ul className={styles.technicalList}>
+                  <li>Assessment objective mapping to curriculum requirements</li>
+                  <li>Comparative analysis against target grades</li>
+                  <li>Detailed skill taxonomies for each subject</li>
+                  <li>Personalized recommendations for skill improvement</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          {/* Flashcards Section */}
+          <section 
+            ref={sectionRefs.flashcards}
+            id="flashcards" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <Grid size={24} className={styles.sectionIcon} />
+              <h2>Flashcards</h2>
+            </div>
+            
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Our intelligent Flashcards system helps you memorize key facts, definitions, and concepts using proven spaced repetition techniques. Create your own flashcards or use our pre-made decks covering the entire GCSE curriculum for efficient and effective revision.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Grid size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Digital Flashcards</h3>
+                      <p>Create multimedia flashcards with images, equations, and formatting</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Clock size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Spaced Repetition</h3>
+                      <p>Optimize learning with scientifically-proven spaced repetition algorithms</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <Users size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Shared Decks</h3>
+                      <p>Access thousands of pre-made flashcard decks or share your own</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Flashcards System Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Flashcards system employs spaced repetition for effective memorization
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>Our Flashcards feature uses the SM-2 spaced repetition algorithm, which adjusts review intervals based on your self-reported recall difficulty. This optimizes the learning process by showing cards at the optimal moment before forgetting occurs.</p>
+                <ul className={styles.technicalList}>
+                  <li>Adaptive scheduling based on recall performance</li>
+                  <li>Multiple question formats (basic, cloze deletion, image occlusion)</li>
+                  <li>Mobile-friendly interface for studying on the go</li>
+                  <li>Import/export functionality for external flashcard systems</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          {/* Specifications Section */}
+          <section 
+            ref={sectionRefs.specifications}
+            id="specifications" 
+            className={`${styles.contentSection} ${styles.animateOnScroll}`}
+          >
+            <div className={styles.sectionHeading}>
+              <FileCode size={24} className={styles.sectionIcon} />
+              <h2>Specifications</h2>
+            </div>
+            
+            <div className={styles.sectionContent}>
+              <div className={styles.featureDescription}>
+                <p>Our Specifications section provides access to the official exam board specifications for all GCSE subjects. Understand exactly what you need to know for your exams with detailed content breakdowns, assessment objectives, and grade descriptors.</p>
+                
+                <div className={styles.keyFeatures}>
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <FileCode size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Exam Board Documentation</h3>
+                      <p>Access official specifications from all major exam boards in one place</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <List size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Interactive Checklists</h3>
+                      <p>Track your coverage of specification points as you revise</p>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.keyFeature}>
+                    <div className={styles.featureIcon}>
+                      <BookOpen size={20} />
+                    </div>
+                    <div className={styles.featureInfo}>
+                      <h3>Linked Resources</h3>
+                      <p>Find revision materials directly linked to specific specification points</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={styles.featureVisual}>
+                <div className={styles.visualPlaceholder}>
+                  <div className={styles.visualLabel}>
+                    <Play size={24} />
+                    <span>Specifications System Demo</span>
+                  </div>
+                  {/* Here you would place the actual GIF or video */}
+                </div>
+                
+                <div className={styles.visualCaption}>
+                  The Specifications section helps you understand exactly what you need to learn for your exams
+                </div>
+              </div>
+              
+              <div className={styles.technicalDetails}>
+                <h3>Technical Details</h3>
+                <p>Our Specifications feature includes the complete syllabus content for all major GCSE exam boards, parsed and presented in an interactive format that integrates with our other learning tools.</p>
+                <ul className={styles.technicalList}>
+                  <li>Specification comparison tools for students changing exam boards</li>
+                  <li>Progress tracking against specification coverage</li>
+                  <li>Downloadable PDFs of official documents</li>
+                  <li>Notification system for specification updates</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          {/* FAQ Section */}
+          <section className={`${styles.faqSection} ${styles.animateOnScroll}`}>
+            <h2 className={styles.faqTitle}>Frequently Asked Questions</h2>
+            
+            <div className={styles.faqContainer}>
+              {faqs.map((faq, index) => (
+                <div 
+                  key={index} 
+                  className={`${styles.faqItem} ${activeFaq === index ? styles.activeFaq : ''}`}
+                  onClick={() => toggleFaq(index)}
+                >
+                  <div className={styles.faqQuestion}>
+                    <h3>{faq.question}</h3>
+                    <span className={styles.faqToggle}>
+                      {activeFaq === index ? '−' : '+'}
+                    </span>
+                  </div>
+                  <div className={styles.faqAnswer}>
+                    <p>{faq.answer}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+          
+          {/* Call to Action Section */}
+          <section className={`${styles.ctaSection} ${styles.animateOnScroll}`}>
+            <div className={styles.ctaContent}>
+              <h2>Ready to ace your GCSE exams?</h2>
+              <p>Start using GCSE Simulator today and experience the difference our platform can make to your revision.</p>
+              <div className={styles.ctaButtons}>
+                <Link href="/signup" className={styles.primaryButton}>
+                  Start Free Trial
+                </Link>
+                <Link href="/contact" className={styles.secondaryButton}>
+                  Contact Support
+                </Link>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   );
 }

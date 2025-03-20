@@ -1,0 +1,1754 @@
+[
+  {
+    "point": "Understand and use the structure of mathematical proof, proceeding from given assumptions through a series of logical steps to a conclusion; use methods of proof, including proof by deduction, proof by exhaustion. Disproof by counter example. Proof by contradiction (including proof of the irrationality of √2 and the infinity of primes, and application to unfamiliar proofs).",
+    "guidance": "Proof by deduction to include the proofs of the laws of logarithms.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Understand and use the laws of indices for all rational exponents.",
+    "guidance": "Using rules such as aᵐ × aⁿ = aᵐ⁺ⁿ, aᵐ ÷ aⁿ = aᵐ⁻ⁿ, (aᵐ)ⁿ = aᵐⁿ, and understanding m√a = a¹/ᵐ",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Decompose rational functions into partial fractions (denominators not more complicated than squared linear terms and with no more than 3 terms, numerators constant or linear).",
+    "guidance": "In cases where the denominator is no more complicated than (ax + b)(cx + d)(ex + f), (ax + b)(cx + d)², or (ax + b)(cx² + d). Excluding cases where the degree of the numerator exceeds that of the denominator. With denominators of the form (ax + b)(cx + d), (ax + b)(cx + d)(ex + f) and (ax + b)(cx + d)². Learners will not be expected to sketch the graphs of rational functions.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Use of functions in modelling, including consideration of limitations and refinements of the models.",
+    "guidance": "",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Use and manipulate surds, including rationalising the denominator.",
+    "guidance": "Simplifying algebraic surds using properties like (√x)² = x, √x × √y = √xy, and (√x + √y)(√x - √y) = x - y; including rationalizing denominators. To include rationalising fractions such as (2+3√5)/(3-2√5) and (7+√5)/(7-√5).",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Work with quadratic functions and their graphs; the discriminant of a quadratic function, including the conditions for real and repeated roots; completing the square; solution of quadratic equations including solving quadratic equations in a function of the unknown.",
+    "guidance": "For example, to locate the vertex of the graph of y = ax² + bx + c or to sketch the graph. By factorising, completing the square and using the formula. The nature of the roots of a quadratic equation. To include finding the maximum or minimum value of a quadratic function. To include by factorisation, use of the formula and completing the square.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Recognise and solve equations in x which are quadratic in some function of x.",
+    "guidance": "For example, x⁴ – 5x² + 4 = 0, √x + 1 – √x = 0, tan²x = 1 + tanx.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Solve simultaneous equations in two variables by elimination and by substitution, including one linear and one quadratic equation.",
+    "guidance": "For example, x + y + 1 = 0 and x² + y² = 25, 2x + 3y = 7 and 3x² = 4 + 4xy. To include finding the points of intersection or the point of contact of a line and a curve.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Solve simultaneous equations in three variables.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Solve linear and quadratic inequalities in a single variable and interpret such inequalities graphically, including inequalities with brackets and fractions. Express solutions through correct use of 'and' and 'or', or through set notation. Represent linear and quadratic inequalities such as y > x + 1 and y > ax² + bx + c graphically.",
+    "guidance": "For example, x < a or x > b is equivalent to {x : x < a} ∪ {x : x > b}. To include the solution of inequalities such as 1 − 2x < 4x +7, (2x-1)/(3-x) and x² − 6x + 8 > 0. To include, for example, y ≥ x+1 (a strict inequality) and y ≤ ax² + bx + c (a non-strict inequality).",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand the meaning of |x|, sketch the graph of y = |ax + b| and use relations such as |a| = |b| ⇔ a² = b² and |x – a| < b ⇔ a – b < x < a + b when solving equations and inequalities.",
+    "guidance": "Graphs of y = |f(x)| and y = f(|x|) for non-linear functions f are not included. For example, |3x - 2| = |2x + 7|, 2x + 5 < |x + 1|. Be able sketch graphs of the form y = |ax + b|. To include solving equations and inequalities involving the modulus function.",
+    "tags": ["CIE_AS", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Manipulate polynomials algebraically, including expanding brackets and collecting like terms, factorisation and simple algebraic division; use of the factor theorem. Simplify rational expressions including by factorising and cancelling, and algebraic division (by linear expressions only).",
+    "guidance": "The use of the Factor Theorem will be restricted to cubic polynomials and the solution of cubic equations.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CCEA_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Divide a polynomial, of degree not exceeding 4, by a linear or quadratic polynomial, and identify the quotient and remainder (which may be zero).",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Use the remainder and factor theorems.",
+    "guidance": "For example, to find factors and remainders, solve polynomial equations or evaluate unknown coefficients. Including factors of the form (ax + b) in which the coefficient of x is not unity, and including calculation of remainders.",
+    "tags": ["CCEA_AS", "CIE_AS"]
+  },
+  {
+    "point": "Understand and use graphs of functions; sketch curves defined by simple equations including polynomials, the modulus of a linear function, y=a/x and y=a/x² (including their vertical and horizontal asymptotes); interpret algebraic solution of equations graphically; use intersection points of graphs to solve equations. Understand and use proportional relationships and their graphs.",
+    "guidance": "For example, to determine the set of values of k for which the line y = x + k intersects, touches or does not meet a quadratic curve. The equations will be restricted to the form y = f(x). Understanding and using direct proportion relationships, expressing using the ∝ symbol or equations with constants.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand and use composite functions; inverse functions and their graphs.",
+    "guidance": "Including the condition that a composite function gf can only be formed when the range of f is within the domain of g. Understanding properties of inverse functions and that the graph of y = f⁻¹(x) is the reflection of y = f(x) in the line y = x. Understand and use the definition of a function. Understand and use the domain and range of functions. In the case of a function defined by a formula (with unspecified domain) the domain is taken to be the largest set such that the formula gives a unique image for each element of the set. The notation fg will be used for composition.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Determine whether or not a given function is one-one, and find the inverse of a one-one function in simple cases.",
+    "guidance": "For example, finding the inverse of h: x → 2x³ - 4x² + 3 for x ≥ 1.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Illustrate in graphical terms the relation between a one-one function and its inverse.",
+    "guidance": "Sketches should include an indication of the mirror line y = x.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use the modulus function (including |x - a| < b).",
+    "guidance": "",
+    "tags": ["CCEA_A2"]
+  },
+  {
+    "point": "Understand the effect of simple transformations on the graph of y = f(x) including sketching associated graphs: y = af(x), y = f(x) + a, y = f(x + a), y = f(ax), and combinations of these transformations.",
+    "guidance": "Including use of the terms 'translation', 'reflection' and 'stretch' in describing transformations. Questions may involve algebraic or trigonometric functions, or other graphs with given features.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CCEA_A2",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Apply differentiation to find gradients, tangents and normals, maxima and minima and stationary points.",
+    "guidance": "Including connected rates of change, e.g. given the rate of increase of the radius of a circle, find the rate of increase of the area for a specific value of one of the variables. To include finding the equations of tangents and normals. The use of maxima and minima in simple optimisation problems. To include simple curve sketching.",
+    "tags": [
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Locate stationary points and determine their nature, and use information about stationary points in sketching graphs.",
+    "guidance": "Including use of the second derivative for identifying maxima and minima; alternatives may be used in questions where no method is specified. Knowledge of points of inflexion is not included.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Identify where functions are increasing or decreasing.",
+    "guidance": "",
+    "tags": ["AQA_AS", "CCEA_AS", "Edexcel_AS", "Edexcel_A2"]
+  },
+  {
+    "point": "Apply differentiation to find points of inflection.",
+    "guidance": "Points of inflection to include stationary and non-stationary points.",
+    "tags": ["WJEC_A2"]
+  },
+  {
+    "point": "Integrate x^n (excluding n = −1), and related sums, differences and constant multiples.",
+    "guidance": "For example, ∫(2x³ - 5x + 1)dx, ∫(2x + 1)/(x² + 3)dx. To include polynomials.",
+    "tags": [
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Solve problems involving the evaluation of a constant of integration.",
+    "guidance": "For example, to find the equation of the curve through (1, -2) for which dy/dx = 2x + 1.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use the definitions of sine, cosine and tangent for all arguments; the sine and cosine rules; the area of a triangle in the form ½absinC.",
+    "guidance": "To include the use of the sine rule in the ambiguous case.",
+    "tags": [
+      "AQA_AS",
+      "AQA_A2",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand the definition of a radian, and use the relationship between radians and degrees.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Use the formulae s = rθ and A = ½r²θ in solving problems concerning the arc length and sector area of a circle.",
+    "guidance": "Including calculation of lengths and angles in triangles and areas of triangles.",
+    "tags": ["CIE_AS", "CIE_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand and use the binomial expansion of (a + bx)^n for positive integer n; the notations n!, ⁿCᵣ and (n r); link to binomial probabilities.",
+    "guidance": "Including the notations (n r), nCr and n! Knowledge of the greatest term and properties of the coefficients are not required. To include use of Pascal's triangle.",
+    "tags": [
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Use the expansion of (1 + x)ⁿ, where n is a rational number and |x| < 1.",
+    "guidance": "Finding the general term in an expansion is not included. Adapting the standard series to expand e.g. (1 - 2x²)⁻½ is included, and determining the set of values of x for which the expansion is valid in such cases is also included.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Interpret scatter diagrams and regression lines for bivariate data, including recognition of scatter diagrams which include distinct sections of the population (calculations involving regression lines are excluded).",
+    "guidance": "Equations of regression lines may be given in a question and learners asked to make predictions using it. Use of the terms positive, negative, zero, strong and weak is expected.",
+    "tags": [
+      "AQA_AS",
+      "AQA_A2",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Use calculus in kinematics for motion in a straight line: v = dr/dt, a = dv/dt = d²r/dt², r = ∫v dt, v = ∫a dt.",
+    "guidance": "Calculus required is restricted to techniques from the content for Paper 1: Pure Mathematics 1. To include the use of v = dr/dt, a = dv/dt = d²r/dt², r = ∫v dt, v = ∫a dt, where v, a and r are given in terms of t.",
+    "tags": [
+      "AQA_AS",
+      "CCEA_A2",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Extend the use of calculus in kinematics for motion in a straight line to 2 dimensions using vectors.",
+    "guidance": "To include the use of v = dr/dt, a = dv/dt = d²r/dt², r = ∫v dt, v = ∫a dt, where v, a and r are given in terms of t.",
+    "tags": ["WJEC_A2"]
+  },
+  {
+    "point": "Understand and use the coordinate geometry of the circle including using the equation of a circle in the form (x − a)² + (y − b)² = r²; completing the square to find the centre and radius of a circle; use of the following properties: the angle in a semicircle is a right angle; the perpendicular from the centre to a chord bisects the chord; the radius of a circle at a given point on its circumference is perpendicular to the tangent to the circle at that point.",
+    "guidance": "Including use of the expanded form x² + y² + 2gx + 2fy + c = 0. Including use of elementary geometrical properties of circles, e.g. tangent perpendicular to radius, angle in a semicircle, symmetry. Implicit differentiation is not included. To also be familiar with the equation of a circle in the form x² + y² + 2gx + 2fy + c = 0. To include: finding the equations of tangents, the condition for two circles to touch internally or externally, finding the points of intersection or the point of contact of a line and a circle.",
+    "tags": [
+      "AQA_AS",
+      "AQA_A2",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Find the equation of the tangent to a circle through a given point on the circumference.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Use algebraic methods to solve problems involving lines and circles.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Conduct a statistical hypothesis test for the proportion in the binomial distribution and interpret the results in context.",
+    "guidance": "",
+    "tags": ["AQA_AS", "AQA_A2", "CCEA_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Understand, use and derive the formulae for constant acceleration for motion in a straight line.",
+    "guidance": "Questions may involve setting up more than one equation, using information about the motion of different particles. To include vertical motion under gravity. Gravitational acceleration, g. The inverse square law for gravitation is not required and g may be assumed to be constant, but learners should be aware that g is not a universal constant but depends on location. The value 9.8 ms⁻² can be used for the acceleration due to gravity, unless explicitly stated otherwise.",
+    "tags": [
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand and use the equation of a straight line, including the forms y − y₁ = m(x − x₁) and ax + by + c = 0; gradient conditions for two straight lines to be parallel or perpendicular. Be able to use straight line models in a variety of contexts.",
+    "guidance": "Including calculations of distances, gradients, midpoints, points of intersection and use of the relationship between the gradients of parallel and perpendicular lines. To include finding the gradient, equation, length and midpoint of a line joining two given points; the equations of lines which are parallel or perpendicular to a given line. Using m' = m for parallel lines and m' = -1/m for perpendicular lines. Using linear models in contexts like unit conversion, motion with constant speed, etc.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Find the equation of a straight line given sufficient information.",
+    "guidance": "For example, given two points, or one point and the gradient.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Demonstrate understanding of how to find the mid-point of a line segment.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Understand and use the parametric equations of curves and conversion between Cartesian and parametric forms.",
+    "guidance": "To include finding the equations of tangents and normals to curves defined parametrically or implicitly. Knowledge of the properties of curves other than the circle will not be expected. Understanding and using parametric forms and converting between Cartesian and parametric forms.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Use parametric equations in modelling in a variety of contexts.",
+    "guidance": "Using parametric equations to model shapes and motion.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand informal interpretation of correlation.",
+    "guidance": "",
+    "tags": ["AQA_AS", "CCEA_AS", "Edexcel_AS", "Edexcel_A2"]
+  },
+  {
+    "point": "Calculate and interpret the product-moment correlation coefficient.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Understand that correlation does not imply causation.",
+    "guidance": "Understanding correlation qualitatively (positive/negative, strong/weak) and that correlation doesn't imply causation.",
+    "tags": ["AQA_AS", "CCEA_AS", "Edexcel_AS", "Edexcel_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Be able to clean data, including dealing with missing data, errors and outliers.",
+    "guidance": "",
+    "tags": ["AQA_AS", "CCEA_AS", "Edexcel_AS", "Edexcel_A2"]
+  },
+  {
+    "point": "Select or critique data presentation techniques in the context of a statistical problem.",
+    "guidance": "Selecting appropriate methods for presenting data in context.",
+    "tags": ["AQA_AS", "CCEA_AS", "Edexcel_AS", "Edexcel_A2"]
+  },
+  {
+    "point": "Understand and use the binomial expansion of (a + bx)ⁿ for any rational n, including its use for approximation; be aware that the expansion is valid for |bx/a| < 1. (Proof not required.)",
+    "guidance": "To include the expansion, in ascending powers of x, of expressions such as (2 − x)⁻½ and (1+x)³/(4-2x). Extending to any rational power, including for approximation; understanding validity condition |bx/a| < 1.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Work with sequences including those given by a formula for the nth term and those generated by a simple relation of the form xₙ₊₁ = f(xₙ); increasing sequences; decreasing sequences; periodic sequences.",
+    "guidance": "",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Demonstrate understanding of the behaviour of sequences, including convergence, divergence and oscillation.",
+    "guidance": "",
+    "tags": ["CCEA_A2"]
+  },
+  {
+    "point": "Understand and use sigma notation for sums of series.",
+    "guidance": "Understanding and using sigma notation, including knowledge that Σ(1) = n.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand and work with arithmetic sequences and series, including the formulae for nth term and the sum to n terms.",
+    "guidance": "Including knowledge that numbers a, b, c are 'in arithmetic progression' if 2b = a + c (or equivalent). Questions may involve more than one progression. Use of uₙ = a + (n - 1)d. Use and proof of Sₙ = n/2[2a + (n - 1)d] and Sₙ = n/2[a + l]. Understanding and using formulas for the nth term and sum of n terms, including proof of sum formula.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Prove the formula for the sum of the first n terms of an arithmetic series or a geometric series.",
+    "guidance": "",
+    "tags": ["CCEA_A2"]
+  },
+  {
+    "point": "Understand and work with geometric sequences and series including the formulae for the nth term and the sum of a finite geometric series; the sum to infinity of a convergent geometric series, including the use of |r| < 1; modulus notation.",
+    "guidance": "Including knowledge that numbers a, b, c are 'in geometric progression' if b² = ac (or equivalent). Questions may involve more than one progression. Use of uₙ = arⁿ⁻¹. Use and proof of Sₙ = a(1-rⁿ)/(1-r). Use of S∞ = a/(1-r) for |r| < 1. Working with formulas for the nth term, sum of finite series, and infinite sums when |r| < 1.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Recognise arithmetic and geometric progressions.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use sequences and series in modelling.",
+    "guidance": "Using sequences and series for real-world applications like savings schemes and growth patterns.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Work with radian measure, including use for arc length and area of sector.",
+    "guidance": "Working with radians for arc length and area of sector calculations using s = rθ and A = ½r²θ.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Work with radian measure, including use for arc length, area of sector and area of segment.",
+    "guidance": "",
+    "tags": ["WJEC_A2"]
+  },
+  {
+    "point": "Understand and use the standard small angle approximations of sine, cosine and tangent: sin θ ≈ θ, cos θ ≈ 1 − θ²/2, tan θ ≈ θ where θ is in radians.",
+    "guidance": "sin θ ≈ θ, cos θ ≈ 1 - θ²/2 and tan θ ≈ θ, where θ is in radians.",
+    "tags": ["AQA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand and use the sine, cosine and tangent functions; their graphs, symmetries and periodicity. Know and use exact values of sin and cos for 0, π/6, π/4, π/3, π/2, π and multiples thereof, and exact values of tan for 0, π/6, π/4, π/3, π and multiples thereof.",
+    "guidance": "Including e.g. y = 3 sin x, y = 1 – cos 2x, y = ¼ tan x + 1. For example, cos 150° = -cos 30° = -√3/2. These identities may be used to solve trigonometric equations or prove trigonometric identities.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Sketch and use graphs of the sine, cosine and tangent functions (for angles of any size, and using either degrees or radians).",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use the exact values of the sine, cosine and tangent of 30°, 45°, 60°, and related angles.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Know and use exact values of sin and cos for 0, π/6, π/4, π/3, π/2, π and multiples thereof, and exact values of tan for 0, π/6, π/4, π/3, π and multiples thereof.",
+    "guidance": "Knowing exact values at standard angles (0°, 30°, 45°, 60°, 90° and their multiples) or equivalent in radians.",
+    "tags": ["Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand and use the definitions of secant, cosecant and cotangent and of arcsin, arccos and arctan; their relationships to sine, cosine and tangent; understanding of their graphs; their ranges and domains.",
+    "guidance": "Understanding definitions, relationships to primary functions, graphs, domains, and ranges.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Use the notations sin⁻¹x, cos⁻¹x, tan⁻¹x to denote the principal values of the inverse trigonometric relations.",
+    "guidance": "No specialised knowledge of these functions is required, but understanding of them as examples of inverse functions is expected.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use tan θ ≡ sinθ/cosθ. Understand and use sin²θ + cos²θ ≡ 1; sec²θ ≡ 1 + tan²θ and cosec²θ ≡ 1 + cot²θ.",
+    "guidance": "For example, in proving identities, simplifying expressions and solving equations. The solution of trigonometric equations such as sec²θ + 5tanθ = 5.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CCEA_A2",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Show familiarity with the use of sec²θ ≡ 1 + tan²θ and cosec²θ ≡ 1 + cot²θ.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Understand and use double angle formulae; use of formulae for sin(A ± B), cos(A ± B) and tan(A ± B); understand geometrical proofs of these formulae. Understand and use expressions for acosθ + bsinθ in the equivalent forms of rcos(θ ± α) or rsin(θ ± α).",
+    "guidance": "Use of these formulae to solve equations in a given range, e.g. sin2θ = sinθ, Applications to integration, e.g. ∫cos²x dx. Use of these to solve equations in a given range, e.g. 3cosθ + sinθ = 2. Application to finding greatest and least values, e.g. the least value of 3cosθ + 4sinθ + 10. Using double angle formulas and addition formulas for sin(A±B), cos(A±B), and tan(A±B). Converting a cos θ + b sin θ to r cos(θ±α) or r sin(θ±α) form.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Show familiarity with the use of the expansions of sin(A ± B), cos(A ± B) and tan(A ± B).",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Show familiarity with the use of the formulae for sin 2A, cos 2A and tan 2A.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Show familiarity with the use of the expression of a sin θ + b cos θ in the forms R sin(θ ± α) and R cos(θ ± α).",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Solve simple trigonometric equations in a given interval, including quadratic equations in sin, cos and tan and equations involving multiples of the unknown angle.",
+    "guidance": "For example, solve for -π ≤ x ≤ π: 3 sin x + 2x + 1 = 0, or for 0° ≤ θ < 360°: 3 sin²θ - 5 cos θ - 1 = 0. To include the solution of equations such as 3sin θ = 1, tan θ = 2/3, 3cos 2θ = −1 and 2cos² θ + sin θ − 1 = 0.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Use trigonometrical identities for the simplification and exact evaluation of expressions, and in the course of solving equations, and select an identity or identities appropriate to the context.",
+    "guidance": "For example, simplifying cos(x - 30°) - 3 sin(x - 60°). For example, solving tan θ + cot θ = 4, 2 sec²θ - 5 tan²θ = 2, 3 cos θ + 2 sin θ = 1.",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Construct proofs involving trigonometric functions and identities.",
+    "guidance": "Proving identities involving trigonometric functions.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Use trigonometric functions to solve problems in context, including problems involving vectors, kinematics and forces.",
+    "guidance": "Contexts may include, for example, wave motion as well as problems in vector form which involve resolving directions and quantities in mechanics. Using trigonometric functions for modeling real-world problems involving vectors, kinematics, and forces.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Know and use the function aˣ and its graph, where a is positive. Know and use the function eˣ and its graph.",
+    "guidance": "Including knowledge of the graph of y = eᵏˣ for both positive and negative values of k. Realise that when the rate of change is proportional to the y value, an exponential model should be used. Understanding aˣ and eˣ functions and their graphs for positive values of a.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Know that the gradient of eᵏˣ is equal to keᵏˣ and hence understand why the exponential model is suitable in many applications.",
+    "guidance": "Understanding that the gradient of eᵏˣ is keᵏˣ and its implications for modeling.",
+    "tags": ["AQA_A2", "AQA_AS", "Edexcel_AS", "Edexcel_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Know and use the definition of logₐx as the inverse of aˣ, where a is positive and x≥0. Know and use the function lnx and its graph. Know and use lnx as the inverse function of eˣ.",
+    "guidance": "Defining logₐx as the inverse of aˣ and ln x as the inverse of eˣ.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand and use the laws of logarithms: logₐx + logₐy ≡ logₐxy; logₐx − logₐy ≡ logₐ(x/y); klogₐx ≡ logₐxᵏ (including, for example, k = −1 and k = −½).",
+    "guidance": "To include the proof of the laws of logarithms. Use of the laws of logarithms. e.g. Simplify log₂36 − 2log₂15 + log₂100 + 1. Change of base will not be required. Using logₐx + logₐy = logₐ(xy), logₐx - logₐy = logₐ(x/y), k logₐx = logₐxᵏ.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand the relationship between logarithms and indices, and use the laws of logarithms (excluding change of base).",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Solve equations of the form aˣ = b.",
+    "guidance": "The use of a calculator to solve equations such as (i) 3ˣ = 2, (ii) 25ˣ - 4 = 5ˣ + 3 = 0, (iii) 2ˣ+1 = 4ˣ-5. Solving equations like 2³ˣ⁻¹ = 3.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Use logarithms to solve equations and inequalities in which the unknown appears in indices.",
+    "guidance": "For example, 2ˣ ≤ 5, 3ˣ ≤ 5 ≤ 3ˣ⁺¹, 3ˣ⁺¹ = 4ˣ⁻².",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Solve inequalities involving exponential functions, for example aˣ < b.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Use logarithmic graphs to estimate parameters in relationships of the form y = axⁿ and y = kbˣ, given data for x and y.",
+    "guidance": "Link to laws of logarithms. Understand that on a graph of log y against log x, the gradient is n and the intercept is log a, and that on a graph of log y against x, the gradient is log b and the intercept is log k. Using logarithmic transformations to estimate parameters in relationships of form y = axⁿ and y = kbˣ.",
+    "tags": ["AQA_A2", "AQA_AS", "Edexcel_AS", "Edexcel_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Use logarithms to transform a given relationship to linear form, and hence determine unknown constants by considering the gradient and/or intercept.",
+    "guidance": "For example, y = kxⁿ gives ln y = ln k + n ln x which is linear in ln x and ln y. y = k(aˣ) gives ln y = ln k + x ln a which is linear in x and ln y.",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Understand and use exponential growth and decay; use in modelling (examples may include the use of e in continuous compound interest, radioactive decay, drug concentration decay, exponential growth as a model for population growth); consideration of limitations and refinements of exponential models.",
+    "guidance": "The formal differentiation and integration of formulae involving eˣ and/or aˣ will not be required. Applying exponential models to real-world situations, considering limitations and refinements.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand and use the derivative of f(x) as the gradient of the tangent to the graph of y = f(x) at a general point (x, y); the gradient of the tangent as a limit; interpretation as a rate of change; sketching the gradient function for a given curve; second derivatives; differentiation from first principles for small positive integer powers of x and for sin x and cos x. Understand and use the second derivative as the rate of change of gradient; connection to convex and concave sections of curves and points of inflection.",
+    "guidance": "Only an informal understanding of the idea of a limit is expected. For example, includes consideration of the gradient of the chord joining the points with x coordinates 2 and (2 + h) on the curve y = x³. Formal use of the general method of differentiation from first principles is not required. The notation dy/dx or f′(x) may be used. Up to and including power of 3. To include polynomials up to and including a maximum degree of 3. Points of inflection to include stationary and non-stationary points. Understanding the derivative as instantaneous rate of change and as the gradient of the tangent. Given a function graph, sketching its derivative function. Understanding second derivatives as rate of change of gradient and their connection to curve shape.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Differentiation from first principles for sinx and cosx.",
+    "guidance": "",
+    "tags": ["WJEC_A2"]
+  },
+  {
+    "point": "Differentiate xⁿ, for rational values of n, and related constant multiples, sums and differences. Differentiate eᵏˣ and aᵏˣ, sinkx, coskx, tankx and related sums, differences and constant multiples. Understand and use the derivative of lnx.",
+    "guidance": "For example, find dy/dx, given y = 2x⁵ + 3. To include polynomials. Finding derivatives of xⁿ (rational n), eᵏˣ, aᵏˣ, sin kx, cos kx, tan kx, and ln x.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_A2",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Use the derivatives of eˣ, ln x, sin x, cos x, tan x, together with constant multiples, sums, differences and composites.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Use the derivatives of eˣ, ln x, sin x, cos x, tan x, tan⁻¹x, together with constant multiples, sums, differences and composites.",
+    "guidance": "Derivatives of sin⁻¹x and cos⁻¹x are not required.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Differentiate cosec x, sec x and cot x.",
+    "guidance": "",
+    "tags": ["CCEA_A2"]
+  },
+  {
+    "point": "Apply differentiation to find gradients, tangents and normals, maxima and minima and stationary points, points of inflection. Identify where functions are increasing or decreasing.",
+    "guidance": "Finding gradients, tangents, normals, stationary points, and analyzing function behavior.",
+    "tags": ["AQA_A2", "Edexcel_AS", "Edexcel_A2"]
+  },
+  {
+    "point": "Differentiate using the product rule, the quotient rule and the chain rule, including problems involving connected rates of change and inverse functions.",
+    "guidance": "For example, (3x² - 4)/(2x + 1), x² ln x, xe¹⁻ˣ². To include the use of dy/dx = 1/(dx/dy). Using advanced differentiation techniques for composite functions and connected rates of change.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Differentiate products and quotients.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Differentiate simple functions and relations defined implicitly or parametrically, for first derivative only.",
+    "guidance": "For example, x = t - e²ᵗ, y = t + e²ᵗ. For example, x² + y² = xy + 7. Including use in problems involving tangents and normals. Differentiating functions defined implicitly or parametrically.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Find and use the first derivative of a function which is defined parametrically or implicitly.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Differentiate simple functions and relations defined implicitly or parametrically, including finding the second derivative.",
+    "guidance": "",
+    "tags": ["CCEA_A2"]
+  },
+  {
+    "point": "Construct simple differential equations in pure mathematics and in context, (contexts may include kinematics, population growth and modelling the relationship between price and demand).",
+    "guidance": "The introduction and evaluation of a constant of proportionality, where necessary, is included. To include contexts involving exponential growth and decay. Setting up differential equations from given information in pure and applied contexts.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Formulate a simple statement involving a rate of change as a differential equation.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Know and use the Fundamental Theorem of Calculus.",
+    "guidance": "Integration as the reverse process of differentiation. Understanding integration as the reverse process of differentiation.",
+    "tags": ["AQA_A2", "AQA_AS", "Edexcel_AS", "Edexcel_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Demonstrate understanding of and use indefinite integration as the reverse of differentiation.",
+    "guidance": "",
+    "tags": ["CCEA_AS", "CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Integrate xⁿ (excluding n = −1), and related sums, differences and constant multiples. Integrate eᵏˣ, 1/x, sinkx, coskx and related sums, differences and constant multiples.",
+    "guidance": "Use of the results: 1) if ∫f(x)dx = F(x) + c then ∫f(ax + b)dx = 1/a F(ax + b) + c. 2) ∫f'(g(x))g'(x)dx = f(g(x)) + c. Finding integrals of xⁿ (n≠-1), eᵏˣ, 1/x, sin kx, cos kx, and related functions.",
+    "tags": [
+      "AQA_A2",
+      "CCEA_A2",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Extend the idea of 'reverse differentiation' to include the integration of eᵃˣ⁺ᵇ, 1/(ax + b), sin(ax + b), cos(ax + b) and sec²(ax + b).",
+    "guidance": "Knowledge of the general method of integration by substitution is not required.",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Extend the idea of 'reverse differentiation' to include the integration of eᵃˣ⁺ᵇ, 1/(ax + b), sin(ax + b), cos(ax + b), sec²(ax + b) and 1/√(x² + a²).",
+    "guidance": "Including examples such as 1/√(2x + 3).",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use trigonometrical relationships in carrying out integration.",
+    "guidance": "For example, use of double-angle formulae to integrate sin²x or cos²(2x).",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Evaluate definite integrals; use a definite integral to find the area under a curve and the area between two curves.",
+    "guidance": "Including simple cases of 'improper' integrals, such as ∫₁^∞ 1/x² dx and ∫₋₁^1 1/x³ dx. To include finding the area of a region between a straight line and a curve. Evaluating definite integrals and calculating areas under or between curves.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CCEA_A2",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Use definite integration to find a volume of revolution about one of the axes.",
+    "guidance": "A volume of revolution may involve a region not bounded by the axis of rotation, e.g. the region between y = 9 - x² and y = 5 rotated about the x-axis.",
+    "tags": ["CIE_AS", "CIE_A2", "CCEA_A2"]
+  },
+  {
+    "point": "Evaluate a volume generated by the rotation of the area under a single curve about the x-axis.",
+    "guidance": "",
+    "tags": ["CCEA_A2"]
+  },
+  {
+    "point": "Understand and use integration as the limit of a sum.",
+    "guidance": "Understanding the connection between integration and summation.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Carry out simple cases of integration by substitution and integration by parts; understand these methods as the inverse processes of the chain and product rules respectively. (Integration by substitution includes finding a suitable substitution and is limited to cases where one substitution will lead to a function which can be integrated; integration by parts includes more than one application of the method but excludes reduction formulae).",
+    "guidance": "For example, integration of x sin 2x, x²e⁻ˣ, ln x, x tan⁻¹x. Understand these methods as the reverse processes of the chain rule and the product rule respectively. Integration by substitution includes finding a suitable substitution and is limited to cases where one substitution will lead to a function which can be integrated. Integration by parts includes more than one application of the method but excludes reduction formulae. Using substitution to simplify integrals, including recognizing integrals of the form ∫f'(x)/f(x)dx. Using the integration by parts formula for more complex integrals.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Recognise when an integrand can usefully be regarded as a product, and use integration by parts.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use a given substitution to simplify and evaluate either a definite or an indefinite integral.",
+    "guidance": "For example, to integrate sin²(2x) cos x using the substitution u = sin x.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Integrate using partial fractions that are linear in the denominator.",
+    "guidance": "Integrating rational expressions after decomposition into partial fractions.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Integrate rational functions by means of decomposition into partial fractions.",
+    "guidance": "Restricted to types of partial fractions as specified in topic 3.1 above.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Recognise an integrand of the form f'(x)/f(x), and integrate such functions.",
+    "guidance": "For example, integration of (1 + 2x)/x, tan x.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Evaluate the analytical solution of simple first order differential equations with separable variables, including finding particular solutions (Separation of variables may require factorisation involving a common factor).",
+    "guidance": "Questions will be set in pure mathematics only. Questions will be set in context. Separation of variables may require factorisation involving a common factor. Solving differential equations by separation of variables and finding particular solutions.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Find by integration a general form of solution for a first order differential equation in which the variables are separable.",
+    "guidance": "Including any of the integration techniques from topic 3.5 above.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use an initial condition to find a particular solution.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Interpret the solution of a differential equation in the context of solving a problem, including identifying limitations of the solution; includes links to kinematics.",
+    "guidance": "Where a differential equation is used to model a 'real-life' situation, no specialised knowledge of the context will be required. Understanding solutions in context, identifying limitations.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Locate roots of f(x) = 0 by considering changes of sign of f(x) in an interval of x on which f(x) is sufficiently well-behaved. Understand how change of sign methods can fail.",
+    "guidance": "For example, finding a pair of consecutive integers between which a root lies. Locating roots by examining sign changes in well-behaved functions.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Locate approximately a root of an equation, by means of graphical considerations and/or searching for a sign change.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Solve equations approximately using simple iterative methods; be able to draw associated cobweb and staircase diagrams. Solve equations using the Newton-Raphson method and other recurrence relations of the form xₙ₊₁ = g(xₙ). Understand how such methods can fail.",
+    "guidance": "Knowledge of the condition for convergence is not included, but an understanding that an iteration may fail to converge is expected. The iterative formula will be given. Consideration of the conditions for convergence will not be required. Using simple iteration and associated cobweb/staircase diagrams. Using this technique for finding roots and understanding its potential failures.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand the idea of, and use the notation for, a sequence of approximations which converges to a root of an equation.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Understand how a given simple iterative formula of the form xₙ₊₁ = F(xₙ) relates to the equation being solved, and use a given iteration, or an iteration based on a given rearrangement of an equation, to determine a root to a prescribed degree of accuracy.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Understand and use numerical integration of functions, including the use of the trapezium rule and estimating the approximate area under a curve and limits that it must lie between.",
+    "guidance": "Including use of sketch graphs in simple cases to determine whether the trapezium rule gives an over-estimate or an under-estimate. Learners will be expected to use the trapezium rule to estimate the area under a curve and to determine whether it gives an overestimate or an underestimate of the area under a curve. Simpson's rule is excluded. Using the trapezium rule to estimate integrals and bounding the error.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand and use the trapezium rule to estimate the value of a definite integral.",
+    "guidance": "",
+    "tags": ["CIE_AS"]
+  },
+  {
+    "point": "Use numerical methods to solve problems in context.",
+    "guidance": "To solve problems in context which lead to equations that cannot be solved analytically. Using numerical techniques to solve problems in context.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Use vectors in two dimensions and in three dimensions.",
+    "guidance": "To include the use of the unit vectors, i and j. To include the use of the unit vectors i, j and k. Working with column vectors and unit vectors in different dimensions.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Use standard notations for vectors, i.e. [x y], xi + yj, [x y z], xi + yj + zk, AB, a.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Calculate the magnitude and direction of a vector and convert between component form and magnitude/direction form.",
+    "guidance": "In 2 or 3 dimensions. Calculating vector magnitude and direction, converting between forms.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Add vectors diagrammatically and perform the algebraic operations of vector addition and multiplication by scalars, and understand their geometrical interpretations.",
+    "guidance": "For example, 'OABC is a parallelogram' is equivalent to OB = OA + OC. The general form of the ratio theorem is not included, but understanding that the midpoint of AB has position vector ½(OA + OB) is expected. Condition for two vectors to be parallel. Adding vectors diagrammatically and algebraically, multiplying by scalars.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Carry out addition and subtraction of vectors and multiplication of a vector by a scalar, and interpret these operations in geometrical terms.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Understand and use position vectors; calculate the distance between two points represented by position vectors.",
+    "guidance": "Use of AB = b - a. To include the use of position vectors given in terms of unit vectors. To include the use and derivation of the position vector of a point dividing a line in a given ratio. Using position vectors and calculating distances between points.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Calculate the magnitude of a vector, and use unit vectors, displacement vectors and position vectors.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use vectors to solve problems in pure mathematics and in context, including forces and kinematics.",
+    "guidance": "Using vectors to solve geometric problems and in physics contexts.",
+    "tags": ["AQA_A2", "AQA_AS", "Edexcel_AS", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Calculate the magnitude and direction of a vector and convert between component form and magnitude/direction form. Use vectors to solve problems in context, including forces.",
+    "guidance": "Does not include kinematics problems.",
+    "tags": ["WJEC_AS"]
+  },
+  {
+    "point": "Understand the significance of all the symbols used when the equation of a straight line is expressed in the form r = a + tb, and find the equation of a line, given sufficient information.",
+    "guidance": "For example, finding the equation of a line given the position vector of a point on the line and a direction vector, or the position vectors of two points on the line.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Determine whether two lines are parallel, intersect or are skew, and find the point of intersection of two lines when it exists.",
+    "guidance": "Calculation of the shortest distance between two skew lines is not required. Finding the equation of the common perpendicular to two skew lines is also not required.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use formulae to calculate the scalar product of two vectors, and use scalar products in problems involving lines and points.",
+    "guidance": "For example, finding the angle between two lines, and finding the foot of the perpendicular from a point to a line; questions may involve 3D objects such as cuboids, tetrahedra (pyramids), etc. Knowledge of the vector product is not required.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Understand and use the terms 'population' and 'sample'. Use samples to make informal inferences about the population. Understand and use sampling techniques, including simple random sampling and opportunity sampling. Select or critique sampling techniques in the context of solving a statistical problem, including understanding that different samples can lead to different conclusions about the population.",
+    "guidance": "Including an elementary understanding of the use of random numbers in producing random samples. Knowledge of particular sampling methods, such as quota or stratified sampling, is not required. Understanding the concepts and commenting on census vs. sample advantages. Understanding and applying different sampling methods, including random, stratified, systematic, quota, and opportunity sampling. Selecting or critiquing sampling methods for statistical problems, recognizing that different samples can lead to different conclusions.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand the distinction between a sample and a population, and appreciate the necessity for randomness in choosing samples.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Explain in simple terms why a given sampling method may be unsatisfactory.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Demonstrate understanding of and use sampling techniques, including stratified sampling.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Interpret diagrams for single-variable data, including understanding that area in a histogram represents frequency. Connect to probability distributions.",
+    "guidance": "Learners should be familiar with box and whisker diagrams and cumulative frequency diagrams. Qualitative assessment of skewness is expected and the use of the terms symmetric, positive skew or negative skew. Understanding histograms, frequency polygons, box plots, and cumulative frequency diagrams. Understanding the connection between data presentation and probability.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Select a suitable way of presenting raw statistical data, and discuss advantages and/or disadvantages that particular representations may have.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Draw and interpret stem-and-leaf diagrams, box-and-whisker plots, histograms and cumulative frequency graphs.",
+    "guidance": "Including back-to-back stem-and-leaf diagrams.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use a cumulative frequency graph.",
+    "guidance": "For example, to estimate medians, quartiles, percentiles, the proportion of a distribution above (or below) a given value, or between two values.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Recognise and interpret possible outliers in data sets and statistical diagrams. Select or critique data presentation techniques in the context of a statistical problem. Be able to clean data, including dealing with missing data, errors and outliers.",
+    "guidance": "Use of Q1 – 1.5 × IQR and Q3 + 1.5 × IQR to identify outliers. Recognizing outliers in data sets and diagrams using specified rules. Addressing missing data, errors, and outliers in data sets.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Interpret measures of central tendency and variation, extending to standard deviation. Be able to calculate standard deviation, including from summary statistics.",
+    "guidance": "For example, in comparing and contrasting sets of data. Measures of central tendency: mean, median, mode. Measures of central variation: variance, standard deviation, range, interquartile range. Interpreting and calculating means, medians, modes, variance, standard deviation, and ranges.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand and use different measures of central tendency (mean, median, mode) and variation (range, interquartile range, standard deviation).",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Calculate and use the mean and standard deviation of a set of data (including grouped data) either from the data itself or from given totals ∑x and ∑x², or coded totals ∑(x - a) and ∑(x - a)², and use such totals in solving problems which may involve up to two data sets.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use derived quantities and units: velocity, acceleration, force, weight.",
+    "guidance": "",
+    "tags": ["AQA_AS", "CCEA_AS", "Edexcel_AS", "Edexcel_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Understand and use derived quantities and units for moments.",
+    "guidance": "",
+    "tags": ["WJEC_A2"]
+  },
+  {
+    "point": "Link to discrete and continuous distributions.",
+    "guidance": "",
+    "tags": ["AQA_AS"]
+  },
+  {
+    "point": "Evaluate, including by making reasoned estimates, the accuracy or limitations of solutions.",
+    "guidance": "",
+    "tags": ["AQA_AS", "AQA_A2"]
+  },
+  {
+    "point": "Understand and use mutually exclusive and independent events when calculating probabilities. Link to discrete and continuous distributions.",
+    "guidance": "To include the multiplication law for independent events: P(A ∩ B) = P(A)P(B). Understanding and applying these concepts in probability calculations. Linking probability concepts to discrete and continuous distributions.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand the meaning of exclusive and independent events, including determination of whether events A and B are independent by comparing the values of P(A∩B) and P(A)×P(B).",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Demonstrate understanding of and use the addition and multiplication laws.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Demonstrate understanding of and use the following concepts: mutually exclusive events; exhaustive events; and statistical dependence and independence.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Calculate combined probabilities of up to three events, using tree diagrams, Venn diagrams and two-way tables.",
+    "guidance": "",
+    "tags": ["CCEA_AS"]
+  },
+  {
+    "point": "Use addition and multiplication of probabilities, as appropriate, in simple cases.",
+    "guidance": "Explicit use of the general formula P(A∪B) = P(A) + P(B) - P(A∩B) is not required.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use Venn diagrams to calculate probabilities.",
+    "guidance": "Use of set notation and associated language is expected. To include the generalised addition law: P(A ∪ B) = P(A) + P(B) - P(A ∩ B). Conditional probability will not be assessed in this unit.",
+    "tags": ["WJEC_AS"]
+  },
+  {
+    "point": "Understand and use conditional probability, including the use of tree diagrams, Venn diagrams, two-way tables. Understand and use the conditional probability formula P(A|B) = P(A∩B)/P(B).",
+    "guidance": "For example, situations that can be represented by a sample space of equiprobable elementary events, or a tree diagram. The use of P(A|B) = P(A∩B)/P(B) may be required in simple cases. Understanding and using conditional probability with tree diagrams, Venn diagrams, and two-way tables.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand and use the conditional probability formula: P(A|B) = P(A∩B)/P(B) = P(B|A)P(A)/P(B).",
+    "guidance": "",
+    "tags": ["WJEC_A2"]
+  },
+  {
+    "point": "Calculate and use conditional probabilities in simple cases.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Modelling with probability, including critiquing assumptions made and the likely effect of more realistic assumptions.",
+    "guidance": "Applying probability models and critiquing their assumptions.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand and use simple, discrete probability distributions (calculation of mean and variance of discrete random variables is excluded), including the binomial distribution, as a model; calculate probabilities using the binomial distribution.",
+    "guidance": "Including the notations B(n, p) and Geo(p). Geo(p) denotes the distribution in which pr = p(1-p)^(r-1) for r = 1, 2, 3, ... To include using distributions to model real world situations and to comment on their appropriateness. Use of the binomial formula and tables / calculator. Use of the Poisson formula and tables / calculator. Use of the formula for the discrete uniform distribution. Using simple discrete distributions as models, particularly the binomial distribution.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Link binomial probabilities to the binomial expansion and tree diagrams.",
+    "guidance": "",
+    "tags": ["CCEA_AS", "WJEC_AS"]
+  },
+  {
+    "point": "Understand the terms permutation and combination, and solve simple problems involving selections.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Solve problems about arrangements of objects in a line, including those involving repetition and restriction.",
+    "guidance": "For example, the number of ways of arranging the letters of the word 'NEEDLESS'; the number of ways several people can stand in a line if two particular people must, or must not, stand next to each other. Questions may include cases such as people sitting in two (or more) rows. Questions about objects arranged in a circle will not be included.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Evaluate probabilities in simple cases by means of enumeration of equiprobable elementary events, or by calculation using permutations or combinations.",
+    "guidance": "For example, the total score when two fair dice are thrown. For example, drawing balls at random from a bag containing balls of different colours.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Draw up a probability distribution table relating to a given situation involving a discrete random variable X, and calculate E(X) and Var(X).",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use formulae for probabilities for the binomial and geometric distributions, and recognize practical situations where these distributions are suitable models.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use formulae for the expectation and variance of the binomial distribution and for the expectation of the geometric distribution.",
+    "guidance": "Proofs of formulae are not required.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use the Normal distribution as a model; find probabilities using the Normal distribution. Link to histograms, mean, standard deviation, points of inflection and the binomial distribution.",
+    "guidance": "Sketches of normal curves to illustrate distributions or probabilities may be required. Use of calculator / tables to find probabilities. Linear interpolation in tables will not be required. Understanding and using the Normal distribution, its properties, and connections to other concepts.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_AS", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand the use of a normal distribution to model a continuous random variable, and use normal distribution tables.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Solve problems concerning a variable X, where X ~ N(μ, σ²), including finding the value of P(X > x₁), or a related probability, given the values of x₁, μ, σ and finding a relationship between x₁, μ and σ given the value of P(X > x₁) or a related probability.",
+    "guidance": "For calculations involving standardisation, full details of the working should be shown. For example, Z = (X - μ)/σ",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Recall conditions under which the normal distribution can be used as an approximation to the binomial distribution, and use this approximation, with a continuity correction, in solving problems.",
+    "guidance": "n sufficiently large to ensure that both np > 5 and nq > 5.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use the continuous uniform distribution as a model.",
+    "guidance": "",
+    "tags": ["WJEC_A2"]
+  },
+  {
+    "point": "Select an appropriate probability distribution for a context, with appropriate reasoning, including recognising when the binomial or Normal model may not be appropriate.",
+    "guidance": "The distributions from which the selection can be made are: Discrete: binomial, Poisson, uniform; Continuous: Normal, uniform. Choosing suitable distributions for different contexts with justification.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Select an appropriate probability distribution for a context, with appropriate reasoning, including recognising when the binomial, Poisson or discrete uniform model may not be appropriate.",
+    "guidance": "",
+    "tags": ["WJEC_AS"]
+  },
+  {
+    "point": "Understand and apply the language of statistical hypothesis testing, developed through a binomial model: null hypothesis, alternative hypothesis, significance level, test statistic, 1-tail test, 2-tail test, critical value, critical region, acceptance region, p-value; extend to correlation coefficients as measures of how close data points lie to a straight line and be able to interpret a given correlation coefficient using a given p-value or critical value (calculation of correlation coefficients is excluded).",
+    "guidance": "Outcomes of hypothesis tests are expected to be interpreted in terms of the contexts in which questions are set. The p-value is the probability that the observed result or a more extreme one will occur under the null hypothesis H₀. For uniformity, interpretations of a p-value should be along the following lines: p < 0.01; there is very strong evidence for rejecting H₀. 0.01 ≤ p ≤ 0.05; there is strong evidence for rejecting H₀. p > 0.05; there is insufficient evidence for rejecting H₀. Learners will be expected to state hypotheses in terms of ρ, where ρ represents the population correlation coefficient. Understanding null/alternative hypotheses, significance levels, test statistics, and related concepts. Testing significance of correlation coefficients using p-values or critical values.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_A2",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Understand and apply the language of statistical hypothesis testing to correlation coefficients as measures of how close data points lie to a straight line and be able to interpret a given correlation coefficient using a given p-value or critical value. (The calculation of correlation coefficients is excluded.)",
+    "guidance": "",
+    "tags": ["WJEC_A2"]
+  },
+  {
+    "point": "Understand the nature of a hypothesis test, the difference between one-tailed and two-tailed tests, and the terms null hypothesis, alternative hypothesis, significance level, rejection region (or critical region), acceptance region and test statistic.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Conduct a statistical hypothesis test for the mean of a Normal distribution with known, given or assumed variance and interpret the results in context.",
+    "guidance": "Learners should know and be able to use the result that if X ~ N(μ, σ²) then X̄ ~ N(μ, σ²/n). (The proof is excluded.) Testing hypotheses about population means using the Normal distribution.",
+    "tags": ["AQA_A2", "CCEA_A2", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Formulate hypotheses and carry out a hypothesis test concerning the population mean in cases where the population is normally distributed with known variance or where a large sample is used.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Formulate hypotheses and carry out a hypothesis test in the context of a single observation from a population which has a binomial or Poisson distribution, using direct evaluation of probabilities or a normal approximation to the binomial or the Poisson distribution, where appropriate.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Interpret and calculate Type I and Type II errors, and know their practical meaning.",
+    "guidance": "",
+    "tags": ["WJEC_AS"]
+  },
+  {
+    "point": "Understand the terms Type I error and Type II error in relation to hypothesis tests.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Calculate the probabilities of making Type I and Type II errors in specific situations involving tests based on a normal distribution or direct evaluation of binomial or Poisson probabilities.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use formulae to calculate probabilities for the distribution Po(λ).",
+    "guidance": "",
+    "tags": ["CIE_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Use the fact that if X ~ Po(λ) then the mean and variance of X are each equal to λ.",
+    "guidance": "Proofs are not required.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Understand the relevance of the Poisson distribution to the distribution of random events, and use the Poisson distribution as a model.",
+    "guidance": "",
+    "tags": ["CIE_A2", "WJEC_AS"]
+  },
+  {
+    "point": "Understand and use, the Poisson distribution, as a model, the discrete uniform distribution, as a model.",
+    "guidance": "",
+    "tags": ["WJEC_AS"]
+  },
+  {
+    "point": "Use the Poisson distribution as an approximation to the binomial distribution where appropriate.",
+    "guidance": "The conditions that n is large and p is small should be known; n > 50 and np < 5, approximately.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use the normal distribution, with continuity correction, as an approximation to the Poisson distribution where appropriate.",
+    "guidance": "The condition that λ is large should be known; λ ≥ 15, approximately.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use, when solving problems, the results for linear combinations of random variables.",
+    "guidance": "E(aX + b) = aE(X) + b and Var(aX + b) = a²Var(X), E(aX + bY) = aE(X) + bE(Y), Var(aX + bY) = a²Var(X) + b²Var(Y) for independent X and Y, if X has a normal distribution then so does aX + b, if X and Y have independent normal distributions then aX + bY has a normal distribution, if X and Y have independent Poisson distributions then X + Y has a Poisson distribution.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Understand the concept of a continuous random variable, and recall and use properties of a probability density function.",
+    "guidance": "For density functions defined over a single interval only; the domain may be infinite, e.g. 3/(4x³) for x ≥ 1.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use a probability density function to solve problems involving probabilities, and to calculate the mean and variance of a distribution.",
+    "guidance": "Including location of the median or other percentiles of a distribution by direct consideration of an area using the density function. Explicit knowledge of the cumulative distribution function is not included.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Recognise that a sample mean can be regarded as a random variable, and use the facts that E(X̄) = μ and that Var(X̄) = σ²/n.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use the fact that X̄ has a normal distribution if X has a normal distribution.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use the Central Limit Theorem where appropriate.",
+    "guidance": "Only an informal understanding of the Central Limit Theorem (CLT) is required; for large sample sizes, the distribution of a sample mean is approximately normal.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Calculate unbiased estimates of the population mean and variance from a sample, using either raw or summarised data.",
+    "guidance": "Only a simple understanding of the term 'unbiased' is required, e.g. that although individual estimates will vary the process gives an accurate result 'on average'.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Determine and interpret a confidence interval for a population mean in cases where the population is normally distributed with known variance or where a large sample is used.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Determine, from a large sample, an approximate confidence interval for a population proportion.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Construct and present mathematical arguments through appropriate use of diagrams; sketching graphs; logical deduction; precise statements involving correct use of symbols and connecting language, including: constant, coefficient, expression, equation, function, identity, index, term, variable.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS", "CCEA_AS"]
+  },
+  {
+    "point": "Understand and use mathematical language and syntax as set out in the content.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Understand and use language and symbols associated with set theory, as set out in the appendices. Apply to solutions of inequalities and probability.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Comprehend and critique mathematical arguments, proofs and justifications of methods and formulae, including those relating to applications of mathematics.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Recognise the underlying mathematical structure in a situation and simplify and abstract appropriately to enable problems to be solved.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Construct extended arguments to solve problems presented in an unstructured form, including problems in context.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Interpret and communicate solutions in the context of the original problem.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Understand that many mathematical problems cannot be solved analytically, but numerical methods permit solution to a required level of accuracy.",
+    "guidance": "",
+    "tags": ["AQA_A2"]
+  },
+  {
+    "point": "Evaluate, including by making reasoned estimates, the accuracy or limitations of solutions, including those obtained using numerical methods.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Understand the concept of a mathematical problem solving cycle, including specifying the problem, collecting information, processing and representing information and interpreting results, which may identify the need to repeat the cycle.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Understand, interpret and extract information from diagrams and construct mathematical diagrams to solve problems, including in mechanics.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Translate a situation in context into a mathematical model, making simplifying assumptions.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Use a mathematical model with suitable inputs to engage with and explore situations (for a given model or a model constructed or selected by the student).",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Interpret the outputs of a mathematical model in the context of the original situation (for a given model or a model constructed or selected by the student).",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Understand that a mathematical model can be refined by considering its outputs and simplifying assumptions; evaluate whether the model is appropriate.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Understand and use modelling assumptions.",
+    "guidance": "",
+    "tags": ["AQA_A2", "AQA_AS"]
+  },
+  {
+    "point": "Understand and use fundamental quantities and units in the SI system: length, time, mass. Understand and use derived quantities and units: velocity, acceleration, force, weight, moment.",
+    "guidance": "",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Understand and use the language of kinematics: position; displacement; distance travelled; velocity; speed; acceleration.",
+    "guidance": "Restricted to motion in one dimension only. The term 'deceleration' may sometimes be used in the context of decreasing speed.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Understand the concepts of distance and speed as scalar quantities, and of displacement, velocity and acceleration as vector quantities.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand, use and interpret graphs in kinematics for motion in a straight line: displacement against time and interpretation of gradient; velocity against time and interpretation of gradient and area under the graph.",
+    "guidance": "Learners may be expected to sketch displacement-time and velocity-time graphs.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Sketch and interpret displacement-time graphs and velocity-time graphs.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use the fact that the area under a velocity-time graph represents displacement, the gradient of a displacement-time graph represents velocity, and the gradient of a velocity-time graph represents acceleration.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand, use and derive the formulae for constant acceleration for motion in a straight line; extend to 2 dimensions using vectors.",
+    "guidance": "",
+    "tags": ["AQA_A2", "CCEA_AS", "WJEC_A2"]
+  },
+  {
+    "point": "Use calculus in kinematics for motion in a straight line: v = dr/dt, a = dv/dt = d²r/dt², r = ∫v dt, v = ∫a dt; extend to 2 dimensions using vectors.",
+    "guidance": "",
+    "tags": ["AQA_A2", "CCEA_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Model motion under gravity in a vertical plane using vectors; projectiles.",
+    "guidance": "To include finding the speed and direction of motion of the projectile at any point on its path. The maximum horizontal range of a projectile for a given speed of projection. In examination questions, learners may be expected to derive the general form of the formulae for the range, the time of flight, the greatest height or the equation of path. In questions where derivation of formulae has not been requested, the quoting of these formulae will not gain full credit. Questions will not involve resistive forces.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand the concept of a force; understand and use Newton's first law.",
+    "guidance": "",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Identify the forces acting in a given situation.",
+    "guidance": "For example, by drawing a force diagram.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use Newton's second law for motion in a straight line (restricted to forces in two perpendicular directions or simple cases of forces given as 2D vectors); extend to situations where forces need to be resolved (restricted to 2 dimensions).",
+    "guidance": "If any other forces resisting motion are to be considered (e.g. air resistance) this will be indicated in the question. Forces will be constant and will include weight, normal reaction, tension and thrust. To include problems involving lifts. The value 9.8 ms⁻² can be used for the acceleration due to gravity, unless explicitly stated otherwise. Applying F = ma for motion in a straight line with forces in perpendicular directions or as vectors. Extending force analysis to include situations where forces need to be resolved in 2D.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Understand and use weight and motion in a straight line under gravity; gravitational acceleration, g, and its value in SI units to varying degrees of accuracy. (The inverse square law for gravitation is not required and g may be assumed to be constant, but students should be aware that g is not a universal constant but depends on location).",
+    "guidance": "In this component, questions are mainly numerical, and use of the approximate numerical value 10(ms⁻²) for g is expected. Understanding weight as a force, gravitational acceleration g, and motion in straight lines under gravity.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS"
+    ]
+  },
+  {
+    "point": "Use the relationship between mass and weight W = mg.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Solve simple problems which may be modelled as the motion of a particle moving vertically or on an inclined plane with constant acceleration.",
+    "guidance": "Including, for example, motion of a particle on a rough plane where the acceleration while moving up the plane is different from the acceleration while moving down the plane.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use Newton's third law; equilibrium of forces on a particle and motion in a straight line (restricted to forces in two perpendicular directions or simple cases of forces given as 2D vectors); application to problems involving smooth pulleys and connected particles; resolving forces in 2 dimensions; equilibrium of a particle under coplanar forces.",
+    "guidance": "For example, the force exerted by a particle on the ground is equal and opposite to the force exerted by the ground on the particle. Problems involving particles connected by strings passing over smooth, fixed pulleys or pegs; one particle will be freely hanging and the other particle may be (i) freely hanging, (ii) on a smooth, horizontal plane. Forces will be constant and will include weight, friction, normal reaction, tension and thrust. To include motion on an inclined plane. The motion of particles connected by strings passing over smooth, fixed pulleys or pegs; one particle will be freely hanging and the other particle may be on an inclined plane. Understanding equal and opposite reactions and applying to problems with particles in equilibrium or motion. Solving problems with systems of connected objects including smooth pulleys.",
+    "tags": [
+      "AQA_A2",
+      "AQA_AS",
+      "CCEA_AS",
+      "CIE_AS",
+      "CIE_A2",
+      "Edexcel_AS",
+      "Edexcel_A2",
+      "WJEC_AS",
+      "WJEC_A2"
+    ]
+  },
+  {
+    "point": "Use Newton's third law.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Solve simple problems which may be modelled as the motion of connected particles.",
+    "guidance": "For example, particles connected by a light inextensible string passing over a smooth pulley, or a car towing a trailer by means of either a light rope or a light rigid tow-bar.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use the principle that, when a particle is in equilibrium, the vector sum of the forces acting is zero, or equivalently, that the sum of the components in any direction is zero.",
+    "guidance": "Solutions by resolving are usually expected, but equivalent methods (e.g. triangle of forces, Lami's Theorem, where suitable) are also acceptable; these other methods are not required knowledge, and will not be referred to in questions.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use addition of forces; resultant forces; dynamics for motion in a plane.",
+    "guidance": "Calculations are always required, not approximate solutions by scale drawing. Finding the combined effect of multiple forces using resolution or vector diagrams.",
+    "tags": ["AQA_A2", "CCEA_AS", "CIE_AS", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand the vector nature of force, and find and use components and resultants.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use the F ≤ μR model for friction; coefficient of friction; motion of a body on a rough surface; limiting friction and statics.",
+    "guidance": "Terminology such as 'about to slip' may be used to mean 'in limiting equilibrium' in questions. Using the F ≤ μR model for friction problems involving motion or equilibrium on rough surfaces.",
+    "tags": ["AQA_A2", "CCEA_AS", "CIE_AS", "CIE_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Understand that a contact force between two surfaces can be represented by two components, the normal component and the frictional component.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use the model of a 'smooth' contact, and understand the limitations of this model.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand the concepts of limiting friction and limiting equilibrium, recall the definition of coefficient of friction, and use the relationship F = μR or F ≤ μR, as appropriate.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use moments in simple static contexts.",
+    "guidance": "To include parallel forces only. Understanding and using moments in static problems involving parallel and non-parallel coplanar forces.",
+    "tags": ["AQA_A2", "CCEA_A2", "Edexcel_A2", "WJEC_A2"]
+  },
+  {
+    "point": "Demonstrate understanding of and use impulse and momentum.",
+    "guidance": "",
+    "tags": ["CCEA_A2"]
+  },
+  {
+    "point": "Use the definition of linear momentum and show understanding of its vector nature.",
+    "guidance": "For motion in one dimension only.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use conservation of linear momentum to solve problems that may be modelled as the direct impact of two bodies.",
+    "guidance": "Including direct impact of two bodies where the bodies coalesce on impact. Knowledge of impulse and the coefficient of restitution is not required.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Demonstrate understanding of and use the principle of conservation of linear momentum to solve problems involving direct collisions and explosions.",
+    "guidance": "",
+    "tags": ["CCEA_A2"]
+  },
+  {
+    "point": "Apply Newton's laws of motion to the linear motion of a particle of constant mass moving under the action of constant forces.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand the concept of the work done by a force, and calculate the work done by a constant force when its point of application undergoes a displacement not necessarily parallel to the force.",
+    "guidance": "W = Fd cos θ; Use of the scalar product is not required.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand the concepts of gravitational potential energy and kinetic energy, and use appropriate formulae.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand and use the relationship between the change in energy of a system and the work done by the external forces, and use in appropriate cases the principle of conservation of energy.",
+    "guidance": "Including cases where the motion may not be linear (e.g. a child on a smooth curved 'slide'), where only overall energy changes need to be considered.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Use the definition of power as the rate at which a force does work, and use the relationship between power, force and velocity for a force acting in the direction of motion.",
+    "guidance": "Including calculation of (average) power as Work done / Time taken. P = Fv.",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Solve problems involving, for example, the instantaneous acceleration of a car moving on a hill against a resistance.",
+    "guidance": "",
+    "tags": ["CIE_AS", "CIE_A2"]
+  },
+  {
+    "point": "Understand the idea of a complex number, recall the meaning of the terms real part, imaginary part, modulus, argument, conjugate, and use the fact that two complex numbers are equal if and only if both real and imaginary parts are equal.",
+    "guidance": "Notations Re z, Im z, |z|, arg z, z* should be known. The argument of a complex number will usually refer to an angle θ such that -π < θ ≤ π, but in some cases the interval 0 ≤ θ < 2π may be more convenient. Answers may use either interval unless the question specifies otherwise.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Carry out operations of addition, subtraction, multiplication and division of two complex numbers expressed in Cartesian form x + iy.",
+    "guidance": "For calculations involving multiplication or division, full details of the working should be shown.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Use the result that, for a polynomial equation with real coefficients, any non-real roots occur in conjugate pairs.",
+    "guidance": "For example, in solving a cubic or quartic equation where one complex root is given.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Represent complex numbers geometrically by means of an Argand diagram.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Carry out operations of multiplication and division of two complex numbers expressed in polar form r(cos θ + i sin θ) ≡ re^(iθ).",
+    "guidance": "Including the results |z₁z₂| = |z₁||z₂| and arg(z₁z₂) = arg(z₁) + arg(z₂), and corresponding results for division.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Find the two square roots of a complex number.",
+    "guidance": "For example, the square roots of 5 + 12i in exact Cartesian form. Full details of the working should be shown.",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Understand in simple terms the geometrical effects of conjugating a complex number and of adding, subtracting, multiplying and dividing two complex numbers.",
+    "guidance": "",
+    "tags": ["CIE_A2"]
+  },
+  {
+    "point": "Illustrate simple equations and inequalities involving complex numbers by means of loci in an Argand diagram.",
+    "guidance": "For example, |z - a| < k, |z - a| = |z - b|, arg(z - a) = α.",
+    "tags": ["CIE_A2"]
+  }
+]

@@ -1,0 +1,2391 @@
+[
+  {
+    "point": "Construct and interpret diagrams for grouped discrete data and continuous data, ie histograms with equal and unequal class intervals and cumulative frequency graphs, and know their appropriate use",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["S3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["12.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Interpret, analyse and compare the distributions of data sets from univariate empirical distributions through: appropriate graphical representation involving discrete, continuous and grouped data, including box plots; appropriate measures of central tendency (median, mean, mode and modal class) and spread (range, including consideration of outliers, quartiles and inter-quartile range)",
+    "extra": "Students should know and understand the terms: primary data, secondary data, discrete data and continuous data. Calculate the mean, mode, median and range for ungrouped data. Find the modal class, and calculate estimates of the range, mean and median for grouped data, and understand why they are estimates. Describe a population using statistics. Make simple comparisons. Compare data sets using 'like for like' summary values. Understand the advantages and disadvantages of summary values. Including drawing and interpreting box plots and using the median and interquartile range to compare distributions.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["12.03a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["12.03a", "12.03d"]
+      }
+    ]
+  },
+  {
+    "point": "Apply statistics to describe a population",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["12.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Use and interpret scatter graphs of bivariate data; recognise correlation and know that it does not indicate causation; draw estimated lines of best fit; make predictions; interpolate and extrapolate apparent trends whilst knowing the dangers of so doing",
+    "extra": "Students should know and understand the terms: positive correlation, negative correlation, no correlation, weak correlation and strong correlation. Interpret correlation within the context of the variables, and appreciate the distinction between correlation and causation. Including recognizing graphical misrepresentation through incorrect scales, labels, etc.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["12.03c"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["12.03b", "12.03c"]
+      }
+    ]
+  },
+  {
+    "point": "Recognise graphical misrepresentation through incorrect scales, labels, etc.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["12.03b"]
+      }
+    ]
+  },
+  {
+    "point": "Identify an outlier in simple cases. Appreciate there may be errors in data from values (outliers) that do not 'fit'. Recognise outliers on a scatter graph.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["12.03d"]
+      }
+    ]
+  },
+  {
+    "point": "Use tables of values to plot graphs",
+    "extra": "For linear and quadratic functions (e.g., y = 2x + 3, y = x² + 1), and for other polynomial graphs and reciprocals (e.g., y = x² - 2x, y = 1/x, x + 2y = 6)",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.01b"]
+      }
+    ]
+  },
+  {
+    "point": "Identify and find equations of parallel lines",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Identify and sketch translations and reflections of a given graph (or the graph of a given equation)",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Understand the relationship between gradient and ratio. Interpret straight line gradients as rates of change",
+    "extra": "For example, gradient of a distance-time graph as a velocity.",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Understand that empirical unbiased samples tend towards theoretical probability distributions, with increasing sample size",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["11.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Enumerate sets and combinations of sets systematically, using tables, grids, Venn diagrams and tree diagrams",
+    "extra": "Use tables and grids to list the outcomes of single events and simple combinations of events, and to calculate theoretical probabilities. Use a two-circle Venn diagram to enumerate sets, and use this to calculate related probabilities. Use simple set notation to describe simple sets of numbers or objects. Use tree diagrams to enumerate sets and to record the probabilities of successive events. Including using the concept of a universal set.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["11.02a", "11.02c", "11.02d"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["11.02a", "11.02b", "11.02c", "11.02d"]
+      }
+    ]
+  },
+  {
+    "point": "Construct theoretical possibility spaces for single and combined experiments with equally likely outcomes and use these to calculate theoretical probabilities",
+    "extra": "Calculate probabilities of simple combined events, for example rolling two dice and looking at the totals. Use probabilities to calculate the number of expected outcomes in repeated experiments.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["11.01d"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["11.02a"]
+      }
+    ]
+  },
+  {
+    "point": "Calculate the probability of independent and dependent combined events, including using tree diagrams and other representations, and know the underlying assumptions",
+    "extra": "Including knowing when to add and when to multiply two or more probabilities. Use tree diagrams and other representations to calculate the probability of independent and dependent combined events.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P8"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["11.02f"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["11.02d", "11.02f"]
+      }
+    ]
+  },
+  {
+    "point": "Calculate and interpret conditional probabilities through representation using expected frequencies with two-way tables, tree diagrams and Venn diagrams",
+    "extra": "Including understanding the concept of conditional probability and using the formula p(A and B) = p(A given B)p(B), and knowing that events A and B are independent if and only if p(A given B) = p(A).",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["P9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["P9"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["11.02c", "11.02f"]
+      }
+    ]
+  },
+  {
+    "point": "Infer properties of populations or distributions from a sample, whilst knowing the limitations of sampling",
+    "extra": "Define the population in a study, and understand the difference between population and sample. Understand what is meant by simple random sampling, and bias in sampling.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["12.01a"]
+      }
+    ]
+  },
+  {
+    "point": "Interpret and construct tables, charts and diagrams, including frequency tables, bar charts, pie charts and pictograms for categorical data, vertical line charts for ungrouped discrete numerical data, and know their appropriate use; including tables and line graphs for time series data",
+    "extra": "Including choosing suitable statistical diagrams. Interpret multiple and composite bar charts. Design tables to classify data. Interpret and construct line graphs for time series data, and identify trends (e.g. seasonal variations).",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["S2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["12.02a"]
+      }
+    ]
+  },
+  {
+    "point": "Know the exact values of sin θ and cos θ for θ = 0°, 30°, 45°, 60° and 90°; know the exact value of tan θ for θ = 0°, 30°, 45° and 60°",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G21"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G21"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["10.05c"]
+      }
+    ]
+  },
+  {
+    "point": "Know and apply the sine rule, a/sinA = b/sinB = c/sinC, and cosine rule, a² = b² + c² - 2bc·cosA, to find unknown lengths and angles",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["G22"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["G22"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["10.05d", "10.05e"]
+      }
+    ]
+  },
+  {
+    "point": "Know and apply Area = 1/2 ab·sinC to calculate the area, sides or angles of any triangle",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["G23"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["G23"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["10.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Describe translations as 2D vectors",
+    "extra": "Use a column vector to describe a translation of a simple shape, and perform a specified translation.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G24"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G24"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["9.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Apply addition and subtraction of vectors, multiplication of vectors by a scalar, and diagrammatic and column representations of vectors; use vectors to construct geometric arguments and proofs",
+    "extra": "Understand addition, subtraction and scalar multiplication of vectors. Represent a 2-dimensional vector as a column vector, and draw column vectors on a square or coordinate grid.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G25"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G25"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["9.03a", "9.03b"]
+      }
+    ]
+  },
+  {
+    "point": "Record, describe and analyse the frequency of outcomes of probability experiments using tables and frequency trees",
+    "extra": "Probabilities should be written as fractions, decimals or percentages.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["11.01b"]
+      }
+    ]
+  },
+  {
+    "point": "Apply ideas of randomness, fairness and equally likely events to calculate expected outcomes of multiple future experiments",
+    "extra": "Calculate probabilities, expressed as fractions or decimals, in simple experiments with equally likely outcomes, for example flipping coins, rolling dice, etc.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["11.01d"]
+      }
+    ]
+  },
+  {
+    "point": "Relate relative expected frequencies to theoretical probability, using appropriate language and the 0 to 1 probability scale",
+    "extra": "Use relative frequency as an estimate of probability. Understand that relative frequencies approach the theoretical probability as the number of trials increases. Use the 0-1 probability scale as a measure of likelihood of random events, for example, 'impossible' with 0, 'evens' with 0.5, 'certain' with 1.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["11.01a", "11.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Apply the property that the probabilities of an exhaustive set of outcomes sum to 1; apply the property that the probabilities of an exhaustive set of mutually exclusive events sum to 1",
+    "extra": "Use the addition law for mutually exclusive events. Use p(A) + p(not A) = 1",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["P4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["11.02e"]
+      }
+    ]
+  },
+  {
+    "point": "Use standard units of measure and related concepts (length, area, volume/capacity, mass, time, money etc.)",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G14"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G14"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["10.01a"]
+      }
+    ]
+  },
+  {
+    "point": "Measure line segments and angles in geometric figures, including interpreting maps and scale drawings and use of bearings",
+    "extra": "Including the eight compass point bearings and three-figure bearings.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G15"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G15"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["10.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Know and apply formulae to calculate: area of triangles, parallelograms, trapezia; volume of cuboids and other right prisms (including cylinders)",
+    "extra": "Area of triangles = ½ × base × height. Area of parallelograms = base × height. Calculate the surface area and volume of cuboids and other right prisms (including cylinders).",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G16"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G16"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["10.03a", "10.03b", "10.03c", "10.04a"]
+      }
+    ]
+  },
+  {
+    "point": "Know the formulae: circumference of a circle = 2πr = πd, area of a circle = πr²; calculate perimeters of 2D shapes, including circles; areas of circles and composite shapes; surface area and volume of spheres, pyramids, cones and composite solids",
+    "extra": "Solutions in terms of π may be asked for. Calculate the perimeter of rectilinear shapes. Calculate the arc length of a sector of a circle given its angle and radius. Apply perimeter formulae in calculations involving the perimeter of composite 2D shapes. Calculate the area of a sector of a circle given its angle and radius. Apply area formulae in calculations involving the area of composite 2D shapes. Including frustums.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["G17"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["G17"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["10.02a", "10.02b", "10.02c", "10.03d", "10.03e"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["G17"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["G17"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": [
+          "10.02a",
+          "10.02b",
+          "10.02c",
+          "10.03d",
+          "10.03e",
+          "10.04b",
+          "10.04c"
+        ]
+      }
+    ]
+  },
+  {
+    "point": "Calculate arc lengths, angles and areas of sectors of circles",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G18"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G18"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["10.02b", "10.03d"]
+      }
+    ]
+  },
+  {
+    "point": "Apply the concepts of congruence and similarity, including the relationships between lengths, areas and volumes in similar figures",
+    "extra": "Identify similar triangles.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G19"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G19"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["9.04a", "9.04c"]
+      }
+    ]
+  },
+  {
+    "point": "Know the formulae for: Pythagoras' theorem, a² + b² = c² and the trigonometric ratios, sin θ = opposite/hypotenuse, cos θ = adjacent/hypotenuse and tan θ = opposite/adjacent; apply them to find angles and lengths in right-angled triangles and, where possible, general triangles in two and three dimensional figures",
+    "extra": "Know, derive and apply Pythagoras' theorem to find lengths in right-angled triangles in 2D figures. Know and apply the trigonometric ratios to find angles and lengths in right-angled triangles in 2D figures. Including applying in more complex figures, including 3D figures.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["G20"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["G20"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["10.05a", "10.05b"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["G20"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["G20"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["10.05a", "10.05b"]
+      }
+    ]
+  },
+  {
+    "point": "Use conventional terms and notations: points, lines, vertices, edges, planes, parallel lines, perpendicular lines, right angles, polygons, regular polygons and polygons with reflection and/or rotation symmetries; use the standard conventions for labelling and referring to the sides and angles of triangles; draw diagrams from written description",
+    "extra": "Know the terms acute, obtuse, right and reflex angles. Know the terms: regular polygon, scalene, isosceles and equilateral triangle, quadrilateral, square, rectangle, kite, rhombus, parallelogram, trapezium, pentagon, hexagon, octagon.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["8.01a", "8.01b", "8.01c", "8.01e"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["8.01a", "8.01b", "8.01c", "8.01d", "8.01e", "8.01f", "8.04c"]
+      }
+    ]
+  },
+  {
+    "point": "Use the standard ruler and compass constructions (perpendicular bisector of a line segment, constructing a perpendicular to a given line from/at a given point, bisecting a given angle); use these to construct given figures and solve loci problems; know that the perpendicular distance from a point to a line is the shortest distance to the line",
+    "extra": "Including constructing an angle of 60°. Apply ruler and compass constructions to construct figures and identify the loci of points, to include real-world problems. Understand the term 'equidistant'.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["8.01f", "8.02a", "8.02b", "8.02c", "8.02d"]
+      }
+    ]
+  },
+  {
+    "point": "Apply the properties of angles at a point, angles at a point on a straight line, vertically opposite angles; understand and use alternate and corresponding angles on parallel lines; derive and use the sum of angles in a triangle (e.g. to deduce and use the angle sum in any polygon, and to derive properties of regular polygons)",
+    "extra": "Colloquial terms such as Z angles are not acceptable and should not be used. Know and use: the sum of the angles at a point is 360°, the sum of the angles at a point on a line is 180°, vertically opposite angles are equal, alternate angles on parallel lines are equal, corresponding angles on parallel lines are equal.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["8.03a", "8.03b", "8.03c", "8.03d"]
+      }
+    ]
+  },
+  {
+    "point": "Derive and apply the properties and definitions of: special types of quadrilaterals, including square, rectangle, parallelogram, trapezium, kite and rhombus; and triangles and other plane figures using appropriate language",
+    "extra": "Including knowing names and properties of isosceles, equilateral, scalene, right-angled, acute-angled, obtuse-angled triangles. Know the basic properties of the square, rectangle, parallelogram, trapezium, kite and rhombus. Give geometrical reasons to justify these properties. Use these facts to find lengths and angles in rectilinear figures and in simple proofs. Including knowing names and using the polygons: pentagon, hexagon, octagon and decagon.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["8.04a", "8.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Use the basic congruence criteria for triangles (SSS, SAS, ASA, RHS)",
+    "extra": "Identify congruent triangles. Prove that two triangles are congruent using the cases: 3 sides (SSS), 2 angles, 1 side (ASA), 2 sides, included angle (SAS), Right angle, hypotenuse, side (RHS). Including applying congruent triangles in calculations and simple proofs.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["9.02a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["9.02a", "9.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Apply angle facts, triangle congruence, similarity and properties of quadrilaterals to conjecture and derive results about angles and sides, including Pythagoras' theorem and the fact that the base angles of an isosceles triangle are equal, and use known results to obtain simple proofs",
+    "extra": "Apply congruent triangles in calculations and simple proofs, e.g., the base angles of an isosceles triangle are equal. Including using these facts in more formal proofs of geometrical results.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["9.02b"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["8.04a", "8.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Identify, describe and construct congruent and similar shapes, including on coordinate axes, by considering rotation, reflection, translation and enlargement (including negative and fractional scale factors)",
+    "extra": "Reflect a simple shape in a given mirror line, and identify the mirror line from a shape and its image. Identify a mirror line x = a, y = b or y = ±x from a simple shape and its image under reflection. Rotate a simple shape clockwise or anti-clockwise through a multiple of 90° about a given centre of rotation. Identify the centre, angle and sense of a rotation from a simple shape and its image under rotation. Enlarge a simple shape from a given centre using a whole number scale factor, and identify the scale factor of an enlargement.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["9.01a", "9.01b", "9.04b"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["9.01a", "9.01b", "9.01c", "9.04a", "9.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Describe the changes and invariance achieved by combinations of rotations, reflections and translations",
+    "extra": "Including using column vector notation for translations. Perform a sequence of isometric transformations (reflections, rotations or translations), on a simple shape. Describe the resulting transformation and the changes and invariance achieved.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["9.01c", "9.01d"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["G8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["9.01d"]
+      }
+    ]
+  },
+  {
+    "point": "Identify and apply circle definitions and properties, including: centre, radius, chord, diameter, circumference, tangent, arc, sector and segment",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G9"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["8.05a"]
+      }
+    ]
+  },
+  {
+    "point": "Apply and prove the standard circle theorems concerning angles, radii, tangents and chords, and use them to prove related results",
+    "extra": "Including angle subtended by an arc at the centre is equal to twice the angle subtended at any point on the circumference, angle subtended at the circumference by a semicircle is 90°, angles in the same segment are equal, opposite angles in a cyclic quadrilateral sum to 180°, tangent at any point on a circle is perpendicular to the radius at that point, tangents from an external point are equal in length, the perpendicular from the centre to a chord bisects the chord, alternate segment theorem.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["G10"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["G10"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["8.05b", "8.05c", "8.05d", "8.05e", "8.05f", "8.05g", "8.05h"]
+      }
+    ]
+  },
+  {
+    "point": "Solve geometrical problems on coordinate axes",
+    "extra": "Use x- and y-coordinates in plane geometry problems, including transformations of simple shapes.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G11"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G11"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["8.01g"]
+      }
+    ]
+  },
+  {
+    "point": "Identify properties of the faces, surfaces, edges and vertices of: cubes, cuboids, prisms, cylinders, pyramids, cones and spheres",
+    "extra": "Recognise the terms face, surface, edge, and vertex, cube, cuboid, prism, cylinder, pyramid, cone and sphere.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G12"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G12"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["8.01d", "8.06a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["8.06a"]
+      }
+    ]
+  },
+  {
+    "point": "Construct and interpret plans and elevations of 3D shapes",
+    "extra": "Interpret plans and elevations of simple 3D solids, and representations (e.g. using isometric paper) of solids from plans and elevations. Including constructing plans and elevations of simple 3D solids.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G13"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G13"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["8.06b"]
+      }
+    ]
+  },
+  {
+    "point": "Define percentage as 'number of parts per hundred'; interpret percentages and percentage changes as a fraction or a decimal, and interpret these multiplicatively; express one quantity as a percentage of another; compare two quantities using percentages; work with percentages greater than 100%; solve problems involving percentage change, including percentage increase/decrease and original value problems, and simple interest including in financial mathematics",
+    "extra": "Calculate a percentage of a quantity. Increase or decrease a quantity by a simple percentage, including simple decimal or fractional multipliers. Example: Add 10% to £2.50 by either finding 10% and adding, or by multiplying by 1.1 or 110/100. Calculate original price of an item costing £10 after a 50% discount.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R9"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["2.03b", "2.03c", "5.03a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["2.03a", "2.03b", "2.03c", "5.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Solve problems involving direct and inverse proportion, including graphical and algebraic representations",
+    "extra": "For direct proportion: using equality of ratios, if y ∝ x, then y₁/y₂ = x₁/x₂ or y₁/x₁ = y₂/x₂. Examples: Currency conversion problems. Recognize that if y = kx, where k is a constant, then y is proportional to x. For inverse proportion: speed-time contexts (if speed is doubled, time is halved). Recognize that if y = k/x, where k is a constant, then y is inversely proportional to x. Including formulating equations and solving problems involving quantities in direct or inverse proportion to powers or roots of other quantities.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R10"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R10"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["5.02a", "5.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Use compound units such as speed, rates of pay, unit pricing, density and pressure",
+    "extra": "Including making comparisons. Know and apply in simple cases: speed = distance ÷ time, and density = mass ÷ volume.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R11"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R11"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["10.01b"]
+      }
+    ]
+  },
+  {
+    "point": "Compare lengths, areas and volumes using ratio notation; scale factors; make links to similarity (including trigonometric ratios)",
+    "extra": "Apply similarity to calculate unknown lengths in similar figures. Including understanding the relationship between lengths, areas and volumes of similar shapes.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R12"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R12"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["9.04c"]
+      }
+    ]
+  },
+  {
+    "point": "Understand that X is inversely proportional to Y is equivalent to X is proportional to 1/Y; interpret equations that describe direct and inverse proportion",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R13"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R13"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["5.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Interpret the gradient of a straight-line graph as a rate of change; recognise and interpret graphs that illustrate direct and inverse proportion",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R14"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R14"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["7.04a", "7.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Interpret the gradient at a point on a curve as the instantaneous rate of change; apply the concepts of average and instantaneous rate of change (gradients of chords and tangents) in numerical, algebraic and graphical contexts",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["R15"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["R15"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Set up, solve and interpret the answers in growth and decay problems, including compound interest and work with general iterative processes",
+    "extra": "Solve problems step-by-step involving multipliers over a given interval. Example: A car worth £15,000 new depreciating by 30%, 20% and 15% respectively in three years. Including expressing exponential growth or decay as a formula and solving and interpreting answers in growth and decay problems.",
+    "tags": [
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["R16"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["5.03a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["R16"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["R16"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["5.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Use scale factors, scale diagrams and maps",
+    "extra": "Including geometrical problems. Use the scale of a map, and work with bearings. Construct and interpret scale drawings.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["10.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Express one quantity as a fraction of another, where the fraction is less than 1 or greater than 1",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["2.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Use ratio notation, including reduction to simplest form",
+    "extra": "Find the ratio of quantities in the form a : b and simplify. Find the ratio of quantities in the form 1 : n. Example: 50 cm : 1.5 m = 50 : 150 = 1 : 3",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["5.01a"]
+      }
+    ]
+  },
+  {
+    "point": "Divide a given quantity into two parts in a given part : part or part : whole ratio; express the division of a quantity into two parts as a ratio; apply ratio to real contexts and problems (such as those involving conversion, comparison, scaling, mixing, concentrations)",
+    "extra": "Including better value or best-buy problems. Example: £2.50 in the ratio 2 : 3. Calculate one quantity from another, given the ratio of the two quantities. Including extending to dividing a quantity into three or more parts.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["5.01b"]
+      }
+    ]
+  },
+  {
+    "point": "Express a multiplicative relationship between two quantities as a ratio or a fraction",
+    "extra": "Interpret a ratio of two parts as a fraction of a whole. Example: £9 split in the ratio 2 : 1 gives parts £(2/3 × 9) and £(1/3 × 9).",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["5.01c"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["5.01d"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use proportion as equality of ratios",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["5.01d"]
+      }
+    ]
+  },
+  {
+    "point": "Relate ratios to fractions and to linear functions",
+    "extra": "Understand the relationship between ratio and proportion. Solve simple ratio and proportion problems. Examples: Adapt a recipe for 6 for 4 people.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R8"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["5.01d"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["5.01c", "5.01d"]
+      }
+    ]
+  },
+  {
+    "point": "Order positive and negative integers, decimals, fractions and percentages; use the symbols =, ≠, <, >, ≤, ≥",
+    "extra": "Including use of a number line. Examples include ordering values like 4/5, 3/4, 0.72, -0.9. See also A22",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["1.01a", "2.04a", "2.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Apply the four operations (addition, subtraction, multiplication, division), including formal written methods, to integers, decimals and simple fractions (proper and improper), and mixed numbers - all both positive and negative; understand and use place value (when working with very large or very small numbers, and when calculating with decimals)",
+    "extra": "Including questions set in context. Includes knowledge of financial terms (profit, loss, cost price, selling price, debit, credit, balance, income tax, VAT, interest rate). Includes non-calculator methods for operations with whole numbers, fractions, and decimals.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["1.01a", "1.02a", "2.01b", "2.02b", "2.02c"]
+      }
+    ]
+  },
+  {
+    "point": "Recognise and use relationships between operations, including inverse operations (cancellation to simplify calculations and expressions); use conventional notation for priority of operations, including brackets, powers, roots and reciprocals",
+    "extra": "Know that addition and subtraction, multiplication and division, and powers and roots are inverse operations. Use inverse operations to simplify and check calculations, such as in 'I'm thinking of a number' or 'missing digit' problems. Examples: 223 - 98 = 223 + 2 - 100 = 125, 25 × 12 = 50 × 6 = 100 × 3 = 300. Including knowledge of BIDMAS/BODMAS for order of operations.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["1.03a", "1.04a"]
+      }
+    ]
+  },
+  {
+    "point": "Use the concepts and vocabulary of prime numbers, factors (divisors), multiples, common factors, common multiples, highest common factor (HCF), lowest common multiple (LCM), prime factorisation, including using product notation and the unique factorisation theorem",
+    "extra": "Prime factor decomposition including product of prime factors written in index form. Identify prime numbers less than 20 and beyond. Express a whole number as a product of its prime factors (e.g., 24 = 2³ × 3). Find the HCF and LCM of two whole numbers by listing or from their prime factorisations.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["1.02a", "1.02b", "1.02c"]
+      }
+    ]
+  },
+  {
+    "point": "Apply systematic listing strategies including use of the product rule for counting",
+    "extra": "Including using lists, tables and diagrams. If there are m ways of doing one task and for each of these, there are n ways of doing another task, then the total number of ways the two tasks can be done is m × n ways.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["11.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Use positive integer powers and associated real roots (square, cube and higher), recognise powers of 2, 3, 4, 5; estimate powers and roots of any given positive number",
+    "extra": "Including square numbers up to 15 × 15. Students should know that 1000 = 10³ and 1 million = 10⁶. Calculate positive integer powers and exact roots. Examples: 2³ = 8, √9 = 3, ∛8 = 2, 27 = 3³.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["3.01b"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["3.01a", "3.01b"]
+      }
+    ]
+  },
+  {
+    "point": "Calculate with roots, and with integer and fractional indices",
+    "extra": "Use indices to represent reciprocals. Calculate with integer powers, e.g., 2⁻¹ = 1/2. Including applying laws of indices for all integer values.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["3.01a", "3.01b", "3.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Know and apply the laws of indices: aᵐ × aⁿ = aᵐ⁺ⁿ, aᵐ ÷ aⁿ = aᵐ⁻ⁿ, (aᵐ)ⁿ = aᵐⁿ",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["N7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["A4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["3.01c", "6.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Calculate exactly with fractions, surds and multiples of π; simplify surd expressions involving squares (eg √12 = √(4×3) = √4 × √3 = 2√3) and rationalise denominators",
+    "extra": "Use fractions and multiples of π in exact calculations without a calculator. Including expressions such as 1/√3 = √3/3 and 1/(√3+1) = (√3-1)/2",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N8"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["3.03a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["3.03a", "3.03b"]
+      }
+    ]
+  },
+  {
+    "point": "Calculate with and interpret standard form A × 10ⁿ, where 1 ≤ A < 10 and n is an integer",
+    "extra": "Use with and without a calculator. Interpret calculator displays. Convert numbers to and from standard form. Examples: 1320 = 1.32 × 10³, 0.00943 = 9.43 × 10⁻³. Add, subtract, multiply and divide numbers in standard form.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N9"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["3.02a", "3.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Work interchangeably with terminating decimals and their corresponding fractions; change recurring decimals into their corresponding fractions and vice versa",
+    "extra": "Examples such as 3.5 and 7/2 or 0.375 and 3/8. Including ordering. Express a simple fraction as a terminating decimal or vice versa, without a calculator. Including ordering and converting a recurring decimal to an exact fraction.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N10"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N10"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["2.02a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["2.01a", "2.02a"]
+      }
+    ]
+  },
+  {
+    "point": "Convert between fractions, decimals and percentages",
+    "extra": "Examples include: 1/4 = 0.25 = 25%, 150% = 1½",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["R9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["R9"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["2.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Use division to convert a simple fraction to a decimal",
+    "extra": "Example: 1/6 = 0.16666...",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["2.02a"]
+      }
+    ]
+  },
+  {
+    "point": "Identify and work with fractions in ratio problems",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N11"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N11"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["5.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Interpret fractions and percentages as operators",
+    "extra": "Including interpreting percentage problems using a multiplier. Calculate a fraction of a quantity, e.g., 2/5 of £3.50. Express one quantity as a percentage of another.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N12"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N12"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["2.01c", "2.03b"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["2.01c", "2.03a", "2.03b", "2.03c"]
+      }
+    ]
+  },
+  {
+    "point": "Use standard units of mass, length, time, money and other measures (including standard compound measures) using decimal quantities where appropriate",
+    "extra": "Know and use metric conversion factors for length, area, volume and capacity. Imperial/metric conversions will be given in the question.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N13"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N13"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["10.01a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["10.01a", "10.01b"]
+      }
+    ]
+  },
+  {
+    "point": "Estimate answers; check calculations using approximation and estimation, including answers obtained using technology",
+    "extra": "Including evaluation of results obtained. Estimate or check, without a calculator, the result of a calculation by using suitable approximations.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N14"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N14"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["4.01b"]
+      }
+    ]
+  },
+  {
+    "point": "Round numbers and measures to an appropriate degree of accuracy (to a specified number of decimal places or significant figures); use inequality notation to specify simple error intervals due to truncation or rounding",
+    "extra": "Including appropriate rounding for questions set in context. Students should know not to round values during intermediate steps of a calculation. Example error intervals: If x = 2.1 rounded to 1 dp, then 2.05 ≤ x < 2.15. If x = 2.1 truncated to 1 dp, then 2.1 ≤ x < 2.2.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N15"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N15"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["4.01a", "4.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Apply and interpret limits of accuracy including upper and lower bounds",
+    "extra": "Calculate the upper and lower bounds of a calculation using numbers rounded to a known degree of accuracy. Understand the difference between bounds of discrete and continuous quantities.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N16"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["N16"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["4.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Use and interpret algebraic notation, including: ab in place of a × b; 3y in place of y + y + y and 3 × y; a² in place of a × a, a³ in place of a × a × a, a²b in place of a × a × b; a/b in place of a ÷ b; coefficients written as fractions rather than as decimals; brackets",
+    "extra": "It is expected that answers will be given in their simplest form without an explicit instruction to do so.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.01b", "6.01c"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.01a", "6.01b", "6.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Substitute numerical values into formulae and expressions, including scientific formulae",
+    "extra": "Unfamiliar formulae will be given in the question. Includes substituting positive numbers into simple expressions and formulae to find the value of the subject, as well as substituting positive or negative numbers into more complex formulae, including powers, roots and algebraic fractions.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the concepts and vocabulary of expressions, equations, formulae, inequalities, terms and factors",
+    "extra": "This will be implicitly and explicitly assessed. Includes recognizing the difference between an equation and an identity. Formulate simple formulae and expressions from real-world contexts.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.01a", "6.02a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.01a"]
+      }
+    ]
+  },
+  {
+    "point": "Simplify and manipulate algebraic expressions by: collecting like terms; multiplying a single term over a bracket; taking out common factors; simplifying expressions involving sums, products and powers, including the laws of indices; expanding products of two or more binomials; factorising quadratic expressions of the form x² + bx + c, including the difference of two squares; factorising quadratic expressions of the form ax² + bx + c",
+    "extra": "Examples: 2a + 3a = 5a, 2(a + 3) = 2a + 6, 3a - 9 = 3(a - 3), x² + 3x = x(x + 3), (x + 1)(x - 2) = x² - x - 2, (a + b)² = a² + 2ab + b², x² - 6x + 8 = (x - 4)(x - 2), x² - 16 = (x - 4)(x + 4). Including completing the square for quadratic expressions and simplifying algebraic fractions.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.01b", "6.01c", "6.01d", "6.01e"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.01b", "6.01c", "6.01d", "6.01e", "6.01f", "6.01g"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use standard mathematical formulae; rearrange formulae to change the subject",
+    "extra": "Including use of formulae from other subjects in words and using symbols. Make the subject of the formula appear once only. Examples: Make d the subject of the formula c = πd. Make x the subject of the formula y = -3x + 2. Including cases where the subject appears twice or where a power or reciprocal of the subject appears.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.02c"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.02a", "6.02c", "6.02d", "6.02e"]
+      }
+    ]
+  },
+  {
+    "point": "Know the difference between an equation and an identity; argue mathematically to show algebraic expressions are equivalent, and use algebra to support and construct arguments and proofs",
+    "extra": "Examples: show that (x + 1)(x + 2) = x² + 3x + 2. Including proofs of mathematical relationships and properties.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.01a"]
+      }
+    ]
+  },
+  {
+    "point": "Where appropriate, interpret simple expressions as functions with inputs and outputs; interpret the reverse process as the 'inverse function'; interpret the succession of two functions as a 'composite function'",
+    "extra": "Examples: y = 2x + 3 as x →×2 →+3→ y. Understanding and use of f(x), fg(x) and f⁻¹(x) notation is expected at Higher tier.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.05a"]
+      }
+    ]
+  },
+  {
+    "point": "Work with coordinates in all four quadrants",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A8"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.01a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.01a", "8.01g"]
+      }
+    ]
+  },
+  {
+    "point": "Plot graphs of equations that correspond to straight-line graphs in the coordinate plane; use the form y = mx + c to identify parallel and perpendicular lines; find the equation of the line through two given points, or through one point with a given gradient",
+    "extra": "Find and interpret the gradient and intercept of straight lines, graphically and using y = mx + c. Use the form y = mx + c to find and sketch equations of straight lines.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A9"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.02a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.02a", "7.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Identify and interpret gradients and intercepts of linear functions graphically and algebraically",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A10"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A10"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["7.02a"]
+      }
+    ]
+  },
+  {
+    "point": "Identify and interpret roots, intercepts and turning points of quadratic functions graphically; deduce roots algebraically and turning points by completing the square",
+    "extra": "Including the symmetrical property of a quadratic.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A11"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A11"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["7.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Recognise, sketch and interpret graphs of linear functions, quadratic functions, simple cubic functions, the reciprocal function y = 1/x with x ≠ 0, exponential functions y = kˣ for positive values of k, and the trigonometric functions (with arguments in degrees) y = sin x, y = cos x and y = tan x for angles of any size",
+    "extra": "Examples: y = 2, x = 1, y = 2x, y = x²",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["A12"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["A12"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.01c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A12"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A12"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.01b", "7.01c", "7.01d", "7.01e"]
+      }
+    ]
+  },
+  {
+    "point": "Sketch translations and reflections of a given function",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A13"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A13"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Plot and interpret graphs, and graphs of non-standard functions in real contexts, to find approximate solutions to problems such as simple kinematic problems involving distance, speed and acceleration; including reciprocal and exponential graphs",
+    "extra": "Including problems requiring a graphical solution. Construct and interpret graphs in real-world contexts, such as distance-time, money conversion, and temperature conversion.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A14"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A14"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.01b", "7.04a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.04a"]
+      }
+    ]
+  },
+  {
+    "point": "Calculate or estimate gradients of graphs and areas under graphs (including quadratic and other non-linear graphs), and interpret results in cases such as distance-time graphs, velocity-time graphs and graphs in financial contexts",
+    "extra": "Including application of concepts of average and instantaneous rate of change.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A15"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A15"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.04b", "7.04c"]
+      }
+    ]
+  },
+  {
+    "point": "Recognise and use the equation of a circle with centre at the origin; find the equation of a tangent to a circle at a given point",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A16"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A16"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.01f", "7.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Solve linear equations in one unknown algebraically (including those with the unknown on both sides of the equation); find approximate solutions using a graph",
+    "extra": "Including use of brackets. Examples: Solve 3x - 1 = 5, Solve 5(x - 1) = 4x. Interpret solutions in context.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A17"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A17"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.03a", "6.03d"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Solve quadratic equations (including those that require rearrangement) algebraically by factorising, by completing the square and by using the quadratic formula; find approximate solutions using a graph",
+    "extra": "For quadratic equations with coefficient of x² equal to 1. Examples: Solve x² - 5x + 6 = 0. Find x for an x cm by (x + 3) cm rectangle of area 40cm². Know the quadratic formula.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A18"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A18"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.03b", "6.03d"]
+      }
+    ]
+  },
+  {
+    "point": "Solve two simultaneous equations in two variables (linear/linear or linear/quadratic) algebraically; find approximate solutions using a graph",
+    "extra": "Examples: Solve simultaneously 2x + y = 18 and y = x - 3. Including knowing that the coordinates of the points of intersection of a curve and a straight line are the solutions to the simultaneous equations for the line and curve.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A19"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A19"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.03c", "6.03d"]
+      }
+    ]
+  },
+  {
+    "point": "Find approximate solutions to equations numerically using iteration",
+    "extra": "Including the use of suffix notation in recursive formulae and using systematic sign-change methods (for example, decimal search or interval bisection) when there is no simple analytical method of solving them.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A20"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A20"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.03e"]
+      }
+    ]
+  },
+  {
+    "point": "Translate simple situations or procedures into algebraic expressions or formulae; derive an equation (or two simultaneous equations), solve the equation(s) and interpret the solution",
+    "extra": "Including the solution of geometrical problems and problems set in context. Examples include cost of car hire at £50 per day plus 10p per mile, or the perimeter of a rectangle when the length is 2 cm more than the width.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A21"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A21"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.02a"]
+      }
+    ]
+  },
+  {
+    "point": "Solve linear inequalities in one or two variable(s), and quadratic inequalities in one variable; represent the solution set on a number line, using set notation and on a graph",
+    "extra": "Students should know the conventions of an open circle on a number line for a strict inequality and a closed circle for an included boundary. In graphical work the convention of a dashed line for strict inequalities and a solid line for an included inequality will be required. Examples: 2x + 1 ≥ 7, 3x - 1 < 5",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["A22"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["A22"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.04a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A22"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A22"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.04a", "6.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Generate terms of a sequence from either a term-to-term or a position-to-term rule",
+    "extra": "Including from patterns and diagrams. Generate a sequence by spotting a pattern or using a term-to-term rule given algebraically or in words. Examples: Continue the sequences 1, 4, 7, 10, ... or 1, 4, 9, 16, ... Generate a sequence from a formula for the nth term, e.g., nth term = n² + 2n gives 3, 8, 15, ...",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A23"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A23"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.06a"]
+      }
+    ]
+  },
+  {
+    "point": "Recognise and use sequences of triangular, square and cube numbers, simple arithmetic progressions, Fibonacci type sequences, quadratic sequences, and simple geometric progressions (rⁿ where n is an integer, and r is a positive rational number or a surd)",
+    "extra": "Other recursive sequences will be defined in the question. Find a position-to-term rule for simple arithmetic sequences, algebraically or in words. Examples: 2, 4, 6, ... 2n or 3, 4, 5, ... n + 2. Use subscript notation for position-to-term and term-to-term rules, e.g., xₙ = n + 2, xₙ = 2xₙ₋₁ - 3",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A24"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A24"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.06b"]
+      }
+    ]
+  },
+  {
+    "point": "Deduce expressions to calculate the nth term of linear and quadratic sequences",
+    "extra": "Examples: For the sequence 40, 37, 34, 31, ... the nth term is 43 - 3n",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["A25"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["A25"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.06a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A25"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A25"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.06a"]
+      }
+    ]
+  },
+  {
+    "point": "Change freely between related standard units (e.g. time, length, area, volume/capacity, mass) and compound units (e.g. speed, rates of pay, prices, density, pressure) in numerical and algebraic contexts",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["R1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["10.01a", "10.01b"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["10.01a", "10.01b"]
+      }
+    ]
+  }
+]

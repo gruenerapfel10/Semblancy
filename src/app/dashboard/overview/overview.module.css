@@ -1,0 +1,498 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding: var(--padding-m);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 0 auto;
+  background-color: var(--background-color);
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--padding-l);
+  width: 100%;
+}
+
+.pageTitle {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.dateDisplay {
+  font-size: var(--font-s);
+  color: var(--text-color-75);
+}
+
+/* Welcome section */
+.welcomeSection {
+  width: 100%;
+  margin-bottom: var(--padding-l);
+}
+
+.welcomeCard {
+  padding: var(--padding-l);
+  border-radius: var(--br-m);
+  width: 100%;
+}
+
+.welcomeContent h2 {
+  font-size: var(--font-l);
+  font-weight: 600;
+  margin: 0 0 var(--padding-xs) 0;
+  color: var(--text-color);
+}
+
+.welcomeContent p {
+  font-size: var(--font-s);
+  color: var(--text-color-75);
+  margin: 0;
+}
+
+.userSubjects {
+  margin-top: var(--padding-s);
+  font-size: var(--font-s);
+  color: var(--text-color-75);
+}
+
+/* Stats section */
+.statsSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--padding-m);
+  width: 100%;
+  margin-bottom: var(--padding-l);
+}
+
+.statCard {
+  padding: var(--padding-m);
+  border-radius: var(--br-s);
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.statIcon {
+  font-size: 2rem;
+  margin-right: var(--padding-s);
+}
+
+.statInfo h3 {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin: 0;
+  color: var(--brand-color);
+}
+
+.statInfo p {
+  font-size: var(--font-xs);
+  color: var(--text-color-75);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Content grid layout */
+.contentGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--padding-l);
+  width: 100%;
+  align-items: flex-start;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: row;
+  gap: var(--padding-m);
+  min-width: 0; /* Prevent flex item from overflowing */
+}
+
+.sideContent {
+  width: 300px; /* Fixed width for side content */
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-m);
+  align-self: flex-start; /* Ensures it sticks to the top */
+}
+
+.sectionTitle {
+  font-size: var(--font-m);
+  font-weight: 600;
+  margin-bottom: var(--padding-s);
+  color: var(--text-color);
+}
+
+/* Upcoming exams section */
+.upcomingExamsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-s);
+}
+
+.examCard {
+  padding: var(--padding-m);
+  border-radius: var(--br-s);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.examCard:hover {
+  transform: translateY(-3px);
+}
+
+.examInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.examSubject {
+  font-size: var(--font-m);
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.examType {
+  font-size: var(--font-xs);
+  color: var(--text-color-75);
+  margin-top: 2px;
+}
+
+.examDate {
+  text-align: right;
+}
+
+.daysRemaining {
+  font-size: var(--font-s);
+  font-weight: 700;
+  color: var(--brand-color);
+}
+
+.examDateTime {
+  font-size: var(--font-xs);
+  color: var(--text-color-75);
+  margin-top: 2px;
+}
+
+.noExamsCard {
+  padding: var(--padding-l);
+  border-radius: var(--br-s);
+  text-align: center;
+}
+
+.noExamsCard p {
+  margin-bottom: var(--padding-s);
+  color: var(--text-color-75);
+}
+
+.viewAllButton {
+  display: inline-block;
+  padding: var(--padding-xs) var(--padding-m);
+  background-color: var(--brand-color);
+  color: white;
+  border-radius: 30px;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.viewAllButton:hover {
+  background-color: var(--brand-color-darker);
+}
+
+/* Calendar section */
+.calendarSection {
+}
+
+/* Quick actions section */
+.actionsCard {
+  padding: var(--padding-m);
+  border-radius: var(--br-s);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--padding-s);
+}
+
+.actionButton {
+  padding: var(--padding-s);
+  border-radius: var(--br-xs);
+  background-color: rgba(var(--brand-color-rgb, 0, 70, 255), 0.1);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(var(--brand-color-rgb, 0, 70, 255), 0.2);
+}
+
+.actionButton:hover {
+  background-color: rgba(var(--brand-color-rgb, 0, 70, 255), 0.2);
+  transform: translateY(-3px);
+}
+
+.actionIcon {
+  font-size: 1.5rem;
+  margin-bottom: var(--padding-xs);
+}
+
+.actionButton span:last-child {
+  font-size: var(--font-xs);
+  font-weight: 500;
+}
+
+/* Resources section */
+.resourcesCard {
+  padding: var(--padding-m);
+  border-radius: var(--br-s);
+  display: flex;
+  flex-direction: column;
+}
+
+.resourceItem {
+  padding: var(--padding-s) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.resourceItem:last-child {
+  border-bottom: none;
+}
+
+.resourceName {
+  font-size: var(--font-s);
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.resourceDescription {
+  font-size: var(--font-xs);
+  color: var(--text-color-75);
+  margin-bottom: var(--padding-xs);
+}
+
+.resourceLink {
+  align-self: flex-start;
+  font-size: var(--font-xs);
+  color: var(--brand-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.resourceLink:hover {
+  color: var(--brand-color-darker);
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .statsSection {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: var(--padding-m);
+  }
+
+  .sideContent {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .statsSection {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--padding-s);
+  }
+
+  .statCard:last-child {
+    grid-column: span 2;
+  }
+
+  .actionsCard {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--padding-xs);
+  }
+
+  .statsSection {
+    grid-template-columns: 1fr;
+  }
+
+  .statCard {
+    grid-column: span 1 !important;
+  }
+
+  .actionsCard {
+    grid-template-columns: 1fr;
+    gap: var(--padding-xs);
+  }
+}
+
+/* Add these new styles to your overview.module.css file */
+
+.calendarSection {
+  grid-column: 1 / 2; /* Spans the first column */
+  grid-row: 2 / 3; /* Spans the first row */
+  border-radius: var(--br-l);
+  overflow: hidden;
+  height: 100%;
+}
+
+.predictedGrades {
+  grid-column: 1 / 2; /* Spans the first column */
+  grid-row: 2 / 3; /* Spans the second row */
+  border-radius: var(--br-l);
+}
+
+.mapSection {
+  grid-column: 2 / 10; /* Spans from second column to the end */
+  grid-row: 2 / 13; /* Spans both rows */
+  border-radius: var(--br-l);
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-rows: auto auto auto; /* Three rows with auto height */
+    height: auto;
+  }
+
+  .calendarSection {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .predictedGrades {
+    grid-column: 1;
+    grid-row: 3;
+    min-height: 200px;
+  }
+
+  .mapSection {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+/* Adjust these existing styles if needed */
+.container {
+  width: 100%;
+  height: 100%;
+  padding: var(--padding-m);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.welcomeSection {
+  width: 100%;
+  margin-bottom: var(--padding-l);
+}
+
+/* The original .mapSection style in your CSS should be removed or updated */
+/* Add these updated grid styles to your overview.module.css file */
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; /* Four equal columns */
+  grid-template-rows: repeat(12, 1fr); /* Two equal rows */
+  gap: var(--padding-m);
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.calendarSection {
+  grid-column: 1 / 2; /* Spans the first column */
+  grid-row: 7 / 13; /* Spans the second row */
+  border-radius: var(--br-l);
+  overflow: hidden;
+  height: 100%;
+}
+
+.predictedGrades {
+  grid-column: 1 / 2; /* Spans the first column */
+  grid-row: 2 / 7; /* Spans the first row */
+  border-radius: var(--br-l);
+}
+
+.mapSection {
+  grid-column: 2 / 14; /* Spans from second column to the end */
+  grid-row: 2 / 13; /* Spans both rows */
+  border-radius: var(--br-l);
+  overflow: hidden;
+}
+
+/* Glass morphism for all components */
+.glass-morphism {
+  background: rgba(30, 30, 40, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-rows: auto auto auto; /* Three rows with auto height */
+    height: auto;
+  }
+
+  .calendarSection {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .predictedGrades {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 200px;
+  }
+
+  .mapSection {
+    grid-column: 1;
+    grid-row: 3;
+    height: 500px;
+  }
+}
+
+
+.omniSearchSection {
+  grid-column: 1 / 14; /* Spans the first column */
+  grid-row: 1 / 2; /* Spans the first row */ 
+}

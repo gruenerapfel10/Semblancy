@@ -1,3 +1,4 @@
+// Modified dashboard layout with loading indicators
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
@@ -16,6 +17,18 @@ import {
   faRepeat,
   faAngleDoubleRight,
   faAngleDoubleLeft,
+  faMicrochip,
+  faBook,
+  faTrophy,
+  faComments,
+  faHistory,
+  faSearchLocation,
+  faFileAlt,
+  faStickyNote,
+  faTools,
+  faLayerGroup,
+  faClipboardList,
+  faEnvelope
 } from "@fortawesome/free-solid-svg-icons";
 import { extractFullName } from "@/utils";
 
@@ -23,11 +36,13 @@ export default function DashboardLayout({ children }) {
   const { user, isAuthenticated, isLoading } = useAmplify();
   const router = useRouter();
   const pathname = usePathname();
+  // Track which section is currently loading
+  const [loadingSection, setLoadingSection] = useState(null);
 
   // Extract the active section from the path
   const getActiveSection = (path) => {
     const sections = path.split("/");
-    return sections.length > 2 ? sections[2] : "projects";
+    return sections.length > 2 ? sections[2] : "overview";
   };
 
   const activeSection = getActiveSection(pathname);
@@ -35,32 +50,28 @@ export default function DashboardLayout({ children }) {
   // State for the entire sidebar collapse
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-  // Check authentication
+  // Reset loading when pathname changes (navigation completes)
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push("/login");
+    setLoadingSection(null);
+  }, [pathname]);
+
+  // Handle menu item click to set loading state
+  const handleMenuItemClick = (e, section, href) => {
+    // Only set loading if we're navigating to a different section
+    if (section !== activeSection) {
+      e.preventDefault();
+      setLoadingSection(section);
+      // Use setTimeout to simulate a small delay before navigation
+      // This ensures the spinner is visible before page transition
+      setTimeout(() => {
+        router.push(href);
+      }, 50);
     }
-  }, [isAuthenticated, isLoading, router]);
+  };
 
   // Show loading state
   if (isLoading) {
     return <LoadingSpinner fullPage={true} text="Loading your dashboard..." />;
-  }
-
-  // Not authenticated view
-  if (!isAuthenticated) {
-    return (
-      <div className={styles.errorContainer}>
-        <h2>Authentication Required</h2>
-        <p>Please log in to access your dashboard.</p>
-        <button
-          onClick={() => router.push("/login")}
-          className={styles.loginButton}
-        >
-          Go to Login
-        </button>
-      </div>
-    );
   }
 
   return (
@@ -91,20 +102,81 @@ export default function DashboardLayout({ children }) {
                 />
               </button>
             </div>
+            
             {/* Menu Section */}
             <div className={styles.menuSection}>
               {!isSidebarCollapsed && <h4>Menu</h4>}
               <ul className={styles.menuItems}>
                 <li
                   className={
-                    activeSection === "projects" || pathname === "/dashboard"
+                    activeSection === "overview" || pathname === "/dashboard"
                       ? styles.activeMenuItem
                       : ""
                   }
                 >
-                  <Link href="/dashboard/projects">
-                    <FontAwesomeIcon icon={faTh} />
-                    {!isSidebarCollapsed && <span>Projects</span>}
+                  <Link 
+                    href="/dashboard/overview" 
+                    onClick={(e) => handleMenuItemClick(e, "overview", "/dashboard/overview")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faMicrochip} 
+                      className={loadingSection === "overview" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Overview</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "mocks"
+                      ? styles.activeMenuItem
+                      : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/mocks" 
+                    onClick={(e) => handleMenuItemClick(e, "mocks", "/dashboard/mocks")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faBook} 
+                      className={loadingSection === "mocks" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Mocks</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "competition"
+                      ? styles.activeMenuItem
+                      : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/competition" 
+                    onClick={(e) => handleMenuItemClick(e, "competition", "/dashboard/competition")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faTrophy} 
+                      className={loadingSection === "competition" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Competition</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "forums"
+                      ? styles.activeMenuItem
+                      : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/forums" 
+                    onClick={(e) => handleMenuItemClick(e, "forums", "/dashboard/forums")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faComments} 
+                      className={loadingSection === "forums" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Forums</span>}
                   </Link>
                 </li>
                 <li
@@ -114,62 +186,190 @@ export default function DashboardLayout({ children }) {
                       : ""
                   }
                 >
-                  <Link href="/dashboard/how-it-works">
-                    <FontAwesomeIcon icon={faQuestionCircle} />
+                  <Link 
+                    href="/dashboard/how-it-works" 
+                    onClick={(e) => handleMenuItemClick(e, "how-it-works", "/dashboard/how-it-works")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faQuestionCircle} 
+                      className={loadingSection === "how-it-works" ? styles.spinningIcon : ""}
+                    />
                     {!isSidebarCollapsed && <span>How It Works</span>}
                   </Link>
                 </li>
-              </ul>
-            </div>
-            {/* Support Section */}
-            {/* <div className={styles.menuSection}>
-              {!isSidebarCollapsed && <h4>Support</h4>}
-              <ul className={styles.menuItems}>
                 <li
                   className={
-                    activeSection === "notifications"
+                    activeSection === "changelog"
                       ? styles.activeMenuItem
                       : ""
                   }
                 >
-                  <Link href="/dashboard/notifications">
-                    <FontAwesomeIcon icon={faBell} />
-                    {!isSidebarCollapsed && <span>Notifications</span>}
+                  <Link 
+                    href="/dashboard/changelog" 
+                    onClick={(e) => handleMenuItemClick(e, "changelog", "/dashboard/changelog")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faHistory} 
+                      className={loadingSection === "changelog" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Changelog</span>}
                   </Link>
                 </li>
                 <li
                   className={
-                    activeSection === "messages" ? styles.activeMenuItem : ""
+                    activeSection === "exam-centre-finder"
+                      ? styles.activeMenuItem
+                      : ""
                   }
                 >
-                  <Link href="/dashboard/messages">
-                    <FontAwesomeIcon icon={faComment} />
-                    {!isSidebarCollapsed && <span>Messages</span>}
+                  <Link 
+                    href="/dashboard/exam-centre-finder" 
+                    onClick={(e) => handleMenuItemClick(e, "exam-centre-finder", "/dashboard/exam-centre-finder")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faSearchLocation} 
+                      className={loadingSection === "exam-centre-finder" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Exam Centre Finder</span>}
                   </Link>
                 </li>
               </ul>
-            </div> */}
+            </div>
+            
+            {/* Revision Section */}
+            <div className={styles.menuSection}>
+              {!isSidebarCollapsed && <h4>Revision</h4>}
+              <ul className={styles.menuItems}>
+                <li
+                  className={
+                    activeSection === "past-papers"
+                      ? styles.activeMenuItem
+                      : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/past-papers" 
+                    onClick={(e) => handleMenuItemClick(e, "past-papers", "/dashboard/past-papers")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faFileAlt} 
+                      className={loadingSection === "past-papers" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Past Papers</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "notes" ? styles.activeMenuItem : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/notes" 
+                    onClick={(e) => handleMenuItemClick(e, "notes", "/dashboard/notes")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faStickyNote} 
+                      className={loadingSection === "notes" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Notes</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "skills" ? styles.activeMenuItem : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/skills" 
+                    onClick={(e) => handleMenuItemClick(e, "skills", "/dashboard/skills")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faTools} 
+                      className={loadingSection === "skills" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Skills</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "flashcards" ? styles.activeMenuItem : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/flashcards" 
+                    onClick={(e) => handleMenuItemClick(e, "flashcards", "/dashboard/flashcards")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faLayerGroup} 
+                      className={loadingSection === "flashcards" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Flashcards</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "specifications" ? styles.activeMenuItem : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/specifications" 
+                    onClick={(e) => handleMenuItemClick(e, "specifications", "/dashboard/specifications")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faClipboardList} 
+                      className={loadingSection === "specifications" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Specifications</span>}
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div className={styles.sideMenuBottom}>
-            <ul className={styles.menuItems}>
-              <li>
-                <Link href="" onClick={() => window.location.reload()}>
-                  <FontAwesomeIcon icon={faRepeat} />
-                  {!isSidebarCollapsed && <span>Refresh</span>}
-                </Link>
-              </li>
-              <li
-                className={
-                  activeSection === "settings" ? styles.activeMenuItem : ""
-                }
-              >
-                <Link href="/dashboard/settings">
-                  <FontAwesomeIcon icon={faCog} />
-                  {!isSidebarCollapsed && <span>Settings</span>}
-                </Link>
-              </li>
-            </ul>
+            <div className={styles.menuSection}>
+              {!isSidebarCollapsed && <h4>Support</h4>}
+              <ul className={styles.menuItems}>
+                <li>
+                  <Link href="" onClick={() => window.location.reload()}>
+                    <FontAwesomeIcon icon={faRepeat} />
+                    {!isSidebarCollapsed && <span>Refresh</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "settings" ? styles.activeMenuItem : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/settings" 
+                    onClick={(e) => handleMenuItemClick(e, "settings", "/dashboard/settings")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faCog} 
+                      className={loadingSection === "settings" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Settings</span>}
+                  </Link>
+                </li>
+                <li
+                  className={
+                    activeSection === "contact" ? styles.activeMenuItem : ""
+                  }
+                >
+                  <Link 
+                    href="/dashboard/contact" 
+                    onClick={(e) => handleMenuItemClick(e, "contact", "/dashboard/contact")}
+                  >
+                    <FontAwesomeIcon 
+                      icon={faEnvelope} 
+                      className={loadingSection === "contact" ? styles.spinningIcon : ""}
+                    />
+                    {!isSidebarCollapsed && <span>Contact</span>}
+                  </Link>
+                </li>
+              </ul>
+            </div>
             <div className={styles.userProfile}>
               <div className={styles.userAvatar}>
                 {user?.username?.charAt(0) || "U"}

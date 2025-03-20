@@ -20,50 +20,51 @@ import { Hub } from "aws-amplify/utils";
 import { resetPassword, confirmResetPassword } from "aws-amplify/auth";
 import { extractFullName } from "@/utils";
 
-const DEV = false;
-
-const dev2Config = {
-  Auth: {
-    Cognito: {
-      mandatorySignIn: true,
-      userPoolId: "us-east-1_DuJHsqldK",
-      userPoolClientId: "2v2rkpoa3qljj5dvbptnq1a65s",
-      identityPoolId: "us-east-1:a9ba4338-ff32-4448-994e-2400829554ea",
-      region: "us-east-1",
-      loginWith: {
-        email: true,
-      },
-    },
-  },
-  Storage: {
-    S3: {
-      bucket: "prosemble",
-      region: "us-east-1",
-      level: "private",
-      identityPoolId: "us-east-1:a9ba4338-ff32-4448-994e-2400829554ea",
-    },
-  },
-};
+const DEV = true;
 
 const devConfig = {
   Auth: {
     Cognito: {
       mandatorySignIn: true,
-      userPoolId: "us-east-1_EwVZtEME6",
-      userPoolClientId: "55fdqv26pdfuqcr46cokdlqgm7",
-      identityPoolId: "us-east-1:a9ba4338-ff32-4448-994e-2400829554ea",
-      region: "us-east-1",
+      userPoolId: "eu-west-2_lHtoXsEQH",
+      userPoolClientId: "7p98235po3dgigtue9195ut4rj",
+      identityPoolId: "eu-west-2:2f9b085b-e95b-4efa-901b-0d6af32507ac",
+      region: "eu-west-2",
       loginWith: {
         email: true,
+        externalProviders: {
+          google: {
+            clientId:
+              "44207520238-6p3noq35todiifhqeqpsshg953snehqh.apps.googleusercontent.com",
+            scopes: ["openid", "email", "profile"],
+          },
+          signInWithApple: {
+            clientId: "com.yarkeylimited.gcsesimulator",
+            scopes: ["email", "name"],
+          },
+        },
+        oauth: {
+          domain: "eu-west-2lhtoxseqh.auth.eu-west-2.amazoncognito.com",
+          scopes: [
+            "openid",
+            "email",
+            "phone",
+            "profile",
+            "aws.cognito.signin.user.admin",
+          ],
+          redirectSignIn: ["http://localhost:3000"],
+          redirectSignOut: ["https://localhost:3000/login"],
+          responseType: "code",
+        },
       },
     },
   },
   Storage: {
     S3: {
-      bucket: "prosemble",
-      region: "us-east-1",
+      bucket: "gcsesimulatorstorage",
+      region: "eu-west-2",
       level: "private",
-      identityPoolId: "us-east-1:a9ba4338-ff32-4448-994e-2400829554ea",
+      identityPoolId: "eu-west-2:2f9b085b-e95b-4efa-901b-0d6af32507ac",
     },
   },
 };
@@ -94,7 +95,7 @@ const prodConfig = {
 };
 
 // Configure Amplify once
-Amplify.configure(DEV ? dev2Config : prodConfig);
+Amplify.configure(DEV ? devConfig : prodConfig);
 
 // Create context
 const AmplifyContext = createContext(null);

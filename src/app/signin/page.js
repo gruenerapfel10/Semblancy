@@ -9,7 +9,7 @@ export default function Dashboard() {
   // const firstTime = localStorage.getItem("prosemble-first-time");
 
   // if (!firstTime) {
-  redirect("/login");
+  // redirect("/login");
   // } else {
   // localStorage.setItem("prosemble-first-time", JSON.stringify("true"));
   // redirect('/dashboard/how-it-works');

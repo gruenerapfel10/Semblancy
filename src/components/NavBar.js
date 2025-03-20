@@ -4,13 +4,14 @@ import { useAmplify } from "../app/Providers";
 import Logo from "../components/Logo";
 import styles from "./NavBar.module.css";
 import { extractFullName } from "@/utils";
+import ThemeToggle from "../components/ThemeToggle.js"
 
 export default function Navbar() {
   const { user, isAuthenticated, signOut } = useAmplify();
 
   return (
     <header className={styles.header}>
-      <Logo size="medium" invert="true" />
+      <Logo size="large" invert="true" />
       <div className={styles.headerActions}>
         {isAuthenticated && (
           <>
@@ -31,6 +32,7 @@ export default function Navbar() {
             </button>
           </>
         )}
+        <ThemeToggle type="button" />
         {!isAuthenticated && (
           <Link href="/login" className={styles.loginButton}>
             Login

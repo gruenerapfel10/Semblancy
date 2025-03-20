@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - development
+      - production
 
 permissions:
   id-token: write
@@ -25,18 +26,38 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           mask-aws-account-id: 'true'
       
+      - name: Configure AWS Credentials for PRODUCTION
+        if: github.ref == 'refs/heads/production'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.PRODUCTION_AWS_WEB_PORTAL_IAM_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          mask-aws-account-id: 'true'
+      
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       
-      - name: Build and Push Docker Image
+      - name: Build and Tag for Development
+        if: github.ref == 'refs/heads/development'
         uses: docker/build-push-action@v6
         with:
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.ECR_REPOSITORY }}:latest
+          tags: ${{ secrets.ECR_REPOSITORY }}:development
       
-      - name: Update ECS Service
+      - name: Build and Tag for Production
+        if: github.ref == 'refs/heads/production'
+        uses: docker/build-push-action@v6
+        with:
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.ECR_REPOSITORY }}:latest
+            ${{ secrets.ECR_REPOSITORY }}:production
+      
+      - name: Update Development ECS Service
+        if: github.ref == 'refs/heads/development'
         uses: scribd/amazon-ecs-service-action@v1
         with:
           spec: |
@@ -46,4 +67,29 @@ jobs:
             }
           force-new-deployment: true
           wait-until-deployment-complete: true
-
+          
+  deploy_to_production:
+    needs: Flow
+    if: github.ref == 'refs/heads/production'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://gcsesimulator.com
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.PRODUCTION_AWS_WEB_PORTAL_IAM_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          mask-aws-account-id: 'true'
+      
+      - name: Update Production ECS Service
+        uses: scribd/amazon-ecs-service-action@v1
+        with:
+          spec: |
+            {
+              "cluster": "GCSE-Simulator-Cluster",
+              "serviceName": "GCSE-Simulator-Service"
+            }
+          force-new-deployment: true
+          wait-until-deployment-complete: true

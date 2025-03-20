@@ -6,12 +6,12 @@ import Image from "next/image";
 import styles from "./Logo.module.css";
 
 // Import SVG files as standard images
-import ProsembleLogoV2 from "../assets/images/prosemble-logo-v2.svg";
-import ProsembleLogoV2White from "../assets/images/prosemble-logo-v2-white.svg";
-import ProsembleLogoV2Title from "../assets/images/prosemble-logo-v2-title.svg";
-import ProsembleLogoV2TitleWhite from "../assets/images/prosemble-logo-v2-title-white.svg";
-import ProsembleLogoV2Text from "../assets/images/prosemble-logo-v2-text.svg";
-import ProsembleLogoV2TextWhite from "../assets/images/prosemble-logo-v2-text-white.svg";
+import GCSESimulatorLogoV1 from "../assets/images/gcsesimulatorlogo.svg";
+import GCSESimulatorLogoV1White from "../assets/images/gcsesimulatorlogowhite.svg";
+import GCSESimulatorLogoV1Title from "../assets/images/gcsesimulatortitle.svg";
+import GCSESimulatorLogoV1TitleWhite from "../assets/images/gcsesimulatortitlewhite.svg";
+import GCSESimulatorLogoV1Text from "../assets/images/gcsesimulatortext.svg";
+import GCSESimulatorLogoV1TextWhite from "../assets/images/gcsesimulatortextwhite.svg";
 
 const Logo = ({ 
   size = "medium", 
@@ -62,10 +62,10 @@ const Logo = ({
       {showIcon && (
         <div className={styles.logoIcon}>
           <Image
-            src={invert ? ProsembleLogoV2White : ProsembleLogoV2}
+            src={GCSESimulatorLogoV1}
             alt="Prosemble Logo Icon"
-            width={config.container.width}
-            height={config.container.height}
+            width="100%"
+            height={config.container.height/ 1.3}
             priority
           />
         </div>
@@ -76,11 +76,10 @@ const Logo = ({
           {showTitle && (
             <div className={styles.titleContainer}>
               <Image
-                src={invert ? ProsembleLogoV2TitleWhite : ProsembleLogoV2Title}
-                alt="Prosemble"
-                width={config.text.width}
-                height={config.text.height}
+                src={invert ? GCSESimulatorLogoV1TitleWhite : GCSESimulatorLogoV1Title}
+                alt="GCSE"
                 className={styles.title}
+                height={config.text.height / 2}
                 priority
               />
             </div>
@@ -89,10 +88,10 @@ const Logo = ({
           {showTagline && (
             <div className={styles.textContainer}>
               <Image
-                src={invert ? ProsembleLogoV2TextWhite : ProsembleLogoV2Text}
-                alt="Precision science"
-                width={config.text.width / 1.5}
-                height={config.text.height / 2.5}
+                src={invert ? GCSESimulatorLogoV1TextWhite : GCSESimulatorLogoV1Text}
+                alt="Simulator"
+                width="100%"
+                height={config.text.height / 5}
                 priority
               />
             </div>

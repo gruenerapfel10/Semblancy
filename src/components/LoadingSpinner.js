@@ -11,9 +11,10 @@ export default function LoadingSpinner({
 }) {
   // Size variants (in pixels)
   const sizeMap = {
-    small: "24px",
-    medium: "40px",
-    large: "64px",
+    small: "2rem",
+    medium: "3rem",
+    large: "4rem",
+    xl: "5rem",
   };
 
   const spinnerStyle = {

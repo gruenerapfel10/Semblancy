@@ -7,6 +7,11 @@ import { usePathname } from "next/navigation";
 import './variables.css'
 import Footer from "@/components/Footer";
 import { useState, useEffect } from 'react';
+import { DataProvider } from "./context/DataContext";
+import { SearchProvider } from "./context/SearchContext";
+import SearchModal from "@/components/SearchModal";
+import { ToastProvider } from "./context/ToastContext";
+import ToastContainer from "@/components/ToastContainer";
 
 const noNavbarPaths = ["/login", "/signup", "/register", "/reset-password", "/home", "/company", "/pipeline", "/technology", "/news", "/contact", "/forgot-password", "/changelog", "/signupFuture", "/loginFuture"];
 const noFooterPaths = ["/dashboard"];
@@ -62,12 +67,53 @@ function ThemeHandler({ children }) {
       }
     };
 
+    // Set up a MutationObserver to watch for direct changes to the data-theme attribute
+    const observeThemeChanges = () => {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (
+            mutation.type === 'attributes' && 
+            mutation.attributeName === 'data-theme'
+          ) {
+            const newTheme = document.documentElement.getAttribute('data-theme');
+            if (newTheme && newTheme !== theme) {
+              // Update the state
+              setTheme(newTheme);
+              // Save to localStorage
+              localStorage.setItem('theme', newTheme);
+              
+              // If authenticated, you might want to save to user preferences
+              if (isAuthenticated && getUserPreferences) {
+                try {
+                  // This would need to be implemented based on your API
+                  // saveUserPreferences({ theme: newTheme });
+                } catch (error) {
+                  console.error("Error saving theme to user preferences:", error);
+                }
+              }
+            }
+          }
+        });
+      });
+      
+      // Start observing the document element for attribute changes
+      observer.observe(document.documentElement, { attributes: true });
+      
+      return observer;
+    };
+
     window.addEventListener('themeChange', handleThemeChange);
+    
+    // Only set up the observer after initial loading to avoid conflicts
+    const observer = !isLoading ? observeThemeChanges() : null;
 
     return () => {
       window.removeEventListener('themeChange', handleThemeChange);
+      if (observer) {
+        observer.disconnect();
+      }
     };
-  }, [isAuthenticated, isLoading, getUserPreferences]);
+  }, [isAuthenticated, isLoading, getUserPreferences, theme]);
 
   return children;
 }
@@ -84,9 +130,15 @@ export default function RootLayout({ children }) {
       <body>
         <AmplifyProvider>
           <ThemeHandler>
-            {!shouldHideNavbar && <Navbar />}
-            {children}
-            {!shouldHideFooter && <Footer />}
+            <ToastProvider>
+              <SearchProvider>
+                {!shouldHideNavbar && <Navbar />}
+                {children}
+                {!shouldHideFooter && <Footer />}
+                <SearchModal />
+                <ToastContainer />
+              </SearchProvider>
+            </ToastProvider>
           </ThemeHandler>
         </AmplifyProvider>
       </body>

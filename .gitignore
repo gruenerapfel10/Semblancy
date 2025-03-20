@@ -5,3 +5,5 @@ amplify
 .firebase
 .firebaserc
 firebase.json
+out
+.github/*

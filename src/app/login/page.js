@@ -1,38 +1,35 @@
 "use client";
-// File: app/login/page.js
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signIn, confirmSignUp } from "aws-amplify/auth";
+import { signIn, confirmSignUp, signInWithRedirect } from "aws-amplify/auth";
 import { useAmplify } from "../Providers";
 import Modal from "../../components/Modal";
 import styles from "./login.module.css";
 import Image from "next/image";
 import Logo from "@/components/Logo";
-import VerticalSpacer from "@/components/VerticalSpacer"
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // Start with loading true
+  const [isLoading, setIsLoading] = useState(true);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState("");
   const [confirmError, setConfirmError] = useState("");
   const [authCheckComplete, setAuthCheckComplete] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const { checkAuthState, isAuthenticated, user } = useAmplify();
+  const { checkAuthState } = useAmplify();
 
   useEffect(() => {
-    // Prevent checking auth multiple times
     if (authCheckComplete) return;
 
-    // Check if user is already authenticated
     const checkAuth = async () => {
       try {
         const isSignedIn = await checkAuthState();
         
-        // If authenticated, redirect to dashboard
         if (isSignedIn) {
           console.log("User already authenticated, redirecting to dashboard");
           router.push("/dashboard");
@@ -41,7 +38,6 @@ export default function Login() {
       } catch (error) {
         console.error("Error checking authentication:", error);
       } finally {
-        // Mark auth check as complete to prevent re-running
         setAuthCheckComplete(true);
         setIsLoading(false);
       }
@@ -49,23 +45,20 @@ export default function Login() {
     
     checkAuth();
 
-    // Auto-fill username if passed from signup page
     const params = new URLSearchParams(window.location.search);
     const usernameParam = params.get("username");
     if (usernameParam) {
       setUsername(usernameParam);
     }
 
-    // Show success message if coming from signup page
     if (params.get("signupSuccess")) {
       setSuccessMessage("Account created successfully! Please log in.");
     }
 
-    // Show success message if coming from confirmation page
     if (params.get("confirmSuccess")) {
       setSuccessMessage("Account confirmed successfully! Please log in.");
     }
-  }, []); // Remove dependencies to prevent loops
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -74,18 +67,15 @@ export default function Login() {
     setSuccessMessage("");
 
     try {
-      // First attempt to sign in
       const signInResult = await signIn({ username, password });
       console.log("Sign in successful:", signInResult);
 
-      // Check if user needs additional confirmation steps
       if (
         signInResult.nextStep &&
         signInResult.nextStep.signInStep !== "DONE"
       ) {
         console.log("Additional steps required:", signInResult.nextStep);
 
-        // Handle different confirmation scenarios
         if (
           signInResult.nextStep.signInStep ===
           "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD"
@@ -105,18 +95,12 @@ export default function Login() {
         return;
       }
 
-      // Update auth state and store login success in sessionStorage
       await checkAuthState();
-
-      // Set a flag in sessionStorage that we just logged in successfully
       sessionStorage.setItem("justLoggedIn", "true");
-
-      // Navigate to dashboard
       router.push("/dashboard");
     } catch (err) {
       console.error("Login error:", err);
 
-      // Handle different error types
       if (err.name === "NotAuthorizedException") {
         if (err.message.includes("User is not confirmed")) {
           setError("Your account needs confirmation.");
@@ -145,6 +129,40 @@ export default function Login() {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      // In Gen 2, we use a different format - the provider needs to be in lowercase
+      await signInWithRedirect({ 
+        provider: 'Google'  // lowercase is required in Gen 2
+      });
+      // Code below won't execute immediately due to redirect
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError(err.message || "Failed to sign in with Google. Please try again.");
+      setIsLoading(false);
+    }
+  };
+
+  const handleAppleSignIn = async () => {
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      // In Gen 2, we use a different format - the provider needs to be in lowercase
+      await signInWithRedirect({ 
+        provider: 'Apple'  // lowercase is required in Gen 2
+      });
+      // Code below won't execute immediately due to redirect
+    } catch (err) {
+      console.error("Apple sign-in error:", err);
+      setError(err.message || "Failed to sign in with Apple. Please try again.");
+      setIsLoading(false);
+    }
+  };
+
   const handleConfirmation = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -167,7 +185,6 @@ export default function Login() {
       if (err.name === "CodeMismatchException") {
         setConfirmError("Invalid code. Please try again.");
       } else if (err.name === "ExpiredCodeException") {
-        console.log(err)
         setConfirmError("Code has expired. Please request a new one.");
       } else if (err.name === "NetworkError") {
         setConfirmError("Network error. Please check your connection.");
@@ -179,79 +196,118 @@ export default function Login() {
     }
   };
 
-  // Show loading state while checking authentication
   if (isLoading && !authCheckComplete) {
     return (
-      <div className={styles.authContainer}>
-        <Logo size="xl" />
-        <VerticalSpacer height="50px"/>
-        <div className={styles.loadingContainer}>
-          <div className={styles.spinner}></div>
-          <p>Loading...</p>
-        </div>
+      <div className={styles.container}>
+        <div className={styles.spinner}></div>
+        <p>Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className={styles.authContainer}>
-      <Logo size="xl" />
+    <div className={styles.splitContainer}>
+      {/* Left side with hero image */}
+      <div className={styles.heroSide}>
+        <div className={styles.logoContainer}>
+          <Logo size="large" invert={true}/>
+          <a href="/" className={styles.backToWebsite}>Back to website</a>
+        </div>
+        <div className={styles.heroContent}>
+          <h2 className={styles.heroSlogan}>The most efficient way<br/>to revise GCSE & A Levels</h2>
+          <p className={styles.heroSubtitle}>Analyze. Predict. Transform.</p>
+          <div className={styles.moleculeAnimation}>
+            <div className={styles.molecule}></div>
+          </div>
+          <div className={styles.heroIndicators}>
+            <span className={styles.indicator}></span>
+            <span className={styles.indicator}></span>
+            <span className={styles.indicator + ' ' + styles.activeIndicator}></span>
+          </div>
+        </div>
+      </div>
 
-      <VerticalSpacer height="50px"/>
+      {/* Right side with form */}
+      <div className={styles.formSide}>
+        <div className={styles.formContainer}>
+          <h1 className={styles.title}>Welcome Back</h1>
+          <p className={styles.formSubtitle}>Sign in to access your biochemical data analysis</p>
+          <p className={styles.signupLink}>
+            Don't have an account? <a href="/signup">Sign up</a>
+          </p>
 
-      <div className={styles.formCard}>
-        <h1 className={styles.title}>Log In</h1>
+          {successMessage && (
+            <div className={styles.successMessage}>{successMessage}</div>
+          )}
 
-        {successMessage && (
-          <div className={styles.successMessage}>{successMessage}</div>
-        )}
+          <form onSubmit={handleLogin}>
+            <div className={styles.formGroup}>
+              <input
+                type="email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                disabled={isLoading}
+                placeholder="Email"
+                className={styles.input}
+              />
+            </div>
 
-        <form onSubmit={handleLogin}>
-          <div className={styles.formGroup}>
-            <label>Email address</label>
-            <input
-              type="email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
+            <div className={styles.formGroup}>
+              <div className={styles.passwordInputWrapper}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  disabled={isLoading}
+                  placeholder="Password"
+                  className={styles.input}
+                />
+                <button
+                  type="button"
+                  className={styles.togglePassword}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.forgotPassword}>
+              <a href="/forgot-password">Forgot password?</a>
+            </div>
+
+            {error && <div className={styles.errorMessage}>{error}</div>}
+
+            <button
+              type="submit"
+              className={styles.loginButton}
               disabled={isLoading}
-              placeholder="Enter your email"
-            />
-          </div>
+            >
+              {isLoading ? "Logging in..." : "Log in"}
+            </button>
 
-          <div className={styles.formGroup}>
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={isLoading}
-              placeholder="Enter your password"
-            />
-          </div>
+            <div className={styles.divider}>
+              <span>Or log in with</span>
+            </div>
 
-          <div className={styles.forgotPassword}>
-            <a href="/forgot-password">Forgot password?</a>
-          </div>
-
-          {error && <div className={styles.errorMessage}>{error}</div>}
-
-          <button
-            type="submit"
-            className={styles.primaryButton}
-            disabled={isLoading}
-          >
-            {isLoading ? "Logging in..." : "Log in"}
-          </button>
-
-          {/* <div className={styles.orDivider}>
-            <span>or</span>
-          </div> */}
-        </form>
-
-        <div className={styles.switchAuthMode}>
-          Don't have an account? <a href="/signup">Sign up</a>
+            <div className={styles.socialButtons}>
+              <button 
+                type="button" 
+                className={styles.googleButton}
+                onClick={handleGoogleSignIn}
+                disabled={isLoading}
+              >
+                <span className={styles.googleIcon}>G</span>
+                Google
+              </button>
+              <button type="button" className={styles.appleButton} onClick={handleAppleSignIn}>
+                <span className={styles.appleIcon}>A</span>
+                Apple
+              </button>
+            </div>
+          </form>
         </div>
       </div>
 
@@ -264,6 +320,8 @@ export default function Login() {
         <p className={styles.infoText}>
           We've sent a confirmation code to your email. Please enter it below to
           verify your account.
+
+          DEV VERSION TEST.
         </p>
 
         <form onSubmit={handleConfirmation}>
@@ -284,7 +342,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className={styles.primaryButton}
+            className={styles.confirmButton}
             disabled={isLoading}
           >
             {isLoading ? "Confirming..." : "Confirm Account"}
