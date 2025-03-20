@@ -55,6 +55,10 @@ const devConfig = {
           redirectSignIn: [
             'http://localhost:3000/login',
             'https://eu-west-2lhtoxseqh.auth.eu-west-2.amazoncognito.com/oauth2/idpresponse',
+            "https://gcsesimulator.com/login",
+            "https://dev.gcsesimulator.com/login",
+            "https://gcsesimulator.co.uk/login",
+            "https://dev.gcsesimulator.co.uk/login"
           ],
           // Important: We're handling redirect manually in the app,
           // so don't include a redirectSignOut URL to prevent Cognito's automatic redirect
