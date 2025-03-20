@@ -45,6 +45,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.ECR_REPOSITORY }}:development
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       
       - name: Build and Tag for Production
         if: github.ref == 'refs/heads/main'
@@ -55,11 +57,13 @@ jobs:
           tags: |
             ${{ secrets.ECR_REPOSITORY }}:latest
             ${{ secrets.ECR_REPOSITORY }}:production
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       
-      - name: Fetch existing task definition
+      - name: Fetch existing task definition for Development
         if: github.ref == 'refs/heads/development'
         run: |
-          aws ecs describe-task-definition --task-definition gcse-simulator-web-app-task-dev > task-definition.json
+          aws ecs describe-task-definition --task-definition gcse-simulator-web-app-task-dev --query taskDefinition > task-definition.json
       
       - name: Update Development ECS Service
         if: github.ref == 'refs/heads/development'
@@ -85,9 +89,9 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           mask-aws-account-id: 'true'
       
-      - name: Fetch existing task definition
+      - name: Fetch existing task definition for Production
         run: |
-          aws ecs describe-task-definition --task-definition gcse-simulator-web-app-task-dev > task-definition.json
+          aws ecs describe-task-definition --task-definition gcse-simulator-web-app-task --query taskDefinition > task-definition.json
       
       - name: Update Production ECS Service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
