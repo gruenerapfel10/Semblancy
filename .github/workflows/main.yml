@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - development
-      - production
+      - main
 
 permissions:
   id-token: write
@@ -27,7 +27,7 @@ jobs:
           mask-aws-account-id: 'true'
       
       - name: Configure AWS Credentials for PRODUCTION
-        if: github.ref == 'refs/heads/production'
+        if: github.ref == 'refs/heads/main'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.PRODUCTION_AWS_WEB_PORTAL_IAM_ROLE_ARN }}
@@ -47,7 +47,7 @@ jobs:
           tags: ${{ secrets.ECR_REPOSITORY }}:development
       
       - name: Build and Tag for Production
-        if: github.ref == 'refs/heads/production'
+        if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
         with:
           file: ./Dockerfile
@@ -56,21 +56,23 @@ jobs:
             ${{ secrets.ECR_REPOSITORY }}:latest
             ${{ secrets.ECR_REPOSITORY }}:production
       
+      - name: Fetch existing task definition
+        if: github.ref == 'refs/heads/development'
+        run: |
+          aws ecs describe-task-definition --task-definition gcse-simulator-web-app-task-dev > task-definition.json
+      
       - name: Update Development ECS Service
         if: github.ref == 'refs/heads/development'
-        uses: scribd/amazon-ecs-service-action@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          spec: |
-            {
-              "cluster": "GCSE-Simulator-Development-Cluster-2",
-              "serviceName": "GCSE-Simulator-Development-Service"
-            }
-          force-new-deployment: true
-          wait-until-deployment-complete: true
+          task-definition: task-definition.json
+          service: GCSE-Simulator-Development-Service
+          cluster: GCSE-Simulator-Development-Cluster-2
+          wait-for-service-stability: true
           
   deploy_to_production:
     needs: Flow
-    if: github.ref == 'refs/heads/production'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: production
@@ -83,13 +85,14 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           mask-aws-account-id: 'true'
       
+      - name: Fetch existing task definition
+        run: |
+          aws ecs describe-task-definition --task-definition gcse-simulator-web-app-task-dev > task-definition.json
+      
       - name: Update Production ECS Service
-        uses: scribd/amazon-ecs-service-action@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          spec: |
-            {
-              "cluster": "GCSE-Simulator-Cluster",
-              "serviceName": "GCSE-Simulator-Service"
-            }
-          force-new-deployment: true
-          wait-until-deployment-complete: true
+          task-definition: task-definition.json
+          service: GCSE-Simulator-Service
+          cluster: GCSE-Simulator-Cluster
+          wait-for-service-stability: true
