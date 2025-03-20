@@ -4,12 +4,14 @@
 .container {
     position: relative;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
     padding: 0;
     margin: 0;
     background-color: var(--background-color);
     z-index: 0;
   }
+
+  /* Remove the global overflow hidden that was causing scroll issues */
   
   /* Background elements */
   .backgroundElements {
@@ -28,8 +30,9 @@
     border-radius: 50%;
     filter: blur(80px);
     opacity: 0.3;
-    transition: transform 0.3s ease-out;
+    transition: transform 0.1s linear;
     will-change: transform;
+    pointer-events: none;
   }
   
   .sphere1 {
@@ -97,6 +100,7 @@
     opacity: 1;
     transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    overflow: hidden;
   }
   
   .visible,
@@ -146,10 +150,11 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    min-height: calc(100vh - 6rem);
+    min-height: 100vh;
     gap: 4rem;
-    padding-top: 8rem;
+    padding-top: 12rem; /* Increased padding to account for navbar */
     padding-bottom: 8rem;
+    overflow: hidden;
   }
   
   .heroContent {
@@ -157,6 +162,7 @@
     min-width: 300px;
     max-width: 600px;
     z-index: 1;
+    overflow: hidden;
   }
   
   .heroTagline {
@@ -295,11 +301,44 @@
   /* Hero Visual */
   .heroVisual {
     flex: 1;
-    min-width: 300px;
-    max-width: 600px;
-    height: 500px;
+    min-width: 600px;
+    max-width: 1200px;
+    height: 700px;
     position: relative;
     z-index: 0;
+    overflow: visible;
+    border-radius: 50%;
+  }
+  
+  .mapContainer {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .mapOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    color: white;
+    pointer-events: none;
+    z-index: 5;
+  }
+  
+  .mapTitle {
+    font-size: var(--font-l);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .mapDescription {
+    font-size: var(--font-s);
+    opacity: 0.8;
   }
   
   .glassCard {
@@ -589,6 +628,7 @@
     gap: 2rem;
     padding-top: 2rem;
     padding-bottom: 6rem;
+    overflow: hidden;
   }
   
   .statCard {
@@ -1617,6 +1657,7 @@
       align-items: center;
       gap: 3rem;
       text-align: center;
+      padding-top: 10rem; /* Adjusted for mobile */
       padding-bottom: 4rem;
     }
     
@@ -1689,6 +1730,10 @@
     .ctaSection {
       padding-left: 1.5rem;
       padding-right: 1.5rem;
+    }
+    
+    .heroSection {
+      padding-top: 8rem; /* Further adjusted for small screens */
     }
     
     .heroTitle {

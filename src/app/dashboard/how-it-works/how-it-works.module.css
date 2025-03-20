@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-/* Background elements */
+/* Enhanced background elements */
 .backgroundElements {
   position: absolute;
   width: 100%;
@@ -27,15 +27,15 @@
 .sphere {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.3;
-  transition: transform 0.3s ease-out;
+  filter: blur(60px); /* Reduced blur for more definition */
+  opacity: 0.6; /* Increased opacity for more prominence */
+  transition: transform 0.5s ease;
   will-change: transform;
 }
 
 .sphere1 {
-  width: 40vw;
-  height: 40vw;
+  width: 55vw; /* Increased size */
+  height: 55vw;
   background: radial-gradient(
     circle at center,
     var(--brand-color-lighter) 0%,
@@ -43,30 +43,48 @@
   );
   top: -15%;
   right: -5%;
+  animation: floatSphere1 15s infinite alternate ease-in-out;
 }
 
 .sphere2 {
-  width: 35vw;
-  height: 35vw;
+  width: 50vw; /* Increased size */
+  height: 50vw;
   background: radial-gradient(
     circle at center,
     var(--kredirel-medium-blue) 0%,
     transparent 70%
   );
-  bottom: 20%;
+  bottom: 10%;
   left: -10%;
+  animation: floatSphere2 20s infinite alternate ease-in-out;
 }
 
 .sphere3 {
-  width: 25vw;
-  height: 25vw;
+  width: 40vw; /* Increased size */
+  height: 40vw;
   background: radial-gradient(
     circle at center,
     var(--kredirel-orange) 0%,
     transparent 70%
   );
-  top: 60%;
-  right: 10%;
+  top: 40%;
+  right: 0;
+  animation: floatSphere3 18s infinite alternate ease-in-out;
+}
+
+@keyframes floatSphere1 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(5%, 5%); }
+}
+
+@keyframes floatSphere2 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-5%, -3%); }
+}
+
+@keyframes floatSphere3 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(3%, -5%); }
 }
 
 .grid {
@@ -94,13 +112,14 @@
   justify-content: space-between;
   min-height: 40vh;
   gap: 4rem;
+  position: relative;
+  z-index: 1;
 }
 
 .heroContent {
   flex: 1;
   min-width: 300px;
   max-width: 600px;
-  z-index: 1;
 }
 
 .heroTagline {
@@ -232,6 +251,8 @@
   padding: 2rem;
   display: flex;
   gap: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* Sidebar */
@@ -255,6 +276,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .navTitle {
@@ -316,26 +338,29 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 6rem;
+  gap: 3rem;
 }
 
-/* Content Sections */
-.contentSection {
-  scroll-margin-top: 2rem;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+/* Dynamic Panel Content */
+.dynamicPanel {
+  background: rgba(var(--primary-color-rgb), 0.03);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(var(--primary-color-rgb), 0.07);
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  animation: fadeIn 0.4s ease-out;
+  overflow: hidden;
 }
 
-.animateOnScroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.animateIn {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .sectionHeading {
@@ -435,6 +460,7 @@
   justify-content: center;
   overflow: hidden;
   position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .visualLabel {
@@ -503,11 +529,12 @@
 
 /* FAQ Section */
 .faqSection {
-  margin-top: 3rem;
-  padding: 4rem;
+  margin-top: 2rem;
+  padding: 3rem;
   background: rgba(var(--primary-color-rgb), 0.03);
   border-radius: 1.5rem;
   border: 1px solid rgba(var(--primary-color-rgb), 0.07);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
 }
 
 .faqTitle {
@@ -538,6 +565,8 @@
 
 .faqItem:hover {
   background: rgba(var(--primary-color-rgb), 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .faqQuestion {
@@ -590,13 +619,14 @@
 
 /* CTA Section */
 .ctaSection {
-  margin-top: 3rem;
-  padding: 4rem;
-  background: rgba(var(--brand-color-rgb), 0.07);
+  margin-top: 2rem;
+  padding: 3rem;
+  background: rgba(var(--brand-color-rgb), 0.08);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 1.5rem;
   text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .ctaContent {
@@ -671,7 +701,7 @@
     var(--brand-color) 0%,
     transparent 70%
   );
-  opacity: 0.15;
+  opacity: 0.25;
 }
 
 [data-theme="dark"] .sphere2 {
@@ -680,7 +710,7 @@
     var(--kredirel-medium-blue) 0%,
     transparent 70%
   );
-  opacity: 0.15;
+  opacity: 0.25;
 }
 
 [data-theme="dark"] .sphere3 {
@@ -689,7 +719,7 @@
     var(--kredirel-orange) 0%,
     transparent 70%
   );
-  opacity: 0.15;
+  opacity: 0.25;
 }
 
 /* Responsive adjustments */
@@ -736,15 +766,19 @@
   .technicalList {
     grid-template-columns: 1fr;
   }
+  
+  .sphere {
+    opacity: 0.4; /* Reduce opacity on smaller screens */
+  }
 }
 
 @media (max-width: 768px) {
   .heroSection,
   .contentLayout,
   .faqSection,
-  .ctaSection {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+  .ctaSection,
+  .dynamicPanel {
+    padding: 1.5rem;
   }
   
   .heroTitle {
@@ -766,7 +800,7 @@
   }
   
   .mainContent {
-    gap: 4rem;
+    gap: 2rem;
   }
 }
 
@@ -785,7 +819,7 @@
   
   .faqSection,
   .ctaSection {
-    padding: 2rem 1.5rem;
+    padding: 1.5rem;
   }
   
   .faqQuestion h3 {

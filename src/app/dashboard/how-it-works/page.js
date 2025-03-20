@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./how-it-works.module.css";
@@ -28,73 +28,314 @@ import {
 export default function HowItWorksPage() {
   const [activeSection, setActiveSection] = useState("overview");
   const [activeFaq, setActiveFaq] = useState(null);
-  const [scrollY, setScrollY] = useState(0);
-  
-  const sectionRefs = {
-    overview: useRef(null),
-    mocks: useRef(null),
-    competition: useRef(null),
-    forums: useRef(null),
-    examFinder: useRef(null),
-    pastPapers: useRef(null),
-    notes: useRef(null),
-    skills: useRef(null),
-    flashcards: useRef(null),
-    specifications: useRef(null)
-  };
-  
-  // Parallax effect on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-      
-      // Update active section based on scroll position
-      const sectionPositions = Object.entries(sectionRefs).map(([key, ref]) => ({
-        id: key,
-        top: ref.current?.getBoundingClientRect().top || 0
-      }));
-      
-      const currentSection = sectionPositions
-        .filter(section => section.top <= 100)
-        .sort((a, b) => b.top - a.top)[0];
-      
-      if (currentSection && currentSection.id !== activeSection) {
-        setActiveSection(currentSection.id);
-      }
-    };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeSection]);
-  
-  // Animation observer for scroll-based animations
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add(styles.animateIn);
-        }
-      });
-    }, { threshold: 0.2 });
-    
-    const elements = document.querySelectorAll(`.${styles.animateOnScroll}`);
-    elements.forEach(el => observer.observe(el));
-    
-    return () => elements.forEach(el => observer.unobserve(el));
-  }, []);
   
   // Toggle FAQ item
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
   
-  // Scroll to section
-  const scrollToSection = (sectionId) => {
-    setActiveSection(sectionId);
-    sectionRefs[sectionId].current.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
+  // Section content data
+  const sections = {
+    overview: {
+      icon: <Home size={24} />,
+      title: "Overview Dashboard",
+      description: "The Overview Dashboard is your central hub for tracking progress across all your GCSE subjects. Here you'll find your personalized study plan, upcoming exams, recent activity, and performance metrics.",
+      keyFeatures: [
+        {
+          icon: <Zap size={20} />,
+          title: "AI-Generated Study Plan",
+          description: "Daily and weekly study recommendations based on your performance data and upcoming exams"
+        },
+        {
+          icon: <BarChart2 size={20} />,
+          title: "Performance Analytics",
+          description: "Visual representations of your strengths and areas for improvement across all subjects"
+        },
+        {
+          icon: <Clock size={20} />,
+          title: "Exam Countdown",
+          description: "Automatic countdowns to your upcoming exams with preparation reminders"
+        }
+      ],
+      visualCaption: "The Overview Dashboard gives you a complete snapshot of your GCSE preparation journey",
+      technicalDescription: "The Overview Dashboard uses our proprietary algorithm to analyze your performance data across all practice questions, mock exams, and revision activities. Our AI identifies patterns in your learning and adapts recommendations in real-time as you continue to use the platform.",
+      technicalPoints: [
+        "Personalized grade predictions based on current performance",
+        "Topic-by-topic breakdown of strengths and weaknesses",
+        "Time management suggestions based on your study habits",
+        "Integration with all other platform features for seamless navigation"
+      ]
+    },
+    mocks: {
+      icon: <BookOpen size={24} />,
+      title: "Mock Exams",
+      description: "Our Mock Exams system provides realistic exam simulations that mirror the format, timing, and difficulty of actual GCSE examinations. Prepare for the real thing by testing your knowledge under authentic exam conditions.",
+      keyFeatures: [
+        {
+          icon: <Clock size={20} />,
+          title: "Timed Exam Environment",
+          description: "Experience realistic exam conditions with accurate timing and pressure"
+        },
+        {
+          icon: <FileText size={20} />,
+          title: "Examiner-Standard Marking",
+          description: "Get your work marked according to official exam board criteria with detailed feedback"
+        },
+        {
+          icon: <BarChart2 size={20} />,
+          title: "Performance Analysis",
+          description: "Receive detailed breakdowns of your performance by question type and topic"
+        }
+      ],
+      visualCaption: "Our Mock Exams closely replicate the experience of sitting a real GCSE exam",
+      technicalDescription: "The Mock Exam system is built on our database of over 50,000 GCSE-standard questions, categorized by difficulty, topic, and question type. Our AI-powered marking system has been trained on thousands of real student answers to provide accurate grading and feedback.",
+      technicalPoints: [
+        "Full papers matching current exam board specifications (AQA, Edexcel, OCR)",
+        "Automatic saving of your progress if you lose connection",
+        "Mixed-topic papers to test breadth of knowledge",
+        "Topic-specific mini-mocks for targeted practice"
+      ]
+    },
+    competition: {
+      icon: <Award size={24} />,
+      title: "Competition",
+      description: "Make revision fun and engaging with our Competition feature. Challenge friends, classmates, or students from around the country in subject-specific quizzes and tests to add a motivating competitive element to your studies.",
+      keyFeatures: [
+        {
+          icon: <Users size={20} />,
+          title: "Head-to-Head Challenges",
+          description: "Compete directly against friends or join random matchups in your subject areas"
+        },
+        {
+          icon: <Award size={20} />,
+          title: "Leaderboards",
+          description: "Track your ranking against other students locally, nationally, or globally"
+        },
+        {
+          icon: <Zap size={20} />,
+          title: "Daily Challenges",
+          description: "New challenges every day to test different areas of the curriculum"
+        }
+      ],
+      visualCaption: "The Competition feature makes revision more engaging through friendly competition",
+      technicalDescription: "Our Competition system uses a sophisticated matchmaking algorithm to pair you with students of similar ability levels. All challenges draw from our extensive question bank, with difficulty automatically adjusted based on participants' skill levels.",
+      technicalPoints: [
+        "Real-time multiplayer quizzes with live scoring",
+        "Private competition rooms for study groups or classes",
+        "Skill-based matchmaking for fair competition",
+        "Achievement badges and rewards for consistent participation"
+      ]
+    },
+    forums: {
+      icon: <Users size={24} />,
+      title: "Forums",
+      description: "Our Forums provide a supportive community where you can ask questions, share study resources, and connect with fellow GCSE students. Get help with difficult topics or collaborate on revision strategies in subject-specific discussion boards.",
+      keyFeatures: [
+        {
+          icon: <HelpCircle size={20} />,
+          title: "Q&A Sections",
+          description: "Ask questions and get answers from peers and qualified teachers"
+        },
+        {
+          icon: <FileText size={20} />,
+          title: "Resource Sharing",
+          description: "Exchange notes, flashcards, and revision materials with other students"
+        },
+        {
+          icon: <Users size={20} />,
+          title: "Study Groups",
+          description: "Form private or public study groups for collaborative learning"
+        }
+      ],
+      visualCaption: "The Forums connect you with a community of students and educators for collaborative learning",
+      technicalDescription: "Our Forums feature rich text editing, mathematical equation support, image embedding, and code formatting to facilitate discussions about any GCSE subject. All forums are moderated to ensure a safe, supportive environment.",
+      technicalPoints: [
+        "Subject-specific boards with topic categorization",
+        "Formula rendering for mathematics and sciences",
+        "Teacher-verified answers highlighted for accuracy",
+        "Reputation system to recognize helpful community members"
+      ]
+    },
+    examFinder: {
+      icon: <Map size={24} />,
+      title: "Exam Centre Finder",
+      description: "Our Exam Centre Finder helps you locate your nearest exam venues, particularly useful for private candidates or those sitting exams at unfamiliar locations. Find detailed information about each centre including facilities, accessibility features, and contact details.",
+      keyFeatures: [
+        {
+          icon: <Map size={20} />,
+          title: "Interactive Map",
+          description: "Search for exam centres with our location-based mapping tool"
+        },
+        {
+          icon: <FileText size={20} />,
+          title: "Detailed Centre Information",
+          description: "Access comprehensive details about facilities, requirements, and contacts"
+        },
+        {
+          icon: <Clock size={20} />,
+          title: "Travel Planning",
+          description: "Calculate journey times and plan your route to ensure on-time arrival"
+        }
+      ],
+      visualCaption: "The Exam Centre Finder helps you locate and get information about your exam venues",
+      technicalDescription: "Our Exam Centre Finder uses geolocation data from exam boards combined with transportation APIs to help you find and plan journeys to your exam centre. The database is updated regularly throughout the academic year.",
+      technicalPoints: [
+        "Comprehensive database of official GCSE exam centres across the UK",
+        "Filtering by exam board, subject, and accessibility requirements",
+        "Integration with mapping services for directions",
+        "Centre reviews and tips from previous candidates"
+      ]
+    },
+    pastPapers: {
+      icon: <FileText size={24} />,
+      title: "Past Papers",
+      description: "Our comprehensive Past Papers section gives you access to actual GCSE exam papers from previous years, complete with mark schemes and examiner reports. Practice with authentic materials to familiarize yourself with the format and style of questions you'll face in your exams.",
+      keyFeatures: [
+        {
+          icon: <FileText size={20} />,
+          title: "Authentic Exam Papers",
+          description: "Access official past papers from all major exam boards (AQA, Edexcel, OCR, WJEC)"
+        },
+        {
+          icon: <BookOpen size={20} />,
+          title: "Mark Schemes",
+          description: "Review official marking guidelines to understand how examiners award points"
+        },
+        {
+          icon: <BarChart2 size={20} />,
+          title: "Performance Tracking",
+          description: "Track your scores and improvement across multiple practice papers"
+        }
+      ],
+      visualCaption: "The Past Papers section provides official exam materials with marking assistance",
+      technicalDescription: "Our Past Papers database includes over 1,000 official GCSE papers spanning the last 10 years across all subjects and exam boards. Papers are fully searchable by year, topic, difficulty, and question type.",
+      technicalPoints: [
+        "Searchable question bank for topic-specific practice",
+        "Interactive marking system that follows official mark schemes",
+        "Examiner commentary explaining common mistakes",
+        "Grade boundary information to help gauge performance"
+      ]
+    },
+    notes: {
+      icon: <Bookmark size={24} />,
+      title: "Notes",
+      description: "Our Notes system allows you to create, organize, and access your study notes across all GCSE subjects. With rich text formatting, image insertion, and equation support, you can create comprehensive revision materials tailored to your learning style.",
+      keyFeatures: [
+        {
+          icon: <FileText size={20} />,
+          title: "Rich Text Editor",
+          description: "Create beautifully formatted notes with images, equations, and highlighting"
+        },
+        {
+          icon: <Grid size={20} />,
+          title: "Organization System",
+          description: "Structure notes by subject, topic, and subtopic for easy retrieval"
+        },
+        {
+          icon: <Users size={20} />,
+          title: "Collaborative Features",
+          description: "Share and collaborate on notes with classmates or study groups"
+        }
+      ],
+      visualCaption: "The Notes system helps you create, organize, and revise with digital study materials",
+      technicalDescription: "Our Notes system features cloud synchronization, version history, and integration with other platform features like flashcards and past papers. Notes are automatically linked to relevant curriculum topics for easy reference during targeted revision.",
+      technicalPoints: [
+        "Full LaTeX support for mathematical equations",
+        "Automatic saving and version history",
+        "Export options (PDF, Word, HTML)",
+        "Voice recording integration for audio notes"
+      ]
+    },
+    skills: {
+      icon: <BarChart2 size={24} />,
+      title: "Skills Tracking",
+      description: "Our Skills Tracking feature provides detailed insights into your mastery of specific GCSE skills and assessment objectives. Monitor your progress across different skill categories and identify areas that need additional focus in your revision plan.",
+      keyFeatures: [
+        {
+          icon: <BarChart2 size={20} />,
+          title: "Skill Breakdown",
+          description: "View your performance across specific skills required by exam boards"
+        },
+        {
+          icon: <Zap size={20} />,
+          title: "Progress Indicators",
+          description: "Track improvement over time with visual progress indicators"
+        },
+        {
+          icon: <BookOpen size={20} />,
+          title: "Targeted Practice",
+          description: "Get recommended questions and resources based on your skill levels"
+        }
+      ],
+      visualCaption: "The Skills Tracking feature shows your progress across assessment objectives and competencies",
+      technicalDescription: "Our Skills Tracking system is aligned with official assessment objectives from all major exam boards. The platform analyzes your performance across all activities to provide a comprehensive view of your skill mastery.",
+      technicalPoints: [
+        "Assessment objective mapping to curriculum requirements",
+        "Comparative analysis against target grades",
+        "Detailed skill taxonomies for each subject",
+        "Personalized recommendations for skill improvement"
+      ]
+    },
+    flashcards: {
+      icon: <Grid size={24} />,
+      title: "Flashcards",
+      description: "Our intelligent Flashcards system helps you memorize key facts, definitions, and concepts using proven spaced repetition techniques. Create your own flashcards or use our pre-made decks covering the entire GCSE curriculum for efficient and effective revision.",
+      keyFeatures: [
+        {
+          icon: <Grid size={20} />,
+          title: "Digital Flashcards",
+          description: "Create multimedia flashcards with images, equations, and formatting"
+        },
+        {
+          icon: <Clock size={20} />,
+          title: "Spaced Repetition",
+          description: "Optimize learning with scientifically-proven spaced repetition algorithms"
+        },
+        {
+          icon: <Users size={20} />,
+          title: "Shared Decks",
+          description: "Access thousands of pre-made flashcard decks or share your own"
+        }
+      ],
+      visualCaption: "The Flashcards system employs spaced repetition for effective memorization",
+      technicalDescription: "Our Flashcards feature uses the SM-2 spaced repetition algorithm, which adjusts review intervals based on your self-reported recall difficulty. This optimizes the learning process by showing cards at the optimal moment before forgetting occurs.",
+      technicalPoints: [
+        "Adaptive scheduling based on recall performance",
+        "Multiple question formats (basic, cloze deletion, image occlusion)",
+        "Mobile-friendly interface for studying on the go",
+        "Import/export functionality for external flashcard systems"
+      ]
+    },
+    specifications: {
+      icon: <FileCode size={24} />,
+      title: "Specifications",
+      description: "Our Specifications section provides access to the official exam board specifications for all GCSE subjects. Understand exactly what you need to know for your exams with detailed content breakdowns, assessment objectives, and grade descriptors.",
+      keyFeatures: [
+        {
+          icon: <FileCode size={20} />,
+          title: "Exam Board Documentation",
+          description: "Access official specifications from all major exam boards in one place"
+        },
+        {
+          icon: <List size={20} />,
+          title: "Interactive Checklists",
+          description: "Track your coverage of specification points as you revise"
+        },
+        {
+          icon: <BookOpen size={20} />,
+          title: "Linked Resources",
+          description: "Find revision materials directly linked to specific specification points"
+        }
+      ],
+      visualCaption: "The Specifications section helps you understand exactly what you need to learn for your exams",
+      technicalDescription: "Our Specifications feature includes the complete syllabus content for all major GCSE exam boards, parsed and presented in an interactive format that integrates with our other learning tools.",
+      technicalPoints: [
+        "Specification comparison tools for students changing exam boards",
+        "Progress tracking against specification coverage",
+        "Downloadable PDFs of official documents",
+        "Notification system for specification updates"
+      ]
+    }
   };
 
   // FAQ data
@@ -130,20 +371,11 @@ export default function HowItWorksPage() {
       {/* Floating search indicator */}
       <SearchIndicator />
     
-      {/* Background elements */}
+      {/* Enhanced background elements */}
       <div className={styles.backgroundElements}>
-        <div 
-          className={`${styles.sphere} ${styles.sphere1}`} 
-          style={{ transform: `translate3d(${scrollY * 0.05}px, ${-scrollY * 0.03}px, 0)` }}
-        ></div>
-        <div 
-          className={`${styles.sphere} ${styles.sphere2}`} 
-          style={{ transform: `translate3d(${-scrollY * 0.07}px, ${scrollY * 0.04}px, 0)` }}
-        ></div>
-        <div 
-          className={`${styles.sphere} ${styles.sphere3}`} 
-          style={{ transform: `translate3d(${scrollY * 0.09}px, ${scrollY * 0.02}px, 0)` }}
-        ></div>
+        <div className={`${styles.sphere} ${styles.sphere1}`}></div>
+        <div className={`${styles.sphere} ${styles.sphere2}`}></div>
+        <div className={`${styles.sphere} ${styles.sphere3}`}></div>
         <div className={styles.grid}></div>
       </div>
       
@@ -180,136 +412,45 @@ export default function HowItWorksPage() {
             <div className={styles.navTitle}>Platform Features</div>
             
             <div className={styles.navLinks}>
-              <button 
-                className={`${styles.navLink} ${activeSection === 'overview' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('overview')}
-              >
-                <Home size={18} />
-                <span>Overview Dashboard</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'mocks' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('mocks')}
-              >
-                <BookOpen size={18} />
-                <span>Mock Exams</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'competition' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('competition')}
-              >
-                <Award size={18} />
-                <span>Competition</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'forums' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('forums')}
-              >
-                <Users size={18} />
-                <span>Forums</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'examFinder' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('examFinder')}
-              >
-                <Map size={18} />
-                <span>Exam Centre Finder</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'pastPapers' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('pastPapers')}
-              >
-                <FileText size={18} />
-                <span>Past Papers</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'notes' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('notes')}
-              >
-                <Bookmark size={18} />
-                <span>Notes</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'skills' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('skills')}
-              >
-                <BarChart2 size={18} />
-                <span>Skills Tracking</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'flashcards' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('flashcards')}
-              >
-                <Grid size={18} />
-                <span>Flashcards</span>
-              </button>
-              
-              <button 
-                className={`${styles.navLink} ${activeSection === 'specifications' ? styles.activeLink : ''}`}
-                onClick={() => scrollToSection('specifications')}
-              >
-                <FileCode size={18} />
-                <span>Specifications</span>
-              </button>
+              {Object.entries(sections).map(([key, section]) => (
+                <button 
+                  key={key}
+                  className={`${styles.navLink} ${activeSection === key ? styles.activeLink : ''}`}
+                  onClick={() => setActiveSection(key)}
+                >
+                  {React.cloneElement(section.icon, { size: 18 })}
+                  <span>{section.title}</span>
+                </button>
+              ))}
             </div>
           </nav>
         </aside>
         
-        {/* Main Content Sections */}
+        {/* Main Content - Dynamic panel */}
         <main className={styles.mainContent}>
-          {/* Overview Section */}
-          <section 
-            ref={sectionRefs.overview}
-            id="overview" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
+          {/* Dynamic Feature Panel */}
+          <section className={styles.dynamicPanel}>
             <div className={styles.sectionHeading}>
-              <Home size={24} className={styles.sectionIcon} />
-              <h2>Overview Dashboard</h2>
+              {React.cloneElement(sections[activeSection].icon, { className: styles.sectionIcon })}
+              <h2>{sections[activeSection].title}</h2>
             </div>
             
             <div className={styles.sectionContent}>
               <div className={styles.featureDescription}>
-                <p>The Overview Dashboard is your central hub for tracking progress across all your GCSE subjects. Here you'll find your personalized study plan, upcoming exams, recent activity, and performance metrics.</p>
+                <p>{sections[activeSection].description}</p>
                 
                 <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Zap size={20} />
+                  {sections[activeSection].keyFeatures.map((feature, index) => (
+                    <div key={index} className={styles.keyFeature}>
+                      <div className={styles.featureIcon}>
+                        {feature.icon}
+                      </div>
+                      <div className={styles.featureInfo}>
+                        <h3>{feature.title}</h3>
+                        <p>{feature.description}</p>
+                      </div>
                     </div>
-                    <div className={styles.featureInfo}>
-                      <h3>AI-Generated Study Plan</h3>
-                      <p>Daily and weekly study recommendations based on your performance data and upcoming exams</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <BarChart2 size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Performance Analytics</h3>
-                      <p>Visual representations of your strengths and areas for improvement across all subjects</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Clock size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Exam Countdown</h3>
-                      <p>Automatic countdowns to your upcoming exams with preparation reminders</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
               
@@ -317,706 +458,30 @@ export default function HowItWorksPage() {
                 <div className={styles.visualPlaceholder}>
                   <div className={styles.visualLabel}>
                     <Play size={24} />
-                    <span>Overview Dashboard Demo</span>
+                    <span>{sections[activeSection].title} Demo</span>
                   </div>
                   {/* Here you would place the actual GIF or video */}
                 </div>
                 
                 <div className={styles.visualCaption}>
-                  The Overview Dashboard gives you a complete snapshot of your GCSE preparation journey
+                  {sections[activeSection].visualCaption}
                 </div>
               </div>
               
               <div className={styles.technicalDetails}>
                 <h3>Technical Details</h3>
-                <p>The Overview Dashboard uses our proprietary algorithm to analyze your performance data across all practice questions, mock exams, and revision activities. Our AI identifies patterns in your learning and adapts recommendations in real-time as you continue to use the platform.</p>
+                <p>{sections[activeSection].technicalDescription}</p>
                 <ul className={styles.technicalList}>
-                  <li>Personalized grade predictions based on current performance</li>
-                  <li>Topic-by-topic breakdown of strengths and weaknesses</li>
-                  <li>Time management suggestions based on your study habits</li>
-                  <li>Integration with all other platform features for seamless navigation</li>
+                  {sections[activeSection].technicalPoints.map((point, index) => (
+                    <li key={index}>{point}</li>
+                  ))}
                 </ul>
               </div>
             </div>
           </section>
           
-          {/* Mock Exams Section */}
-          <section 
-            ref={sectionRefs.mocks}
-            id="mocks" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <BookOpen size={24} className={styles.sectionIcon} />
-              <h2>Mock Exams</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Our Mock Exams system provides realistic exam simulations that mirror the format, timing, and difficulty of actual GCSE examinations. Prepare for the real thing by testing your knowledge under authentic exam conditions.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Clock size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Timed Exam Environment</h3>
-                      <p>Experience realistic exam conditions with accurate timing and pressure</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <FileText size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Examiner-Standard Marking</h3>
-                      <p>Get your work marked according to official exam board criteria with detailed feedback</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <BarChart2 size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Performance Analysis</h3>
-                      <p>Receive detailed breakdowns of your performance by question type and topic</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Mock Exam System Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  Our Mock Exams closely replicate the experience of sitting a real GCSE exam
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>The Mock Exam system is built on our database of over 50,000 GCSE-standard questions, categorized by difficulty, topic, and question type. Our AI-powered marking system has been trained on thousands of real student answers to provide accurate grading and feedback.</p>
-                <ul className={styles.technicalList}>
-                  <li>Full papers matching current exam board specifications (AQA, Edexcel, OCR)</li>
-                  <li>Automatic saving of your progress if you lose connection</li>
-                  <li>Mixed-topic papers to test breadth of knowledge</li>
-                  <li>Topic-specific mini-mocks for targeted practice</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* Competition Section */}
-          <section 
-            ref={sectionRefs.competition}
-            id="competition" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <Award size={24} className={styles.sectionIcon} />
-              <h2>Competition</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Make revision fun and engaging with our Competition feature. Challenge friends, classmates, or students from around the country in subject-specific quizzes and tests to add a motivating competitive element to your studies.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Users size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Head-to-Head Challenges</h3>
-                      <p>Compete directly against friends or join random matchups in your subject areas</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Award size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Leaderboards</h3>
-                      <p>Track your ranking against other students locally, nationally, or globally</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Zap size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Daily Challenges</h3>
-                      <p>New challenges every day to test different areas of the curriculum</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Competition Feature Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  The Competition feature makes revision more engaging through friendly competition
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>Our Competition system uses a sophisticated matchmaking algorithm to pair you with students of similar ability levels. All challenges draw from our extensive question bank, with difficulty automatically adjusted based on participants' skill levels.</p>
-                <ul className={styles.technicalList}>
-                  <li>Real-time multiplayer quizzes with live scoring</li>
-                  <li>Private competition rooms for study groups or classes</li>
-                  <li>Skill-based matchmaking for fair competition</li>
-                  <li>Achievement badges and rewards for consistent participation</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* Forums Section */}
-          <section 
-            ref={sectionRefs.forums}
-            id="forums" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <Users size={24} className={styles.sectionIcon} />
-              <h2>Forums</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Our Forums provide a supportive community where you can ask questions, share study resources, and connect with fellow GCSE students. Get help with difficult topics or collaborate on revision strategies in subject-specific discussion boards.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <HelpCircle size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Q&A Sections</h3>
-                      <p>Ask questions and get answers from peers and qualified teachers</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <FileText size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Resource Sharing</h3>
-                      <p>Exchange notes, flashcards, and revision materials with other students</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Users size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Study Groups</h3>
-                      <p>Form private or public study groups for collaborative learning</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Forums Interface Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  The Forums connect you with a community of students and educators for collaborative learning
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>Our Forums feature rich text editing, mathematical equation support, image embedding, and code formatting to facilitate discussions about any GCSE subject. All forums are moderated to ensure a safe, supportive environment.</p>
-                <ul className={styles.technicalList}>
-                  <li>Subject-specific boards with topic categorization</li>
-                  <li>Formula rendering for mathematics and sciences</li>
-                  <li>Teacher-verified answers highlighted for accuracy</li>
-                  <li>Reputation system to recognize helpful community members</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* Exam Centre Finder Section */}
-          <section 
-            ref={sectionRefs.examFinder}
-            id="examFinder" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <Map size={24} className={styles.sectionIcon} />
-              <h2>Exam Centre Finder</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Our Exam Centre Finder helps you locate your nearest exam venues, particularly useful for private candidates or those sitting exams at unfamiliar locations. Find detailed information about each centre including facilities, accessibility features, and contact details.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Map size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Interactive Map</h3>
-                      <p>Search for exam centres with our location-based mapping tool</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <FileText size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Detailed Centre Information</h3>
-                      <p>Access comprehensive details about facilities, requirements, and contacts</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Clock size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Travel Planning</h3>
-                      <p>Calculate journey times and plan your route to ensure on-time arrival</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Exam Centre Finder Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  The Exam Centre Finder helps you locate and get information about your exam venues
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>Our Exam Centre Finder uses geolocation data from exam boards combined with transportation APIs to help you find and plan journeys to your exam centre. The database is updated regularly throughout the academic year.</p>
-                <ul className={styles.technicalList}>
-                  <li>Comprehensive database of official GCSE exam centres across the UK</li>
-                  <li>Filtering by exam board, subject, and accessibility requirements</li>
-                  <li>Integration with mapping services for directions</li>
-                  <li>Centre reviews and tips from previous candidates</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* Past Papers Section */}
-          <section 
-            ref={sectionRefs.pastPapers}
-            id="pastPapers" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <FileText size={24} className={styles.sectionIcon} />
-              <h2>Past Papers</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Our comprehensive Past Papers section gives you access to actual GCSE exam papers from previous years, complete with mark schemes and examiner reports. Practice with authentic materials to familiarize yourself with the format and style of questions you'll face in your exams.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <FileText size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Authentic Exam Papers</h3>
-                      <p>Access official past papers from all major exam boards (AQA, Edexcel, OCR, WJEC)</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <BookOpen size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Mark Schemes</h3>
-                      <p>Review official marking guidelines to understand how examiners award points</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <BarChart2 size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Performance Tracking</h3>
-                      <p>Track your scores and improvement across multiple practice papers</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Past Papers System Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  The Past Papers section provides official exam materials with marking assistance
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>Our Past Papers database includes over 1,000 official GCSE papers spanning the last 10 years across all subjects and exam boards. Papers are fully searchable by year, topic, difficulty, and question type.</p>
-                <ul className={styles.technicalList}>
-                  <li>Searchable question bank for topic-specific practice</li>
-                  <li>Interactive marking system that follows official mark schemes</li>
-                  <li>Examiner commentary explaining common mistakes</li>
-                  <li>Grade boundary information to help gauge performance</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* Notes Section */}
-          <section 
-            ref={sectionRefs.notes}
-            id="notes" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <Bookmark size={24} className={styles.sectionIcon} />
-              <h2>Notes</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Our Notes system allows you to create, organize, and access your study notes across all GCSE subjects. With rich text formatting, image insertion, and equation support, you can create comprehensive revision materials tailored to your learning style.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <FileText size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Rich Text Editor</h3>
-                      <p>Create beautifully formatted notes with images, equations, and highlighting</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Grid size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Organization System</h3>
-                      <p>Structure notes by subject, topic, and subtopic for easy retrieval</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Users size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Collaborative Features</h3>
-                      <p>Share and collaborate on notes with classmates or study groups</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Notes System Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  The Notes system helps you create, organize, and revise with digital study materials
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>Our Notes system features cloud synchronization, version history, and integration with other platform features like flashcards and past papers. Notes are automatically linked to relevant curriculum topics for easy reference during targeted revision.</p>
-                <ul className={styles.technicalList}>
-                  <li>Full LaTeX support for mathematical equations</li>
-                  <li>Automatic saving and version history</li>
-                  <li>Export options (PDF, Word, HTML)</li>
-                  <li>Voice recording integration for audio notes</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* Skills Section */}
-          <section 
-            ref={sectionRefs.skills}
-            id="skills" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <BarChart2 size={24} className={styles.sectionIcon} />
-              <h2>Skills Tracking</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Our Skills Tracking feature provides detailed insights into your mastery of specific GCSE skills and assessment objectives. Monitor your progress across different skill categories and identify areas that need additional focus in your revision plan.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <BarChart2 size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Skill Breakdown</h3>
-                      <p>View your performance across specific skills required by exam boards</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Zap size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Progress Indicators</h3>
-                      <p>Track improvement over time with visual progress indicators</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <BookOpen size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Targeted Practice</h3>
-                      <p>Get recommended questions and resources based on your skill levels</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Skills Tracking Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  The Skills Tracking feature shows your progress across assessment objectives and competencies
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>Our Skills Tracking system is aligned with official assessment objectives from all major exam boards. The platform analyzes your performance across all activities to provide a comprehensive view of your skill mastery.</p>
-                <ul className={styles.technicalList}>
-                  <li>Assessment objective mapping to curriculum requirements</li>
-                  <li>Comparative analysis against target grades</li>
-                  <li>Detailed skill taxonomies for each subject</li>
-                  <li>Personalized recommendations for skill improvement</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* Flashcards Section */}
-          <section 
-            ref={sectionRefs.flashcards}
-            id="flashcards" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <Grid size={24} className={styles.sectionIcon} />
-              <h2>Flashcards</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Our intelligent Flashcards system helps you memorize key facts, definitions, and concepts using proven spaced repetition techniques. Create your own flashcards or use our pre-made decks covering the entire GCSE curriculum for efficient and effective revision.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Grid size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Digital Flashcards</h3>
-                      <p>Create multimedia flashcards with images, equations, and formatting</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Clock size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Spaced Repetition</h3>
-                      <p>Optimize learning with scientifically-proven spaced repetition algorithms</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <Users size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Shared Decks</h3>
-                      <p>Access thousands of pre-made flashcard decks or share your own</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Flashcards System Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  The Flashcards system employs spaced repetition for effective memorization
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>Our Flashcards feature uses the SM-2 spaced repetition algorithm, which adjusts review intervals based on your self-reported recall difficulty. This optimizes the learning process by showing cards at the optimal moment before forgetting occurs.</p>
-                <ul className={styles.technicalList}>
-                  <li>Adaptive scheduling based on recall performance</li>
-                  <li>Multiple question formats (basic, cloze deletion, image occlusion)</li>
-                  <li>Mobile-friendly interface for studying on the go</li>
-                  <li>Import/export functionality for external flashcard systems</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* Specifications Section */}
-          <section 
-            ref={sectionRefs.specifications}
-            id="specifications" 
-            className={`${styles.contentSection} ${styles.animateOnScroll}`}
-          >
-            <div className={styles.sectionHeading}>
-              <FileCode size={24} className={styles.sectionIcon} />
-              <h2>Specifications</h2>
-            </div>
-            
-            <div className={styles.sectionContent}>
-              <div className={styles.featureDescription}>
-                <p>Our Specifications section provides access to the official exam board specifications for all GCSE subjects. Understand exactly what you need to know for your exams with detailed content breakdowns, assessment objectives, and grade descriptors.</p>
-                
-                <div className={styles.keyFeatures}>
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <FileCode size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Exam Board Documentation</h3>
-                      <p>Access official specifications from all major exam boards in one place</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <List size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Interactive Checklists</h3>
-                      <p>Track your coverage of specification points as you revise</p>
-                    </div>
-                  </div>
-                  
-                  <div className={styles.keyFeature}>
-                    <div className={styles.featureIcon}>
-                      <BookOpen size={20} />
-                    </div>
-                    <div className={styles.featureInfo}>
-                      <h3>Linked Resources</h3>
-                      <p>Find revision materials directly linked to specific specification points</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className={styles.featureVisual}>
-                <div className={styles.visualPlaceholder}>
-                  <div className={styles.visualLabel}>
-                    <Play size={24} />
-                    <span>Specifications System Demo</span>
-                  </div>
-                  {/* Here you would place the actual GIF or video */}
-                </div>
-                
-                <div className={styles.visualCaption}>
-                  The Specifications section helps you understand exactly what you need to learn for your exams
-                </div>
-              </div>
-              
-              <div className={styles.technicalDetails}>
-                <h3>Technical Details</h3>
-                <p>Our Specifications feature includes the complete syllabus content for all major GCSE exam boards, parsed and presented in an interactive format that integrates with our other learning tools.</p>
-                <ul className={styles.technicalList}>
-                  <li>Specification comparison tools for students changing exam boards</li>
-                  <li>Progress tracking against specification coverage</li>
-                  <li>Downloadable PDFs of official documents</li>
-                  <li>Notification system for specification updates</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-          
-          {/* FAQ Section */}
-          <section className={`${styles.faqSection} ${styles.animateOnScroll}`}>
+          {/* FAQ Section - Always visible */}
+          <section className={styles.faqSection}>
             <h2 className={styles.faqTitle}>Frequently Asked Questions</h2>
             
             <div className={styles.faqContainer}>
@@ -1041,7 +506,7 @@ export default function HowItWorksPage() {
           </section>
           
           {/* Call to Action Section */}
-          <section className={`${styles.ctaSection} ${styles.animateOnScroll}`}>
+          <section className={styles.ctaSection}>
             <div className={styles.ctaContent}>
               <h2>Ready to ace your GCSE exams?</h2>
               <p>Start using GCSE Simulator today and experience the difference our platform can make to your revision.</p>

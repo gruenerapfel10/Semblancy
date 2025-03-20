@@ -63,7 +63,6 @@ const CONSTANTS = {
   TUBE_SEGMENTS: 16,
   TUBE_OPACITY: 0.5,
 };
-
 /**
  * InteractiveMap3D Component
  * @param {Object} props - Component props
@@ -73,8 +72,29 @@ const CONSTANTS = {
  *   - name: Display name for the planet
  *   - details: Description text or additional information
  *   - Optional: orbit, color, size, or any other custom properties
+ * @param {string} [props.backgroundColor] - Optional background color override
+ * @param {boolean} [props.transparentBackground] - Set to true for transparent background
+ * @param {boolean} [props.pulse] - Enable glittering/pulsing effect on planets
+ * @param {string} [props.pulseColor] - Color for pulse effect (default: var(--brand-color))
+ * @param {number} [props.pulseDuration] - Duration of pulse effect in ms (default: 2000)
+ * @param {number} [props.initialZoom] - Initial zoom level (default: calculated optimal distance)
+ * @param {number} [props.minZoom] - Minimum zoom level (default: 5)
+ * @param {number} [props.maxZoom] - Maximum zoom level (default: 100)
  */
-const InteractiveMap3D = ({ data }) => {
+const InteractiveMap3D = ({
+  data,
+  backgroundColor,
+  transparentBackground,
+  pulse = false,
+  pulseColor,
+  pulseDuration = 2000,
+  initialZoom,
+  minZoom = 5,
+  maxZoom = 100,
+  rotationAxisX = 0, // X-axis rotation angle in degrees
+  rotationAxisY = 0, // Y-axis rotation angle in degrees 
+  rotationAxisZ = 0  // Z-axis rotation angle in degrees
+}) => {
   // Scene references
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
@@ -99,6 +119,9 @@ const InteractiveMap3D = ({ data }) => {
   });
   const isPlanetAnimationPausedRef = useRef(false);
 
+  // Glittering/pulsing effect timer - moved to component level
+  const pulseTimerRef = useRef(null);
+
   // UI state
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -107,6 +130,68 @@ const InteractiveMap3D = ({ data }) => {
     position: { x: 0, y: 0 },
     data: {},
   });
+
+  // Helper: Trigger a glow effect on the planet.
+  const triggerPlanetGlow = (planetObj, customDuration) => {
+    const material = planetObj.mesh.material;
+
+    // Ensure we have the original color stored
+    if (!planetObj.originalColor) {
+      planetObj.originalColor = material.color.clone();
+    }
+    const originalColor = planetObj.originalColor;
+
+    // Get pulse color from prop or default to brand color
+    let glowColor;
+    if (pulseColor) {
+      glowColor = new THREE.Color(cssColorToHex(pulseColor));
+    } else {
+      let brandColor = getCssVariableValue("--brand-color");
+      glowColor = new THREE.Color(cssColorToHex(brandColor));
+    }
+
+    // Use shorter duration for hover effect - make it snappier
+    // If custom duration is provided, use that, otherwise just 400ms for a quick pulse
+    const glowDuration = customDuration || 400;
+    const startTime = performance.now();
+
+    // Cancel any existing glow animation
+    if (planetObj.glowAnimationId) {
+      cancelAnimationFrame(planetObj.glowAnimationId);
+    }
+
+    // More pronounced but faster glow effect
+    const animateGlow = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      let t = Math.min(elapsed / glowDuration, 1);
+
+      // Faster pulse with quicker falloff
+      // Use quadratic ease-out for snappier feel
+      let factor = (1 - t) * (1 - t) * 0.8;
+
+      // Apply glow to emissive for light emission effect
+      material.emissive = glowColor.clone().multiplyScalar(factor);
+
+      // Slight color shift - reduced for subtlety
+      material.color.lerpColors(originalColor, glowColor, factor * 0.3);
+
+      // Add slight scale effect but smaller and quicker
+      const scale = 1 + factor * 0.08;
+      planetObj.mesh.scale.set(scale, scale, scale);
+
+      if (elapsed < glowDuration) {
+        planetObj.glowAnimationId = requestAnimationFrame(animateGlow);
+      } else {
+        // Reset to original state
+        material.emissive.set(0x000000);
+        material.color.copy(originalColor);
+        planetObj.mesh.scale.set(1, 1, 1);
+        planetObj.glowAnimationId = null;
+      }
+    };
+
+    planetObj.glowAnimationId = requestAnimationFrame(animateGlow);
+  };
 
   // Add this function to calculate optimal camera distance
   const calculateOptimalCameraDistance = () => {
@@ -163,7 +248,8 @@ const InteractiveMap3D = ({ data }) => {
 
   const enhanceDepthPerception = () => {
     // Add stronger fog for depth perception
-    if (CONSTANTS.FOG.enabled) {
+    // Only add fog if we don't have a transparent background
+    if (CONSTANTS.FOG.enabled && !transparentBackground) {
       const fogColor = new THREE.Color(CONSTANTS.FOG.color);
       scene.fog = new THREE.FogExp2(fogColor, CONSTANTS.FOG.density);
     }
@@ -352,9 +438,20 @@ const InteractiveMap3D = ({ data }) => {
     primaryColor = cssColorToHex(primaryColor);
     complementaryColor = cssColorToHex(complementaryColor);
 
-    // Create scene with primary color as background
+    // Create scene with appropriate background
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(primaryColor);
+
+    // Check for transparent background first
+    if (transparentBackground) {
+      // Set background to null for transparency
+      scene.background = null;
+    } else if (backgroundColor) {
+      // Use provided backgroundColor if available
+      scene.background = new THREE.Color(cssColorToHex(backgroundColor));
+    } else {
+      // Default to primaryColor
+      scene.background = new THREE.Color(primaryColor);
+    }
 
     const hemisphereLight = new THREE.HemisphereLight(
       0xffffff, // Sky color
@@ -373,8 +470,8 @@ const InteractiveMap3D = ({ data }) => {
     // Create camera, either new or restored
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
 
-    // Calculate optimal distance for initial setup
-    const optimalDistance = calculateOptimalCameraDistance();
+    // Calculate optimal distance or use provided initialZoom
+    const optimalDistance = initialZoom || calculateOptimalCameraDistance();
     distanceRef.current = optimalDistance;
 
     // Use stored position but with optimal distance if starting fresh
@@ -402,8 +499,11 @@ const InteractiveMap3D = ({ data }) => {
     camera.lookAt(0, 0, 0);
     cameraRef.current = camera;
 
-    // Create renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    // Create renderer with alpha option for transparency if needed
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: transparentBackground, // Enable alpha channel for transparent background
+    });
     renderer.setSize(width, height);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -662,6 +762,11 @@ const InteractiveMap3D = ({ data }) => {
     };
 
     const handleMouseMove = (e) => {
+      // Always update the mouse position for hover detection
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse2DRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse2DRef.current.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
       if (isDraggingRef.current) {
         // Calculate movement delta
         const deltaX = e.clientX - previousMousePositionRef.current.x;
@@ -741,11 +846,8 @@ const InteractiveMap3D = ({ data }) => {
       // Calculate new distance
       let newDistance = distanceRef.current + zoomDelta;
 
-      // Apply constraints
-      newDistance = Math.max(
-        CONSTANTS.CAMERA.MIN_DISTANCE,
-        Math.min(CONSTANTS.CAMERA.MAX_DISTANCE, newDistance)
-      );
+      // Apply constraints (use props values if provided)
+      newDistance = Math.max(minZoom, Math.min(maxZoom, newDistance));
 
       // Update camera position
       const direction = camera.position.clone().normalize();
@@ -846,27 +948,77 @@ const InteractiveMap3D = ({ data }) => {
         );
       }
 
-      // Update planet positions - only if animation not paused
+      // Handle planet hover detection and update positions
       if (!isPlanetAnimationPausedRef.current) {
+        // Update raycaster for hover detection
+        if (cameraRef.current) {
+          raycasterRef.current.setFromCamera(
+            mouse2DRef.current,
+            cameraRef.current
+          );
+          const intersects = raycasterRef.current.intersectObjects(
+            planetsRef.current.map((p) => p.mesh)
+          );
+
+          // Track which planets are being hovered
+          planetsRef.current.forEach((planet) => {
+            const wasHovered = planet.isHovered;
+            // Check if this planet is currently being hovered
+            const isHovered =
+              intersects.length > 0 &&
+              intersects[0].object.uuid === planet.mesh.uuid;
+
+            // Update hover state
+            planet.isHovered = isHovered;
+
+            // Trigger hover animation if state changed - make it snappier
+            if (isHovered && !wasHovered && pulse) {
+              // Use a short duration for hover effect (300ms)
+              triggerPlanetGlow(planet, 300);
+            }
+          });
+        }
+
+        // Update planet positions with stable orbital motion
         planetsRef.current.forEach((planet) => {
           if (!planet.isSpringing && !isPlanetAnimationPausedRef.current) {
-            // Compute elapsed time (in seconds) since the spring animation ended.
-            const elapsedSinceSpring =
-              (performance.now() - planet.springEndTime) / 1000;
-            // Use the planet's rotation speed to compute the additional rotation angle.
-            const rotationAngle =
-              planet.rotationSpeed * 0.1 * elapsedSinceSpring;
-            // Apply rotation around the y-axis.
-            const rotationMatrix = new THREE.Matrix4().makeRotationY(
-              rotationAngle
-            );
+            // Using actual time for consistent speed
+            const currentTime = performance.now() / 1000;
+
+            // Ensure we have initialAngle and orbitRadius from animation phase
+            // These should already be set by animatePlanet but double-check
+            if (
+              planet.initialAngle === undefined ||
+              planet.orbitRadius === undefined
+            ) {
+              const currentPos = planet.mesh.position;
+              planet.orbitRadius = Math.sqrt(
+                currentPos.x * currentPos.x + currentPos.z * currentPos.z
+              );
+              planet.initialAngle = Math.atan2(currentPos.z, currentPos.x);
+            }
+
+            // Use the springEndTime as the beginning of the orbit
+            // This ensures consistent motion and prevents jitter
+            const orbitStartTime = planet.springEndTime / 1000;
+            const orbitElapsedTime = currentTime - orbitStartTime;
+
+            // Calculate angle based on elapsed time since spring animation ended
+            // Keep the initial angle consistent to prevent jumps
+            const rotationAngle = orbitElapsedTime * planet.rotationSpeed * 0.1;
+            const angle = planet.initialAngle + rotationAngle;
+
+            // Calculate new position using exact trig functions
+            // Use the stored orbit radius for consistency
             const newPosition = new THREE.Vector3(
-              planet.initialPosition.x,
-              planet.initialPosition.y,
-              planet.initialPosition.z
-            ).applyMatrix4(rotationMatrix);
+              Math.cos(angle) * planet.orbitRadius,
+              planet.initialPosition.y, // maintain y position
+              Math.sin(angle) * planet.orbitRadius
+            );
+
             planet.mesh.position.copy(newPosition);
-            // Update the line to follow the planet.
+
+            // Update the line to follow the planet
             planet.tube.geometry.setFromPoints([
               new THREE.Vector3(0, 0, 0),
               newPosition,
@@ -882,9 +1034,15 @@ const InteractiveMap3D = ({ data }) => {
     // Start animation loop
     animate();
 
-    // Return cleanup function for window resize
+    // Return cleanup function for window resize and pulse timer
     return () => {
       window.removeEventListener("resize", handleResize);
+
+      // Clear pulse timer if it exists
+      if (pulseTimerRef.current) {
+        clearInterval(pulseTimerRef.current);
+        pulseTimerRef.current = null;
+      }
     };
   };
 
@@ -1053,65 +1211,77 @@ const InteractiveMap3D = ({ data }) => {
       requestAnimationFrame(animatePulse);
     };
 
-    // Helper: Trigger a glow effect on the planet.
-    const triggerPlanetGlow = (planetObj) => {
-      const material = planetObj.mesh.material;
-      const originalColor = material.color.clone();
-      let brandColor = getCssVariableValue("--brand-color");
-      brandColor = new THREE.Color(cssColorToHex(brandColor));
-      const glowDuration = 1000; // 1 second glow effect.
-      const startTime = performance.now();
-
-      const animateGlow = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        let t = Math.min(elapsed / glowDuration, 1);
-        let factor = t < 0.5 ? t / 0.5 : (1 - t) / 0.5;
-        material.emissive = brandColor.clone().multiplyScalar(factor);
-        material.color.lerpColors(originalColor, brandColor, factor * 0.3);
-        if (elapsed < glowDuration) {
-          requestAnimationFrame(animateGlow);
-        } else {
-          material.emissive.set(0x000000);
-          material.color.copy(originalColor);
-        }
-      };
-      requestAnimationFrame(animateGlow);
-    };
-
     // Animate a planet from the star's center (0,0,0) to its target position.
     const animatePlanet = (planetObj, delay = 0) => {
       setTimeout(() => {
         const startTime = performance.now();
         // Reduce duration from 2000ms to 800ms for faster movement
         const duration = 800;
+
+        // Calculate orbit parameters once to ensure consistency
+        if (!planetObj.initialAngle) {
+          // Convert cartesian to polar coordinates for smooth orbital motion
+          const radius = Math.sqrt(
+            planetObj.initialPosition.x * planetObj.initialPosition.x +
+              planetObj.initialPosition.z * planetObj.initialPosition.z
+          );
+          const angle = Math.atan2(
+            planetObj.initialPosition.z,
+            planetObj.initialPosition.x
+          );
+
+          // Store these values for consistent orbit
+          planetObj.orbitRadius = radius;
+          planetObj.initialAngle = angle;
+
+          // We'll use these values throughout the component's lifecycle
+          // to ensure smooth transition between animation phases
+        }
+
         const animate = (currentTime) => {
           const elapsed = currentTime - startTime;
           let t = Math.min(elapsed / duration, 1);
           // Keep original easing but accelerate the expansion
           t = easeOutCubic(t);
+
+          // Position using the radius and angle to ensure consistent positioning
+          // This prevents the jitter when transitioning to orbital motion
+          const radius = planetObj.orbitRadius * t;
+          const angle = planetObj.initialAngle;
+
           planetObj.mesh.position.set(
-            planetObj.initialPosition.x * t,
+            Math.cos(angle) * radius,
             planetObj.initialPosition.y * t,
-            planetObj.initialPosition.z * t
+            Math.sin(angle) * radius
           );
+
           planetObj.tube.geometry.setFromPoints([
             new THREE.Vector3(0, 0, 0),
             planetObj.mesh.position.clone(),
           ]);
+
           if (elapsed < duration) {
             requestAnimationFrame(animate);
           } else {
+            // When animation completes, set the final position using the same
+            // orbital calculation method to maintain consistency
             planetObj.mesh.position.set(
-              planetObj.initialPosition.x,
+              Math.cos(angle) * planetObj.orbitRadius,
               planetObj.initialPosition.y,
-              planetObj.initialPosition.z
+              Math.sin(angle) * planetObj.orbitRadius
             );
+
+            // Note the time when animation ended
             planetObj.isSpringing = false;
             planetObj.springEndTime = performance.now();
+
+            // Start orbital motion using consistent speed and parameters
+            // The rotation will now smoothly continue from this point
+
             triggerPulse(planetObj);
             setTimeout(() => {
-              triggerPlanetGlow(planetObj);
-            }, 500); // Reduced from 1000ms
+              triggerPlanetGlow(planetObj, 600); // Slightly longer final glow
+            }, 300); // Reduced delay
           }
         };
         requestAnimationFrame(animate);
@@ -1120,6 +1290,43 @@ const InteractiveMap3D = ({ data }) => {
 
     // Determine number of planets and data source
     const planetCount = data ? data.length : CONSTANTS.PLANET_COUNT;
+
+    // Setup random pulse effect if enabled
+    const setupPulseEffect = () => {
+      if (!pulse || !planetsRef.current || planetsRef.current.length === 0)
+        return;
+
+      // Clear existing timer if any
+      if (pulseTimerRef.current) {
+        clearInterval(pulseTimerRef.current);
+      }
+
+      // Set up a timer to randomly pulse planets
+      pulseTimerRef.current = setInterval(() => {
+        if (!planetsRef.current || isPlanetAnimationPausedRef.current) return;
+
+        // Randomly choose 1-3 planets to pulse
+        const pulsesCount = 1 + Math.floor(Math.random() * 3);
+        const planetsToGlow = [];
+
+        // Get random planets
+        for (let i = 0; i < pulsesCount; i++) {
+          const randomIndex = Math.floor(
+            Math.random() * planetsRef.current.length
+          );
+          if (!planetsToGlow.includes(planetsRef.current[randomIndex])) {
+            planetsToGlow.push(planetsRef.current[randomIndex]);
+          }
+        }
+
+        // Trigger pulse on selected planets
+        planetsToGlow.forEach((planet) => {
+          // Random duration between 500ms and 1500ms for variation
+          const randomDuration = 500 + Math.random() * 1000;
+          triggerPlanetGlow(planet, randomDuration);
+        });
+      }, 2000); // Check for new pulses every 2 seconds
+    };
 
     // Create each planet
     for (let i = 0; i < planetCount; i++) {
@@ -1319,7 +1526,7 @@ const InteractiveMap3D = ({ data }) => {
       const rotationSpeed =
         isUsingProvidedData && data[i].rotationSpeed
           ? parseFloat(data[i].rotationSpeed)
-          : 0.1 + (i / planetCount) * 0.2;
+          : 0.2; // Constant speed for all planets
 
       const planetObj = {
         mesh: planet,
@@ -1344,6 +1551,11 @@ const InteractiveMap3D = ({ data }) => {
     });
 
     planetsRef.current = planets;
+
+    // Start the pulse effect if enabled
+    if (pulse) {
+      setupPulseEffect();
+    }
   };
 
   // CSS variable change observer effect
@@ -1364,7 +1576,7 @@ const InteractiveMap3D = ({ data }) => {
         });
 
         if (needsUpdate && sceneRef.current) {
-          // Re-render the scene with new colors
+          // Get the current colors
           const primaryColor = cssColorToHex(
             getCssVariableValue("--primary-color")
           );
@@ -1372,8 +1584,16 @@ const InteractiveMap3D = ({ data }) => {
             getCssVariableValue("--complementary-color")
           );
 
-          // Update scene background
-          sceneRef.current.background = new THREE.Color(primaryColor);
+          // Update scene background - respect transparency first, then custom background
+          if (transparentBackground) {
+            sceneRef.current.background = null;
+          } else if (backgroundColor) {
+            sceneRef.current.background = new THREE.Color(
+              cssColorToHex(backgroundColor)
+            );
+          } else {
+            sceneRef.current.background = new THREE.Color(primaryColor);
+          }
 
           // Update all objects with complementary color
           if (starRef.current) {
@@ -1405,9 +1625,9 @@ const InteractiveMap3D = ({ data }) => {
     return () => {
       cssObserver.disconnect();
     };
-  }, []);
+  }, [backgroundColor, transparentBackground]); // Add dependencies
 
-  // Initial setup effect - recreate scene when data prop changes
+  // Initial setup effect - recreate scene when relevant props change
   useEffect(() => {
     setupScene();
 
@@ -1415,8 +1635,24 @@ const InteractiveMap3D = ({ data }) => {
     return () => {
       console.log("unmount");
       cleanupThreeJS();
+
+      // Clean up pulse timer
+      if (pulseTimerRef.current) {
+        clearInterval(pulseTimerRef.current);
+        pulseTimerRef.current = null;
+      }
     };
-  }, [data]); // Add data as a dependency to recreate scene when data changes
+  }, [
+    data,
+    backgroundColor,
+    transparentBackground,
+    pulse,
+    pulseColor,
+    pulseDuration,
+    initialZoom,
+    minZoom,
+    maxZoom,
+  ]); // Add all relevant props to dependency array
 
   // Theme change effect - recreate scene completely
   useEffect(() => {
@@ -1430,7 +1666,7 @@ const InteractiveMap3D = ({ data }) => {
 
     // Create new scene with updated theme
     setupScene();
-  }, [isDarkTheme]);
+  }, [isDarkTheme, backgroundColor, transparentBackground]); // Add all relevant props to dependency array
 
   const animateCameraReset = () => {
     if (!inspectedPlanetRef.current) return;
@@ -1556,17 +1792,20 @@ const InteractiveMap3D = ({ data }) => {
 
     const handleClose = (e) => {
       e.stopPropagation();
-      setShowModal(false);
-      animateCameraReset();
-    };
 
-    // Style for corner drag handles.
-    const dragHandleStyle = {
-      width: "20px",
-      height: "20px",
-      position: "absolute",
-      cursor: "grab",
-      zIndex: 1010,
+      // Add exit animation
+      if (modalRef.current) {
+        modalRef.current.style.opacity = "0";
+        modalRef.current.style.transform = "scale(0.95) translateY(10px)";
+
+        setTimeout(() => {
+          setShowModal(false);
+          animateCameraReset();
+        }, 200);
+      } else {
+        setShowModal(false);
+        animateCameraReset();
+      }
     };
 
     // Render planet properties dynamically based on available data
@@ -1660,94 +1899,54 @@ const InteractiveMap3D = ({ data }) => {
           left: "var(--padding-s)",
           top: "50%",
           transform: "translateY(-50%)",
-          width: "300px",
-          background: "rgba(20, 20, 25, 0.8)", // Slightly less transparent for less glass effect
-          border: "1px solid rgba(255, 255, 255, 0.18)",
-          backdropFilter: "blur(15px)", // Slightly reduced blur
-          boxShadow: "0 8px 32px rgba(31, 38, 135, 0.1)", // Softer box shadow
-          borderRadius: "12px",
-          zIndex: 1000,
-          padding: "20px",
-          color: "white",
-          overflowY: "auto",
-          position: "absolute",
-          touchAction: "none",
         }}
       >
         {/* Header is draggable */}
         <div
           className={styles.modalHeader}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "15px",
-            borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
-            paddingBottom: "10px",
-            cursor: "grab",
-          }}
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
         >
-          <h3
-            className={styles.modalTitle}
-            style={{
-              margin: 0,
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-            }}
-          >
-            {modalInfo.data.name}
-          </h3>
+          <h3 className={styles.modalTitle}>{modalInfo.data.name}</h3>
           <button
             onClick={handleClose}
             className={styles.modalClose}
-            style={{
-              background: "none",
-              border: "none",
-              color: "white",
-              fontSize: "1.5rem",
-              cursor: "pointer",
-              padding: "0 8px",
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "32px",
-              height: "32px",
-              transition: "background 0.3s",
-            }}
+            aria-label="Close modal"
           >
             ×
           </button>
         </div>
 
         <div className={styles.modalContent}>
-          <p style={{ marginBottom: "10px" }}>
+          <p>
             <strong>Orbit:</strong> {modalInfo.data.orbit} units
           </p>
-          <p style={{ lineHeight: "1.5" }}>{modalInfo.data.details}</p>
+          <p>{modalInfo.data.details}</p>
           {renderPlanetProperties()}
         </div>
 
         {/* Corner drag handles */}
         <div
-          style={{ ...dragHandleStyle, top: 0, left: 0 }}
+          className={styles.dragHandle}
+          style={{ top: 0, left: 0 }}
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
         />
         <div
-          style={{ ...dragHandleStyle, top: 0, right: 0 }}
+          className={styles.dragHandle}
+          style={{ top: 0, right: 0 }}
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
         />
         <div
-          style={{ ...dragHandleStyle, bottom: 0, left: 0 }}
+          className={styles.dragHandle}
+          style={{ bottom: 0, left: 0 }}
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
         />
         <div
-          style={{ ...dragHandleStyle, bottom: 0, right: 0 }}
+          className={styles.dragHandle}
+          style={{ bottom: 0, right: 0 }}
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
         />

@@ -19,58 +19,97 @@
 /* Modal styles */
 .modal {
   position: absolute;
-  background-color: white;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+  z-index: 1000;
   max-height: 400px;
-  max-width: 300px;
-  position: absolute;
-  background-color: var(--primary-color);
+  max-width: 350px; /* Increased from 300px */
+  width: auto;
+  padding: var(--padding-m);
+  border-radius: var(--br-m);
+  
+  /* Glass effect */
+  background: rgba(20, 20, 25, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  
+  /* Animation */
+  animation: modalFadeIn 0.3s ease-out;
+  transform-origin: center center;
+  transition: all 0.3s ease;
+  
+  color: var(--text-color);
+  overflow: hidden;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .modalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: var(--gap-m);
+  padding-bottom: var(--padding-s);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: grab;
 }
 
 .modalTitle {
-  font-size: 18px;
+  font-size: var(--font-l);
   font-weight: bold;
   margin: 0;
+  color: var(--complementary-color);
+  user-select: none;
+}
+
+:global([data-theme="dark"]) .modalTitle {
   color: var(--text-color);
 }
 
 .modalClose {
-  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
   border: none;
+  border-radius: 50%;
   cursor: pointer;
   font-size: 20px;
-  color: #718096;
+  color: var(--text-color);
+  transition: all 0.2s ease;
 }
 
 .modalClose:hover {
-  color: #4a5568;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
 }
 
-:global([data-theme="dark"]) .modalClose {
-  color: #a0aec0;
-}
-
-:global([data-theme="dark"]) .modalClose:hover {
-  color: #cbd5e0;
+.modalClose:active {
+  transform: scale(0.95);
 }
 
 .modalContent {
   font-size: var(--font-s);
   color: var(--text-color);
+  overflow-y: auto;
+  max-height: 320px;
+  padding-right: var(--padding-s);
 }
 
 .modalContent p {
-  margin: 6px 0;
+  margin: var(--gap-s) 0;
+  line-height: 1.5;
 }
 
 .modal:hover {
@@ -78,5 +117,43 @@
 }
 
 .modal:active {
+  cursor: grabbing;
+}
+
+/* Planet glow animation */
+@keyframes planetGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--brand-color-rgb), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--brand-color-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--brand-color-rgb), 0);
+  }
+}
+
+/* Draggable corners */
+.dragHandle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.modal:hover .dragHandle {
+  opacity: 1;
+}
+
+.dragHandle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  cursor: grab;
+}
+
+.dragHandle:active {
   cursor: grabbing;
 }

@@ -5,6 +5,9 @@ import Image from "next/image";
 import styles from "./home.module.css";
 import { useSearch } from "@/app/context/SearchContext";
 import { SearchIndicator } from "@/components/SearchTrigger";
+import GlassNavbar from "@/components/GlassNavbar";
+import InteractiveMap3D from "@/components/InteractiveMap3D";
+import json from "../dashboard/overview/GCSE_Math_Spec.json";
 import {
   ArrowRight,
   CheckCircle,
@@ -40,62 +43,44 @@ export default function Home() {
   const testimonialsRef = useRef(null);
   const ctaRef = useRef(null);
 
-  // Parallax effect on scroll
+  // Parallax effect on scroll with debounce for better performance
   useEffect(() => {
+    let scrollTimeout;
+
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      // Clear the timeout if it exists
+      if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+      }
+
+      // Schedule the scroll update with requestAnimationFrame
+      scrollTimeout = window.requestAnimationFrame(() => {
+        setScrollY(window.scrollY);
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
+      }
+    };
   }, []);
 
-  // Animate in elements on page load
+  // Simple state setup without animations
   useEffect(() => {
     setIsVisible(true);
 
-    // Observer for scroll animations
-    // Observer for scroll animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Fix: Add the correct class name from your CSS
-            entry.target.classList.add(styles.visible);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = document.querySelectorAll(`.${styles.animateOnScroll}`);
-    elements.forEach((el) => observer.observe(el));
-
-    // Animated counter for statistics
-    const targetStats = { students: 25000, questions: 50000, subjects: 15 };
-    const duration = 2000; // 2 seconds
-    const frameRate = 60; // frames per second
-    const frames = duration / (1000 / frameRate);
-    let frame = 0;
-
-    const interval = setInterval(() => {
-      frame++;
-      const progress = frame / frames;
-
-      if (frame <= frames) {
-        setCountStats({
-          students: Math.floor(targetStats.students * progress),
-          questions: Math.floor(targetStats.questions * progress),
-          subjects: Math.floor(targetStats.subjects * progress),
-        });
-      } else {
-        clearInterval(interval);
-      }
-    }, 1000 / frameRate);
+    // Set statistics immediately without animation
+    setCountStats({
+      students: 25000,
+      questions: 50000,
+      subjects: 15,
+    });
 
     return () => {
-      clearInterval(interval);
-      elements.forEach((el) => observer.unobserve(el));
+      // No cleanup needed
     };
   }, []);
 
@@ -194,29 +179,33 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
+      <GlassNavbar />
       <div className={styles.backgroundElements}>
         <div
           className={`${styles.sphere} ${styles.sphere1}`}
           style={{
-            transform: `translate3d(${scrollY * 0.05}px, ${
-              -scrollY * 0.03
+            transform: `translate3d(${scrollY * 0.03}px, ${
+              -scrollY * 0.02
             }px, 0)`,
+            willChange: "transform",
           }}
         ></div>
         <div
           className={`${styles.sphere} ${styles.sphere2}`}
           style={{
-            transform: `translate3d(${-scrollY * 0.07}px, ${
-              scrollY * 0.04
+            transform: `translate3d(${-scrollY * 0.04}px, ${
+              scrollY * 0.02
             }px, 0)`,
+            willChange: "transform",
           }}
         ></div>
         <div
           className={`${styles.sphere} ${styles.sphere3}`}
           style={{
-            transform: `translate3d(${scrollY * 0.09}px, ${
-              scrollY * 0.02
+            transform: `translate3d(${scrollY * 0.05}px, ${
+              scrollY * 0.01
             }px, 0)`,
+            willChange: "transform",
           }}
         ></div>
         <div className={styles.grid}></div>
@@ -232,14 +221,14 @@ export default function Home() {
           </div>
 
           <h1 className={styles.heroTitle}>
-            Master Your <span className={styles.highlight}>GCSEs</span> with
-            Advanced AI <span className={styles.highlight}>Simulation</span>
+            The <span className={styles.highlight}>all-in-one</span> revision
+            platform
           </h1>
 
           <p className={styles.heroSubtitle}>
-            The ultimate platform for GCSE success, using AI-powered analytics
-            and personalized study plans to maximize your grades and build
-            confidence.
+            The ultimate platform for GCSE and A Level success, our simulator contains every resource you need to ace your exams.
+            Revision notes, past papers, infinite skill practice, advanced AI-powered progress tracking, your own personal AI tutor.
+            All included with the simulator.
           </p>
 
           <div className={styles.heroCta}>
@@ -267,101 +256,23 @@ export default function Home() {
         </div>
 
         <div className={styles.heroVisual}>
-          <div className={styles.glassCard}>
-            <div className={styles.glassCardHeader}>
-              <div className={styles.subjectLabel}>Your Subjects</div>
-              <div className={styles.viewAllLink}>View all</div>
-            </div>
-
-            <div className={styles.gradesGrid}>
-              {subjects.slice(0, 6).map((subject, index) => (
-                <div
-                  key={index}
-                  className={styles.gradeCard}
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className={styles.subjectName}>{subject.name}</div>
-                  <div
-                    className={`${styles.gradeLabel} ${
-                      styles[`grade${subject.grade.replace("*", "Star")}`]
-                    }`}
-                  >
-                    {subject.grade}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.progressRing}>
-              <svg width="120" height="120" viewBox="0 0 120 120">
-                <circle
-                  className={styles.progressBackground}
-                  cx="60"
-                  cy="60"
-                  r="54"
-                  strokeDasharray="339.29"
-                  strokeDashoffset="0"
-                />
-                <circle
-                  className={styles.progressValue}
-                  cx="60"
-                  cy="60"
-                  r="54"
-                  strokeDasharray="339.29"
-                  strokeDashoffset="84.82" // 339.29 * 0.25 = 84.82 (75% completion)
-                />
-              </svg>
-              <div className={styles.progressContent}>
-                <div className={styles.progressPercentage}>
-                  75<span>%</span>
-                </div>
-                <div className={styles.progressLabel}>
-                  Overall
-                  <br />
-                  Progress
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.floatingChart}>
-            <div className={styles.chartHeader}>Weekly Progress</div>
-            <div className={styles.chartBars}>
-              <div className={styles.chartBar} style={{ height: "45%" }}>
-                <span className={styles.tooltip}>Mon</span>
-              </div>
-              <div className={styles.chartBar} style={{ height: "65%" }}>
-                <span className={styles.tooltip}>Tue</span>
-              </div>
-              <div className={styles.chartBar} style={{ height: "55%" }}>
-                <span className={styles.tooltip}>Wed</span>
-              </div>
-              <div className={styles.chartBar} style={{ height: "80%" }}>
-                <span className={styles.tooltip}>Thu</span>
-              </div>
-              <div className={styles.chartBar} style={{ height: "70%" }}>
-                <span className={styles.tooltip}>Fri</span>
-              </div>
-              <div className={styles.chartBar} style={{ height: "40%" }}>
-                <span className={styles.tooltip}>Sat</span>
-              </div>
-              <div className={styles.chartBar} style={{ height: "30%" }}>
-                <span className={styles.tooltip}>Sun</span>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.floatingBadge}>
-            <Award className={styles.badgeIcon} />
-            <div className={styles.badgeText}>Top 5% in Mathematics</div>
-          </div>
+          <InteractiveMap3D
+            data={json}
+            transparentBackground={true}
+            pulse={true}
+            pulseColor="var(--brand-color)"
+            pulseDuration={1500}
+            initialZoom={40}
+            minZoom={8}
+            maxZoom={50}
+            rotationAxisX={45}
+            rotationAxisY={45}
+            rotationAxisZ={45}
+          />
         </div>
       </section>
 
-      <section
-        ref={statsRef}
-        className={`${styles.statsSection} ${styles.animateOnScroll}`}
-      >
+      <section ref={statsRef} className={styles.statsSection}>
         <div className={styles.statCard}>
           <div className={styles.statIcon}>
             <Users size={24} />
@@ -398,9 +309,7 @@ export default function Home() {
       </section>
 
       {/* How it Works Section */}
-      <section
-        className={`${styles.howItWorksSection} ${styles.animateOnScroll}`}
-      >
+      <section className={styles.howItWorksSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>How GCSE Simulator Works</h2>
           <p className={styles.sectionSubtitle}>
@@ -475,10 +384,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section
-        ref={featuresRef}
-        className={`${styles.featuresSection} ${styles.animateOnScroll}`}
-      >
+      <section ref={featuresRef} className={styles.featuresSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
             Tools Designed for GCSE Success
@@ -758,10 +664,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section
-        ref={testimonialsRef}
-        className={`${styles.testimonialsSection} ${styles.animateOnScroll}`}
-      >
+      <section ref={testimonialsRef} className={styles.testimonialsSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Success Stories</h2>
           <p className={styles.sectionSubtitle}>
@@ -851,10 +754,7 @@ export default function Home() {
       </section>
 
       {/* Call to Action Section */}
-      <section
-        ref={ctaRef}
-        className={`${styles.ctaSection} ${styles.animateOnScroll}`}
-      >
+      <section ref={ctaRef} className={styles.ctaSection}>
         <div className={styles.ctaGlass}>
           <h2 className={styles.ctaTitle}>
             Ready to Achieve Your Target Grades?
