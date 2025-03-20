@@ -8,6 +8,7 @@ import {
   signIn,
   autoSignIn,
   fetchAuthSession,
+  signInWithRedirect,
 } from "aws-amplify/auth";
 import { useAmplify } from "../Providers";
 import Modal from "../../components/Modal";
@@ -33,6 +34,54 @@ export default function SignUp() {
   const [authCheckComplete, setAuthCheckComplete] = useState(false);
   const router = useRouter();
   const { checkAuthState, amplifyConfig } = useAmplify();
+  
+  // Handler for Google Sign In/Sign Up
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      // Using signInWithRedirect for Google OAuth
+      await signInWithRedirect({ 
+        provider: 'Google',
+        options: {
+          redirectSignIn: [
+            'http://localhost:3000/auth-callback',
+            'https://gcsesimulator.co.uk/auth-callback'
+          ]
+        }
+      });
+      // Code below won't execute immediately due to redirect
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError(err.message || "Failed to sign in with Google. Please try again.");
+      setIsLoading(false);
+    }
+  };
+
+  // Handler for Apple Sign In/Sign Up
+  const handleAppleSignIn = async () => {
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      // Using signInWithRedirect for Apple OAuth
+      await signInWithRedirect({ 
+        provider: 'Apple',
+        options: {
+          redirectSignIn: [
+            'http://localhost:3000/auth-callback',
+            'https://gcsesimulator.co.uk/auth-callback'
+          ]
+        }
+      });
+      // Code below won't execute immediately due to redirect
+    } catch (err) {
+      console.error("Apple sign-in error:", err);
+      setError(err.message || "Failed to sign in with Apple. Please try again.");
+      setIsLoading(false);
+    }
+  };
 
   // Check for existing authentication on component mount
   useEffect(() => {
@@ -402,6 +451,31 @@ export default function SignUp() {
           >
             {isLoading ? "Signing up..." : "Sign up"}
           </button>
+
+          <div className={styles.divider}>
+            <span>Or sign up with</span>
+          </div>
+
+          <div className={styles.socialButtons}>
+            <button 
+              type="button" 
+              className={styles.googleButton}
+              onClick={handleGoogleSignIn}
+              disabled={isLoading}
+            >
+              <span className={styles.googleIcon}>G</span>
+              Google
+            </button>
+            <button 
+              type="button" 
+              className={styles.appleButton} 
+              onClick={handleAppleSignIn}
+              disabled={isLoading}
+            >
+              <span className={styles.appleIcon}>A</span>
+              Apple
+            </button>
+          </div>
 
           <p className={styles.termsText}>
             By continuing, you acknowledge that you understand the Terms &

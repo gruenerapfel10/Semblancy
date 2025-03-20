@@ -12,12 +12,17 @@ import {
   faNewspaper, 
   faEnvelope, 
   faHandshake, 
-  faSignInAlt 
+  faSignInAlt,
+  faSignOutAlt,
+  faTachometerAlt
 } from '@fortawesome/free-solid-svg-icons';
+import { useAmplify } from "../app/Providers";
+import LogoutButton from "./LogoutButton";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { isAuthenticated } = useAmplify();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -77,14 +82,25 @@ export default function Navbar() {
           >
             <button className={styles.getInTouchButton}>GET IN TOUCH</button>
           </Link>
-          <Link
-            href="/login"
-            className={`btn btn-secondary ${styles.btnLogin}`}
-          >
-            <button className={styles.prosembleLoginButton}>
-              PROSEMBLE LOGIN
-            </button>
-          </Link>
+          
+          {isAuthenticated ? (
+            <>
+              <Link href="/dashboard/overview" className={`btn btn-secondary ${styles.btnLogin}`}>
+                <button className={styles.prosembleLoginButton}>
+                  DASHBOARD
+                </button>
+              </Link>
+              <LogoutButton className={styles.prosembleLoginButton}>
+                LOGOUT
+              </LogoutButton>
+            </>
+          ) : (
+            <Link href="/login" className={`btn btn-secondary ${styles.btnLogin}`}>
+              <button className={styles.prosembleLoginButton}>
+                LOGIN
+              </button>
+            </Link>
+          )}
         </div>
         {/* Hamburger icon for mobile */}
         <button className={styles.hamburger} onClick={toggleMobileMenu}>
@@ -145,11 +161,28 @@ export default function Navbar() {
               GET IN TOUCH
             </button>
           </Link>
-          <Link href="/login">
-            <button className={styles.prosembleLoginButtonMobile}>
-              PROSEMBLE LOGIN
-            </button>
-          </Link>
+          
+          {isAuthenticated ? (
+            <>
+              <Link href="/dashboard/overview" onClick={() => setIsMobileMenuOpen(false)}>
+                <button className={styles.prosembleLoginButtonMobile}>
+                  <FontAwesomeIcon icon={faTachometerAlt} className={styles.navIcon} />{" "}
+                  DASHBOARD
+                </button>
+              </Link>
+              <LogoutButton className={styles.prosembleLoginButtonMobile}>
+                <FontAwesomeIcon icon={faSignOutAlt} className={styles.navIcon} />{" "}
+                LOGOUT
+              </LogoutButton>
+            </>
+          ) : (
+            <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
+              <button className={styles.prosembleLoginButtonMobile}>
+                <FontAwesomeIcon icon={faSignInAlt} className={styles.navIcon} />{" "}
+                LOGIN
+              </button>
+            </Link>
+          )}
         </div>
       )}
     </nav>

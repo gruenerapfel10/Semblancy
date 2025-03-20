@@ -38,7 +38,7 @@ const devConfig = {
               "44207520238-6p3noq35todiifhqeqpsshg953snehqh.apps.googleusercontent.com",
             scopes: ["openid", "email", "profile"],
           },
-          signInWithApple: {
+          apple: {
             clientId: "com.yarkeylimited.gcsesimulator",
             scopes: ["email", "name"],
           },
@@ -52,8 +52,13 @@ const devConfig = {
             "profile",
             "aws.cognito.signin.user.admin",
           ],
-          redirectSignIn: ["http://localhost:3000"],
-          redirectSignOut: ["https://localhost:3000/login"],
+          redirectSignIn: [
+            'http://localhost:3000/login',
+            'https://eu-west-2lhtoxseqh.auth.eu-west-2.amazoncognito.com/oauth2/idpresponse',
+          ],
+          // Important: We're handling redirect manually in the app,
+          // so don't include a redirectSignOut URL to prevent Cognito's automatic redirect
+          redirectSignOut: [],
           responseType: "code",
         },
       },
@@ -76,9 +81,40 @@ const prodConfig = {
       userPoolId: "eu-west-1_eyDmaqzdy",
       userPoolClientId: "2b2gjm8b43s6admu7k6tv9h861",
       identityPoolId: "eu-west-1:d0f61e5e-9b11-4739-9688-aafe68705fe2",
-      region: "us-east-1",
+      region: "eu-west-1",
       loginWith: {
         email: true,
+        externalProviders: {
+          google: {
+            clientId:
+              "44207520238-6p3noq35todiifhqeqpsshg953snehqh.apps.googleusercontent.com",
+            scopes: ["openid", "email", "profile"],
+          },
+          apple: {
+            clientId: "com.yarkeylimited.gcsesimulator",
+            scopes: ["email", "name"],
+          },
+        },
+        oauth: {
+          domain: "auth.gcsesimulator.co.uk",
+          scopes: [
+            "openid",
+            "email",
+            "phone",
+            "profile",
+            "aws.cognito.signin.user.admin",
+          ],
+          redirectSignIn: [
+            "http://localhost:3000/dashboard/overview",
+            "https://gcsesimulator.co.uk/dashboard/overview",
+            "http://localhost:3000/auth-callback",
+            "https://gcsesimulator.co.uk/auth-callback"
+          ],
+          // Important: We're handling redirect manually in the app,
+          // so don't include a redirectSignOut URL to prevent Cognito's automatic redirect
+          redirectSignOut: [],
+          responseType: "code",
+        },
       },
     },
   },
@@ -745,10 +781,10 @@ export function AmplifyProvider({ children }) {
       setAuthState(newAuthState);
 
       // Create user folder if not exists
-      await ensureUserFolder(session.identityId, newAuthState);
+      // await ensureUserFolder(session.identityId, newAuthState);
 
       // Ensure user preferences exist
-      await ensureUserPreferences(session.identityId, newAuthState);
+      // await ensureUserPreferences(session.identityId, newAuthState);
 
       console.log(`Session active for user: ${currentUser.username}`);
     } catch (error) {
@@ -828,8 +864,20 @@ export function AmplifyProvider({ children }) {
   // Sign out and redirect to login
   const handleSignOut = async () => {
     try {
-      await signOut({ global: true });
+      // First clean up the local session state
       handleSessionCleanup();
+      
+      // Use signOut without redirect to prevent Cognito from redirecting to its hosted UI
+      await signOut({ 
+        global: true,
+        // Prevent automatic redirection by the Amplify library
+        options: {
+          // This tells Amplify to use the browser directly without redirection
+          browser: false
+        }
+      });
+      
+      // Manually redirect to login page after session cleanup
       router.push("/login");
     } catch (error) {
       console.error("Error signing out:", error);

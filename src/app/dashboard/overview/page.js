@@ -25,21 +25,6 @@ export default function OverviewPage() {
 
   const { user, isAuthenticated } = useAmplify();
 
-  const handleSubmit = async () => {
-    try {
-      // Show a loading toast
-      toast.info("Processing your request...");
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Success toast
-      toast.success("Your data has been saved successfully!", {
-        title: "Success",
-      });
-    } catch (err) {}
-  };
-
   // Simulate loading user data
   useEffect(() => {
     const loadUserData = async () => {
@@ -115,23 +100,7 @@ export default function OverviewPage() {
   }
 
   return (
-    <div className={styles.container} onClick={handleSubmit}>
-      {userData && (
-        <div className={styles.welcomeSection}>
-          <div className={`${styles.welcomeCard} glass-morphism`}>
-            <div className={styles.welcomeContent}>
-              <h2>Welcome back, {userData.name}</h2>
-              <p>
-                {userData.school} • {userData.year}
-              </p>
-              <div className={styles.userSubjects}>
-                <p>Enrolled subjects: {userData.subjectsEnrolled.join(", ")}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
+    <div className={styles.container}>
       {/* OmniSearch Bar */}
       <div className={styles.gridContainer}>
         <div className={styles.omniSearchSection}>

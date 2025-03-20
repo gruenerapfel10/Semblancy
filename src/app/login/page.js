@@ -1,362 +1,342 @@
 "use client";
-
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { signIn, confirmSignUp, signInWithRedirect } from "aws-amplify/auth";
+import React, { useState, useEffect } from "react";
 import { useAmplify } from "../Providers";
-import Modal from "../../components/Modal";
+import { signInWithRedirect } from "aws-amplify/auth";
+import { useRouter } from "next/navigation";
 import styles from "./login.module.css";
-import Image from "next/image";
 import Logo from "@/components/Logo";
 
-export default function Login() {
-  const [username, setUsername] = useState("");
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSigningIn, setIsSigningIn] = useState(false);
   const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [confirmationCode, setConfirmationCode] = useState("");
-  const [confirmError, setConfirmError] = useState("");
-  const [authCheckComplete, setAuthCheckComplete] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [isResetPassword, setIsResetPassword] = useState(false);
+  const [resetCode, setResetCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [resetStatus, setResetStatus] = useState({ step: "initial" });
+
+  const {
+    checkAuthState,
+    isAuthenticated,
+    initiatePasswordReset,
+    completePasswordReset,
+  } = useAmplify();
   const router = useRouter();
-  const { checkAuthState } = useAmplify();
 
   useEffect(() => {
-    if (authCheckComplete) return;
-
     const checkAuth = async () => {
-      try {
-        const isSignedIn = await checkAuthState();
-        
-        if (isSignedIn) {
-          console.log("User already authenticated, redirecting to dashboard");
-          router.push("/dashboard");
-          return;
-        }
-      } catch (error) {
-        console.error("Error checking authentication:", error);
-      } finally {
-        setAuthCheckComplete(true);
-        setIsLoading(false);
+      const isAuth = await checkAuthState();
+      if (isAuth) {
+        router.push("/dashboard/overview");
       }
     };
-    
+
     checkAuth();
+  }, [router, isAuthenticated]);
 
-    const params = new URLSearchParams(window.location.search);
-    const usernameParam = params.get("username");
-    if (usernameParam) {
-      setUsername(usernameParam);
-    }
-
-    if (params.get("signupSuccess")) {
-      setSuccessMessage("Account created successfully! Please log in.");
-    }
-
-    if (params.get("confirmSuccess")) {
-      setSuccessMessage("Account confirmed successfully! Please log in.");
-    }
-  }, []);
-
-  const handleLogin = async (e) => {
+  const handleEmailSignIn = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError("");
-    setSuccessMessage("");
+
+    if (!email || !password) {
+      setError("Please enter both email and password");
+      return;
+    }
 
     try {
-      const signInResult = await signIn({ username, password });
-      console.log("Sign in successful:", signInResult);
+      setIsSigningIn(true);
+      setError("");
 
-      if (
-        signInResult.nextStep &&
-        signInResult.nextStep.signInStep !== "DONE"
-      ) {
-        console.log("Additional steps required:", signInResult.nextStep);
+      const { signIn } = await import("aws-amplify/auth");
+      await signIn({ username: email, password });
 
-        if (
-          signInResult.nextStep.signInStep ===
-          "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD"
-        ) {
-          setError(
-            "You need to set a new password. Please contact an administrator."
-          );
-        } else if (signInResult.nextStep.signInStep === "CONFIRM_SIGN_UP") {
-          setError("Your account needs confirmation.");
-          setShowConfirmation(true);
-        } else {
-          setError(
-            `Additional authentication step required: ${signInResult.nextStep.signInStep}`
-          );
-        }
-        setIsLoading(false);
-        return;
-      }
+      // Dispatch event to notify navbar of auth state change
+      window.dispatchEvent(new Event("authStateChange"));
 
-      await checkAuthState();
-      sessionStorage.setItem("justLoggedIn", "true");
-      router.push("/dashboard");
+      // If sign-in is successful, redirect to dashboard
+      router.push("/dashboard/overview");
     } catch (err) {
-      console.error("Login error:", err);
-
-      if (err.name === "NotAuthorizedException") {
-        if (err.message.includes("User is not confirmed")) {
-          setError("Your account needs confirmation.");
-          setShowConfirmation(true);
-        } else if (err.message.includes("Incorrect username or password")) {
-          setError("Incorrect username or password. Please try again.");
-        } else {
-          setError("Authentication failed. Please check your credentials.");
-        }
-      } else if (err.name === "UserNotConfirmedException") {
-        setError("Your account needs confirmation.");
-        setShowConfirmation(true);
-      } else if (err.name === "UserNotFoundException") {
-        setError("Account not found. Please check your username or sign up.");
-      } else if (err.name === "LimitExceededException") {
-        setError("Too many attempts. Please try again later.");
-      } else if (err.name === "NetworkError") {
-        setError("Network error. Please check your connection and try again.");
-      } else {
-        setError(
-          err.message || "An error occurred during login. Please try again."
-        );
-      }
-
-      setIsLoading(false);
+      console.error("Error signing in:", err);
+      setError(
+        err.message || "Failed to sign in. Please check your credentials."
+      );
+    } finally {
+      setIsSigningIn(false);
     }
   };
 
   const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    setError("");
-    
     try {
-      // In Gen 2, we use a different format - the provider needs to be in lowercase
-      await signInWithRedirect({ 
-        provider: 'Google'  // lowercase is required in Gen 2
+      setIsSigningIn(true);
+      // Add prompt parameter to force account selection
+      await signInWithRedirect({
+        provider: "Google",
+        options: {
+          // This forces Google to show the account picker every time
+          prompt: "select_account",
+        },
       });
-      // Code below won't execute immediately due to redirect
-    } catch (err) {
-      console.error("Google sign-in error:", err);
-      setError(err.message || "Failed to sign in with Google. Please try again.");
-      setIsLoading(false);
+    } catch (error) {
+      console.error("Error with Google sign-in:", error);
+      setError(error.message || "Google sign-in failed");
+      setIsSigningIn(false);
     }
   };
 
   const handleAppleSignIn = async () => {
-    setIsLoading(true);
-    setError("");
-    
     try {
-      // In Gen 2, we use a different format - the provider needs to be in lowercase
-      await signInWithRedirect({ 
-        provider: 'Apple'  // lowercase is required in Gen 2
-      });
-      // Code below won't execute immediately due to redirect
-    } catch (err) {
-      console.error("Apple sign-in error:", err);
-      setError(err.message || "Failed to sign in with Apple. Please try again.");
-      setIsLoading(false);
+      setIsSigningIn(true);
+      await signInWithRedirect({ provider: "Apple" });
+    } catch (error) {
+      console.error("Error with Apple sign-in:", error);
+      setError(error.message || "Apple sign-in failed");
+      setIsSigningIn(false);
     }
   };
 
-  const handleConfirmation = async (e) => {
+  const handleForgotPassword = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setConfirmError("");
+
+    if (!email) {
+      setError("Please enter your email address");
+      return;
+    }
 
     try {
-      const result = await confirmSignUp({
-        username,
-        confirmationCode,
-      });
+      const result = await initiatePasswordReset(email);
 
-      if (result.isSignUpComplete) {
-        setSuccessMessage("Account confirmed successfully! Please log in.");
-        setShowConfirmation(false);
-        setConfirmationCode("");
-      }
-    } catch (err) {
-      console.error("Confirmation error:", err);
-
-      if (err.name === "CodeMismatchException") {
-        setConfirmError("Invalid code. Please try again.");
-      } else if (err.name === "ExpiredCodeException") {
-        setConfirmError("Code has expired. Please request a new one.");
-      } else if (err.name === "NetworkError") {
-        setConfirmError("Network error. Please check your connection.");
+      if (result.success) {
+        setResetStatus({
+          step: "code_sent",
+          delivery: result.delivery,
+        });
+        setIsResetPassword(true);
       } else {
-        setConfirmError(err.message || "Error confirming account");
+        setError(result.message || "Failed to initiate password reset");
       }
-    } finally {
-      setIsLoading(false);
+    } catch (error) {
+      console.error("Error initiating password reset:", error);
+      setError(error.message || "Failed to initiate password reset");
     }
   };
 
-  if (isLoading && !authCheckComplete) {
-    return (
-      <div className={styles.container}>
-        <div className={styles.spinner}></div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  const handleResetPassword = async (e) => {
+    e.preventDefault();
+
+    if (!resetCode || !newPassword) {
+      setError("Please enter both verification code and new password");
+      return;
+    }
+
+    try {
+      const result = await completePasswordReset(email, resetCode, newPassword);
+
+      if (result.success) {
+        setResetStatus({ step: "success" });
+        // Reset form after a delay
+        setTimeout(() => {
+          setIsResetPassword(false);
+          setResetStatus({ step: "initial" });
+          setResetCode("");
+          setNewPassword("");
+        }, 3000);
+      } else {
+        setError(result.message || "Failed to reset password");
+      }
+    } catch (error) {
+      console.error("Error completing password reset:", error);
+      setError(error.message || "Failed to reset password");
+    }
+  };
 
   return (
-    <div className={styles.splitContainer}>
-      {/* Left side with hero image */}
-      <div className={styles.heroSide}>
-        <div className={styles.logoContainer}>
-          <Logo size="large" invert={true}/>
-          <a href="/" className={styles.backToWebsite}>Back to website</a>
-        </div>
-        <div className={styles.heroContent}>
-          <h2 className={styles.heroSlogan}>The most efficient way<br/>to revise GCSE & A Levels</h2>
-          <p className={styles.heroSubtitle}>Analyze. Predict. Transform.</p>
-          <div className={styles.moleculeAnimation}>
-            <div className={styles.molecule}></div>
-          </div>
-          <div className={styles.heroIndicators}>
-            <span className={styles.indicator}></span>
-            <span className={styles.indicator}></span>
-            <span className={styles.indicator + ' ' + styles.activeIndicator}></span>
-          </div>
-        </div>
+    <div className={styles.loginContainer}>
+      <div className={styles.backgroundAnimation}>
+        <div className={styles.gradientBlur}></div>
       </div>
 
-      {/* Right side with form */}
-      <div className={styles.formSide}>
-        <div className={styles.formContainer}>
-          <h1 className={styles.title}>Welcome Back</h1>
-          <p className={styles.formSubtitle}>Sign in to access your biochemical data analysis</p>
-          <p className={styles.signupLink}>
-            Don't have an account? <a href="/signup">Sign up</a>
-          </p>
+      <div className={styles.loginCard}>
+        <div className={styles.logoSection}>
+          <Logo size="large" invert={true} />
+        </div>
 
-          {successMessage && (
-            <div className={styles.successMessage}>{successMessage}</div>
-          )}
-
-          <form onSubmit={handleLogin}>
-            <div className={styles.formGroup}>
-              <input
-                type="email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-                disabled={isLoading}
-                placeholder="Email"
-                className={styles.input}
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <div className={styles.passwordInputWrapper}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  disabled={isLoading}
-                  placeholder="Password"
-                  className={styles.input}
-                />
-                <button
-                  type="button"
-                  className={styles.togglePassword}
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? "Hide" : "Show"}
-                </button>
-              </div>
-            </div>
-
-            <div className={styles.forgotPassword}>
-              <a href="/forgot-password">Forgot password?</a>
-            </div>
+        {!isResetPassword ? (
+          <div className={styles.formSection}>
+            <h2>Sign In</h2>
 
             {error && <div className={styles.errorMessage}>{error}</div>}
 
-            <button
-              type="submit"
-              className={styles.loginButton}
-              disabled={isLoading}
-            >
-              {isLoading ? "Logging in..." : "Log in"}
-            </button>
+            <form onSubmit={handleEmailSignIn}>
+              <div className={styles.inputGroup}>
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
 
-            <div className={styles.divider}>
-              <span>Or log in with</span>
+              <div className={styles.inputGroup}>
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className={styles.signInButton}
+                disabled={isSigningIn}
+              >
+                {isSigningIn ? "Signing In..." : "Sign In"}
+              </button>
+            </form>
+
+            <div className={styles.forgotPassword}>
+              <button onClick={handleForgotPassword} disabled={isSigningIn}>
+                Forgot Password?
+              </button>
+            </div>
+
+            <div className={styles.separator}>
+              <span>or continue with</span>
             </div>
 
             <div className={styles.socialButtons}>
-              <button 
-                type="button" 
-                className={styles.googleButton}
+              <button
                 onClick={handleGoogleSignIn}
-                disabled={isLoading}
+                className={styles.googleButton}
+                disabled={isSigningIn}
               >
-                <span className={styles.googleIcon}>G</span>
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path
+                    fill="currentColor"
+                    d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"
+                  />
+                </svg>
                 Google
               </button>
-              <button type="button" className={styles.appleButton} onClick={handleAppleSignIn}>
-                <span className={styles.appleIcon}>A</span>
+
+              {/* <button 
+                onClick={handleAppleSignIn} 
+                className={styles.appleButton}
+                disabled={isSigningIn}
+              >
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path
+                    fill="currentColor"
+                    d="M17.543,12.673c-0.01-1.099,0.481-2.022,1.474-2.658c-0.566-0.808-1.425-1.276-2.568-1.404c-1.071-0.122-2.243,0.634-2.663,0.634  c-0.445,0-1.487-0.596-2.322-0.596c-1.746,0.042-3.387,1.446-3.387,3.621c0,1.061,0.283,2.167,0.847,3.258  c0.74,1.424,1.699,3.014,2.966,3.014c0.714,0,1.241-0.465,2.165-0.465c0.891,0,1.364,0.465,2.177,0.465  c1.258,0,2.195-1.527,2.891-2.962C17.788,14.553,17.544,13.632,17.543,12.673z M15.009,7.082  c0.681-0.842,1.008-1.621,1.008-2.811c-1.011,0.061-1.761,0.661-2.282,1.403c-0.676,0.816-1.036,1.618-1.022,2.742  C13.875,8.456,14.482,7.835,15.009,7.082z"
+                  />
+                </svg>
                 Apple
+              </button> */}
+            </div>
+
+            <div className={styles.signupLink}>
+              <p>
+                Don't have an account? <a href="/signup">Sign Up</a>
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.formSection}>
+            <h2>Reset Password</h2>
+
+            {error && <div className={styles.errorMessage}>{error}</div>}
+
+            {resetStatus.step === "code_sent" && (
+              <div className={styles.successMessage}>
+                Verification code sent to{" "}
+                {resetStatus.delivery?.destination || "your email"}
+              </div>
+            )}
+
+            {resetStatus.step === "success" && (
+              <div className={styles.successMessage}>
+                Password successfully reset! You can now sign in with your new
+                password.
+              </div>
+            )}
+
+            {resetStatus.step !== "success" && (
+              <form onSubmit={handleResetPassword}>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="reset-email">Email</label>
+                  <input
+                    id="reset-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    disabled={resetStatus.step === "code_sent"}
+                    required
+                  />
+                </div>
+
+                {resetStatus.step === "initial" ? (
+                  <button
+                    type="button"
+                    onClick={handleForgotPassword}
+                    className={styles.signInButton}
+                  >
+                    Send Verification Code
+                  </button>
+                ) : (
+                  <>
+                    <div className={styles.inputGroup}>
+                      <label htmlFor="reset-code">Verification Code</label>
+                      <input
+                        id="reset-code"
+                        type="text"
+                        value={resetCode}
+                        onChange={(e) => setResetCode(e.target.value)}
+                        placeholder="Enter verification code"
+                        required
+                      />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                      <label htmlFor="new-password">New Password</label>
+                      <input
+                        id="new-password"
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Enter new password"
+                        required
+                      />
+                    </div>
+
+                    <button type="submit" className={styles.signInButton}>
+                      Reset Password
+                    </button>
+                  </>
+                )}
+              </form>
+            )}
+
+            <div className={styles.backToLogin}>
+              <button
+                onClick={() => {
+                  setIsResetPassword(false);
+                  setResetStatus({ step: "initial" });
+                  setError("");
+                }}
+              >
+                Back to Sign In
               </button>
             </div>
-          </form>
-        </div>
-      </div>
-
-      {/* Confirmation Modal */}
-      <Modal
-        isOpen={showConfirmation}
-        onClose={() => setShowConfirmation(false)}
-        title="Confirm Your Account"
-      >
-        <p className={styles.infoText}>
-          We've sent a confirmation code to your email. Please enter it below to
-          verify your account.
-
-          DEV VERSION TEST.
-        </p>
-
-        <form onSubmit={handleConfirmation}>
-          <div className={styles.formGroup}>
-            <label>Confirmation Code:</label>
-            <input
-              value={confirmationCode}
-              onChange={(e) => setConfirmationCode(e.target.value)}
-              required
-              disabled={isLoading}
-              placeholder="Enter code from email"
-            />
           </div>
-
-          {confirmError && (
-            <div className={styles.errorMessage}>{confirmError}</div>
-          )}
-
-          <button
-            type="submit"
-            className={styles.confirmButton}
-            disabled={isLoading}
-          >
-            {isLoading ? "Confirming..." : "Confirm Account"}
-          </button>
-
-          <button
-            type="button"
-            className={styles.secondaryButton}
-            onClick={() => setShowConfirmation(false)}
-          >
-            Cancel
-          </button>
-        </form>
-      </Modal>
+        )}
+      </div>
     </div>
   );
 }

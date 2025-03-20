@@ -80,6 +80,9 @@ const CONSTANTS = {
  * @param {number} [props.initialZoom] - Initial zoom level (default: calculated optimal distance)
  * @param {number} [props.minZoom] - Minimum zoom level (default: 5)
  * @param {number} [props.maxZoom] - Maximum zoom level (default: 100)
+ * @param {React.Component} [props.customModal] - Optional custom modal component for rendering data
+ *   Custom modal will receive: planetId, data, and onClose props
+ * @param {boolean} [props.draggable=true] - Whether the modal should be draggable
  */
 const InteractiveMap3D = ({
   data,
@@ -92,8 +95,10 @@ const InteractiveMap3D = ({
   minZoom = 5,
   maxZoom = 100,
   rotationAxisX = 0, // X-axis rotation angle in degrees
-  rotationAxisY = 0, // Y-axis rotation angle in degrees 
-  rotationAxisZ = 0  // Z-axis rotation angle in degrees
+  rotationAxisY = 0, // Y-axis rotation angle in degrees
+  rotationAxisZ = 0, // Z-axis rotation angle in degrees
+  customModal, // Optional custom modal component to override default
+  draggable = true, // Whether the modal should be draggable
 }) => {
   // Scene references
   const containerRef = useRef(null);
@@ -1729,8 +1734,8 @@ const InteractiveMap3D = ({
     requestAnimationFrame(animateFrame);
   };
 
-  // Modal component - moved inside InteractiveMap3D after all functions are defined
-  const PlanetModal = () => {
+  // Default Modal component - moved inside InteractiveMap3D after all functions are defined
+  const DefaultPlanetModal = () => {
     if (!showModal) return null;
 
     const modalRef = useRef(null);
@@ -1741,9 +1746,18 @@ const InteractiveMap3D = ({
       initialLeft: 0,
       initialTop: 0,
     });
+    
+    // Initial modal position, set immediately on mount
+    const [modalPosition, setModalPosition] = useState({
+      left: 'var(--padding-s)',
+      top: '50%',
+      transform: 'translateY(-50%)'
+    });
 
     // Common drag start handler for header and corner handles.
     const handleDragStart = (e) => {
+      if (!draggable) return;
+      
       e.preventDefault();
       dragDataRef.current.isDragging = true;
       const clientX =
@@ -1773,12 +1787,14 @@ const InteractiveMap3D = ({
       const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
       const deltaX = clientX - dragDataRef.current.startX;
       const deltaY = clientY - dragDataRef.current.startY;
+      
       if (modalRef.current) {
-        modalRef.current.style.left =
-          dragDataRef.current.initialLeft + deltaX + "px";
-        modalRef.current.style.top =
-          dragDataRef.current.initialTop + deltaY + "px";
-        modalRef.current.style.transform = "none";
+        // Update state for persistent position
+        setModalPosition({
+          left: `${dragDataRef.current.initialLeft + deltaX}px`,
+          top: `${dragDataRef.current.initialTop + deltaY}px`,
+          transform: 'none'
+        });
       }
     };
 
@@ -1821,7 +1837,7 @@ const InteractiveMap3D = ({
       // Helper function to render different data types
       const renderValue = (value, depth = 0) => {
         if (value === null || value === undefined) {
-          return <span style={{ color: "#999" }}>null</span>;
+          return <span style={{ color: "var(--text-color-50)" }}>null</span>;
         }
 
         if (
@@ -1834,7 +1850,7 @@ const InteractiveMap3D = ({
 
         if (Array.isArray(value)) {
           if (value.length === 0) {
-            return <span style={{ color: "#999" }}>[]</span>;
+            return <span style={{ color: "var(--text-color-50)" }}>[]</span>;
           }
 
           return (
@@ -1875,7 +1891,7 @@ const InteractiveMap3D = ({
           style={{
             marginTop: "20px",
             paddingTop: "15px",
-            borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+            borderTop: "1px solid var(--text-color-10)",
           }}
         >
           <h4 style={{ margin: "0 0 10px 0" }}>Planet Properties</h4>
@@ -1891,21 +1907,28 @@ const InteractiveMap3D = ({
       );
     };
 
+    // Add a learning materials button
+    const learningMaterialsBtn = (
+      <button 
+        className={styles.learningMaterialsBtn}
+        onClick={() => window.open(`https://www.example.com/materials/${modalInfo.planetId}`, '_blank')}
+      >
+        Learning Materials
+      </button>
+    );
+
     return (
       <div
         ref={modalRef}
         className={styles.modal}
-        style={{
-          left: "var(--padding-s)",
-          top: "50%",
-          transform: "translateY(-50%)",
-        }}
+        style={modalPosition}
       >
         {/* Header is draggable */}
         <div
           className={styles.modalHeader}
-          onMouseDown={handleDragStart}
-          onTouchStart={handleDragStart}
+          onMouseDown={draggable ? handleDragStart : undefined}
+          onTouchStart={draggable ? handleDragStart : undefined}
+          style={{ cursor: draggable ? 'grab' : 'default' }}
         >
           <h3 className={styles.modalTitle}>{modalInfo.data.name}</h3>
           <button
@@ -1924,32 +1947,41 @@ const InteractiveMap3D = ({
           <p>{modalInfo.data.details}</p>
           {renderPlanetProperties()}
         </div>
+        
+        {/* Footer with learning materials button */}
+        <div className={styles.modalFooter}>
+          {learningMaterialsBtn}
+        </div>
 
-        {/* Corner drag handles */}
-        <div
-          className={styles.dragHandle}
-          style={{ top: 0, left: 0 }}
-          onMouseDown={handleDragStart}
-          onTouchStart={handleDragStart}
-        />
-        <div
-          className={styles.dragHandle}
-          style={{ top: 0, right: 0 }}
-          onMouseDown={handleDragStart}
-          onTouchStart={handleDragStart}
-        />
-        <div
-          className={styles.dragHandle}
-          style={{ bottom: 0, left: 0 }}
-          onMouseDown={handleDragStart}
-          onTouchStart={handleDragStart}
-        />
-        <div
-          className={styles.dragHandle}
-          style={{ bottom: 0, right: 0 }}
-          onMouseDown={handleDragStart}
-          onTouchStart={handleDragStart}
-        />
+        {/* Corner drag handles - only show if draggable */}
+        {draggable && (
+          <>
+            <div
+              className={styles.dragHandle}
+              style={{ top: 0, left: 0 }}
+              onMouseDown={handleDragStart}
+              onTouchStart={handleDragStart}
+            />
+            <div
+              className={styles.dragHandle}
+              style={{ top: 0, right: 0 }}
+              onMouseDown={handleDragStart}
+              onTouchStart={handleDragStart}
+            />
+            <div
+              className={styles.dragHandle}
+              style={{ bottom: 0, left: 0 }}
+              onMouseDown={handleDragStart}
+              onTouchStart={handleDragStart}
+            />
+            <div
+              className={styles.dragHandle}
+              style={{ bottom: 0, right: 0 }}
+              onMouseDown={handleDragStart}
+              onTouchStart={handleDragStart}
+            />
+          </>
+        )}
       </div>
     );
   };
@@ -1957,7 +1989,21 @@ const InteractiveMap3D = ({
   return (
     <div className={styles.container} style={{ height: "100%", width: "100%" }}>
       <div ref={containerRef} className={styles.scene} />
-      {showModal && <PlanetModal />}
+      {showModal &&
+        (customModal ? (
+          // If custom modal is provided, render it with necessary props
+          React.createElement(customModal, {
+            planetId: modalInfo.planetId,
+            data: modalInfo.data,
+            onClose: () => {
+              setShowModal(false);
+              animateCameraReset();
+            },
+          })
+        ) : (
+          // Otherwise use the default modal
+          <DefaultPlanetModal />
+        ))}
     </div>
   );
 };

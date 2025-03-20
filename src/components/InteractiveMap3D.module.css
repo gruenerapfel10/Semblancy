@@ -20,19 +20,19 @@
 .modal {
   position: absolute;
   z-index: 1000;
-  max-height: 400px;
-  max-width: 350px; /* Increased from 300px */
-  width: auto;
+  max-height: min(500px, 60vh);
+  width: 400px;
+  max-width: 90vw;
   padding: var(--padding-m);
-  border-radius: var(--br-m);
+  border-radius: 16px;
   
-  /* Glass effect */
-  background: rgba(20, 20, 25, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  
+  /* Glass effect with CSS variables */
+  background: var(--card-background);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+
   /* Animation */
   animation: modalFadeIn 0.3s ease-out;
   transform-origin: center center;
@@ -40,6 +40,7 @@
   
   color: var(--text-color);
   overflow: hidden;
+  resize: none;
 }
 
 @keyframes modalFadeIn {
@@ -156,4 +157,37 @@
 
 .dragHandle:active {
   cursor: grabbing;
+}
+
+/* Modal footer and button styles */
+.modalFooter {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--text-color-10);
+}
+
+.learningMaterialsBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--brand-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.learningMaterialsBtn:hover {
+  background: var(--brand-color-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.learningMaterialsBtn:active {
+  transform: translateY(0);
 }

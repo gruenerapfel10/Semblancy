@@ -1,253 +1,887 @@
 "use client";
-import { useState, useEffect } from "react";
-import styles from "./notes.module.css";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
-  faPlus,
-  faStickyNote,
-  faEdit,
-  faTrashAlt,
-  faTags,
-  faSort,
-  faEllipsisH,
+  faFilter,
+  faGraduationCap,
+  faBook,
+  faBookmark,
+  faChevronDown,
+  faChevronRight,
+  faList,
+  faGrip,
+  faTimes,
+  faDownload,
+  faStar,
+  faShare,
+  faPrint,
+  faCalendar,
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import styles from "./notes.module.css";
 
 export default function Notes() {
+  // State management
   const [isLoading, setIsLoading] = useState(true);
-  const [notes, setNotes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeTag, setActiveTag] = useState("all");
-  const [sortBy, setSortBy] = useState("dateDesc");
+  const [viewMode, setViewMode] = useState("hierarchical");
+  const [notesData, setNotesData] = useState([]);
+  const [filteredNotes, setFilteredNotes] = useState([]);
+  const [expandedSubjects, setExpandedSubjects] = useState({});
+  const [expandedTopics, setExpandedTopics] = useState({});
+  const [activeNote, setActiveNote] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilters, setActiveFilters] = useState({
+    examBoards: [],
+    levels: [],
+    specs: [],
+  });
+  const [showFilters, setShowFilters] = useState(false);
+  const searchInputRef = useRef(null);
 
   // Simulate loading notes data
   useEffect(() => {
     const timer = setTimeout(() => {
-      const notesData = [
+      const mockNotesData = [
         {
-          id: 1,
-          title: "Calculus Integration Methods",
-          preview:
-            "Methods for solving integration problems including substitution, by parts, and partial fractions...",
-          content: "Full content would go here...",
-          tags: ["Mathematics", "Calculus", "Important"],
-          dateCreated: "2025-03-01T10:30:00",
-          dateModified: "2025-03-15T14:22:00",
+          id: "sub-1",
+          name: "Mathematics",
+          icon: "📐",
+          topics: [
+            {
+              id: "top-1-1",
+              name: "Calculus",
+              notes: [
+                {
+                  id: "note-1-1-1",
+                  title: "Integration Techniques",
+                  lastUpdated: "2025-03-15",
+                  examBoards: [
+                    {
+                      name: "AQA",
+                      content:
+                        "Comprehensive guide to integration methods including substitution, parts, and partial fractions.",
+                      specs: ["Pure Mathematics", "A Level", "Paper 1"],
+                    },
+                    {
+                      name: "Edexcel",
+                      content:
+                        "Integration methods with a focus on definite integrals and applications.",
+                      specs: ["Pure Mathematics", "A Level", "Paper 2"],
+                    },
+                  ],
+                },
+                {
+                  id: "note-1-1-2",
+                  title: "Differential Equations",
+                  lastUpdated: "2025-03-10",
+                  examBoards: [
+                    {
+                      name: "AQA",
+                      content:
+                        "First and second order differential equations with applications.",
+                      specs: ["Pure Mathematics", "A Level", "Paper 2"],
+                    },
+                    {
+                      name: "OCR",
+                      content:
+                        "Methods for solving differential equations including separation of variables.",
+                      specs: ["Further Mathematics", "A Level", "Paper 3"],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: "top-1-2",
+              name: "Statistics",
+              notes: [
+                {
+                  id: "note-1-2-1",
+                  title: "Probability Distributions",
+                  lastUpdated: "2025-02-28",
+                  examBoards: [
+                    {
+                      name: "Edexcel",
+                      content:
+                        "Normal, binomial, and Poisson distributions with real-world applications.",
+                      specs: ["Statistics", "A Level", "Paper 3"],
+                    },
+                    {
+                      name: "AQA",
+                      content:
+                        "Understanding probability distributions and their properties.",
+                      specs: ["Statistics", "A Level", "Paper 3"],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
-          id: 2,
-          title: "Physics: Electromagnetic Induction",
-          preview:
-            "Faraday's law, Lenz's law, and applications of electromagnetic induction...",
-          content: "Full content would go here...",
-          tags: ["Physics", "Electromagnetism"],
-          dateCreated: "2025-02-20T09:15:00",
-          dateModified: "2025-03-10T11:45:00",
+          id: "sub-2",
+          name: "Physics",
+          icon: "⚛️",
+          topics: [
+            {
+              id: "top-2-1",
+              name: "Mechanics",
+              notes: [
+                {
+                  id: "note-2-1-1",
+                  title: "Newton's Laws of Motion",
+                  lastUpdated: "2025-03-05",
+                  examBoards: [
+                    {
+                      name: "AQA",
+                      content:
+                        "Detailed explanation of Newton's three laws with practical examples.",
+                      specs: ["Mechanics", "A Level", "Paper 1"],
+                    },
+                    {
+                      name: "OCR",
+                      content:
+                        "Applications of Newton's laws to complex mechanical systems.",
+                      specs: ["Mechanics", "A Level", "Paper 1"],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: "top-2-2",
+              name: "Waves",
+              notes: [
+                {
+                  id: "note-2-2-1",
+                  title: "Wave Properties and Behaviors",
+                  lastUpdated: "2025-02-20",
+                  examBoards: [
+                    {
+                      name: "Edexcel",
+                      content:
+                        "Wave equations, interference, diffraction, and standing waves.",
+                      specs: ["Waves", "A Level", "Paper 2"],
+                    },
+                    {
+                      name: "OCR",
+                      content:
+                        "Comprehensive notes on wave phenomena and mathematical representations.",
+                      specs: ["Waves", "GCSE", "Paper 1"],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
-          id: 3,
-          title: "Organic Chemistry Reactions",
-          preview:
-            "Summary of key organic chemistry reactions including addition, substitution and elimination...",
-          content: "Full content would go here...",
-          tags: ["Chemistry", "Organic", "Important"],
-          dateCreated: "2025-03-05T16:40:00",
-          dateModified: "2025-03-05T16:40:00",
-        },
-        {
-          id: 4,
-          title: "Shakespeare's Macbeth: Key Themes",
-          preview:
-            "Analysis of ambition, guilt, supernatural elements, and gender roles in Macbeth...",
-          content: "Full content would go here...",
-          tags: ["English", "Literature"],
-          dateCreated: "2025-01-25T13:20:00",
-          dateModified: "2025-03-08T09:30:00",
-        },
-        {
-          id: 5,
-          title: "Biology: Homeostasis Mechanisms",
-          preview:
-            "Detailed notes on temperature regulation, osmoregulation, and blood glucose control...",
-          content: "Full content would go here...",
-          tags: ["Biology", "Physiology"],
-          dateCreated: "2025-02-15T11:10:00",
-          dateModified: "2025-02-28T15:50:00",
-        },
-        {
-          id: 6,
-          title: "Computer Science: Sorting Algorithms",
-          preview:
-            "Comparison of bubble sort, merge sort, quick sort, and their time complexities...",
-          content: "Full content would go here...",
-          tags: ["Computer Science", "Algorithms", "Important"],
-          dateCreated: "2025-03-12T08:45:00",
-          dateModified: "2025-03-14T10:15:00",
+          id: "sub-3",
+          name: "Chemistry",
+          icon: "🧪",
+          topics: [
+            {
+              id: "top-3-1",
+              name: "Organic Chemistry",
+              notes: [
+                {
+                  id: "note-3-1-1",
+                  title: "Alkanes and Alkenes",
+                  lastUpdated: "2025-03-12",
+                  examBoards: [
+                    {
+                      name: "AQA",
+                      content:
+                        "Properties, reactions, and mechanisms of alkanes and alkenes.",
+                      specs: ["Organic Chemistry", "A Level", "Paper 2"],
+                    },
+                    {
+                      name: "Edexcel",
+                      content:
+                        "Functional groups and reaction mechanisms for hydrocarbons.",
+                      specs: ["Organic Chemistry", "GCSE", "Paper 2"],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: "top-3-2",
+              name: "Physical Chemistry",
+              notes: [
+                {
+                  id: "note-3-2-1",
+                  title: "Thermodynamics",
+                  lastUpdated: "2025-02-15",
+                  examBoards: [
+                    {
+                      name: "OCR",
+                      content:
+                        "Laws of thermodynamics and their applications in chemical reactions.",
+                      specs: ["Physical Chemistry", "A Level", "Paper 1"],
+                    },
+                  ],
+                },
+                {
+                  id: "note-3-2-2",
+                  title: "Chemical Equilibrium",
+                  lastUpdated: "2025-02-10",
+                  examBoards: [
+                    {
+                      name: "AQA",
+                      content:
+                        "Dynamic equilibrium, Le Chatelier's principle, and equilibrium constants.",
+                      specs: ["Physical Chemistry", "A Level", "Paper 1"],
+                    },
+                    {
+                      name: "Edexcel",
+                      content:
+                        "Factors affecting equilibrium with practical applications.",
+                      specs: ["Physical Chemistry", "AS Level", "Paper 1"],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
       ];
 
-      setNotes(notesData);
+      // Initialize expanded state for all subjects
+      const initialExpandedSubjects = {};
+      mockNotesData.forEach((subject) => {
+        initialExpandedSubjects[subject.id] = false;
+      });
+
+      setNotesData(mockNotesData);
+      setFilteredNotes(mockNotesData);
+      setExpandedSubjects(initialExpandedSubjects);
       setIsLoading(false);
-    }, 800);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Get all unique tags from notes
-  const allTags = ["all", ...new Set(notes.flatMap((note) => note.tags))];
+  // Filter notes based on search query and active filters
+  useEffect(() => {
+    if (notesData.length === 0) return;
 
-  // Filter notes based on search term and active tag
-  const filteredNotes = notes.filter((note) => {
-    const matchesSearch =
-      note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      note.preview.toLowerCase().includes(searchTerm.toLowerCase());
+    let filtered = [...notesData];
 
-    const matchesTag = activeTag === "all" || note.tags.includes(activeTag);
+    // Apply search query
+    if (searchQuery.trim() !== "") {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered
+        .map((subject) => {
+          const filteredTopics = subject.topics
+            .map((topic) => {
+              const filteredNotes = topic.notes.filter((note) => {
+                const titleMatch = note.title.toLowerCase().includes(query);
+                const examBoardMatch = note.examBoards.some(
+                  (board) =>
+                    board.name.toLowerCase().includes(query) ||
+                    board.content.toLowerCase().includes(query) ||
+                    board.specs.some((spec) =>
+                      spec.toLowerCase().includes(query)
+                    )
+                );
+                return titleMatch || examBoardMatch;
+              });
+              return filteredNotes.length > 0
+                ? { ...topic, notes: filteredNotes }
+                : null;
+            })
+            .filter(Boolean);
 
-    return matchesSearch && matchesTag;
-  });
-
-  // Sort notes
-  const sortedNotes = [...filteredNotes].sort((a, b) => {
-    switch (sortBy) {
-      case "titleAsc":
-        return a.title.localeCompare(b.title);
-      case "titleDesc":
-        return b.title.localeCompare(a.title);
-      case "dateAsc":
-        return new Date(a.dateModified) - new Date(b.dateModified);
-      case "dateDesc":
-      default:
-        return new Date(b.dateModified) - new Date(a.dateModified);
+          return filteredTopics.length > 0
+            ? { ...subject, topics: filteredTopics }
+            : null;
+        })
+        .filter(Boolean);
     }
-  });
 
-  // Format date for display
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    // Apply filters
+    if (
+      activeFilters.examBoards.length > 0 ||
+      activeFilters.levels.length > 0 ||
+      activeFilters.specs.length > 0
+    ) {
+      filtered = filtered
+        .map((subject) => {
+          const filteredTopics = subject.topics
+            .map((topic) => {
+              const filteredNotes = topic.notes.filter((note) => {
+                // Filter by exam board
+                if (activeFilters.examBoards.length > 0) {
+                  const hasMatchingBoard = note.examBoards.some((board) =>
+                    activeFilters.examBoards.includes(board.name)
+                  );
+                  if (!hasMatchingBoard) return false;
+                }
+
+                // Filter by level (A Level, AS Level, GCSE)
+                if (activeFilters.levels.length > 0) {
+                  const hasMatchingLevel = note.examBoards.some((board) =>
+                    board.specs.some((spec) =>
+                      activeFilters.levels.some((level) => spec.includes(level))
+                    )
+                  );
+                  if (!hasMatchingLevel) return false;
+                }
+
+                // Filter by specifications
+                if (activeFilters.specs.length > 0) {
+                  const hasMatchingSpec = note.examBoards.some((board) =>
+                    board.specs.some((spec) =>
+                      activeFilters.specs.some((filterSpec) =>
+                        spec.includes(filterSpec)
+                      )
+                    )
+                  );
+                  if (!hasMatchingSpec) return false;
+                }
+
+                return true;
+              });
+              return filteredNotes.length > 0
+                ? { ...topic, notes: filteredNotes }
+                : null;
+            })
+            .filter(Boolean);
+
+          return filteredTopics.length > 0
+            ? { ...subject, topics: filteredTopics }
+            : null;
+        })
+        .filter(Boolean);
+    }
+
+    setFilteredNotes(filtered);
+  }, [searchQuery, activeFilters, notesData]);
+
+  // Handlers
+  const toggleSubject = (subjectId) => {
+    setExpandedSubjects((prev) => ({
+      ...prev,
+      [subjectId]: !prev[subjectId],
+    }));
+  };
+
+  const toggleTopic = (topicId) => {
+    setExpandedTopics((prev) => ({
+      ...prev,
+      [topicId]: !prev[topicId],
+    }));
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+    searchInputRef.current.focus();
+  };
+
+  const toggleFilter = (filterType, value) => {
+    setActiveFilters((prev) => {
+      const currentFilters = [...prev[filterType]];
+      const index = currentFilters.indexOf(value);
+
+      if (index === -1) {
+        // Add filter
+        return { ...prev, [filterType]: [...currentFilters, value] };
+      } else {
+        // Remove filter
+        currentFilters.splice(index, 1);
+        return { ...prev, [filterType]: currentFilters };
+      }
+    });
+  };
+
+  const clearFilters = () => {
+    setActiveFilters({
+      examBoards: [],
+      levels: [],
+      specs: [],
+    });
+  };
+
+  const selectNote = (note) => {
+    setActiveNote(note);
+  };
+
+  // Get all available exam boards, levels, and specs for filters
+  const getAllExamBoards = () => {
+    const boards = new Set();
+    notesData.forEach((subject) => {
+      subject.topics.forEach((topic) => {
+        topic.notes.forEach((note) => {
+          note.examBoards.forEach((board) => {
+            boards.add(board.name);
+          });
+        });
+      });
+    });
+    return Array.from(boards);
+  };
+
+  const getAllLevels = () => {
+    const levels = new Set();
+    notesData.forEach((subject) => {
+      subject.topics.forEach((topic) => {
+        topic.notes.forEach((note) => {
+          note.examBoards.forEach((board) => {
+            board.specs.forEach((spec) => {
+              if (spec.includes("A Level")) levels.add("A Level");
+              if (spec.includes("AS Level")) levels.add("AS Level");
+              if (spec.includes("GCSE")) levels.add("GCSE");
+            });
+          });
+        });
+      });
+    });
+    return Array.from(levels);
+  };
+
+  const getAllSpecs = () => {
+    const specs = new Set();
+    notesData.forEach((subject) => {
+      subject.topics.forEach((topic) => {
+        topic.notes.forEach((note) => {
+          note.examBoards.forEach((board) => {
+            board.specs.forEach((spec) => {
+              // Extract subject area, ignoring level and paper info
+              const parts = spec.split(",");
+              if (parts.length > 0) {
+                specs.add(parts[0].trim());
+              }
+            });
+          });
+        });
+      });
+    });
+    return Array.from(specs);
+  };
+
+  // Render functions
+  const renderHierarchicalView = () => {
+    if (filteredNotes.length === 0) {
+      return (
+        <div className={styles.emptyState}>
+          <div className={styles.emptyStateIcon}>📚</div>
+          <h3>No matching notes found</h3>
+          <p>Try adjusting your search or filters</p>
+          <button
+            className={styles.resetButton}
+            onClick={() => {
+              setSearchQuery("");
+              clearFilters();
+            }}
+          >
+            Reset all filters
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className={styles.hierarchicalView}>
+        {filteredNotes.map((subject) => (
+          <div key={subject.id} className={styles.subjectContainer}>
+            <div
+              className={`${styles.subjectHeader} ${
+                expandedSubjects[subject.id] ? styles.expanded : ""
+              }`}
+              onClick={() => toggleSubject(subject.id)}
+            >
+              <div className={styles.subjectInfo}>
+                <span className={styles.subjectIcon}>{subject.icon}</span>
+                <h3 className={styles.subjectName}>{subject.name}</h3>
+              </div>
+              <FontAwesomeIcon
+                icon={
+                  expandedSubjects[subject.id] ? faChevronDown : faChevronRight
+                }
+                className={styles.expandIcon}
+              />
+            </div>
+
+            {expandedSubjects[subject.id] && (
+              <div className={styles.topicsContainer}>
+                {subject.topics.map((topic) => (
+                  <div key={topic.id} className={styles.topicContainer}>
+                    <div
+                      className={`${styles.topicHeader} ${
+                        expandedTopics[topic.id] ? styles.expanded : ""
+                      }`}
+                      onClick={() => toggleTopic(topic.id)}
+                    >
+                      <h4 className={styles.topicName}>{topic.name}</h4>
+                      <FontAwesomeIcon
+                        icon={
+                          expandedTopics[topic.id]
+                            ? faChevronDown
+                            : faChevronRight
+                        }
+                        className={styles.expandIcon}
+                      />
+                    </div>
+
+                    {expandedTopics[topic.id] && (
+                      <div className={styles.notesContainer}>
+                        {topic.notes.map((note) => (
+                          <div
+                            key={note.id}
+                            className={`${styles.noteItem} ${
+                              activeNote?.id === note.id
+                                ? styles.activeNote
+                                : ""
+                            }`}
+                            onClick={() => selectNote(note)}
+                          >
+                            <div className={styles.noteInfo}>
+                              <h5 className={styles.noteTitle}>{note.title}</h5>
+                              <div className={styles.noteMetadata}>
+                                <span className={styles.noteDate}>
+                                  <FontAwesomeIcon icon={faCalendar} />
+                                  {new Date(
+                                    note.lastUpdated
+                                  ).toLocaleDateString()}
+                                </span>
+                                <div className={styles.examBoardTags}>
+                                  {note.examBoards.map((board) => (
+                                    <span
+                                      key={board.name}
+                                      className={styles.examBoardTag}
+                                    >
+                                      {board.name}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderGridView = () => {
+    // Flatten the hierarchical structure for grid view
+    const allNotes = [];
+    filteredNotes.forEach((subject) => {
+      subject.topics.forEach((topic) => {
+        topic.notes.forEach((note) => {
+          allNotes.push({
+            ...note,
+            subject: subject.name,
+            subjectIcon: subject.icon,
+            topic: topic.name,
+          });
+        });
+      });
+    });
+
+    if (allNotes.length === 0) {
+      return (
+        <div className={styles.emptyState}>
+          <div className={styles.emptyStateIcon}>📚</div>
+          <h3>No matching notes found</h3>
+          <p>Try adjusting your search or filters</p>
+          <button
+            className={styles.resetButton}
+            onClick={() => {
+              setSearchQuery("");
+              clearFilters();
+            }}
+          >
+            Reset all filters
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className={styles.gridView}>
+        {allNotes.map((note) => (
+          <div
+            key={note.id}
+            className={`${styles.noteCard} ${
+              activeNote?.id === note.id ? styles.activeCard : ""
+            }`}
+            onClick={() => selectNote(note)}
+          >
+            <div className={styles.noteCardHeader}>
+              <span className={styles.subjectIconSmall}>
+                {note.subjectIcon}
+              </span>
+              <div className={styles.noteBreadcrumbs}>
+                <span className={styles.noteBreadcrumbSubject}>
+                  {note.subject}
+                </span>
+                <span className={styles.breadcrumbSeparator}>/</span>
+                <span className={styles.noteBreadcrumbTopic}>{note.topic}</span>
+              </div>
+            </div>
+            <h4 className={styles.noteCardTitle}>{note.title}</h4>
+            <div className={styles.noteCardDate}>
+              <FontAwesomeIcon icon={faCalendar} />
+              <span>{new Date(note.lastUpdated).toLocaleDateString()}</span>
+            </div>
+            <div className={styles.noteCardBoardTags}>
+              {note.examBoards.map((board) => (
+                <span key={board.name} className={styles.noteCardBoardTag}>
+                  {board.name}
+                </span>
+              ))}
+            </div>
+            <div className={styles.noteCardSpecs}>
+              {note.examBoards.flatMap((board) =>
+                board.specs.map((spec, index) => (
+                  <span
+                    key={`${board.name}-${index}`}
+                    className={styles.noteCardSpecTag}
+                  >
+                    <FontAwesomeIcon icon={faTag} className={styles.specIcon} />
+                    {spec}
+                  </span>
+                ))
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderNoteDetail = () => {
+    if (!activeNote) return null;
+
+    return (
+      <div className={styles.noteDetailContainer}>
+        <div className={styles.noteDetailHeader}>
+          <h2 className={styles.noteDetailTitle}>{activeNote.title}</h2>
+          <div className={styles.noteDetailActions}>
+            <button className={styles.actionButton}>
+              <FontAwesomeIcon icon={faDownload} />
+              <span>Download</span>
+            </button>
+            <button className={styles.actionButton}>
+              <FontAwesomeIcon icon={faPrint} />
+              <span>Print</span>
+            </button>
+            <button className={styles.actionButton}>
+              <FontAwesomeIcon icon={faShare} />
+              <span>Share</span>
+            </button>
+            <button className={styles.actionButton}>
+              <FontAwesomeIcon icon={faStar} />
+              <span>Favorite</span>
+            </button>
+          </div>
+        </div>
+
+        <div className={styles.examBoardTabs}>
+          {activeNote.examBoards.map((board) => (
+            <div key={board.name} className={styles.examBoardTab}>
+              <div className={styles.examBoardName}>{board.name}</div>
+              <div className={styles.examBoardSpecs}>
+                {board.specs.map((spec, index) => (
+                  <span key={index} className={styles.specBadge}>
+                    {spec}
+                  </span>
+                ))}
+              </div>
+              <div className={styles.examBoardContent}>
+                <p>{board.content}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.headerTop}>
-          <h1 className={styles.title}>Notes</h1>
-          <button className={styles.createButton}>
-            <FontAwesomeIcon icon={faPlus} />
-            <span>New Note</span>
+      <div className={styles.sidebar}>
+        <div className={styles.searchContainer}>
+          <div className={styles.searchInputWrapper}>
+            <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
+            <input
+              type="text"
+              className={styles.searchInput}
+              placeholder="Search notes..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              ref={searchInputRef}
+            />
+            {searchQuery && (
+              <button
+                className={styles.clearSearchButton}
+                onClick={clearSearch}
+              >
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+            )}
+          </div>
+          <button
+            className={`${styles.filterButton} ${
+              showFilters ? styles.active : ""
+            }`}
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <FontAwesomeIcon icon={faFilter} />
+            <span>Filters</span>
+            {(activeFilters.examBoards.length > 0 ||
+              activeFilters.levels.length > 0 ||
+              activeFilters.specs.length > 0) && (
+              <span className={styles.filterCount}>
+                {activeFilters.examBoards.length +
+                  activeFilters.levels.length +
+                  activeFilters.specs.length}
+              </span>
+            )}
           </button>
         </div>
-        <p className={styles.subtitle}>
-          Create, organize and review your study notes
-        </p>
-      </div>
 
-      <div className={styles.filterBar}>
-        <div className={styles.searchBar}>
-          <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
-          <input
-            type="text"
-            placeholder="Search notes..."
-            className={styles.searchInput}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-
-        <div className={styles.controls}>
-          <div className={styles.tagFilter}>
-            <div className={styles.filterLabel}>
-              <FontAwesomeIcon icon={faTags} />
-              <span>Tags:</span>
-            </div>
-            <select
-              className={styles.filterSelect}
-              value={activeTag}
-              onChange={(e) => setActiveTag(e.target.value)}
-            >
-              {allTags.map((tag, index) => (
-                <option key={index} value={tag}>
-                  {tag === "all" ? "All Tags" : tag}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className={styles.sortControls}>
-            <div className={styles.filterLabel}>
-              <FontAwesomeIcon icon={faSort} />
-              <span>Sort by:</span>
-            </div>
-            <select
-              className={styles.filterSelect}
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-            >
-              <option value="dateDesc">Date (Newest)</option>
-              <option value="dateAsc">Date (Oldest)</option>
-              <option value="titleAsc">Title (A-Z)</option>
-              <option value="titleDesc">Title (Z-A)</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles.content}>
-        {isLoading ? (
-          <LoadingSpinner text="Loading notes..." />
-        ) : (
-          <div className={styles.notesGrid}>
-            {sortedNotes.length === 0 ? (
-              <div className={styles.emptyState}>
-                <div className={styles.emptyStateIcon}>
-                  <FontAwesomeIcon icon={faStickyNote} />
-                </div>
-                <h3>No notes found</h3>
-                <p>Create your first note or adjust your search criteria.</p>
-                <button className={styles.createNoteButton}>
-                  <FontAwesomeIcon icon={faPlus} />
-                  <span>Create New Note</span>
+        {showFilters && (
+          <div className={styles.filtersPanel}>
+            <div className={styles.filterHeader}>
+              <h3>Filters</h3>
+              {(activeFilters.examBoards.length > 0 ||
+                activeFilters.levels.length > 0 ||
+                activeFilters.specs.length > 0) && (
+                <button
+                  className={styles.clearFiltersButton}
+                  onClick={clearFilters}
+                >
+                  Clear all
                 </button>
+              )}
+            </div>
+
+            <div className={styles.filterSection}>
+              <h4 className={styles.filterSectionTitle}>
+                <FontAwesomeIcon icon={faBook} className={styles.filterIcon} />
+                Exam Board
+              </h4>
+              <div className={styles.filterOptions}>
+                {getAllExamBoards().map((board) => (
+                  <div key={board} className={styles.filterOption}>
+                    <input
+                      type="checkbox"
+                      id={`board-${board}`}
+                      checked={activeFilters.examBoards.includes(board)}
+                      onChange={() => toggleFilter("examBoards", board)}
+                    />
+                    <label htmlFor={`board-${board}`}>{board}</label>
+                  </div>
+                ))}
               </div>
-            ) : (
-              sortedNotes.map((note) => (
-                <div key={note.id} className={styles.noteCard}>
-                  <div className={styles.noteActions}>
-                    <button className={styles.actionButton}>
-                      <FontAwesomeIcon icon={faEdit} />
-                    </button>
-                    <button className={styles.actionButton}>
-                      <FontAwesomeIcon icon={faEllipsisH} />
-                    </button>
-                  </div>
+            </div>
 
-                  <div className={styles.noteContent}>
-                    <h3 className={styles.noteTitle}>{note.title}</h3>
-                    <div className={styles.notePreview}>{note.preview}</div>
-
-                    <div className={styles.noteTags}>
-                      {note.tags.map((tag, tagIndex) => (
-                        <span
-                          key={tagIndex}
-                          className={styles.tagBadge}
-                          onClick={() => setActiveTag(tag)}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+            <div className={styles.filterSection}>
+              <h4 className={styles.filterSectionTitle}>
+                <FontAwesomeIcon
+                  icon={faGraduationCap}
+                  className={styles.filterIcon}
+                />
+                Level
+              </h4>
+              <div className={styles.filterOptions}>
+                {getAllLevels().map((level) => (
+                  <div key={level} className={styles.filterOption}>
+                    <input
+                      type="checkbox"
+                      id={`level-${level}`}
+                      checked={activeFilters.levels.includes(level)}
+                      onChange={() => toggleFilter("levels", level)}
+                    />
+                    <label htmlFor={`level-${level}`}>{level}</label>
                   </div>
+                ))}
+              </div>
+            </div>
 
-                  <div className={styles.noteFooter}>
-                    <div className={styles.noteDate}>
-                      Updated: {formatDate(note.dateModified)}
-                    </div>
+            <div className={styles.filterSection}>
+              <h4 className={styles.filterSectionTitle}>
+                <FontAwesomeIcon
+                  icon={faBookmark}
+                  className={styles.filterIcon}
+                />
+                Specification
+              </h4>
+              <div className={styles.filterOptions}>
+                {getAllSpecs().map((spec) => (
+                  <div key={spec} className={styles.filterOption}>
+                    <input
+                      type="checkbox"
+                      id={`spec-${spec}`}
+                      checked={activeFilters.specs.includes(spec)}
+                      onChange={() => toggleFilter("specs", spec)}
+                    />
+                    <label htmlFor={`spec-${spec}`}>{spec}</label>
                   </div>
-                </div>
-              ))
-            )}
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className={styles.viewToggle}>
+          <button
+            className={`${styles.viewToggleButton} ${
+              viewMode === "hierarchical" ? styles.activeView : ""
+            }`}
+            onClick={() => setViewMode("hierarchical")}
+          >
+            <FontAwesomeIcon icon={faList} />
+            <span>Hierarchical</span>
+          </button>
+          <button
+            className={`${styles.viewToggleButton} ${
+              viewMode === "grid" ? styles.activeView : ""
+            }`}
+            onClick={() => setViewMode("grid")}
+          >
+            <FontAwesomeIcon icon={faGrip} />
+            <span>Grid</span>
+          </button>
+        </div>
+
+        <div className={styles.notesListContainer}>
+          {isLoading ? (
+            <div className={styles.loadingContainer}>
+              <div className={styles.loadingSpinner}></div>
+              <p>Loading notes...</p>
+            </div>
+          ) : viewMode === "hierarchical" ? (
+            renderHierarchicalView()
+          ) : (
+            renderGridView()
+          )}
+        </div>
+      </div>
+
+      <div className={styles.contentArea}>
+        {activeNote ? (
+          renderNoteDetail()
+        ) : (
+          <div className={styles.emptyNoteState}>
+            <div className={styles.emptyNoteIcon}>📝</div>
+            <h2>Select a note to view</h2>
+            <p>Choose a note from the sidebar to view its contents</p>
           </div>
         )}
       </div>

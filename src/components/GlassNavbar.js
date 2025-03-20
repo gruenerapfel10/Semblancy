@@ -6,11 +6,14 @@ import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import styles from "./GlassNavbar.module.css";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { useAmplify } from "../app/Providers";
+import LogoutButton from "./LogoutButton";
 
 const GlassNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { isAuthenticated } = useAmplify();
 
   const navLinks = [
     { name: "Home", href: "/home" },
@@ -69,12 +72,23 @@ const GlassNavbar = () => {
         </div>
 
         <div className={styles.navbarRight}>
-          <Link href="/login" className={styles.loginButton}>
-            Log In
-          </Link>
-          <Link href="/signup" className={styles.signupButton}>
-            Get Started
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link href="/dashboard/overview" className={styles.dashboardButton}>
+                Dashboard
+              </Link>
+              <LogoutButton className={styles.loginButton} />
+            </>
+          ) : (
+            <>
+              <Link href="/login" className={styles.loginButton}>
+                Log In
+              </Link>
+              <Link href="/signup" className={styles.signupButton}>
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -105,20 +119,35 @@ const GlassNavbar = () => {
             </Link>
           ))}
           <div className={styles.mobileNavButtons}>
-            <Link 
-              href="/login" 
-              className={styles.mobileLoginButton}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Log In
-            </Link>
-            <Link 
-              href="/signup" 
-              className={styles.mobileSignupButton}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Get Started
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link 
+                  href="/dashboard/overview" 
+                  className={styles.mobileLoginButton}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <LogoutButton className={styles.mobileSignupButton} />
+              </>
+            ) : (
+              <>
+                <Link 
+                  href="/login" 
+                  className={styles.mobileLoginButton}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Log In
+                </Link>
+                <Link 
+                  href="/signup" 
+                  className={styles.mobileSignupButton}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -23,7 +23,237 @@ import {
   FileText,
   Monitor,
   Brain,
+  ExternalLink,
 } from "lucide-react";
+
+// Custom Modal component for InteractiveMap3D
+const CustomMathTopicModal = ({ planetId, data, onClose }) => {
+  // Find the exam boards from the tags
+  const examBoards = data.tags ? [...new Set(data.tags.map(tag => tag.examBoard))] : [];
+  const levels = data.tags ? [...new Set(data.tags.flatMap(tag => tag.level))] : [];
+  
+  // Calculate random progress percentages for demo purposes
+  // In a real app, these would come from the student's actual progress data
+  const knowledgeProgress = Math.floor(Math.random() * 100);
+  const memoryProgress = Math.floor(Math.random() * 100);
+  const practiceProgress = Math.floor(Math.random() * 100);
+  
+  // Reference for dragging
+  const modalRef = useRef(null);
+  const dragDataRef = useRef({
+    isDragging: false,
+    startX: 0,
+    startY: 0,
+    initialLeft: 0,
+    initialTop: 0,
+  });
+  
+  // Common drag start handler for header and corner handles
+  const handleDragStart = (e) => {
+    e.preventDefault();
+    dragDataRef.current.isDragging = true;
+    const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+    dragDataRef.current.startX = clientX;
+    dragDataRef.current.startY = clientY;
+
+    if (modalRef.current) {
+      const parentRect = modalRef.current.offsetParent.getBoundingClientRect();
+      const modalRect = modalRef.current.getBoundingClientRect();
+      dragDataRef.current.initialLeft = modalRect.left - parentRect.left;
+      dragDataRef.current.initialTop = modalRect.top - parentRect.top;
+    }
+
+    window.addEventListener("mousemove", handleDrag);
+    window.addEventListener("mouseup", handleDragEnd);
+    window.addEventListener("touchmove", handleDrag);
+    window.addEventListener("touchend", handleDragEnd);
+  };
+
+  const handleDrag = (e) => {
+    if (!dragDataRef.current.isDragging) return;
+    const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+    const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+    const deltaX = clientX - dragDataRef.current.startX;
+    const deltaY = clientY - dragDataRef.current.startY;
+    
+    if (modalRef.current) {
+      modalRef.current.style.left = `${dragDataRef.current.initialLeft + deltaX}px`;
+      modalRef.current.style.top = `${dragDataRef.current.initialTop + deltaY}px`;
+      modalRef.current.style.transform = "none";
+    }
+  };
+
+  const handleDragEnd = () => {
+    dragDataRef.current.isDragging = false;
+    window.removeEventListener("mousemove", handleDrag);
+    window.removeEventListener("mouseup", handleDragEnd);
+    window.removeEventListener("touchmove", handleDrag);
+    window.removeEventListener("touchend", handleDragEnd);
+  };
+
+  const handleClose = (e) => {
+    e.stopPropagation();
+    
+    // Add exit animation
+    if (modalRef.current) {
+      modalRef.current.style.opacity = "0";
+      modalRef.current.style.transform = "scale(0.95) translateY(10px)";
+      
+      setTimeout(() => {
+        onClose();
+      }, 200);
+    } else {
+      onClose();
+    }
+  };
+  
+  return (
+    <div
+      ref={modalRef}
+      className={styles.customModal}
+      style={{
+        left: "var(--padding-s)",
+        top: "50%",
+        transform: "translateY(-50%)",
+      }}
+    >
+      {/* Header - draggable */}
+      <div 
+        className={styles.customModalHeader}
+        onMouseDown={handleDragStart}
+        onTouchStart={handleDragStart}
+      >
+        <div className={styles.customModalTopic}>
+          <div className={styles.customModalLevel}>
+            {levels.join(", ")}
+          </div>
+          <h3 className={styles.customModalTitle}>Math Topic</h3>
+        </div>
+        <button 
+          onClick={handleClose}
+          className={styles.customModalClose}
+          aria-label="Close modal"
+        >
+          ×
+        </button>
+      </div>
+      
+      <div className={styles.customModalContent}>
+        {/* Content */}
+        <p className={styles.customModalDescription}>
+          {data.point}
+        </p>
+        
+        {data.extra && (
+          <div className={styles.customModalExtra}>
+            <h4>Additional Notes</h4>
+            <p>{data.extra}</p>
+          </div>
+        )}
+        
+        {/* Progress bars */}
+        <div className={styles.customModalProgress}>
+          <div className={styles.progressItem}>
+            <div className={styles.progressLabel}>
+              <span>Knowledge</span>
+              <span>{knowledgeProgress}%</span>
+            </div>
+            <div className={styles.progressBar}>
+              <div 
+                className={styles.progressFill} 
+                style={{ 
+                  width: `${knowledgeProgress}%`,
+                  backgroundColor: 'var(--brand-color)'
+                }}
+              ></div>
+            </div>
+          </div>
+          
+          <div className={styles.progressItem}>
+            <div className={styles.progressLabel}>
+              <span>Memory</span>
+              <span>{memoryProgress}%</span>
+            </div>
+            <div className={styles.progressBar}>
+              <div 
+                className={styles.progressFill} 
+                style={{ 
+                  width: `${memoryProgress}%`,
+                  backgroundColor: 'var(--kredirel-medium-blue)'
+                }}
+              ></div>
+            </div>
+          </div>
+          
+          <div className={styles.progressItem}>
+            <div className={styles.progressLabel}>
+              <span>Practice</span>
+              <span>{practiceProgress}%</span>
+            </div>
+            <div className={styles.progressBar}>
+              <div 
+                className={styles.progressFill} 
+                style={{ 
+                  width: `${practiceProgress}%`,
+                  backgroundColor: 'var(--kredirel-orange)'
+                }}
+              ></div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Exam boards */}
+        {examBoards.length > 0 && (
+          <div className={styles.customModalExamBoards}>
+            <h4>Exam Boards</h4>
+            <div className={styles.examBoardTags}>
+              {examBoards.map((board, index) => (
+                <span key={index} className={styles.examBoardTag}>
+                  {board}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      
+      {/* Footer with button */}
+      <div className={styles.customModalFooter}>
+        <button className={styles.customModalButton}>
+          <span>Learning Materials</span>
+          <ExternalLink size={16} />
+        </button>
+      </div>
+      
+      {/* Corner drag handles */}
+      <div
+        className={styles.dragHandle}
+        style={{ top: 0, left: 0 }}
+        onMouseDown={handleDragStart}
+        onTouchStart={handleDragStart}
+      />
+      <div
+        className={styles.dragHandle}
+        style={{ top: 0, right: 0 }}
+        onMouseDown={handleDragStart}
+        onTouchStart={handleDragStart}
+      />
+      <div
+        className={styles.dragHandle}
+        style={{ bottom: 0, left: 0 }}
+        onMouseDown={handleDragStart}
+        onTouchStart={handleDragStart}
+      />
+      <div
+        className={styles.dragHandle}
+        style={{ bottom: 0, right: 0 }}
+        onMouseDown={handleDragStart}
+        onTouchStart={handleDragStart}
+      />
+    </div>
+  );
+};
 
 export default function Home() {
   const { openSearch } = useSearch();
@@ -268,6 +498,8 @@ export default function Home() {
             rotationAxisX={45}
             rotationAxisY={45}
             rotationAxisZ={45}
+            customModal={CustomMathTopicModal}
+            draggable={true}
           />
         </div>
       </section>
