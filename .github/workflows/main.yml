@@ -18,6 +18,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker-container
+          driver-opts: network=host
+
       - name: Configure AWS Credentials for DEVELOPMENT
         if: github.ref == 'refs/heads/development'
         uses: aws-actions/configure-aws-credentials@v4
@@ -42,23 +51,23 @@ jobs:
         if: github.ref == 'refs/heads/development'
         uses: docker/build-push-action@v6
         with:
+          context: .
           file: ./Dockerfile
           push: true
+          platforms: linux/amd64
           tags: ${{ secrets.ECR_REPOSITORY }}:development
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       
       - name: Build and Tag for Production
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
         with:
+          context: .
           file: ./Dockerfile
           push: true
+          platforms: linux/amd64
           tags: |
             ${{ secrets.ECR_REPOSITORY }}:latest
             ${{ secrets.ECR_REPOSITORY }}:production
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
       
       - name: Fetch existing task definition for Development
         if: github.ref == 'refs/heads/development'
