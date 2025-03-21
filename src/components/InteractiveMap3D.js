@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import styles from "./InteractiveMap3D.module.css";
+import ReactDOM from 'react-dom';
 
 // Configuration constants
 const CONSTANTS = {
@@ -39,8 +40,8 @@ const CONSTANTS = {
 
   // Starfield background
   BACKGROUND_STARS: 2000,
-  BACKGROUND_STAR_MIN_DISTANCE: 30,
-  BACKGROUND_STAR_MAX_DISTANCE: 80,
+  BACKGROUND_STAR_MIN_DISTANCE: 110, // Increased beyond MAX_DISTANCE
+  BACKGROUND_STAR_MAX_DISTANCE: 200, // Increased for better depth perception
 
   // Camera settings
   CAMERA: {
@@ -80,8 +81,8 @@ const CONSTANTS = {
  * @param {number} [props.initialZoom] - Initial zoom level (default: calculated optimal distance)
  * @param {number} [props.minZoom] - Minimum zoom level (default: 5)
  * @param {number} [props.maxZoom] - Maximum zoom level (default: 100)
- * @param {React.Component} [props.customModal] - Optional custom modal component for rendering data
- *   Custom modal will receive: planetId, data, and onClose props
+ * @param {Function} [props.renderModalContent] - Optional function to render custom modal content
+ *   This function receives: { planetId, data } and should return JSX
  * @param {boolean} [props.draggable=true] - Whether the modal should be draggable
  */
 const InteractiveMap3D = ({
@@ -97,7 +98,7 @@ const InteractiveMap3D = ({
   rotationAxisX = 0, // X-axis rotation angle in degrees
   rotationAxisY = 0, // Y-axis rotation angle in degrees
   rotationAxisZ = 0, // Z-axis rotation angle in degrees
-  customModal, // Optional custom modal component to override default
+  renderModalContent, // Changed from customModal to renderModalContent
   draggable = true, // Whether the modal should be draggable
 }) => {
   // Scene references
@@ -623,6 +624,202 @@ const InteractiveMap3D = ({
       }
     };
 
+    // Add this hook to your codebase, for custom modals to use
+    const useDraggableModal = (initialPosition, isDraggable = true) => {
+      const modalRef = useRef(null);
+
+      // Position modal initially
+      useEffect(() => {
+        if (!modalRef.current || !initialPosition) return;
+
+        // Get viewport dimensions
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        // Get modal dimensions
+        const modalWidth = modalRef.current.offsetWidth;
+        const modalHeight = modalRef.current.offsetHeight;
+
+        // Calculate position that keeps modal fully in viewport
+        let left = initialPosition.x;
+        let top = initialPosition.y;
+
+        // Adjust if modal would go off edges
+        if (left + modalWidth > viewportWidth - 20) {
+          left = viewportWidth - modalWidth - 20;
+        }
+
+        if (top + modalHeight > viewportHeight - 20) {
+          top = viewportHeight - modalHeight - 20;
+        }
+
+        // Ensure modal stays within boundaries
+        left = Math.max(20, left);
+        top = Math.max(20, top);
+
+        // Position modal
+        modalRef.current.style.position = "fixed";
+        modalRef.current.style.left = `${left}px`;
+        modalRef.current.style.top = `${top}px`;
+        modalRef.current.style.right = "auto";
+      }, [initialPosition]);
+
+      // Setup dragging behavior
+      useEffect(() => {
+        if (!modalRef.current || !isDraggable) return;
+
+        let isDragging = false;
+        let startX, startY, startLeft, startTop;
+        let rafId = null;
+
+        // Helper to add CSS class
+        const addDraggingClass = () => {
+          modalRef.current.classList.add("modalDragging");
+        };
+
+        // Helper to remove CSS class
+        const removeDraggingClass = () => {
+          modalRef.current.classList.remove("modalDragging");
+        };
+
+        const moveModal = (x, y) => {
+          if (rafId) cancelAnimationFrame(rafId);
+
+          rafId = requestAnimationFrame(() => {
+            if (!modalRef.current) return;
+            modalRef.current.style.left = `${startLeft + (x - startX)}px`;
+            modalRef.current.style.top = `${startTop + (y - startY)}px`;
+            modalRef.current.style.right = "auto";
+            rafId = null;
+          });
+        };
+
+        const onMouseDown = (e) => {
+          if (!modalRef.current) return;
+          e.preventDefault();
+
+          // Get current position
+          const rect = modalRef.current.getBoundingClientRect();
+
+          // Add class to disable transitions
+          addDraggingClass();
+
+          // Set explicit left position
+          modalRef.current.style.left = `${rect.left}px`;
+          modalRef.current.style.right = "auto";
+
+          startLeft = rect.left;
+          startTop = rect.top;
+          startX = e.clientX;
+          startY = e.clientY;
+          isDragging = true;
+
+          document.addEventListener("mousemove", onMouseMove, {
+            passive: true,
+          });
+          document.addEventListener("mouseup", onMouseUp, { passive: true });
+        };
+
+        const onMouseMove = (e) => {
+          if (!isDragging) return;
+          moveModal(e.clientX, e.clientY);
+        };
+
+        const onMouseUp = () => {
+          isDragging = false;
+          removeDraggingClass();
+          document.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("mouseup", onMouseUp);
+        };
+
+        // Touch event handlers
+        const onTouchStart = (e) => {
+          if (!modalRef.current || e.touches.length !== 1) return;
+          e.preventDefault();
+
+          const rect = modalRef.current.getBoundingClientRect();
+          addDraggingClass();
+
+          modalRef.current.style.left = `${rect.left}px`;
+          modalRef.current.style.right = "auto";
+
+          startLeft = rect.left;
+          startTop = rect.top;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          isDragging = true;
+
+          document.addEventListener("touchmove", onTouchMove, {
+            passive: false,
+          });
+          document.addEventListener("touchend", onTouchEnd, { passive: true });
+        };
+
+        const onTouchMove = (e) => {
+          if (!isDragging || e.touches.length !== 1) return;
+          e.preventDefault();
+          moveModal(e.touches[0].clientX, e.touches[0].clientY);
+        };
+
+        const onTouchEnd = () => {
+          isDragging = false;
+          removeDraggingClass();
+          document.removeEventListener("touchmove", onTouchMove);
+          document.removeEventListener("touchend", onTouchEnd);
+        };
+
+        // Find drag handles within the modal
+        const getDragHandles = () => {
+          const header = modalRef.current.querySelector(
+            "[data-draggable='header']"
+          );
+          const handles = modalRef.current.querySelectorAll(
+            "[data-draggable='handle']"
+          );
+          return [header, ...handles].filter((el) => el);
+        };
+
+        // Add event listeners to drag handles
+        const dragHandles = getDragHandles();
+
+        // If no specific drag handles found, make the whole modal draggable
+        if (dragHandles.length === 0) {
+          modalRef.current.addEventListener("mousedown", onMouseDown);
+          modalRef.current.addEventListener("touchstart", onTouchStart, {
+            passive: false,
+          });
+        } else {
+          dragHandles.forEach((handle) => {
+            handle.addEventListener("mousedown", onMouseDown);
+            handle.addEventListener("touchstart", onTouchStart, {
+              passive: false,
+            });
+          });
+        }
+
+        return () => {
+          if (rafId) cancelAnimationFrame(rafId);
+
+          if (dragHandles.length === 0) {
+            modalRef.current?.removeEventListener("mousedown", onMouseDown);
+            modalRef.current?.removeEventListener("touchstart", onTouchStart);
+          } else {
+            dragHandles.forEach((handle) => {
+              handle?.removeEventListener("mousedown", onMouseDown);
+              handle?.removeEventListener("touchstart", onTouchStart);
+            });
+          }
+
+          document.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("mouseup", onMouseUp);
+          document.removeEventListener("touchmove", onTouchMove);
+          document.removeEventListener("touchend", onTouchEnd);
+        };
+      }, [isDraggable]);
+
+      return modalRef;
+    };
+
     // Handle planet click
     const handlePlanetClick = (event) => {
       if (isDraggingRef.current) return; // Don't process clicks while dragging
@@ -744,9 +941,18 @@ const InteractiveMap3D = ({
         animateCameraSmooth();
 
         // Show the modal after the animation completes.
+        // Show the modal after the animation completes.
+        // Store the cursor position for modal placement
+        const cursorPosition = {
+          x: event.clientX,
+          y: event.clientY,
+        };
+
+        // Show the modal after the animation completes.
         setTimeout(() => {
           setModalInfo({
             planetId: clickedObject.userData.id,
+            position: cursorPosition, // Add cursor position
             data: clickedObject.userData.data,
           });
           setShowModal(true);
@@ -1734,112 +1940,203 @@ const InteractiveMap3D = ({
     requestAnimationFrame(animateFrame);
   };
 
-  // Default Modal component - moved inside InteractiveMap3D after all functions are defined
-  const DefaultPlanetModal = () => {
-    if (!showModal) return null;
+  // First, create a BasePlanetModal component inside InteractiveMap3D
+  // Add this right before the DefaultPlanetModal definition
 
+  // The BasePlanetModal component
+  const BasePlanetModal = ({ children, onClose, draggable }) => {
     const modalRef = useRef(null);
-    const dragDataRef = useRef({
-      isDragging: false,
-      startX: 0,
-      startY: 0,
-      initialLeft: 0,
-      initialTop: 0,
-    });
-    
-    // Initial modal position, set immediately on mount
-    const [modalPosition, setModalPosition] = useState({
-      left: 'var(--padding-s)',
-      top: '50%',
-      transform: 'translateY(-50%)'
-    });
 
-    // Common drag start handler for header and corner handles.
-    const handleDragStart = (e) => {
-      if (!draggable) return;
-      
-      e.preventDefault();
-      dragDataRef.current.isDragging = true;
-      const clientX =
-        e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
-      const clientY =
-        e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
-      dragDataRef.current.startX = clientX;
-      dragDataRef.current.startY = clientY;
+    // Position modal at cursor position
+    useEffect(() => {
+      if (!modalRef.current) return;
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const modalWidth = modalRef.current.offsetWidth;
+      const modalHeight = modalRef.current.offsetHeight;
+      let left = modalInfo.position.x;
+      let top = modalInfo.position.y;
 
-      if (modalRef.current) {
-        const parentRect =
-          modalRef.current.offsetParent.getBoundingClientRect();
-        const modalRect = modalRef.current.getBoundingClientRect();
-        dragDataRef.current.initialLeft = modalRect.left - parentRect.left;
-        dragDataRef.current.initialTop = modalRect.top - parentRect.top;
+      if (left + modalWidth > viewportWidth - 20) {
+        left = viewportWidth - modalWidth - 20;
       }
+      if (top + modalHeight > viewportHeight - 20) {
+        top = viewportHeight - modalHeight - 20;
+      }
+      left = Math.max(20, left);
+      top = Math.max(20, top);
 
-      window.addEventListener("mousemove", handleDrag);
-      window.addEventListener("mouseup", handleDragEnd);
-      window.addEventListener("touchmove", handleDrag);
-      window.addEventListener("touchend", handleDragEnd);
-    };
+      modalRef.current.style.position = "fixed";
+      modalRef.current.style.left = `${left}px`;
+      modalRef.current.style.top = `${top}px`;
+      modalRef.current.style.right = "auto";
+      modalRef.current.style.zIndex = "1000";
+      modalRef.current.style.transform = "none";
+    }, []); // Note: modalInfo.position is assumed to be stable when modal opens
 
-    const handleDrag = (e) => {
-      if (!dragDataRef.current.isDragging) return;
-      const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
-      const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
-      const deltaX = clientX - dragDataRef.current.startX;
-      const deltaY = clientY - dragDataRef.current.startY;
-      
-      if (modalRef.current) {
-        // Update state for persistent position
-        setModalPosition({
-          left: `${dragDataRef.current.initialLeft + deltaX}px`,
-          top: `${dragDataRef.current.initialTop + deltaY}px`,
-          transform: 'none'
+    // Ultra-optimized dragging effect
+    useEffect(() => {
+      if (!modalRef.current || !draggable) return;
+      let isDragging = false;
+      let startX, startY, startLeft, startTop;
+      let rafId = null;
+
+      const moveModal = (x, y) => {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          if (!modalRef.current) return;
+          modalRef.current.style.left = `${startLeft + (x - startX)}px`;
+          modalRef.current.style.top = `${startTop + (y - startY)}px`;
+          modalRef.current.style.right = "auto";
+          rafId = null;
         });
-      }
-    };
+      };
 
-    const handleDragEnd = () => {
-      dragDataRef.current.isDragging = false;
-      window.removeEventListener("mousemove", handleDrag);
-      window.removeEventListener("mouseup", handleDragEnd);
-      window.removeEventListener("touchmove", handleDrag);
-      window.removeEventListener("touchend", handleDragEnd);
-    };
+      const onMouseDown = (e) => {
+        if (!modalRef.current) return;
+        e.preventDefault();
+        const rect = modalRef.current.getBoundingClientRect();
+        modalRef.current.classList.add(styles.modalDragging);
+        modalRef.current.style.left = `${rect.left}px`;
+        modalRef.current.style.right = "auto";
+        startLeft = rect.left;
+        startTop = rect.top;
+        startX = e.clientX;
+        startY = e.clientY;
+        isDragging = true;
+        document.addEventListener("mousemove", onMouseMove, { passive: true });
+        document.addEventListener("mouseup", onMouseUp, { passive: true });
+      };
+
+      const onMouseUp = () => {
+        isDragging = false;
+        if (modalRef.current) {
+          modalRef.current.classList.remove(styles.modalDragging);
+        }
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+      };
+
+      const onMouseMove = (e) => {
+        if (!isDragging) return;
+        moveModal(e.clientX, e.clientY);
+      };
+
+      const onTouchStart = (e) => {
+        if (!modalRef.current || e.touches.length !== 1) return;
+        e.preventDefault();
+        const rect = modalRef.current.getBoundingClientRect();
+        modalRef.current.style.left = `${rect.left}px`;
+        modalRef.current.style.right = "auto";
+        const updatedRect = modalRef.current.getBoundingClientRect();
+        startLeft = updatedRect.left;
+        startTop = updatedRect.top;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isDragging = true;
+        document.addEventListener("touchmove", onTouchMove, { passive: false });
+        document.addEventListener("touchend", onTouchEnd, { passive: true });
+      };
+
+      const onTouchMove = (e) => {
+        if (!isDragging || e.touches.length !== 1) return;
+        e.preventDefault();
+        moveModal(e.touches[0].clientX, e.touches[0].clientY);
+      };
+
+      const onTouchEnd = () => {
+        isDragging = false;
+        document.removeEventListener("touchmove", onTouchMove);
+        document.removeEventListener("touchend", onTouchEnd);
+      };
+
+      const header = modalRef.current.querySelector(`.${styles.modalHeader}`);
+      if (header) {
+        header.addEventListener("mousedown", onMouseDown);
+        header.addEventListener("touchstart", onTouchStart, { passive: false });
+      }
+      const handles = modalRef.current.querySelectorAll(
+        `.${styles.dragHandle}`
+      );
+      handles.forEach((handle) => {
+        handle.addEventListener("mousedown", onMouseDown);
+        handle.addEventListener("touchstart", onTouchStart, { passive: false });
+      });
+
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        if (header) {
+          header.removeEventListener("mousedown", onMouseDown);
+          header.removeEventListener("touchstart", onTouchStart);
+        }
+        handles.forEach((handle) => {
+          handle.removeEventListener("mousedown", onMouseDown);
+          handle.removeEventListener("touchstart", onTouchStart);
+        });
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+        document.removeEventListener("touchmove", onTouchMove);
+        document.removeEventListener("touchend", onTouchEnd);
+      };
+    }, [draggable]);
 
     const handleClose = (e) => {
       e.stopPropagation();
-
-      // Add exit animation
       if (modalRef.current) {
         modalRef.current.style.opacity = "0";
         modalRef.current.style.transform = "scale(0.95) translateY(10px)";
-
         setTimeout(() => {
-          setShowModal(false);
-          animateCameraReset();
+          onClose();
         }, 200);
       } else {
-        setShowModal(false);
-        animateCameraReset();
+        onClose();
       }
     };
 
-    // Render planet properties dynamically based on available data
+    return (
+      <div ref={modalRef} className={styles.modal}>
+        <div
+          className={styles.modalHeader}
+          style={{ cursor: draggable ? "grab" : "default" }}
+        >
+          <button
+            onClick={handleClose}
+            className={styles.modalClose}
+            aria-label="Close modal"
+          >
+            ×
+          </button>
+        </div>
+        {children}
+        {draggable && (
+          <>
+            <div className={styles.dragHandle} style={{ top: 0, left: 0 }} />
+            <div className={styles.dragHandle} style={{ top: 0, right: 0 }} />
+            <div className={styles.dragHandle} style={{ bottom: 0, left: 0 }} />
+            <div
+              className={styles.dragHandle}
+              style={{ bottom: 0, right: 0 }}
+            />
+          </>
+        )}
+      </div>
+    );
+  };
+
+  // ──────────────────────────────
+  // DefaultPlanetModal Component
+  // ──────────────────────────────
+  const DefaultPlanetModal = () => {
     const renderPlanetProperties = () => {
-      // Filter out common properties already displayed elsewhere
       const commonProps = ["name", "orbit", "details", "id"];
       const additionalProps = Object.keys(modalInfo.data).filter(
         (key) => !commonProps.includes(key)
       );
-
       if (additionalProps.length === 0) return null;
-
-      // Helper function to render different data types
       const renderValue = (value, depth = 0) => {
         if (value === null || value === undefined) {
           return <span style={{ color: "var(--text-color-50)" }}>null</span>;
         }
-
         if (
           typeof value === "string" ||
           typeof value === "number" ||
@@ -1847,12 +2144,10 @@ const InteractiveMap3D = ({
         ) {
           return String(value);
         }
-
         if (Array.isArray(value)) {
           if (value.length === 0) {
             return <span style={{ color: "var(--text-color-50)" }}>[]</span>;
           }
-
           return (
             <ul
               style={{
@@ -1869,11 +2164,10 @@ const InteractiveMap3D = ({
             </ul>
           );
         }
-
         if (typeof value === "object") {
           return (
             <div style={{ paddingLeft: depth > 0 ? 16 : 0 }}>
-              {Object.entries(value).map(([key, val], i) => (
+              {Object.entries(value).map(([key, val]) => (
                 <div key={key} style={{ marginBottom: 4 }}>
                   <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong>{" "}
                   {renderValue(val, depth + 1)}
@@ -1882,10 +2176,8 @@ const InteractiveMap3D = ({
             </div>
           );
         }
-
         return String(value);
       };
-
       return (
         <div
           style={{
@@ -1907,39 +2199,25 @@ const InteractiveMap3D = ({
       );
     };
 
-    // Add a learning materials button
     const learningMaterialsBtn = (
-      <button 
+      <button
         className={styles.learningMaterialsBtn}
-        onClick={() => window.open(`https://www.example.com/materials/${modalInfo.planetId}`, '_blank')}
+        onClick={() =>
+          window.open(
+            `https://www.example.com/materials/${modalInfo.planetId}`,
+            "_blank"
+          )
+        }
       >
         Learning Materials
       </button>
     );
 
     return (
-      <div
-        ref={modalRef}
-        className={styles.modal}
-        style={modalPosition}
-      >
-        {/* Header is draggable */}
-        <div
-          className={styles.modalHeader}
-          onMouseDown={draggable ? handleDragStart : undefined}
-          onTouchStart={draggable ? handleDragStart : undefined}
-          style={{ cursor: draggable ? 'grab' : 'default' }}
-        >
+      <>
+        <div className={styles.modalHeader}>
           <h3 className={styles.modalTitle}>{modalInfo.data.name}</h3>
-          <button
-            onClick={handleClose}
-            className={styles.modalClose}
-            aria-label="Close modal"
-          >
-            ×
-          </button>
         </div>
-
         <div className={styles.modalContent}>
           <p>
             <strong>Orbit:</strong> {modalInfo.data.orbit} units
@@ -1947,63 +2225,44 @@ const InteractiveMap3D = ({
           <p>{modalInfo.data.details}</p>
           {renderPlanetProperties()}
         </div>
-        
-        {/* Footer with learning materials button */}
-        <div className={styles.modalFooter}>
-          {learningMaterialsBtn}
-        </div>
-
-        {/* Corner drag handles - only show if draggable */}
-        {draggable && (
-          <>
-            <div
-              className={styles.dragHandle}
-              style={{ top: 0, left: 0 }}
-              onMouseDown={handleDragStart}
-              onTouchStart={handleDragStart}
-            />
-            <div
-              className={styles.dragHandle}
-              style={{ top: 0, right: 0 }}
-              onMouseDown={handleDragStart}
-              onTouchStart={handleDragStart}
-            />
-            <div
-              className={styles.dragHandle}
-              style={{ bottom: 0, left: 0 }}
-              onMouseDown={handleDragStart}
-              onTouchStart={handleDragStart}
-            />
-            <div
-              className={styles.dragHandle}
-              style={{ bottom: 0, right: 0 }}
-              onMouseDown={handleDragStart}
-              onTouchStart={handleDragStart}
-            />
-          </>
-        )}
-      </div>
+        <div className={styles.modalFooter}>{learningMaterialsBtn}</div>
+      </>
     );
   };
 
+  const PortalPlanetModal = React.memo(({ children, onClose, draggable }) => {
+    return ReactDOM.createPortal(
+      <BasePlanetModal draggable={draggable} onClose={onClose}>
+        {children}
+      </BasePlanetModal>,
+      document.body
+    );
+  });
+
+  // Updated InteractiveMap3D return statement
+  // Updated InteractiveMap3D return statement
   return (
     <div className={styles.container} style={{ height: "100%", width: "100%" }}>
       <div ref={containerRef} className={styles.scene} />
-      {showModal &&
-        (customModal ? (
-          // If custom modal is provided, render it with necessary props
-          React.createElement(customModal, {
-            planetId: modalInfo.planetId,
-            data: modalInfo.data,
-            onClose: () => {
-              setShowModal(false);
-              animateCameraReset();
-            },
-          })
-        ) : (
-          // Otherwise use the default modal
-          <DefaultPlanetModal />
-        ))}
+      {showModal && (
+        // Use the PortalPlanetModal to render the modal outside the main tree.
+        <PortalPlanetModal
+          draggable={draggable}
+          onClose={() => {
+            setShowModal(false);
+            animateCameraReset();
+          }}
+        >
+          {renderModalContent ? (
+            renderModalContent({
+              planetId: modalInfo.planetId,
+              data: modalInfo.data,
+            })
+          ) : (
+            <DefaultPlanetModal />
+          )}
+        </PortalPlanetModal>
+      )}
     </div>
   );
 };

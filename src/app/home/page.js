@@ -27,231 +27,92 @@ import {
 } from "lucide-react";
 
 // Custom Modal component for InteractiveMap3D
-const CustomMathTopicModal = ({ planetId, data, onClose }) => {
-  // Find the exam boards from the tags
-  const examBoards = data.tags ? [...new Set(data.tags.map(tag => tag.examBoard))] : [];
-  const levels = data.tags ? [...new Set(data.tags.flatMap(tag => tag.level))] : [];
-  
-  // Calculate random progress percentages for demo purposes
-  // In a real app, these would come from the student's actual progress data
-  const knowledgeProgress = Math.floor(Math.random() * 100);
-  const memoryProgress = Math.floor(Math.random() * 100);
-  const practiceProgress = Math.floor(Math.random() * 100);
-  
-  // Reference for dragging
-  const modalRef = useRef(null);
-  const dragDataRef = useRef({
-    isDragging: false,
-    startX: 0,
-    startY: 0,
-    initialLeft: 0,
-    initialTop: 0,
-  });
-  
-  // Common drag start handler for header and corner handles
-  const handleDragStart = (e) => {
-    e.preventDefault();
-    dragDataRef.current.isDragging = true;
-    const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
-    const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
-    dragDataRef.current.startX = clientX;
-    dragDataRef.current.startY = clientY;
+// Add this outside of InteractiveMap3D, in the paste-2.txt file
 
-    if (modalRef.current) {
-      const parentRect = modalRef.current.offsetParent.getBoundingClientRect();
-      const modalRect = modalRef.current.getBoundingClientRect();
-      dragDataRef.current.initialLeft = modalRect.left - parentRect.left;
-      dragDataRef.current.initialTop = modalRect.top - parentRect.top;
-    }
+// The CustomMathTopicModal component (for use in Home.js)
+const CustomMathTopicModal = ({ planetId, data }) => {
+  // Extract topic information from data
+  const topicName = data.name || "Math Topic";
+  const topicDetails = data.details || "No details available";
+  const topicSpecs = data.specs || [];
 
-    window.addEventListener("mousemove", handleDrag);
-    window.addEventListener("mouseup", handleDragEnd);
-    window.addEventListener("touchmove", handleDrag);
-    window.addEventListener("touchend", handleDragEnd);
+  // Determine topic difficulty
+  const getDifficultyColor = (level) => {
+    if (!level) return "#9CA3AF";
+    const levelNum = parseInt(level);
+    if (levelNum <= 3) return "#10B981"; // easy - green
+    if (levelNum <= 6) return "#F59E0B"; // medium - amber
+    return "#EF4444"; // hard - red
   };
 
-  const handleDrag = (e) => {
-    if (!dragDataRef.current.isDragging) return;
-    const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
-    const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
-    const deltaX = clientX - dragDataRef.current.startX;
-    const deltaY = clientY - dragDataRef.current.startY;
-    
-    if (modalRef.current) {
-      modalRef.current.style.left = `${dragDataRef.current.initialLeft + deltaX}px`;
-      modalRef.current.style.top = `${dragDataRef.current.initialTop + deltaY}px`;
-      modalRef.current.style.transform = "none";
-    }
+  const difficultyLevel = data.difficulty || "4";
+  const difficultyColor = getDifficultyColor(difficultyLevel);
+
+  // Handle studying this topic
+  const handleStudyTopic = () => {
+    window.open(`/study/${planetId}`, "_blank");
   };
 
-  const handleDragEnd = () => {
-    dragDataRef.current.isDragging = false;
-    window.removeEventListener("mousemove", handleDrag);
-    window.removeEventListener("mouseup", handleDragEnd);
-    window.removeEventListener("touchmove", handleDrag);
-    window.removeEventListener("touchend", handleDragEnd);
+  // Handle taking a quiz on this topic
+  const handleTakeQuiz = () => {
+    window.open(`/quiz/${planetId}`, "_blank");
   };
 
-  const handleClose = (e) => {
-    e.stopPropagation();
-    
-    // Add exit animation
-    if (modalRef.current) {
-      modalRef.current.style.opacity = "0";
-      modalRef.current.style.transform = "scale(0.95) translateY(10px)";
-      
-      setTimeout(() => {
-        onClose();
-      }, 200);
-    } else {
-      onClose();
-    }
-  };
-  
   return (
-    <div
-      ref={modalRef}
-      className={styles.customModal}
-      style={{
-        left: "var(--padding-s)",
-        top: "50%",
-        transform: "translateY(-50%)",
-      }}
-    >
-      {/* Header - draggable */}
-      <div 
-        className={styles.customModalHeader}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-      >
-        <div className={styles.customModalTopic}>
-          <div className={styles.customModalLevel}>
-            {levels.join(", ")}
-          </div>
-          <h3 className={styles.customModalTitle}>Math Topic</h3>
-        </div>
-        <button 
-          onClick={handleClose}
-          className={styles.customModalClose}
-          aria-label="Close modal"
+    <>
+      <div className={styles.modalHeader}>
+        <h3 className={styles.modalTitle}>{topicName}</h3>
+        <div
+          className={styles.difficultyBadge}
+          style={{ backgroundColor: difficultyColor }}
         >
-          ×
-        </button>
+          Level {difficultyLevel}
+        </div>
       </div>
-      
-      <div className={styles.customModalContent}>
-        {/* Content */}
-        <p className={styles.customModalDescription}>
-          {data.point}
-        </p>
-        
-        {data.extra && (
-          <div className={styles.customModalExtra}>
-            <h4>Additional Notes</h4>
-            <p>{data.extra}</p>
+
+      <div className={styles.modalBody}>
+        <p className={styles.topicDescription}>{topicDetails}</p>
+
+        {topicSpecs && topicSpecs.length > 0 && (
+          <div className={styles.topicSpecs}>
+            <h4>Specification Points:</h4>
+            <ul className={styles.specsList}>
+              {topicSpecs.map((spec, index) => (
+                <li key={index} className={styles.specItem}>
+                  <CheckCircle size={16} className={styles.specIcon} />
+                  <span>{spec}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
-        
-        {/* Progress bars */}
-        <div className={styles.customModalProgress}>
-          <div className={styles.progressItem}>
-            <div className={styles.progressLabel}>
-              <span>Knowledge</span>
-              <span>{knowledgeProgress}%</span>
-            </div>
-            <div className={styles.progressBar}>
-              <div 
-                className={styles.progressFill} 
-                style={{ 
-                  width: `${knowledgeProgress}%`,
-                  backgroundColor: 'var(--brand-color)'
-                }}
-              ></div>
-            </div>
-          </div>
-          
-          <div className={styles.progressItem}>
-            <div className={styles.progressLabel}>
-              <span>Memory</span>
-              <span>{memoryProgress}%</span>
-            </div>
-            <div className={styles.progressBar}>
-              <div 
-                className={styles.progressFill} 
-                style={{ 
-                  width: `${memoryProgress}%`,
-                  backgroundColor: 'var(--kredirel-medium-blue)'
-                }}
-              ></div>
-            </div>
-          </div>
-          
-          <div className={styles.progressItem}>
-            <div className={styles.progressLabel}>
-              <span>Practice</span>
-              <span>{practiceProgress}%</span>
-            </div>
-            <div className={styles.progressBar}>
-              <div 
-                className={styles.progressFill} 
-                style={{ 
-                  width: `${practiceProgress}%`,
-                  backgroundColor: 'var(--kredirel-orange)'
-                }}
-              ></div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Exam boards */}
-        {examBoards.length > 0 && (
-          <div className={styles.customModalExamBoards}>
-            <h4>Exam Boards</h4>
-            <div className={styles.examBoardTags}>
-              {examBoards.map((board, index) => (
-                <span key={index} className={styles.examBoardTag}>
-                  {board}
+
+        {data.relatedTopics && (
+          <div className={styles.relatedTopics}>
+            <h4>Related Topics:</h4>
+            <div className={styles.topicTags}>
+              {data.relatedTopics.map((topic, index) => (
+                <span key={index} className={styles.topicTag}>
+                  {topic}
                 </span>
               ))}
             </div>
           </div>
         )}
       </div>
-      
-      {/* Footer with button */}
-      <div className={styles.customModalFooter}>
-        <button className={styles.customModalButton}>
-          <span>Learning Materials</span>
-          <ExternalLink size={16} />
+
+      <div className={styles.modalFooter}>
+        <button className={styles.studyButton} onClick={handleStudyTopic}>
+          <BookOpen size={16} />
+          <span>Study Topic</span>
+        </button>
+
+        <button className={styles.quizButton} onClick={handleTakeQuiz}>
+          <Activity size={16} />
+          <span>Take Quiz</span>
         </button>
       </div>
-      
-      {/* Corner drag handles */}
-      <div
-        className={styles.dragHandle}
-        style={{ top: 0, left: 0 }}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-      />
-      <div
-        className={styles.dragHandle}
-        style={{ top: 0, right: 0 }}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-      />
-      <div
-        className={styles.dragHandle}
-        style={{ bottom: 0, left: 0 }}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-      />
-      <div
-        className={styles.dragHandle}
-        style={{ bottom: 0, right: 0 }}
-        onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-      />
-    </div>
+    </>
   );
 };
 
@@ -314,25 +175,22 @@ export default function Home() {
     };
   }, []);
 
-  // Auto-rotate testimonials
+  // No need for auto-rotate with infinite scroll
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-
-    return () => clearInterval(interval);
+    // Clean up any side effects if needed
+    return () => {};
   }, []);
 
   // Auto-rotate features
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % features.length);
-    }, 4000);
+    // const interval = setInterval(() => {
+    //   setActiveFeature((prev) => (prev + 1) % features.length);
+    // }, 4000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Sample testimonials data
+  // Sample testimonials data - extended for infinite scroll effect
   const testimonials = [
     {
       id: 1,
@@ -360,6 +218,51 @@ export default function Home() {
       subject: "English Literature",
       grade: "Teacher",
       avatar: "/images/avatars/teacher-1.jpg",
+    },
+    {
+      id: 4,
+      text: "The AI tutor feature has been a game-changer for my revision. It's like having a personal teacher available 24/7.",
+      author: "James Wilson",
+      school: "Riverside College",
+      subject: "Physics",
+      grade: "9",
+      avatar: "/images/avatars/student-3.jpg",
+    },
+    {
+      id: 5,
+      text: "My son's confidence has skyrocketed since using GCSE Simulator. The personalized study plans really work!",
+      author: "Karen Thompson",
+      school: "Parent",
+      subject: "Biology",
+      grade: "Parent",
+      avatar: "/images/avatars/parent-1.jpg",
+    },
+    {
+      id: 6,
+      text: "Our school has seen a 30% improvement in GCSE results since implementing GCSE Simulator across our curriculum.",
+      author: "Dr. Robert Clark",
+      school: "Oakridge School",
+      subject: "Headmaster",
+      grade: "Admin",
+      avatar: "/images/avatars/teacher-2.jpg",
+    },
+    {
+      id: 7,
+      text: "The flashcard system helped me memorize key concepts for my History GCSE. I went from struggling to achieving an 8!",
+      author: "Sophie Taylor",
+      school: "Kings Academy",
+      subject: "History",
+      grade: "8",
+      avatar: "/images/avatars/student-4.jpg",
+    },
+    {
+      id: 8,
+      text: "The exam simulation feature prepared me mentally for the real thing. No surprises on exam day!",
+      author: "Daniel Ahmed",
+      school: "Westfield High",
+      subject: "Computer Science",
+      grade: "9",
+      avatar: "/images/avatars/student-5.jpg",
     },
   ];
 
@@ -447,7 +350,9 @@ export default function Home() {
       >
         <div className={styles.heroContent}>
           <div className={styles.heroTagline}>
-            <span className={styles.pill}>GCSE Exam Preparation</span>
+            <span className={styles.pill}>
+              GCSE, A Level, AS Exam Preparation
+            </span>
           </div>
 
           <h1 className={styles.heroTitle}>
@@ -456,9 +361,11 @@ export default function Home() {
           </h1>
 
           <p className={styles.heroSubtitle}>
-            The ultimate platform for GCSE and A Level success, our simulator contains every resource you need to ace your exams.
-            Revision notes, past papers, infinite skill practice, advanced AI-powered progress tracking, your own personal AI tutor.
-            All included with the simulator.
+            The ultimate platform for GCSE and A Level success, our simulator
+            contains every resource you need to ace your exams. Revision notes,
+            past papers, infinite skill practice, advanced AI-powered progress
+            tracking, your own personal AI tutor. All included with the
+            simulator.
           </p>
 
           <div className={styles.heroCta}>
@@ -498,7 +405,11 @@ export default function Home() {
             rotationAxisX={45}
             rotationAxisY={45}
             rotationAxisZ={45}
-            customModal={CustomMathTopicModal}
+            renderModalContent={({ planetId, data }) => (
+              <div>
+                {/* Additional custom content */}
+              </div>
+            )}
             draggable={true}
           />
         </div>
@@ -895,92 +806,148 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Testimonials Section - Infinite Scroll */}
       <section ref={testimonialsRef} className={styles.testimonialsSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Success Stories</h2>
           <p className={styles.sectionSubtitle}>
-            See how students have improved their GCSE results with our platform
+            See how our students have achieved exceptional results
           </p>
         </div>
 
-        <div className={styles.testimonialSlider}>
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className={`${styles.testimonialCard} ${
-                index === activeTestimonial ? styles.activeTestimonial : ""
-              }`}
-            >
-              <div className={styles.testimonialContent}>
-                <div className={styles.quoteIcon}>"</div>
-
-                <p className={styles.testimonialText}>{testimonial.text}</p>
-
-                <div className={styles.testimonialRating}>
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={16}
-                      className={styles.star}
-                      fill="currentColor"
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <div className={styles.testimonialFooter}>
-                <div className={styles.testimonialAuthor}>
-                  <div className={styles.authorAvatar}>
-                    {testimonial.avatar ? (
-                      <Image
-                        src={testimonial.avatar}
-                        alt={testimonial.author}
-                        width={50}
-                        height={50}
-                        className={styles.avatarImage}
-                      />
-                    ) : (
-                      testimonial.author.charAt(0)
-                    )}
+        <div className={styles.testimonialInfiniteContainer}>
+          {/* First row - scrolling left to right */}
+          <div className={styles.testimonialRow}>
+            <div className={styles.testimonialTrack}>
+              {/* Double the testimonials for seamless infinite scroll */}
+              {[...testimonials, ...testimonials].map((testimonial, index) => (
+                <div
+                  key={`row1-${testimonial.id}-${index}`}
+                  className={styles.testimonialCard}
+                >
+                  <div className={styles.testimonialContent}>
+                    <div className={styles.quoteIcon}>"</div>
+                    <p className={styles.testimonialText}>{testimonial.text}</p>
+                    <div className={styles.testimonialRating}>
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={16}
+                          className={styles.star}
+                          fill="currentColor"
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <div className={styles.authorInfo}>
-                    <h4 className={styles.authorName}>{testimonial.author}</h4>
-                    <p className={styles.authorDetails}>
-                      {testimonial.school} • {testimonial.subject}
-                    </p>
-                  </div>
-                </div>
 
-                <div className={styles.gradeImprovement}>
-                  <div className={styles.gradeLabel}>
-                    {testimonial.grade === "Teacher" ? (
-                      <span className={styles.teacherBadge}>Teacher</span>
-                    ) : (
-                      <>
-                        Grade{" "}
-                        <span className={styles.gradValue}>
-                          {testimonial.grade}
-                        </span>
-                      </>
-                    )}
+                  <div className={styles.testimonialFooter}>
+                    <div className={styles.testimonialAuthor}>
+                      <div className={styles.authorAvatar}>
+                        {testimonial.avatar ? (
+                          <Image
+                            src={testimonial.avatar}
+                            alt={testimonial.author}
+                            width={50}
+                            height={50}
+                            className={styles.avatarImage}
+                          />
+                        ) : (
+                          testimonial.author.charAt(0)
+                        )}
+                      </div>
+                      <div className={styles.authorInfo}>
+                        <h4 className={styles.authorName}>{testimonial.author}</h4>
+                        <p className={styles.authorDetails}>
+                          {testimonial.school} • {testimonial.subject}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className={styles.gradeImprovement}>
+                      <div className={styles.gradeLabel}>
+                        {testimonial.grade === "Teacher" || testimonial.grade === "Parent" || testimonial.grade === "Admin" ? (
+                          <span className={styles.teacherBadge}>{testimonial.grade}</span>
+                        ) : (
+                          <>
+                            Grade{" "}
+                            <span className={styles.gradValue}>
+                              {testimonial.grade}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
+          
+          {/* Second row - scrolling right to left */}
+          <div className={styles.testimonialRow}>
+            <div className={styles.testimonialTrackReverse}>
+              {/* Double the testimonials for seamless infinite scroll */}
+              {[...testimonials.slice().reverse(), ...testimonials.slice().reverse()].map((testimonial, index) => (
+                <div
+                  key={`row2-${testimonial.id}-${index}`}
+                  className={styles.testimonialCard}
+                >
+                  <div className={styles.testimonialContent}>
+                    <div className={styles.quoteIcon}>"</div>
+                    <p className={styles.testimonialText}>{testimonial.text}</p>
+                    <div className={styles.testimonialRating}>
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={16}
+                          className={styles.star}
+                          fill="currentColor"
+                        />
+                      ))}
+                    </div>
+                  </div>
 
-          <div className={styles.testimonialControls}>
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                className={`${styles.testimonialDot} ${
-                  index === activeTestimonial ? styles.activeDot : ""
-                }`}
-                onClick={() => setActiveTestimonial(index)}
-                aria-label={`View testimonial ${index + 1}`}
-              />
-            ))}
+                  <div className={styles.testimonialFooter}>
+                    <div className={styles.testimonialAuthor}>
+                      <div className={styles.authorAvatar}>
+                        {testimonial.avatar ? (
+                          <Image
+                            src={testimonial.avatar}
+                            alt={testimonial.author}
+                            width={50}
+                            height={50}
+                            className={styles.avatarImage}
+                          />
+                        ) : (
+                          testimonial.author.charAt(0)
+                        )}
+                      </div>
+                      <div className={styles.authorInfo}>
+                        <h4 className={styles.authorName}>{testimonial.author}</h4>
+                        <p className={styles.authorDetails}>
+                          {testimonial.school} • {testimonial.subject}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className={styles.gradeImprovement}>
+                      <div className={styles.gradeLabel}>
+                        {testimonial.grade === "Teacher" || testimonial.grade === "Parent" || testimonial.grade === "Admin" ? (
+                          <span className={styles.teacherBadge}>{testimonial.grade}</span>
+                        ) : (
+                          <>
+                            Grade{" "}
+                            <span className={styles.gradValue}>
+                              {testimonial.grade}
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
