@@ -13,10 +13,8 @@ import {
 import { useAmplify } from "../Providers";
 import Modal from "../../components/Modal";
 import styles from "./signup.module.css";
-import Image from "next/image";
 import Logo from "@/components/Logo";
 import VerticalSpacer from "@/components/VerticalSpacer";
-import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 
 export default function SignUp() {
@@ -34,27 +32,31 @@ export default function SignUp() {
   const [authCheckComplete, setAuthCheckComplete] = useState(false);
   const router = useRouter();
   const { checkAuthState, amplifyConfig } = useAmplify();
-  
+
   // Handler for Google Sign In/Sign Up
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     setError("");
-    
+
     try {
       // Using signInWithRedirect for Google OAuth
-      await signInWithRedirect({ 
-        provider: 'Google',
+      await signInWithRedirect({
+        provider: "Google",
         options: {
+          // This forces Google to show the account picker every time
+          prompt: "select_account",
           redirectSignIn: [
-            'http://localhost:3000/auth-callback',
-            'https://gcsesimulator.co.uk/auth-callback'
-          ]
-        }
+            "http://localhost:3000/auth-callback",
+            "https://gcsesimulator.co.uk/auth-callback",
+          ],
+        },
       });
       // Code below won't execute immediately due to redirect
     } catch (err) {
       console.error("Google sign-in error:", err);
-      setError(err.message || "Failed to sign in with Google. Please try again.");
+      setError(
+        err.message || "Failed to sign in with Google. Please try again."
+      );
       setIsLoading(false);
     }
   };
@@ -63,22 +65,24 @@ export default function SignUp() {
   const handleAppleSignIn = async () => {
     setIsLoading(true);
     setError("");
-    
+
     try {
       // Using signInWithRedirect for Apple OAuth
-      await signInWithRedirect({ 
-        provider: 'Apple',
+      await signInWithRedirect({
+        provider: "Apple",
         options: {
           redirectSignIn: [
-            'http://localhost:3000/auth-callback',
-            'https://gcsesimulator.co.uk/auth-callback'
-          ]
-        }
+            "http://localhost:3000/auth-callback",
+            "https://gcsesimulator.co.uk/auth-callback",
+          ],
+        },
       });
       // Code below won't execute immediately due to redirect
     } catch (err) {
       console.error("Apple sign-in error:", err);
-      setError(err.message || "Failed to sign in with Apple. Please try again.");
+      setError(
+        err.message || "Failed to sign in with Apple. Please try again."
+      );
       setIsLoading(false);
     }
   };
@@ -87,15 +91,15 @@ export default function SignUp() {
   useEffect(() => {
     // Prevent checking auth multiple times
     if (authCheckComplete) return;
-    
+
     const checkAuth = async () => {
       try {
         const isSignedIn = await checkAuthState();
-        
+
         // If authenticated, redirect to dashboard
         if (isSignedIn) {
           console.log("User already authenticated, redirecting to dashboard");
-          router.push("/dashboard");
+          router.push("/dashboard/overview");
           return;
         }
       } catch (error) {
@@ -106,9 +110,9 @@ export default function SignUp() {
         setIsLoading(false);
       }
     };
-    
+
     checkAuth();
-  }, []); // Empty dependency array to run only once
+  }, [checkAuthState, router, authCheckComplete]); // Added dependencies
 
   const validateFullName = (name) => {
     // This regex matches only letters from any language script and spaces
@@ -210,7 +214,7 @@ export default function SignUp() {
           sessionStorage.setItem("justLoggedIn", "true");
 
           // Redirect to dashboard or home after successful auto sign-in
-          router.push("/dashboard");
+          router.push("/dashboard/overview");
         } catch (signInErr) {
           console.error("Auto sign-in error:", signInErr);
           // Fall back to regular login if auto sign-in fails
@@ -323,7 +327,7 @@ export default function SignUp() {
             await checkAuthState();
             // Set the flag for dashboard
             sessionStorage.setItem("justLoggedIn", "true");
-            router.push("/dashboard");
+            router.push("/dashboard/overview");
             return;
           }
         } catch (signInErr) {
@@ -340,7 +344,7 @@ export default function SignUp() {
       }
     } catch (err) {
       console.error("Confirmation error:", err);
-      
+
       if (err.name === "CodeMismatchException") {
         setConfirmError("Invalid code. Please try again.");
       } else if (err.name === "ExpiredCodeException") {
@@ -359,8 +363,9 @@ export default function SignUp() {
   if (isLoading && !authCheckComplete) {
     return (
       <div className={styles.container}>
-        <Logo size="xl" />
-        <VerticalSpacer height="50px" />
+        <div className={styles.backgroundAnimation}>
+          <div className={styles.gradientBlur}></div>
+        </div>
         <div className={styles.loadingContainer}>
           <div className={styles.spinner}></div>
           <p>Loading...</p>
@@ -371,121 +376,137 @@ export default function SignUp() {
 
   return (
     <div className={styles.container}>
-      <Logo size="xl" />
-
-      <VerticalSpacer height="50px" />
+      <div className={styles.backgroundAnimation}>
+        <div className={styles.gradientBlur}></div>
+      </div>
 
       <div className={styles.formCard}>
-        <h1 className={styles.title}>Welcome to Prosemble!</h1>
+        <div className={styles.logoSection}>
+          <Logo size="large" invert={true} />
+        </div>
+
+        <h2 className={styles.title}>Create Account</h2>
 
         <form onSubmit={handleSignUp}>
+          {error && <div className={styles.error}>{error}</div>}
+
           <div className={styles.formGroup}>
-            <label>Name</label>
+            <label htmlFor="fullName">Name</label>
             <input
+              id="fullName"
               type="text"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
               disabled={isLoading}
-              placeholder="Enter full name"
+              placeholder="Enter your full name"
               className={styles.input}
             />
           </div>
 
-          {/* <div className={styles.formGroup}>
-            <label>Company Name</label>
-            <input
-              type="text"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-              required
-              disabled={isLoading}
-              placeholder="Enter company name"
-              className={styles.input}
-            />
-          </div> */}
-
           <div className={styles.formGroup}>
-            <label>Email address</label>
+            <label htmlFor="email">Email</label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               disabled={isLoading}
-              placeholder="Enter email address"
+              placeholder="Enter your email"
               className={styles.input}
             />
           </div>
 
           <div className={styles.formGroup}>
-            <label>Password</label>
+            <label htmlFor="password">Password</label>
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               disabled={isLoading}
+              placeholder="Create a password"
               className={styles.input}
             />
           </div>
 
           <div className={styles.formGroup}>
-            <label>Confirm Password</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <input
+              id="confirmPassword"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
               disabled={isLoading}
+              placeholder="Confirm your password"
               className={styles.input}
             />
           </div>
-
-          {error && <p className={styles.error}>{error}</p>}
 
           <button
             type="submit"
             className={styles.signupButton}
             disabled={isLoading}
           >
-            {isLoading ? "Signing up..." : "Sign up"}
+            {isLoading ? "Creating Account..." : "Sign Up"}
           </button>
 
-          <div className={styles.divider}>
-            <span>Or sign up with</span>
+          <div className={styles.separator}>
+            <span>or continue with</span>
           </div>
 
           <div className={styles.socialButtons}>
-            <button 
-              type="button" 
+            <button
+              type="button"
               className={styles.googleButton}
               onClick={handleGoogleSignIn}
               disabled={isLoading}
             >
-              <span className={styles.googleIcon}>G</span>
+              <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                className={styles.googleIcon}
+              >
+                <path
+                  fill="currentColor"
+                  d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"
+                />
+              </svg>
               Google
             </button>
+
+            {/* Uncomment when Apple sign-in is ready
             <button 
               type="button" 
               className={styles.appleButton} 
               onClick={handleAppleSignIn}
               disabled={isLoading}
             >
-              <span className={styles.appleIcon}>A</span>
+              <svg viewBox="0 0 24 24" width="24" height="24" className={styles.appleIcon}>
+                <path
+                  fill="currentColor"
+                  d="M17.543,12.673c-0.01-1.099,0.481-2.022,1.474-2.658c-0.566-0.808-1.425-1.276-2.568-1.404c-1.071-0.122-2.243,0.634-2.663,0.634  c-0.445,0-1.487-0.596-2.322-0.596c-1.746,0.042-3.387,1.446-3.387,3.621c0,1.061,0.283,2.167,0.847,3.258  c0.74,1.424,1.699,3.014,2.966,3.014c0.714,0,1.241-0.465,2.165-0.465c0.891,0,1.364,0.465,2.177,0.465  c1.258,0,2.195-1.527,2.891-2.962C17.788,14.553,17.544,13.632,17.543,12.673z M15.009,7.082  c0.681-0.842,1.008-1.621,1.008-2.811c-1.011,0.061-1.761,0.661-2.282,1.403c-0.676,0.816-1.036,1.618-1.022,2.742  C13.875,8.456,14.482,7.835,15.009,7.082z"
+                />
+              </svg>
               Apple
             </button>
+            */}
           </div>
 
           <p className={styles.termsText}>
-            By continuing, you acknowledge that you understand the Terms &
-            Conditions and agree to the privacy policy.
+            By signing up, you agree to our Terms of Service and Privacy Policy.
           </p>
         </form>
 
-        <p className={styles.loginLink}>
-          Already a member? <a href="/login">Login</a>
-        </p>
+        <div className={styles.loginLink}>
+          <p>
+            Already have an account? <a href="/login">Sign In</a>
+          </p>
+        </div>
       </div>
 
       {/* Confirmation Modal */}

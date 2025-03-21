@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./home.module.css";
@@ -24,102 +24,378 @@ import {
   Monitor,
   Brain,
   ExternalLink,
+  Target,
+  TrendingUp,
+  Calendar,
+  RefreshCcw,
+  Zap,
+  Play,
+  ChevronDown,
+  NotebookPen,
+  BrainCircuit,
+  Hammer,
+  Layers,
+  LifeBuoy,
+  ChevronUp,
 } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTh,
+  faBell,
+  faComment,
+  faQuestionCircle,
+  faCog,
+  faRepeat,
+  faAngleDoubleRight,
+  faAngleDoubleLeft,
+  faMicrochip,
+  faBook,
+  faTrophy,
+  faComments,
+  faHistory,
+  faSearchLocation,
+  faFileAlt,
+  faStickyNote,
+  faTools,
+  faLayerGroup,
+  faClipboardList,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 
-// Custom Modal component for InteractiveMap3D
-// Add this outside of InteractiveMap3D, in the paste-2.txt file
+{
+  /* Add this component inside your Home function */
+}
+const ComparisonSection = () => {
+  const [expandedRows, setExpandedRows] = useState({});
 
-// The CustomMathTopicModal component (for use in Home.js)
-const CustomMathTopicModal = ({ planetId, data }) => {
-  // Extract topic information from data
-  const topicName = data.name || "Math Topic";
-  const topicDetails = data.details || "No details available";
-  const topicSpecs = data.specs || [];
-
-  // Determine topic difficulty
-  const getDifficultyColor = (level) => {
-    if (!level) return "#9CA3AF";
-    const levelNum = parseInt(level);
-    if (levelNum <= 3) return "#10B981"; // easy - green
-    if (levelNum <= 6) return "#F59E0B"; // medium - amber
-    return "#EF4444"; // hard - red
+  const toggleRow = (rowId) => {
+    setExpandedRows({
+      ...expandedRows,
+      [rowId]: !expandedRows[rowId],
+    });
   };
 
-  const difficultyLevel = data.difficulty || "4";
-  const difficultyColor = getDifficultyColor(difficultyLevel);
-
-  // Handle studying this topic
-  const handleStudyTopic = () => {
-    window.open(`/study/${planetId}`, "_blank");
-  };
-
-  // Handle taking a quiz on this topic
-  const handleTakeQuiz = () => {
-    window.open(`/quiz/${planetId}`, "_blank");
-  };
+  const comparisons = [
+    {
+      id: "mocs",
+      icon: <BrainCircuit size={20} />,
+      title: "Modern Learning Technique",
+      shortDescription:
+        "MOCs (Maps of Content) - a modern learning technique proven by top students",
+      fullDescription:
+        "MOCs (Maps of Content) - a modern technique used by top productivity experts, medical students, and Obsidian users to effectively learn and retain complex information",
+      competitor:
+        "Traditional linear learning paths with outdated techniques that don't optimize retention",
+    },
+    {
+      id: "ai",
+      icon: <Brain size={20} />,
+      title: "AI-Powered Learning",
+      shortDescription:
+        "Integrated AI tutor that understands your knowledge gaps and guides next steps",
+      fullDescription:
+        "Integrated AI tutor directly linked with MOCs, providing unparalleled understanding of knowledge gaps and personalized next steps that make success feel achievable",
+      competitor:
+        "Overwhelming content dumps with no intelligent guidance on where to focus",
+    },
+    {
+      id: "ux",
+      icon: <Layers size={20} />,
+      title: "User Experience",
+      shortDescription:
+        "Modern, intuitive interface where everything is easy to find",
+      fullDescription:
+        "All-in-one app with modern UI/UX design where everything is intuitive and easy to find, eliminating frustration and wasted time",
+      competitor:
+        "Outdated, cluttered interfaces that are difficult to navigate",
+    },
+    {
+      id: "skills",
+      icon: <Target size={20} />,
+      title: "Skills Development",
+      shortDescription:
+        "Specialized modules for infinitely refining specific abilities like organic chemistry",
+      fullDescription:
+        "Specialized skill modules (like organic chemistry naming) allow infinite practice and refinement of specific abilities in an engaging, game-like format",
+      competitor:
+        "Generic practice questions without focused skill-building capabilities",
+    },
+    {
+      id: "specs",
+      icon: <FileText size={20} />,
+      title: "Relevance & Focus",
+      shortDescription:
+        "Everything based on official exam board specifications for guaranteed progress",
+      fullDescription:
+        "Strict specification-based approach where every resource is directly linked to official exam board requirements, ensuring every minute spent leads to progress",
+      competitor:
+        "Vague content organization with poor alignment to actual exam requirements",
+    },
+    {
+      id: "beyond",
+      icon: <Users size={20} />,
+      title: "Beyond Revision",
+      shortDescription:
+        "Exam center finder, forums, competitions, and community features",
+      fullDescription:
+        "Comprehensive support including exam center finder, active discussion forums, student competitions, and community building features",
+      competitor:
+        "Narrow focus on content delivery with no additional tools or community features",
+    },
+    {
+      id: "support",
+      icon: <LifeBuoy size={20} />,
+      title: "Customer Support",
+      shortDescription: "Responsive team ready to help with any queries",
+      fullDescription:
+        "Responsive and active support team ready to help with queries, ensuring students and parents never feel stranded or confused",
+      competitor:
+        "Minimal support with slow response times and generic answers",
+    },
+  ];
 
   return (
-    <>
-      <div className={styles.modalHeader}>
-        <h3 className={styles.modalTitle}>{topicName}</h3>
-        <div
-          className={styles.difficultyBadge}
-          style={{ backgroundColor: difficultyColor }}
-        >
-          Level {difficultyLevel}
-        </div>
+    <section className={styles.comparisonSection}>
+      <div className={styles.sectionHeader}>
+        <h2 className={styles.sectionTitle}>Why Semblance?</h2>
+        <p className={styles.sectionSubtitle}>
+          See how we compare to traditional learning methods and other revision
+          platforms
+        </p>
       </div>
 
-      <div className={styles.modalBody}>
-        <p className={styles.topicDescription}>{topicDetails}</p>
-
-        {topicSpecs && topicSpecs.length > 0 && (
-          <div className={styles.topicSpecs}>
-            <h4>Specification Points:</h4>
-            <ul className={styles.specsList}>
-              {topicSpecs.map((spec, index) => (
-                <li key={index} className={styles.specItem}>
-                  <CheckCircle size={16} className={styles.specIcon} />
-                  <span>{spec}</span>
-                </li>
-              ))}
-            </ul>
+      <div className={styles.comparisonContainer}>
+        <div className={styles.comparisonHeader}>
+          <div className={styles.comparisonHeaderItem}>
+            <div className={styles.emptySpace}></div>
           </div>
-        )}
-
-        {data.relatedTopics && (
-          <div className={styles.relatedTopics}>
-            <h4>Related Topics:</h4>
-            <div className={styles.topicTags}>
-              {data.relatedTopics.map((topic, index) => (
-                <span key={index} className={styles.topicTag}>
-                  {topic}
-                </span>
-              ))}
+          <div className={styles.comparisonHeaderItem}>
+            <div className={styles.semblanceBadge}>
+              <div className={styles.badgeIcon}>
+                <Zap size={16} />
+              </div>
+              <span>Semblance</span>
             </div>
           </div>
-        )}
-      </div>
+          <div className={styles.comparisonHeaderItem}>
+            <div className={styles.competitorBadge}>
+              <span>Others</span>
+            </div>
+          </div>
+        </div>
 
-      <div className={styles.modalFooter}>
-        <button className={styles.studyButton} onClick={handleStudyTopic}>
-          <BookOpen size={16} />
-          <span>Study Topic</span>
-        </button>
+        <div className={styles.comparisonRows}>
+          {comparisons.map((item) => (
+            <div
+              key={item.id}
+              className={`${styles.comparisonRow} ${
+                expandedRows[item.id] ? styles.expanded : styles.collapsed
+              }`}
+            >
+              <div className={styles.comparisonFeature}>
+                <div className={styles.featureIcon}>{item.icon}</div>
+                <div className={styles.featureText}>
+                  <h3>{item.title}</h3>
+                </div>
+              </div>
+              <div className={styles.comparisonSemblance}>
+                <div className={styles.semblanceAdvantage}>
+                  <span>
+                    {expandedRows[item.id]
+                      ? item.fullDescription
+                      : item.shortDescription}
+                  </span>
+                  <CheckCircle size={18} className={styles.checkIcon} />
+                </div>
+              </div>
+              <div className={styles.comparisonCompetitor}>
+                {expandedRows[item.id] && <span>{item.competitor}</span>}
+              </div>
+              <button
+                onClick={() => toggleRow(item.id)}
+                className={styles.learnMoreButton}
+              >
+                {expandedRows[item.id] ? (
+                  <>
+                    <span>Show less</span>
+                    <ChevronUp size={16} />
+                  </>
+                ) : (
+                  <>
+                    <span>Learn more</span>
+                    <ChevronDown size={16} />
+                  </>
+                )}
+              </button>
+            </div>
+          ))}
+        </div>
 
-        <button className={styles.quizButton} onClick={handleTakeQuiz}>
-          <Activity size={16} />
-          <span>Take Quiz</span>
-        </button>
+        <div className={styles.comparisonCta}>
+          <p className={styles.comparisonCtaText}>
+            Experience the Semblance difference for yourself
+          </p>
+          <Link href="/signup" className={styles.comparisonCtaButton}>
+            <span>Start Your Free Trial Today</span>
+            <ArrowRight size={16} />
+          </Link>
+        </div>
       </div>
-    </>
+    </section>
   );
+};
+
+// Add this component to your Home export
+// <ComparisonSection />
+
+const howItWorksData = {
+  diagnostic: {
+    icon: <FileText size={24} />,
+    title: "Know what to learn!",
+    description:
+      "Many students struggle to know what they need to learn and it can be overwhelming and time-consuming. Semblance uses a new, modern approach to learning; MOCs (Maps Of Content) based on official Exam Board specifications to give users an ultimate view of their entire knowledge base.",
+    keyPoints: [
+      {
+        icon: <Target size={20} />,
+        title: "Easily identify weak points.",
+        description:
+          "With MOCs you can see ALL your knowledge, weak points, strong points in one place.",
+      },
+      {
+        icon: <BarChart2 size={20} />,
+        title: "Knowledge Fall Off",
+        description:
+          "Using scientific 'forgetting curve', we encourage the user to keep going over each point increasing retention.",
+      },
+      {
+        icon: <Brain size={20} />,
+        title: "Master Tutor",
+        description:
+          "Our AI, Simmy, can use this MOCs to track how well you are progressing in each subject.",
+      },
+    ],
+    visualCaption:
+      "Complete an adaptive diagnostic that adjusts to your knowledge level",
+    technicalDescription:
+      "Our diagnostic tests use item response theory to efficiently map your knowledge across the entire curriculum.",
+    technicalPoints: [
+      "Adaptive questions that respond to your performance",
+      "Coverage of all exam board specifications",
+      "Detailed breakdown by topic and subtopic",
+      "Initial grade prediction based on diagnostic results",
+    ],
+  },
+  studyPlan: {
+    icon: <Calendar size={24} />,
+    title: "How to learn!",
+    description:
+      "After guiding the student on what he needs to learn, Semblance provides S-tier resources for learning based on the offical Exam Board specification so the student is ALWAYS and ONLY learning something relevant.",
+    keyPoints: [
+      {
+        icon: <NotebookPen size={20} />,
+        title: "Revision Notes",
+        description:
+          "Every revision note is linked with its specification point so you know what and why you are learning it.",
+      },
+      {
+        icon: <BrainCircuit size={20} />,
+        title: "Smart Past Papers",
+        description:
+          "Only at Semblance, we transform regular past papers into interactive past papers which users can take and be graded instantly by our smart AI assistant.",
+      },
+      {
+        icon: <Hammer size={20} />,
+        title: "Skills",
+        description:
+          "Our rich library of skills help students hone in on must-know abilities in a fun, gameified way.",
+      },
+    ],
+    visualCaption:
+      "Your custom study schedule balances all subjects and prioritizes weak areas",
+    technicalDescription:
+      "The study planner uses cognitive science principles to maximize retention and minimize forgetting.",
+    technicalPoints: [
+      "Integration with digital calendars",
+      "Customizable to fit your available study hours",
+      "Balance between revision and practice sessions",
+      "Countdown to exam dates with progress indicators",
+    ],
+  },
+  mockExams: {
+    icon: <Monitor size={24} />,
+    title: "How to prepare for exams",
+    description:
+      "Semblance offers official mock-examinations made by our team, hosted every 3 months, designed to simulate as accurately as possible the real exams.",
+    keyPoints: [
+      {
+        icon: <NotebookPen size={20} />,
+        title: "Mocks",
+        description:
+          "Build confidence with realistic accurate mocks made by real teachers.",
+      },
+      {
+        icon: <Clock size={20} />,
+        title: "Past Papers",
+        description:
+          "Our past paper suite offers interactive and exam-conditions-taken papers, ensuring you are comfortable when the official exams start.",
+      },
+      {
+        icon: <Award size={20} />,
+        title: "Competitions",
+        description:
+          "Students can compete against each other to help each other improve in their accuracy and speed.",
+      },
+    ],
+    visualCaption:
+      "Simulate the pressure and format of real exams in a supportive environment",
+    technicalDescription:
+      "Mock exams are crafted by experienced examiners to match official exam formats and grading criteria.",
+    technicalPoints: [
+      "Papers for all major exam boards (AQA, Edexcel, OCR, WJEC)",
+      "Question-by-question explanations and model answers",
+      "Full and sectional mock options for flexible practice",
+      "Simulated mark schemes matching actual exam criteria",
+    ],
+  },
+  progress: {
+    icon: <TrendingUp size={24} />,
+    title: "Track your progress and improve",
+    description:
+      "Monitor your growth with detailed analytics and adjust your approach based on performance data. Visualize your improvement over time and stay motivated with achievement milestones.",
+    keyPoints: [
+      {
+        icon: <BarChart2 size={20} />,
+        title: "Performance Dashboard",
+        description: "View progress across subjects and topics",
+      },
+      {
+        icon: <Target size={20} />,
+        title: "Target Tracking",
+        description: "Monitor progress toward your grade goals",
+      },
+      {
+        icon: <Star size={20} />,
+        title: "Achievement System",
+        description: "Stay motivated with badges and milestones",
+      },
+    ],
+    visualCaption:
+      "See your improvement over time with comprehensive analytics and insights",
+    technicalDescription:
+      "Our analytics engine transforms practice data into actionable insights to continuously refine your revision strategy.",
+    technicalPoints: [
+      "Detailed breakdown by topic, question type, and difficulty",
+      "Time analysis to improve exam speed and efficiency",
+      "Comparative metrics against target grades",
+      "Weekly summary reports with personalized recommendations",
+    ],
+  },
 };
 
 export default function Home() {
   const { openSearch } = useSearch();
   const [isVisible, setIsVisible] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
+  const [activeFeature, setActiveFeature] = useState("resources");
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [countStats, setCountStats] = useState({
     students: 0,
@@ -133,6 +409,155 @@ export default function Home() {
   const statsRef = useRef(null);
   const testimonialsRef = useRef(null);
   const ctaRef = useRef(null);
+  const howItWorksRef = useRef(null);
+  const [activeHowItWorksStep, setActiveHowItWorksStep] =
+    useState("diagnostic");
+
+  // Step 2: Create a scrollToHowItWorks function
+  const scrollToHowItWorks = () => {
+    howItWorksRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Feature data similar to the section data in how-it-works/page.js
+  const featuresData = {
+    resources: {
+      icon: <BookOpen size={24} />,
+      title: "Study Resources",
+      description:
+        "Access thousands of past papers, notes, and revision materials tailored to your GCSE curriculum. Our comprehensive collection covers all major exam boards and is regularly updated with the latest content.",
+      keyFeatures: [
+        {
+          icon: <FileText size={20} />,
+          title: "Past Papers",
+          description:
+            "Official past papers from all exam boards with detailed mark schemes",
+        },
+        {
+          icon: <BookOpen size={20} />,
+          title: "Revision Notes",
+          description:
+            "Concise, examiner-approved notes for every topic in the curriculum",
+        },
+        {
+          icon: <Grid size={20} />,
+          title: "Formula Sheets",
+          description:
+            "Essential formulas and equations for Science and Mathematics",
+        },
+      ],
+      visualCaption:
+        "Browse through our extensive library of study materials for every subject",
+      technicalDescription:
+        "Our study resources are developed by experienced teachers and examiners, with regular updates to match curriculum changes.",
+      technicalPoints: [
+        "Content aligned with latest specifications from AQA, Edexcel, OCR, and WJEC",
+        "High-quality notes and explanations for every topic",
+        "Downloadable PDFs and printable materials",
+        "Mobile-friendly for studying on any device",
+      ],
+    },
+    analytics: {
+      icon: <Activity size={24} />,
+      title: "Performance Analytics",
+      description:
+        "Track your progress with detailed analytics that identify your strengths and areas for improvement. Our AI algorithms analyze your performance to provide personalized insights and recommendations for focused study.",
+      keyFeatures: [
+        {
+          icon: <BarChart2 size={20} />,
+          title: "Performance Dashboard",
+          description:
+            "Visual tracking of progress across all subjects and topics",
+        },
+        {
+          icon: <Target size={20} />,
+          title: "Gap Analysis",
+          description: "Identify knowledge gaps and areas that need more focus",
+        },
+        {
+          icon: <TrendingUp size={20} />,
+          title: "Progress Timeline",
+          description: "Track improvement over time with detailed metrics",
+        },
+      ],
+      visualCaption:
+        "Gain insights into your learning patterns and optimize your revision strategy",
+      technicalDescription:
+        "Our analytics engine processes thousands of data points from quizzes, mock exams, and practice sessions to generate actionable insights.",
+      technicalPoints: [
+        "Topic-by-topic breakdown of performance",
+        "Comparison against target grades",
+        "Prediction of potential exam scores based on current progress",
+        "Custom recommendations for improvement areas",
+      ],
+    },
+    mocks: {
+      icon: <Monitor size={24} />,
+      title: "Mock Exams",
+      description:
+        "Practice with exam-standard questions and receive instant feedback to enhance understanding. Our mock exams simulate real exam conditions to build confidence and timing skills essential for success.",
+      keyFeatures: [
+        {
+          icon: <Clock size={20} />,
+          title: "Timed Sessions",
+          description: "Realistic exam timing with automated countdown",
+        },
+        {
+          icon: <CheckCircle size={20} />,
+          title: "Instant Marking",
+          description: "Immediate feedback with detailed explanations",
+        },
+        {
+          icon: <FileText size={20} />,
+          title: "Exam Technique",
+          description: "Learn how to structure answers for maximum marks",
+        },
+      ],
+      visualCaption:
+        "Experience the pressure and format of real GCSE exams in a supportive environment",
+      technicalDescription:
+        "Our mock exam system uses questions written by experienced examiners, with marking schemes aligned to official grading criteria.",
+      technicalPoints: [
+        "Questions categorized by difficulty and topic",
+        "Simulated exam papers matching official format",
+        "Grade predictions based on performance",
+        "Detailed answer explanations written by examiners",
+      ],
+    },
+    revision: {
+      icon: <Brain size={24} />,
+      title: "Smart Revision",
+      description:
+        "Our algorithm creates personalized study plans based on your performance data, optimizing your revision time for maximum results. Learn more efficiently with our scientifically-backed approach.",
+      keyFeatures: [
+        {
+          icon: <Calendar size={20} />,
+          title: "Custom Schedules",
+          description: "Daily and weekly plans tailored to your needs",
+        },
+        {
+          icon: <RefreshCcw size={20} />,
+          title: "Spaced Repetition",
+          description:
+            "Science-backed learning techniques for better retention",
+        },
+        {
+          icon: <Zap size={20} />,
+          title: "Focus Mode",
+          description: "Targeted sessions for your weaker areas",
+        },
+      ],
+      visualCaption:
+        "Let our AI optimize your study time based on your learning patterns and goals",
+      technicalDescription:
+        "The Smart Revision System adapts to your learning style and progress, continuously refining recommendations based on performance data.",
+      technicalPoints: [
+        "Personalized learning algorithms based on cognitive science",
+        "Balance between reviewing weak areas and maintaining strong ones",
+        "Automatic adjustment based on upcoming exams and deadlines",
+        "Integration with calendar apps for scheduling",
+      ],
+    },
+  };
 
   // Parallax effect on scroll with debounce for better performance
   useEffect(() => {
@@ -173,21 +598,6 @@ export default function Home() {
     return () => {
       // No cleanup needed
     };
-  }, []);
-
-  // No need for auto-rotate with infinite scroll
-  useEffect(() => {
-    // Clean up any side effects if needed
-    return () => {};
-  }, []);
-
-  // Auto-rotate features
-  useEffect(() => {
-    // const interval = setInterval(() => {
-    //   setActiveFeature((prev) => (prev + 1) % features.length);
-    // }, 4000);
-
-    return () => clearInterval(interval);
   }, []);
 
   // Sample testimonials data - extended for infinite scroll effect
@@ -266,53 +676,13 @@ export default function Home() {
     },
   ];
 
-  // Feature cards data
-  const features = [
-    {
-      icon: <BookOpen size={24} />,
-      color: "var(--brand-color)",
-      title: "Comprehensive Study Resources",
-      description:
-        "Access thousands of past papers, notes, and revision materials tailored to your GCSE curriculum.",
-    },
-    {
-      icon: <Activity size={24} />,
-      color: "var(--kredirel-medium-blue)",
-      title: "AI-Powered Performance Analytics",
-      description:
-        "Track your progress with detailed analytics that identify your strengths and areas for improvement.",
-    },
-    {
-      icon: <Monitor size={24} />,
-      color: "var(--kredirel-orange)",
-      title: "Realistic Mock Exams",
-      description:
-        "Practice with exam-standard questions and receive instant feedback to enhance understanding.",
-    },
-    {
-      icon: <Brain size={24} />,
-      color: "var(--brand-color-darker)",
-      title: "Smart Revision System",
-      description:
-        "Our algorithm creates personalized study plans based on your performance data.",
-    },
-  ];
-
-  // Subjects data
-  const subjects = [
-    { name: "Mathematics", grade: "A*" },
-    { name: "English Literature", grade: "A" },
-    { name: "Physics", grade: "A" },
-    { name: "Chemistry", grade: "B" },
-    { name: "Biology", grade: "A" },
-    { name: "Computer Science", grade: "A*" },
-    { name: "History", grade: "A" },
-    { name: "Geography", grade: "B" },
-  ];
-
   return (
     <div className={styles.container}>
       <GlassNavbar />
+      {/* Floating search indicator */}
+      <SearchIndicator />
+
+      {/* Add more decorative blobs to the backgroundElements div */}
       <div className={styles.backgroundElements}>
         <div
           className={`${styles.sphere} ${styles.sphere1}`}
@@ -341,6 +711,54 @@ export default function Home() {
             willChange: "transform",
           }}
         ></div>
+
+        {/* Additional blobs */}
+        <div
+          className={`${styles.sphere} ${styles.sphere4}`}
+          style={{
+            transform: `translate3d(${scrollY * 0.02}px, ${
+              scrollY * 0.03
+            }px, 0)`,
+            willChange: "transform",
+          }}
+        ></div>
+        <div
+          className={`${styles.sphere} ${styles.sphere5}`}
+          style={{
+            transform: `translate3d(${-scrollY * 0.03}px, ${
+              -scrollY * 0.04
+            }px, 0)`,
+            willChange: "transform",
+          }}
+        ></div>
+        <div
+          className={`${styles.sphere} ${styles.sphere6}`}
+          style={{
+            transform: `translate3d(${scrollY * 0.01}px, ${
+              -scrollY * 0.05
+            }px, 0)`,
+            willChange: "transform",
+          }}
+        ></div>
+        <div
+          className={`${styles.sphere} ${styles.sphere7}`}
+          style={{
+            transform: `translate3d(${-scrollY * 0.06}px, ${
+              scrollY * 0.04
+            }px, 0)`,
+            willChange: "transform",
+          }}
+        ></div>
+        <div
+          className={`${styles.sphere} ${styles.sphere8}`}
+          style={{
+            transform: `translate3d(${scrollY * 0.04}px, ${
+              scrollY * 0.07
+            }px, 0)`,
+            willChange: "transform",
+          }}
+        ></div>
+
         <div className={styles.grid}></div>
       </div>
 
@@ -361,22 +779,25 @@ export default function Home() {
           </h1>
 
           <p className={styles.heroSubtitle}>
-            The ultimate platform for GCSE and A Level success, our simulator
-            contains every resource you need to ace your exams. Revision notes,
-            past papers, infinite skill practice, advanced AI-powered progress
-            tracking, your own personal AI tutor. All included with the
-            simulator.
+            This website has{" "}
+            <strong className={styles.highlight}>everything</strong> you or your
+            child needs to smash GCSE and A Level exams with our expertly
+            crafted suite of resources specialised for maximum retention and
+            ease of use.
           </p>
 
           <div className={styles.heroCta}>
             <Link href="/signup" className={styles.primaryButton}>
-              <span>Start Your Free Trial</span>
+              <span>Try for free no account</span>
               <ArrowRight size={18} />
             </Link>
 
-            <button onClick={openSearch} className={styles.secondaryButton}>
-              <span>Explore Features</span>
-              <ChevronRight size={18} />
+            <button
+              onClick={scrollToHowItWorks}
+              className={styles.secondaryButton}
+            >
+              <span>Learn how first</span>
+              <ChevronDown size={18} />
             </button>
           </div>
 
@@ -406,11 +827,10 @@ export default function Home() {
             rotationAxisY={45}
             rotationAxisZ={45}
             renderModalContent={({ planetId, data }) => (
-              <div>
-                {/* Additional custom content */}
-              </div>
+              <div>{/* Additional custom content */}</div>
             )}
             draggable={true}
+            lockZoom={true}
           />
         </div>
       </section>
@@ -452,359 +872,494 @@ export default function Home() {
       </section>
 
       {/* How it Works Section */}
-      <section className={styles.howItWorksSection}>
+      <section className={styles.howItWorksSection} ref={howItWorksRef}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>How GCSE Simulator Works</h2>
+          <h2 className={styles.sectionTitle}>How Semblance Works</h2>
           <p className={styles.sectionSubtitle}>
-            Our AI-powered platform adapts to your learning style for maximum
-            results
+            Semblance follows a well-ordered, science-based, psychology-driven
+            approach to learning, making it the most efficient way to learn and
+            most importantly to remember.
           </p>
         </div>
 
-        <div className={styles.workflowContainer}>
-          <div className={styles.workflowSteps}>
-            <div className={styles.workflowStep}>
-              <div className={styles.stepNumber}>1</div>
-              <div className={styles.stepContent}>
-                <h3>Start with a diagnostic test</h3>
-                <p>
-                  We analyze your current knowledge and identify your strengths
-                  and weaknesses
-                </p>
+        <div className={styles.contentLayout}>
+          {/* Navigation Sidebar */}
+          <aside className={styles.sidebar}>
+            <nav className={styles.navigation}>
+              <div className={styles.navTitle}>Learning Journey</div>
+
+              <div className={styles.navLinks}>
+                {Object.entries(howItWorksData).map(([key, step], index) => (
+                  <button
+                    key={key}
+                    className={`${styles.navLink} ${
+                      activeHowItWorksStep === key ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveHowItWorksStep(key)}
+                  >
+                    <div className={styles.stepNumber}>{index + 1}</div>
+                    <span>{step.title}</span>
+                  </button>
+                ))}
               </div>
-            </div>
+            </nav>
+          </aside>
 
-            <div className={styles.workflowPath}></div>
-
-            <div className={styles.workflowStep}>
-              <div className={styles.stepNumber}>2</div>
-              <div className={styles.stepContent}>
-                <h3>Get your personalized study plan</h3>
-                <p>
-                  Our AI creates a custom revision schedule optimized for your
-                  learning style
-                </p>
+          {/* Main Content */}
+          <main className={styles.mainContent}>
+            {/* Dynamic Step Panel */}
+            <section className={styles.dynamicPanel}>
+              <div className={styles.sectionHeading}>
+                {React.cloneElement(howItWorksData[activeHowItWorksStep].icon, {
+                  className: styles.sectionIcon,
+                })}
+                <h2>{howItWorksData[activeHowItWorksStep].title}</h2>
               </div>
-            </div>
 
-            <div className={styles.workflowPath}></div>
+              <div className={styles.sectionContent}>
+                <div className={styles.featureDescription}>
+                  <p>{howItWorksData[activeHowItWorksStep].description}</p>
 
-            <div className={styles.workflowStep}>
-              <div className={styles.stepNumber}>3</div>
-              <div className={styles.stepContent}>
-                <h3>Practice with realistic mock exams</h3>
-                <p>
-                  Experience exam conditions with our simulator and receive
-                  instant feedback
-                </p>
+                  <div className={styles.keyFeatures}>
+                    {howItWorksData[activeHowItWorksStep].keyPoints.map(
+                      (point, index) => (
+                        <div key={index} className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>{point.icon}</div>
+                          <div className={styles.featureInfo}>
+                            <h3>{point.title}</h3>
+                            <p>{point.description}</p>
+                          </div>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <div className={styles.featureVisual}>
+                  {/* Visualization based on active step */}
+                  {activeHowItWorksStep === "diagnostic" && (
+                    <div className={styles.diagnosticPreview}>
+                      <InteractiveMap3D
+                        data={json}
+                        transparentBackground={true}
+                        pulse={true}
+                        pulseColor="var(--brand-color)"
+                        pulseDuration={1500}
+                        initialZoom={35}
+                        minZoom={8}
+                        maxZoom={50}
+                        rotationAxisX={45}
+                        rotationAxisY={45}
+                        rotationAxisZ={45}
+                        renderModalContent={({ planetId, data }) => (
+                          <div>{/* Additional custom content */}</div>
+                        )}
+                        draggable={true}
+                        lockZoom={true}
+                      />
+                    </div>
+                  )}
+
+                  {activeHowItWorksStep === "studyPlan" && (
+                    <div className={styles.studyPlanPreview}></div>
+                  )}
+
+                  {activeHowItWorksStep === "mockExams" && (
+                    <div className={styles.mockExamPreview}>
+                      <div className={styles.mockExamHeader}>
+                        <div className={styles.mockExamTitle}>
+                          Biology Paper 1
+                        </div>
+                        <div className={styles.mockExamTimer}>
+                          <Clock size={14} />
+                          <span>01:15:23 remaining</span>
+                        </div>
+                      </div>
+                      <div className={styles.mockExamQuestion}>
+                        <div className={styles.questionNumber}>
+                          Question 5 (6 marks)
+                        </div>
+                        <div className={styles.questionContent}>
+                          <p>
+                            Explain how the structure of the lungs is adapted
+                            for efficient gas exchange. In your answer, include
+                            details about:
+                          </p>
+                          <ul>
+                            <li>Surface area</li>
+                            <li>Diffusion distance</li>
+                            <li>Ventilation mechanism</li>
+                          </ul>
+                        </div>
+                        <div className={styles.questionAnswer}>
+                          <div className={styles.answerField}></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeHowItWorksStep === "progress" && (
+                    <div className={styles.progressPreview}></div>
+                  )}
+                </div>
               </div>
-            </div>
-
-            <div className={styles.workflowPath}></div>
-
-            <div className={styles.workflowStep}>
-              <div className={styles.stepNumber}>4</div>
-              <div className={styles.stepContent}>
-                <h3>Track your progress and improve</h3>
-                <p>
-                  Monitor your growth with detailed analytics and adjust your
-                  approach
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.workflowVisual}>
-            <div className={styles.pulsingCircle}></div>
-            <div className={styles.connectingLines}>
-              <div className={styles.line}></div>
-              <div className={styles.line}></div>
-              <div className={styles.line}></div>
-              <div className={styles.line}></div>
-            </div>
-          </div>
+            </section>
+          </main>
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - Updated with how-it-works style */}
+      {/* Features Section - Updated with dashboard menu items */}
       <section ref={featuresRef} className={styles.featuresSection}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            Tools Designed for GCSE Success
+            Expertly-designed tools Designed for Success
           </h2>
           <p className={styles.sectionSubtitle}>
             Everything you need to achieve your target grades
           </p>
         </div>
 
-        <div className={styles.featuresContainer}>
-          <div className={styles.featuresTabs}>
-            {features.map((feature, index) => (
-              <button
-                key={index}
-                className={`${styles.featureTab} ${
-                  activeFeature === index ? styles.activeTab : ""
-                }`}
-                onClick={() => setActiveFeature(index)}
-              >
-                <div
-                  className={styles.featureTabIcon}
-                  style={{ color: feature.color }}
-                >
-                  {feature.icon}
+        <div className={styles.contentLayout}>
+          {/* Navigation Sidebar */}
+          <aside className={styles.sidebar}>
+            <nav className={styles.navigation}>
+              <div className={styles.navTitle}>Platform Features</div>
+
+              <div className={styles.navLinks}>
+                {/* Menu Section */}
+                <div className={styles.navSection}>
+                  <div className={styles.navSectionTitle}>Menu</div>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "overview" ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveFeature("overview")}
+                  >
+                    <FontAwesomeIcon icon={faMicrochip} size={18} />
+                    <span>Overview</span>
+                  </button>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "mocks" ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveFeature("mocks")}
+                  >
+                    <FontAwesomeIcon icon={faBook} size={18} />
+                    <span>Mocks</span>
+                  </button>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "competition" ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveFeature("competition")}
+                  >
+                    <FontAwesomeIcon icon={faTrophy} size={18} />
+                    <span>Competition</span>
+                  </button>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "forums" ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveFeature("forums")}
+                  >
+                    <FontAwesomeIcon icon={faComments} size={18} />
+                    <span>Forums</span>
+                  </button>
                 </div>
-                <div className={styles.featureTabContent}>
-                  <h3>{feature.title}</h3>
+
+                {/* Revision Section */}
+                <div className={styles.navSection}>
+                  <div className={styles.navSectionTitle}>Revision</div>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "past-papers" ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveFeature("past-papers")}
+                  >
+                    <FontAwesomeIcon icon={faFileAlt} size={18} />
+                    <span>Past Papers</span>
+                  </button>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "notes" ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveFeature("notes")}
+                  >
+                    <FontAwesomeIcon icon={faStickyNote} size={18} />
+                    <span>Notes</span>
+                  </button>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "skills" ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveFeature("skills")}
+                  >
+                    <FontAwesomeIcon icon={faTools} size={18} />
+                    <span>Skills</span>
+                  </button>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "flashcards" ? styles.activeLink : ""
+                    }`}
+                    onClick={() => setActiveFeature("flashcards")}
+                  >
+                    <FontAwesomeIcon icon={faLayerGroup} size={18} />
+                    <span>Flashcards</span>
+                  </button>
+                  <button
+                    className={`${styles.navLink} ${
+                      activeFeature === "specifications"
+                        ? styles.activeLink
+                        : ""
+                    }`}
+                    onClick={() => setActiveFeature("specifications")}
+                  >
+                    <FontAwesomeIcon icon={faClipboardList} size={18} />
+                    <span>Specifications</span>
+                  </button>
                 </div>
-              </button>
-            ))}
-          </div>
+              </div>
+            </nav>
+          </aside>
 
-          <div className={styles.featureShowcase}>
-            <div className={styles.featureDetail}>
-              <h3 style={{ color: features[activeFeature].color }}>
-                {features[activeFeature].title}
-              </h3>
-              <p>{features[activeFeature].description}</p>
-
-              <div className={styles.featureHighlights}>
-                {activeFeature === 0 && (
+          {/* Main Content */}
+          <main className={styles.mainContent}>
+            {/* Dynamic Feature Panel */}
+            <section className={styles.dynamicPanel}>
+              <div className={styles.sectionHeading}>
+                {/* Icon and title will depend on the active feature */}
+                {activeFeature === "overview" && (
                   <>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Past papers from all exam boards</span>
-                    </div>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Detailed teacher-created notes</span>
-                    </div>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Video explanations for complex topics</span>
-                    </div>
+                    <FontAwesomeIcon
+                      icon={faMicrochip}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Dashboard Overview</h2>
                   </>
                 )}
-
-                {activeFeature === 1 && (
+                {activeFeature === "mocks" && (
                   <>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Visual progress dashboard</span>
-                    </div>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Topic-by-topic performance tracking</span>
-                    </div>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Weak area identification</span>
-                    </div>
+                    <FontAwesomeIcon
+                      icon={faBook}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Mock Exams</h2>
                   </>
                 )}
-
-                {activeFeature === 2 && (
+                {activeFeature === "competition" && (
                   <>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Timed exam conditions</span>
-                    </div>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Examiner-standard marking</span>
-                    </div>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Detailed answer explanations</span>
-                    </div>
+                    <FontAwesomeIcon
+                      icon={faTrophy}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Competition</h2>
                   </>
                 )}
-
-                {activeFeature === 3 && (
+                {activeFeature === "forums" && (
                   <>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Daily study recommendations</span>
-                    </div>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Adaptive learning technology</span>
-                    </div>
-                    <div className={styles.featureHighlight}>
-                      <CheckCircle size={16} />
-                      <span>Spaced repetition for better retention</span>
-                    </div>
+                    <FontAwesomeIcon
+                      icon={faComments}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Forums</h2>
+                  </>
+                )}
+                {activeFeature === "past-papers" && (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faFileAlt}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Past Papers</h2>
+                  </>
+                )}
+                {activeFeature === "notes" && (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faStickyNote}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Revision Notes</h2>
+                  </>
+                )}
+                {activeFeature === "skills" && (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faTools}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Skills Development</h2>
+                  </>
+                )}
+                {activeFeature === "flashcards" && (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faLayerGroup}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Flashcards</h2>
+                  </>
+                )}
+                {activeFeature === "specifications" && (
+                  <>
+                    <FontAwesomeIcon
+                      icon={faClipboardList}
+                      className={styles.sectionIcon}
+                    />
+                    <h2>Specifications</h2>
                   </>
                 )}
               </div>
 
-              <Link
-                href={`/features/${activeFeature}`}
-                className={styles.featureLink}
-              >
-                <span>Learn more</span>
-                <ChevronRight size={16} />
-              </Link>
-            </div>
+              <div className={styles.sectionContent}>
+                <div className={styles.featureDescription}>
+                  {/* Content will depend on active feature */}
+                  {activeFeature === "overview" && (
+                    <>
+                      <p>
+                        Your personalized dashboard that provides a complete
+                        overview of your learning journey. Track your progress,
+                        see upcoming exams, and get recommendations for focused
+                        revision.
+                      </p>
+                      <div className={styles.keyFeatures}>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <BarChart2 size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Progress Tracking</h3>
+                            <p>
+                              View your improvement across all subjects at a
+                              glance
+                            </p>
+                          </div>
+                        </div>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <Calendar size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Exam Countdown</h3>
+                            <p>Stay organized with upcoming exam dates</p>
+                          </div>
+                        </div>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <Target size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Focus Areas</h3>
+                            <p>Recommended topics based on your performance</p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
 
-            <div className={styles.featurePreview}>
-              {activeFeature === 0 && (
-                <div className={styles.featureVisual}>
-                  <div className={styles.resourcesPreview}>
-                    <div className={styles.resourceCard}>
-                      <div className={styles.resourceLabel}>Past Papers</div>
-                    </div>
-                    <div className={styles.resourceCard}>
-                      <div className={styles.resourceLabel}>Revision Notes</div>
-                    </div>
-                    <div className={styles.resourceCard}>
-                      <div className={styles.resourceLabel}>Formula Sheets</div>
-                    </div>
-                  </div>
-                </div>
-              )}
+                  {activeFeature === "mocks" && (
+                    <>
+                      <p>
+                        Practice with realistic mock exams that mirror the
+                        format, timing, and difficulty of actual GCSE and A
+                        Level tests. Build confidence and perfect your exam
+                        technique.
+                      </p>
+                      <div className={styles.keyFeatures}>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <Clock size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Timed Sessions</h3>
+                            <p>
+                              Experience real exam conditions with accurate
+                              timing
+                            </p>
+                          </div>
+                        </div>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <CheckCircle size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Instant Feedback</h3>
+                            <p>
+                              Get marks and detailed explanations immediately
+                            </p>
+                          </div>
+                        </div>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <FileText size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Examiner Tips</h3>
+                            <p>
+                              Learn what markers look for in top-grade answers
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
 
-              {activeFeature === 1 && (
-                <div className={styles.featureVisual}>
-                  <div className={styles.analyticsPreview}>
-                    <div className={styles.analyticsHeader}>
-                      <div className={styles.analyticsTitle}>
-                        Physics Performance
-                      </div>
-                    </div>
-                    <div className={styles.analyticsChart}>
-                      <div className={styles.analyticsPieChart}>
-                        <svg width="120" height="120" viewBox="0 0 120 120">
-                          <circle
-                            cx="60"
-                            cy="60"
-                            r="50"
-                            fill="transparent"
-                            stroke="#e2e8f0"
-                            strokeWidth="15"
-                          />
-                          <circle
-                            cx="60"
-                            cy="60"
-                            r="50"
-                            fill="transparent"
-                            stroke="var(--brand-color)"
-                            strokeWidth="15"
-                            strokeDasharray="314"
-                            strokeDashoffset="78.5"
-                            transform="rotate(-90 60 60)"
-                          />
-                        </svg>
-                        <div className={styles.pieChartLabel}>75%</div>
-                      </div>
-                      <div className={styles.analyticsTopics}>
-                        <div className={styles.analyticsTopic}>
-                          <div className={styles.topicName}>Forces</div>
-                          <div className={styles.topicBar}>
-                            <div
-                              className={styles.topicProgress}
-                              style={{ width: "85%" }}
-                            ></div>
+                  {/* Add similar blocks for other features */}
+                  {activeFeature === "past-papers" && (
+                    <>
+                      <p>
+                        Access a comprehensive library of past papers from all
+                        major exam boards. Practice with real questions from
+                        previous years to familiarize yourself with the exam
+                        format and style.
+                      </p>
+                      <div className={styles.keyFeatures}>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <BookOpen size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Full Archive</h3>
+                            <p>
+                              Papers from all exam boards going back several
+                              years
+                            </p>
                           </div>
                         </div>
-                        <div className={styles.analyticsTopic}>
-                          <div className={styles.topicName}>Waves</div>
-                          <div className={styles.topicBar}>
-                            <div
-                              className={styles.topicProgress}
-                              style={{ width: "65%" }}
-                            ></div>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <FileText size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Mark Schemes</h3>
+                            <p>
+                              Official marking guidelines to check your answers
+                            </p>
                           </div>
                         </div>
-                        <div className={styles.analyticsTopic}>
-                          <div className={styles.topicName}>Energy</div>
-                          <div className={styles.topicBar}>
-                            <div
-                              className={styles.topicProgress}
-                              style={{ width: "90%" }}
-                            ></div>
+                        <div className={styles.keyFeature}>
+                          <div className={styles.featureIcon}>
+                            <Monitor size={20} />
+                          </div>
+                          <div className={styles.featureInfo}>
+                            <h3>Interactive Mode</h3>
+                            <p>Take papers online with automatic grading</p>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+                    </>
+                  )}
 
-              {activeFeature === 2 && (
-                <div className={styles.featureVisual}>
-                  <div className={styles.mockExamPreview}>
-                    <div className={styles.mockExamHeader}>
-                      <div className={styles.mockExamTitle}>
-                        Mathematics Paper 1
-                      </div>
-                      <div className={styles.mockExamTimer}>
-                        <Clock size={14} />
-                        <span>01:24:36</span>
-                      </div>
-                    </div>
-                    <div className={styles.mockExamQuestion}>
-                      <div className={styles.questionNumber}>Question 4</div>
-                      <div className={styles.questionContent}>
-                        Solve the quadratic equation: x² + 5x + 6 = 0
-                      </div>
-                      <div className={styles.questionAnswer}>
-                        <div className={styles.answerField}></div>
-                      </div>
-                    </div>
-                  </div>
+                  {/* Add content for other features as needed */}
                 </div>
-              )}
-
-              {activeFeature === 3 && (
-                <div className={styles.featureVisual}>
-                  <div className={styles.studyPlanPreview}>
-                    <div className={styles.studyPlanHeader}>
-                      <div className={styles.studyPlanTitle}>
-                        Today's Study Plan
-                      </div>
-                    </div>
-                    <div className={styles.studyTasks}>
-                      <div className={styles.studyTask}>
-                        <div className={styles.taskCheckbox}></div>
-                        <div className={styles.taskContent}>
-                          <div className={styles.taskTitle}>
-                            Review Algebra Equations
-                          </div>
-                          <div className={styles.taskMeta}>
-                            Mathematics • 30 min
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.studyTask}>
-                        <div className={styles.taskCheckbox}></div>
-                        <div className={styles.taskContent}>
-                          <div className={styles.taskTitle}>
-                            Practice Chemical Reactions
-                          </div>
-                          <div className={styles.taskMeta}>
-                            Chemistry • 45 min
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.studyTask}>
-                        <div className={styles.taskCheckbox}></div>
-                        <div className={styles.taskContent}>
-                          <div className={styles.taskTitle}>
-                            Complete Mock Exam Section
-                          </div>
-                          <div className={styles.taskMeta}>
-                            English Lit • 60 min
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+              </div>
+            </section>
+          </main>
         </div>
       </section>
+
+      <ComparisonSection />
 
       {/* Testimonials Section - Infinite Scroll */}
       <section ref={testimonialsRef} className={styles.testimonialsSection}>
@@ -856,7 +1411,9 @@ export default function Home() {
                         )}
                       </div>
                       <div className={styles.authorInfo}>
-                        <h4 className={styles.authorName}>{testimonial.author}</h4>
+                        <h4 className={styles.authorName}>
+                          {testimonial.author}
+                        </h4>
                         <p className={styles.authorDetails}>
                           {testimonial.school} • {testimonial.subject}
                         </p>
@@ -865,8 +1422,12 @@ export default function Home() {
 
                     <div className={styles.gradeImprovement}>
                       <div className={styles.gradeLabel}>
-                        {testimonial.grade === "Teacher" || testimonial.grade === "Parent" || testimonial.grade === "Admin" ? (
-                          <span className={styles.teacherBadge}>{testimonial.grade}</span>
+                        {testimonial.grade === "Teacher" ||
+                        testimonial.grade === "Parent" ||
+                        testimonial.grade === "Admin" ? (
+                          <span className={styles.teacherBadge}>
+                            {testimonial.grade}
+                          </span>
                         ) : (
                           <>
                             Grade{" "}
@@ -882,12 +1443,15 @@ export default function Home() {
               ))}
             </div>
           </div>
-          
+
           {/* Second row - scrolling right to left */}
           <div className={styles.testimonialRow}>
             <div className={styles.testimonialTrackReverse}>
               {/* Double the testimonials for seamless infinite scroll */}
-              {[...testimonials.slice().reverse(), ...testimonials.slice().reverse()].map((testimonial, index) => (
+              {[
+                ...testimonials.slice().reverse(),
+                ...testimonials.slice().reverse(),
+              ].map((testimonial, index) => (
                 <div
                   key={`row2-${testimonial.id}-${index}`}
                   className={styles.testimonialCard}
@@ -923,7 +1487,9 @@ export default function Home() {
                         )}
                       </div>
                       <div className={styles.authorInfo}>
-                        <h4 className={styles.authorName}>{testimonial.author}</h4>
+                        <h4 className={styles.authorName}>
+                          {testimonial.author}
+                        </h4>
                         <p className={styles.authorDetails}>
                           {testimonial.school} • {testimonial.subject}
                         </p>
@@ -932,8 +1498,12 @@ export default function Home() {
 
                     <div className={styles.gradeImprovement}>
                       <div className={styles.gradeLabel}>
-                        {testimonial.grade === "Teacher" || testimonial.grade === "Parent" || testimonial.grade === "Admin" ? (
-                          <span className={styles.teacherBadge}>{testimonial.grade}</span>
+                        {testimonial.grade === "Teacher" ||
+                        testimonial.grade === "Parent" ||
+                        testimonial.grade === "Admin" ? (
+                          <span className={styles.teacherBadge}>
+                            {testimonial.grade}
+                          </span>
                         ) : (
                           <>
                             Grade{" "}

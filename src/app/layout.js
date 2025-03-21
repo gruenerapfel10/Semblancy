@@ -13,8 +13,8 @@ import SearchModal from "@/components/SearchModal";
 import { ToastProvider } from "./context/ToastContext";
 import ToastContainer from "@/components/ToastContainer";
 
-const noNavbarPaths = ["/login", "/signup", "/register", "/reset-password", "/home", "/company", "/pipeline", "/technology", "/news", "/contact", "/forgot-password", "/changelog", "/signupFuture", "/loginFuture"];
-const noFooterPaths = ["/dashboard"];
+const noNavbarPaths = ["/login", "/signup", "/register", "/reset-password", "/home", "/company", "/pipeline", "/technology", "/news", "/contact", "/forgot-password", "/changelog", "/signupFuture", "/loginFuture", "/"];
+const noFooterPaths = ["/dashboard", "/"];
 
 // Wrapper component to handle theme after authentication is checked
 function ThemeHandler({ children }) {

@@ -18,7 +18,7 @@ export default function Footer() {
             className={`btn btn-secondary ${styles.loginBtn}`}
           >
             <button className={styles.prosembleLoginButton}>
-              PROSEMBLE LOGIN
+              SEMBLANCE LOGIN
             </button>
           </Link>
         </div>

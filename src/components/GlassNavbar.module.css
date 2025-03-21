@@ -36,7 +36,7 @@
 }
 
 [data-theme="dark"] .navbar::before {
-  background: rgba(8, 16, 24, 0.85);
+  background: var(--primary-color);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 

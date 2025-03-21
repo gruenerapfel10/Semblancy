@@ -131,7 +131,11 @@
 .signInButton {
   width: 100%;
   padding: var(--padding-m);
-  background: linear-gradient(135deg, var(--kredirel-medium-blue), var(--brand-color));
+  background: linear-gradient(
+    135deg,
+    var(--kredirel-medium-blue),
+    var(--brand-color)
+  );
   color: white;
   border: none;
   border-radius: var(--br-s);
@@ -144,7 +148,11 @@
 }
 
 .signInButton:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--brand-color), var(--kredirel-medium-blue));
+  background: linear-gradient(
+    135deg,
+    var(--brand-color),
+    var(--kredirel-medium-blue)
+  );
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(var(--kredirel-medium-blue-rgb), 0.4);
 }
@@ -170,7 +178,7 @@
 }
 
 .forgotPassword button:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 1px;
@@ -197,7 +205,7 @@
 
 .separator::before,
 .separator::after {
-  content: '';
+  content: "";
   flex: 1;
   border-bottom: 1px solid var(--border-color);
 }
@@ -232,10 +240,11 @@
 }
 
 .googleButton {
-  color: #4285F4;
+  color: #4285f4;
   border: 1px solid rgba(66, 133, 244, 0.3);
   background-color: rgba(66, 133, 244, 0.05);
   box-shadow: 0 4px 12px rgba(66, 133, 244, 0.1);
+  background-color: var(--primary-color);
 }
 
 .appleButton {
@@ -284,7 +293,7 @@
 }
 
 .signupLink a:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 1px;
@@ -375,19 +384,24 @@
 }
 
 @keyframes shake {
-  10%, 90% {
+  10%,
+  90% {
     transform: translate3d(-1px, 0, 0);
   }
-  
-  20%, 80% {
+
+  20%,
+  80% {
     transform: translate3d(2px, 0, 0);
   }
 
-  30%, 50%, 70% {
+  30%,
+  50%,
+  70% {
     transform: translate3d(-4px, 0, 0);
   }
 
-  40%, 60% {
+  40%,
+  60% {
     transform: translate3d(4px, 0, 0);
   }
 }
@@ -398,7 +412,7 @@
     max-width: 95%;
     padding: var(--padding-l);
   }
-  
+
   .socialButtons {
     flex-direction: column;
   }

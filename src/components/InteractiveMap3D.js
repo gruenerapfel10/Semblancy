@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import styles from "./InteractiveMap3D.module.css";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
 // Configuration constants
 const CONSTANTS = {
@@ -100,6 +100,7 @@ const InteractiveMap3D = ({
   rotationAxisZ = 0, // Z-axis rotation angle in degrees
   renderModalContent, // Changed from customModal to renderModalContent
   draggable = true, // Whether the modal should be draggable
+  lockZoom = false, // New prop: Whether to disable user zooming
 }) => {
   // Scene references
   const containerRef = useRef(null);
@@ -1046,6 +1047,12 @@ const InteractiveMap3D = ({
 
     // Handle zooming with mouse wheel
     const handleWheel = (e) => {
+      a;
+      if (lockZoom) {
+        e.preventDefault();
+        return;
+      }
+
       e.preventDefault();
 
       // Zoom speed factor
@@ -1089,9 +1096,12 @@ const InteractiveMap3D = ({
     renderer.domElement.addEventListener("mousemove", handleMouseMove);
     renderer.domElement.addEventListener("mouseup", handleMouseUp);
     renderer.domElement.addEventListener("mouseleave", handleMouseLeave);
-    renderer.domElement.addEventListener("wheel", handleWheel, {
-      passive: false,
-    });
+    
+    if (!lockZoom) {
+      renderer.domElement.addEventListener("wheel", handleWheel, {
+        passive: false,
+      });
+    }
 
     // Handle window resize
     // Enhanced resize handler

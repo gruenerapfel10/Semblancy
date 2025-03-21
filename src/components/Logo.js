@@ -13,6 +13,9 @@ import GCSESimulatorLogoV1TitleWhite from "../assets/images/gcsesimulatortitlewh
 import GCSESimulatorLogoV1Text from "../assets/images/gcsesimulatortext.svg";
 import GCSESimulatorLogoV1TextWhite from "../assets/images/gcsesimulatortextwhite.svg";
 
+import SemblanceLogoV1 from "../assets/images/SEMBLANCE-logo.svg";
+import SemblanceLogoV1White from "../assets/images/SEMBLANCE-logo-white.svg";
+
 const Logo = ({ 
   size = "medium", 
   invert = false, 
@@ -63,7 +66,7 @@ const Logo = ({
         <div className={styles.logoIcon}>
           <Image
             src={GCSESimulatorLogoV1}
-            alt="Prosemble Logo Icon"
+            alt="Semblance Logo Icon"
             width="100%"
             height={config.container.height/ 1.3}
             priority
@@ -76,8 +79,8 @@ const Logo = ({
           {showTitle && (
             <div className={styles.titleContainer}>
               <Image
-                src={invert ? GCSESimulatorLogoV1TitleWhite : GCSESimulatorLogoV1Title}
-                alt="GCSE"
+                src={invert ? SemblanceLogoV1White : SemblanceLogoV1}
+                alt="SEMBLANCE"
                 className={styles.title}
                 height={config.text.height / 2}
                 priority
@@ -85,17 +88,6 @@ const Logo = ({
             </div>
           )}
           
-          {showTagline && (
-            <div className={styles.textContainer}>
-              <Image
-                src={invert ? GCSESimulatorLogoV1TextWhite : GCSESimulatorLogoV1Text}
-                alt="Simulator"
-                width="100%"
-                height={config.text.height / 5}
-                priority
-              />
-            </div>
-          )}
         </div>
       )}
     </div>
