@@ -1,30 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./ThemeToggle.module.css";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function ThemeToggle({ type = "button" }) {
-  const [theme, setTheme] = useState("light");
+  const { theme, toggleTheme } = useTheme();
   
-  // Initialize theme from current document state when component mounts
-  useEffect(() => {
-    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
-    setTheme(currentTheme);
-  }, []);
-  
-  const toggleTheme = () => {
-    // Read the current theme directly from the document to ensure accuracy
-    const currentDocTheme = document.documentElement.getAttribute("data-theme") || "light";
-    const newTheme = currentDocTheme === "light" ? "dark" : "light";
-    
-    // Update both the state and the document
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
-
   return (
     <div className={styles.themeToggleContainer}>
       {type === "button" ? (
-        <button className={styles.iconButton} onClick={toggleTheme} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}>
-          {/* Show the icon for the *opposite* theme (what we'll switch to) */}
+        <button 
+          className={styles.iconButton} 
+          onClick={toggleTheme} 
+          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+        >
+          {/* Show the icon for the opposite theme (what we'll switch to) */}
           {theme === "light" ? (
             /* If currently light, show moon icon to indicate switching to dark */
             <svg className={styles.moonIcon} fill="currentColor" viewBox="0 0 20 20">
@@ -47,8 +36,7 @@ export default function ThemeToggle({ type = "button" }) {
           <label className={styles.switch}>
             <input 
               type="checkbox" 
-              // Read directly from the document to ensure checkbox state is accurate
-              checked={(document.documentElement.getAttribute("data-theme") || "light") === "dark"}
+              checked={theme === "dark"}
               onChange={toggleTheme}
               aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
             />

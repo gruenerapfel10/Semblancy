@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import styles from "./GlassNavbar.module.css";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { useAmplify } from "../app/Providers";
+import { useAmplify } from "../app/context/Providers";
 import LogoutButton from "./LogoutButton";
 import ThemeToggle from "./ThemeToggle";
 

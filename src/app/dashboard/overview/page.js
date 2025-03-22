@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import styles from "./overview.module.css";
-import { useAmplify } from "@/app/Providers";
+import { useAmplify } from "@/app/context/Providers";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ExamCalendar from "@/components/ExamCalendar";
 import InteractiveMap3D from "@/components/InteractiveMap3D";
 import PredictedGrades from "@/components/PredictedGrades";
 import OmniSearch from "@/components/OmniSearch";
-import json from "./GCSE_Math_Spec.json";
+import json from "./MATH_USS.json";
 import { SearchBar, SearchIndicator } from "@/components/SearchTrigger";
 import { useToast } from "@/app/context/ToastContext";
 
@@ -116,7 +116,7 @@ export default function OverviewPage() {
           <ExamCalendar />
         </div>
         <div className={styles.mapSection}>
-          <InteractiveMap3D data={json} />
+          <InteractiveMap3D data={json} pulse={true} />
         </div>
       </div>
     </div>

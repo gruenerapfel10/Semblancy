@@ -4,7 +4,7 @@ import { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import PostForm from "@/components/PostForm";
 import ChangelogLayout from "@/components/ChangeLogLayout";
-import { useAmplify } from "@/app/Providers";
+import { useAmplify } from "@/app/context/Providers";
 
 // Create a client component that uses searchParams
 function EditPost() {

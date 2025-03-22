@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useAmplify } from "@/app/Providers";
+import { useAmplify } from "@/app/context/Providers";
 import { formatDistanceToNow } from "date-fns";
 import ReactMarkdown from "react-markdown";
 import styles from "./PostDetail.module.css";

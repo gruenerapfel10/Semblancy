@@ -1,12 +1,12 @@
 "use client";
 // File: src/app/layout.js
 import "./globals.css";
-import { AmplifyProvider, useAmplify } from "./Providers.jsx";
+import { AmplifyProvider } from "./context/Providers";
 import Navbar from "../components/NavBar";
 import { usePathname } from "next/navigation";
 import './variables.css'
 import Footer from "@/components/Footer";
-import { useState, useEffect } from 'react';
+import { ThemeProvider } from "./context/ThemeContext";
 import { DataProvider } from "./context/DataContext";
 import { SearchProvider } from "./context/SearchContext";
 import SearchModal from "@/components/SearchModal";
@@ -15,108 +15,6 @@ import ToastContainer from "@/components/ToastContainer";
 
 const noNavbarPaths = ["/login", "/signup", "/register", "/reset-password", "/home", "/company", "/pipeline", "/technology", "/news", "/contact", "/forgot-password", "/changelog", "/signupFuture", "/loginFuture", "/"];
 const noFooterPaths = ["/dashboard", "/"];
-
-// Wrapper component to handle theme after authentication is checked
-function ThemeHandler({ children }) {
-  const { isAuthenticated, isLoading, getUserPreferences } = useAmplify();
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    const loadTheme = async () => {
-      try {
-        // Try to get user preferences if authenticated
-        if (isAuthenticated) {
-          const preferences = await getUserPreferences();
-          if (preferences && preferences.theme) {
-            setTheme(preferences.theme);
-            document.documentElement.setAttribute('data-theme', preferences.theme);
-            // Also update localStorage for consistency
-            localStorage.setItem('theme', preferences.theme);
-            return;
-          }
-        }
-        
-        // Fallback to localStorage if no authenticated preferences
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-          setTheme(savedTheme);
-          document.documentElement.setAttribute('data-theme', savedTheme);
-        } else {
-          // If no saved preference, check for system preference
-          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setTheme('dark');
-            document.documentElement.setAttribute('data-theme', 'dark');
-          }
-        }
-      } catch (error) {
-        console.error("Error loading theme preference:", error);
-      }
-    };
-
-    if (!isLoading) {
-      loadTheme();
-    }
-
-    // Set up a listener for theme changes from other components
-    const handleThemeChange = (e) => {
-      if (e.detail?.theme) {
-        setTheme(e.detail.theme);
-        document.documentElement.setAttribute('data-theme', e.detail.theme);
-        // Save to localStorage as a fallback
-        localStorage.setItem('theme', e.detail.theme);
-      }
-    };
-
-    // Set up a MutationObserver to watch for direct changes to the data-theme attribute
-    const observeThemeChanges = () => {
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (
-            mutation.type === 'attributes' && 
-            mutation.attributeName === 'data-theme'
-          ) {
-            const newTheme = document.documentElement.getAttribute('data-theme');
-            if (newTheme && newTheme !== theme) {
-              // Update the state
-              setTheme(newTheme);
-              // Save to localStorage
-              localStorage.setItem('theme', newTheme);
-              
-              // If authenticated, you might want to save to user preferences
-              if (isAuthenticated && getUserPreferences) {
-                try {
-                  // This would need to be implemented based on your API
-                  // saveUserPreferences({ theme: newTheme });
-                } catch (error) {
-                  console.error("Error saving theme to user preferences:", error);
-                }
-              }
-            }
-          }
-        });
-      });
-      
-      // Start observing the document element for attribute changes
-      observer.observe(document.documentElement, { attributes: true });
-      
-      return observer;
-    };
-
-    window.addEventListener('themeChange', handleThemeChange);
-    
-    // Only set up the observer after initial loading to avoid conflicts
-    const observer = !isLoading ? observeThemeChanges() : null;
-
-    return () => {
-      window.removeEventListener('themeChange', handleThemeChange);
-      if (observer) {
-        observer.disconnect();
-      }
-    };
-  }, [isAuthenticated, isLoading, getUserPreferences, theme]);
-
-  return children;
-}
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -129,7 +27,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AmplifyProvider>
-          <ThemeHandler>
+          <ThemeProvider>
             <ToastProvider>
               <SearchProvider>
                 {!shouldHideNavbar && <Navbar />}
@@ -139,7 +37,7 @@ export default function RootLayout({ children }) {
                 <ToastContainer />
               </SearchProvider>
             </ToastProvider>
-          </ThemeHandler>
+          </ThemeProvider>
         </AmplifyProvider>
       </body>
     </html>

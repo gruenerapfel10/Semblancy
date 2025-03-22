@@ -70,7 +70,7 @@ const devConfig = {
   },
   Storage: {
     S3: {
-      bucket: "gcsesimulatorstorage",
+      bucket: "semblancy",
       region: "eu-west-2",
       level: "private",
       identityPoolId: "eu-west-2:2f9b085b-e95b-4efa-901b-0d6af32507ac",
@@ -100,7 +100,7 @@ const prodConfig = {
           },
         },
         oauth: {
-          domain: "auth.gcsesimulator.co.uk",
+          domain: "auth.semblancy.co.uk",
           scopes: [
             "openid",
             "email",
@@ -110,9 +110,9 @@ const prodConfig = {
           ],
           redirectSignIn: [
             "http://localhost:3000/dashboard/overview",
-            "https://gcsesimulator.co.uk/dashboard/overview",
+            "https://semblancy.co.uk/dashboard/overview",
             "http://localhost:3000/auth-callback",
-            "https://gcsesimulator.co.uk/auth-callback"
+            "https://semblancy.co.uk/auth-callback"
           ],
           // Important: We're handling redirect manually in the app,
           // so don't include a redirectSignOut URL to prevent Cognito's automatic redirect
@@ -182,7 +182,10 @@ export function AmplifyProvider({ children }) {
     Hub.listen("auth", authListener);
 
     // Clean up listener on unmount
-    return () => Hub.remove("auth", authListener);
+    return () => {
+      const removeListener = Hub.listen("auth", authListener);
+      return removeListener();
+    };
   }, [router]);
 
   const checkResumableUpload = async (filePath) => {
@@ -575,11 +578,11 @@ export function AmplifyProvider({ children }) {
 
     try {
       // The user's preferences file path
-      const preferencesPath = `clients/${identityId}/user-preferences.json`;
+      const preferencesPath = `profiles/${identityId}/user-preferences.json`;
 
       // Try to list files to check if preferences exist
       const listResult = await list({
-        path: `clients/${identityId}/`,
+        path: `profiles/${identityId}/`,
         options: { accessLevel: "private" },
       });
 
@@ -672,7 +675,7 @@ export function AmplifyProvider({ children }) {
     }
 
     try {
-      const preferencesPath = `clients/${authState.identityId}/user-preferences.json`;
+      const preferencesPath = `profiles/${authState.identityId}/user-preferences.json`;
 
       // Merge with existing preferences to avoid losing fields
       const updatedPreferences = {
@@ -725,7 +728,7 @@ export function AmplifyProvider({ children }) {
     }
 
     try {
-      const preferencesPath = `clients/${authState.identityId}/user-preferences.json`;
+      const preferencesPath = `profiles/${authState.identityId}/user-preferences.json`;
 
       try {
         const { url } = await getUrl({ path: preferencesPath });
@@ -816,7 +819,7 @@ export function AmplifyProvider({ children }) {
 
     try {
       // The user's folder path
-      const userFolder = `clients/${identityId}/`;
+      const userFolder = `profiles/${identityId}/`;
 
       // Check if folder exists by listing its contents
       const listResult = await list({ path: userFolder });
@@ -841,7 +844,7 @@ export function AmplifyProvider({ children }) {
 
       // Create a marker file in the user's folder
       await uploadData({
-        path: `clients/${identityId}/user-folder.json`,
+        path: `profiles/${identityId}/user-folder.json`,
         data: new Blob(
           [
             JSON.stringify({
@@ -953,7 +956,7 @@ export function AmplifyProvider({ children }) {
 
       const fileName =
         customPath ||
-        `clients/${authState.identityId}/uploads/${Date.now()}-${file.name}`;
+        `profiles/${authState.identityId}/uploads/${Date.now()}-${file.name}`;
 
       // Calculate optimal chunk sizes based on file size
       const { partSize, maxConcurrentParts } = calculateOptimalChunkSizes(

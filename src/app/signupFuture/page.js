@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signUp, confirmSignUp, signIn } from "aws-amplify/auth";
-import { useAmplify } from "../Providers";
+import { useAmplify } from "../context/Providers";
 import Modal from "../../components/Modal";
 import styles from "./signup.module.css";
 import Image from "next/image";

@@ -16,7 +16,7 @@ import {
   faSignOutAlt,
   faTachometerAlt
 } from '@fortawesome/free-solid-svg-icons';
-import { useAmplify } from "../app/Providers";
+import { useAmplify } from "../app/context/Providers";
 import LogoutButton from "./LogoutButton";
 
 export default function Navbar() {

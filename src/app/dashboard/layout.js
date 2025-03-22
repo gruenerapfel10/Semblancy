@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./dashboard.module.css";
-import { useAmplify } from "../Providers";
+import { useAmplify } from "../context/Providers";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useAmplify } from "../app/Providers";
+import { useAmplify } from "../app/context/Providers";
 import { useRouter } from "next/navigation";
 
 export default function LogoutButton({ className, children }) {

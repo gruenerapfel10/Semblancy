@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useAmplify } from "../app/Providers";
+import { useAmplify } from "../app/context/Providers";
 import Logo from "../components/Logo";
 import styles from "./NavBar.module.css";
 import { extractFullName } from "@/utils";

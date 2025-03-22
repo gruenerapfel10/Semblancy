@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useAmplify } from "../Providers";
+import { useAmplify } from "../context/Providers";
 import { signInWithRedirect } from "aws-amplify/auth";
 import { useRouter } from "next/navigation";
 import styles from "./login.module.css";

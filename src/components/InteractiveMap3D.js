@@ -1047,7 +1047,6 @@ const InteractiveMap3D = ({
 
     // Handle zooming with mouse wheel
     const handleWheel = (e) => {
-      a;
       if (lockZoom) {
         e.preventDefault();
         return;
@@ -1096,7 +1095,7 @@ const InteractiveMap3D = ({
     renderer.domElement.addEventListener("mousemove", handleMouseMove);
     renderer.domElement.addEventListener("mouseup", handleMouseUp);
     renderer.domElement.addEventListener("mouseleave", handleMouseLeave);
-    
+
     if (!lockZoom) {
       renderer.domElement.addEventListener("wheel", handleWheel, {
         passive: false,

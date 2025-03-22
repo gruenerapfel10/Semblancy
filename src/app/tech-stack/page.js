@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useAmplify } from "@/app/Providers";
+import { useAmplify } from "@/app/context/Providers";
 import { useRouter } from "next/navigation";
 import styles from "./techstack.module.css";
 import Link from "next/link";

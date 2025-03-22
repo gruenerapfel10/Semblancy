@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useAmplify } from "@/app/Providers";
+import { useAmplify } from "@/app/context/Providers";
 import styles from "./projectview.module.css";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

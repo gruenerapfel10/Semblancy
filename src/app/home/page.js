@@ -7,7 +7,7 @@ import { useSearch } from "@/app/context/SearchContext";
 import { SearchIndicator } from "@/components/SearchTrigger";
 import GlassNavbar from "@/components/GlassNavbar";
 import InteractiveMap3D from "@/components/InteractiveMap3D";
-import json from "../dashboard/overview/GCSE_Math_Spec.json";
+import json from "../dashboard/overview/MATH_USS.json";
 import {
   ArrowRight,
   CheckCircle,

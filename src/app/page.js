@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAmplify } from "./Providers";
+import { useAmplify } from "./context/Providers";
 import styles from "./page.module.css";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Logo from "@/components/Logo";
@@ -15,7 +15,7 @@ export default function Home() {
     // Only redirect after authentication check completes
     if (!isLoading) {
       if (isAuthenticated) {
-        router.push("/dashboard");
+        router.push("/dashboard/overview");
       } else {
         router.push("/home");
       }
@@ -26,7 +26,7 @@ export default function Home() {
     <div className={styles.loadingContainer}>
       <Logo size="large" />
       <LoadingSpinner />
-      <p>Loading Semblance...</p>
+      <p>Loading Semblancy...</p>
     </div>
   );
 }

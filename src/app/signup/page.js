@@ -10,7 +10,7 @@ import {
   fetchAuthSession,
   signInWithRedirect,
 } from "aws-amplify/auth";
-import { useAmplify } from "../Providers";
+import { useAmplify } from "../context/Providers";
 import Modal from "../../components/Modal";
 import styles from "./signup.module.css";
 import Logo from "@/components/Logo";

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import styles from "./settings.module.css";
 import Link from "next/link";
-import { useAmplify } from "../../Providers";
+import { useAmplify } from "../../context/Providers";
 
 export default function SettingsPage() {
   const { userPreferences, updateUserPreferences, isLoading } = useAmplify();

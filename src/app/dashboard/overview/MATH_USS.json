@@ -1,0 +1,2424 @@
+[
+  {
+    "point": "Construct and present mathematical arguments through appropriate use of diagrams; sketching graphs; logical deduction; precise statements involving correct use of symbols and connecting language, including: constant, coefficient, expression, equation, function, identity, index, term, variable.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT1.1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT1.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS", "A2"],
+        "uri": ["1.01a"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use mathematical language and syntax as set out in the content.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT1.2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT1.2"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use language and symbols associated with set theory, as set out in the content.",
+    "extra": "Apply to solutions of inequalities and probability.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["OT1.3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["OT1.3"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["OT1.3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["OT1.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT1.3"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the definition of a function; domain and range of functions.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["OT1.4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["OT1.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT1.4"]
+      }
+    ]
+  },
+  {
+    "point": "Comprehend and critique mathematical arguments, proofs and justifications of methods and formulae, including those relating to applications of mathematics.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT1.5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT1.5"]
+      }
+    ]
+  },
+  {
+    "point": "Recognise the underlying mathematical structure in a situation and simplify and abstract appropriately to enable problems to be solved.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.1"]
+      }
+    ]
+  },
+  {
+    "point": "Construct extended arguments to solve problems presented in an unstructured form, including problems in context.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.2"]
+      }
+    ]
+  },
+  {
+    "point": "Interpret and communicate solutions in the context of the original problem.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.3"]
+      }
+    ]
+  },
+  {
+    "point": "Understand that many mathematical problems cannot be solved analytically, but numerical methods permit solution to a required level of accuracy.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["OT2.4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["OT2.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT2.4"]
+      }
+    ]
+  },
+  {
+    "point": "Evaluate, including by making reasoned estimates, the accuracy or limitations of solutions, including those obtained using numerical methods.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["OT2.5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["OT2.5"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["OT2.5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["OT2.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT2.5"]
+      }
+    ]
+  },
+  {
+    "point": "Understand the concept of a mathematical problem solving cycle, including specifying the problem, collecting information, processing and representing information and interpreting results, which may identify the need to repeat the cycle.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT2.6"]
+      }
+    ]
+  },
+  {
+    "point": "Understand, interpret and extract information from diagrams and construct mathematical diagrams to solve problems, including in mechanics.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT2.7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT2.7"]
+      }
+    ]
+  },
+  {
+    "point": "Translate a situation in context into a mathematical model, making simplifying assumptions.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT3.1"]
+      }
+    ]
+  },
+  {
+    "point": "Use a mathematical model with suitable inputs to engage with and explore situations (for a given model or a model constructed or selected by the student).",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT3.2"]
+      }
+    ]
+  },
+  {
+    "point": "Interpret the outputs of a mathematical model in the context of the original situation (for a given model or a model constructed or selected by the student).",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT3.3"]
+      }
+    ]
+  },
+  {
+    "point": "Understand that a mathematical model can be refined by considering its outputs and simplifying assumptions; evaluate whether the model is appropriate.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT3.4"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use modelling assumptions.",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS", "A2"],
+        "uri": ["OT3.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["OT3.5"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the logical connectives ∨, ∧, ⇒, ⇔.",
+    "extra": "Learners should be familiar with the language associated with the logical connectives: 'congruence', 'if..... then' and 'if and only if' (or 'iff').",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.01b"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.01b"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the structure of mathematical proof, proceeding from given assumptions through a series of logical steps to a conclusion; use methods of proof, including proof by deduction, proof by exhaustion, disproof by counter example and proof by contradiction.",
+    "extra": "Examples of proofs: Proof by deduction, e.g. using completion of the square, prove that n² − 6n + 10 is positive for all values of n; differentiation from first principles for small positive integer powers of x. Proof by exhaustion - This involves trying all the options. Disproof by counter example means finding a single x for which P(x) is true but Q(x) is false. Proof by contradiction (including proof of the irrationality of √2 and the infinity of primes, and application to unfamiliar proofs).",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["A1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["1.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.01a", "1.01c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["A1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["1.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.01a", "1.01c", "1.01d"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the laws of indices for all rational exponents.",
+    "extra": "Including negative and zero indices and the equivalence of a^(m/n) and n√(a^m). Problems may involve the application of laws such as: aᵐ × aⁿ = aᵐ⁺ⁿ, aᵐ ÷ aⁿ = aᵐ⁻ⁿ, (aᵐ)ⁿ = aᵐⁿ, a⁰ = 1, a⁻ⁿ = 1/aⁿ, aᵐ/ⁿ = ⁿ√aᵐ.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["B1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["2.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.02a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["N7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["A4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["3.01c", "6.01c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["N7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["N7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["3.01a", "3.01b", "3.01c"]
+      }
+    ]
+  },
+  {
+    "point": "Use and manipulate surds, including rationalising the denominator.",
+    "extra": "Including understanding and using the equivalence of surd and index notation and simplifying algebraic surds. Students should be able to simplify algebraic surds using results such as √x² = x, √xy = √x√y, and (x + y)(x - y) = x² - y².",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["B2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["2.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.02b"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02b"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["N8"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["N8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["3.03a", "3.03b"]
+      }
+    ]
+  },
+  {
+    "point": "Work with quadratic functions and their graphs; the discriminant of a quadratic function, including the conditions for real and repeated roots; completing the square; solution of quadratic equations including solving quadratic equations in a function of the unknown.",
+    "extra": "Use the conditions b² - 4ac > 0 (real distinct roots), b² - 4ac = 0 (repeated roots), and b² - 4ac < 0 (roots are not real). Complete the square to find turning points. Solution of quadratic equations by factorisation, use of the formula, use of a calculator and completing the square. Functions could include powers of x, trigonometric functions of x, exponential and logarithmic functions of x.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["B3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["2.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.02d", "1.02e", "1.02f"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02d", "1.02e", "1.02f"]
+      }
+    ]
+  },
+  {
+    "point": "Solve simultaneous equations in two variables by elimination and by substitution, including one linear and one quadratic equation.",
+    "extra": "The equations may contain brackets and/or fractions. May involve powers of 2 in one unknown or in both unknowns, equations containing brackets and/or fractions. E.g., solve y = 2x + 3, y = x² - 4x + 8 or 2x - 3y = 6, x² - y² + 3x = 50, or y = -4x/3 and y = x² + 2x - 2, or 4xy + y = 2 and 2x + 3y = 9.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["B4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["2.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.02c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A19"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A19"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.03c", "6.03d"]
+      }
+    ]
+  },
+  {
+    "point": "Solve linear and quadratic inequalities in a single variable and interpret such inequalities graphically, including inequalities with brackets and fractions.",
+    "extra": "Express solutions through correct use of 'and' and 'or', or through set notation. Represent linear and quadratic inequalities such as y > x + 1 and y > ax² + bx + c graphically. Students should know the conventions of an open circle on a number line for a strict inequality and a closed circle for an included boundary. In graphical work the convention of a dashed line for strict inequalities and a solid line for an included inequality will be required.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["B5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["2.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.02g", "1.02h", "1.02i"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02g", "1.02h", "1.02i"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation"],
+        "uri": ["A22"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["A22"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.04a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A22"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A22"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.04a", "6.04b"]
+      }
+    ]
+  },
+  {
+    "point": "Manipulate polynomials algebraically, including expanding brackets and collecting like terms, factorisation and simple algebraic division; use of the factor theorem.",
+    "extra": "Simplify rational expressions including by factorising and cancelling, and algebraic division (by linear expressions only). Division by (ax + b) or (ax - b) will be required. Students should know that if f(x) = 0 when x = a, then (x - a) is a factor of f(x). Students may be required to factorise cubic expressions such as x³ + 3x² - 4 and 6x³ + 11x² - x - 6.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["B6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["2.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.02j"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02j", "1.02k"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["6.01b", "6.01c", "6.01d", "6.01e"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.01b", "6.01c", "6.01d", "6.01e", "6.01f", "6.01g"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the modulus function, including the notation |x|, and use relations such as |a| = √a² and -b < x < b ⇔ |x| < b in the course of solving equations and inequalities.",
+    "extra": "Including sketching the graph of the modulus of a linear function involving a single modulus sign and solving simple equations and inequalities involving the modulus function.",
+    "tags": [
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02l", "1.02s", "1.02t"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use graphs of functions; sketch curves defined by simple equations including polynomials, the modulus of a linear function, y = aˣ and y = a^(x²) (including their vertical and horizontal asymptotes); interpret algebraic solution of equations graphically; use intersection points of graphs to solve equations.",
+    "extra": "Understand and use proportional relationships and their graphs. Polynomials may include cubic and quartic functions. Intersection points may be between two curves one or more of which may be a polynomial, a trigonometric, an exponential or a reciprocal graph. Graphs to include simple cubic and quartic functions. The asymptotes will be parallel to the axes.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["B7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["2.7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.02m", "1.02n", "1.02o", "1.02p", "1.02q", "1.02r"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02m", "1.02n", "1.02o", "1.02p", "1.02q", "1.02r"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A14"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A14"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.01b", "7.01c", "7.04a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.01b", "7.01c", "7.01d", "7.01e", "7.04a"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use composite functions; inverse functions and their graphs.",
+    "extra": "The concept of a function as a one-one or many-one mapping from ℝ (or a subset of ℝ) to ℝ. Know the condition for the inverse function to exist and be able to find the inverse of a function either graphically, by reflection in the line y = x, or algebraically. Examples: y = 2x + 3 as x →×2 →+3→ y. Understanding and use of f(x), fg(x) and f⁻¹(x) notation is expected at Higher tier.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B8"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02u", "1.02v"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.05a"]
+      }
+    ]
+  },
+  {
+    "point": "Understand the effect of simple transformations on the graph of y = f(x), including sketching associated graphs: y = af(x), y = f(x) + a, y = f(x + a), y = f(ax).",
+    "extra": "Students should be able to apply these transformations to any of the functions in the specification and sketch the resulting graph. Students should be able to find the graphs of y = f(x) and y = f(-x), given the graph of y = f(x) and should be able to apply these transformations to any of the functions in the specification and sketch the resulting graph. May include combinations of these transformations.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["B9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["2.8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.02w"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.9"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02w", "1.02x"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A13"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A13"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.03a"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Decompose rational functions into partial fractions (denominators not more complicated than squared linear terms and with no more than 3 terms, numerators constant or linear).",
+    "extra": "Partial fractions to include denominators such as (ax + b)(cx + d)(ex + f) and (ax + b)(cx + d)². Denominators are no more complicated than these forms.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B10"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.10"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02y"]
+      }
+    ]
+  },
+  {
+    "point": "Use of functions in modelling, including consideration of limitations and refinements of the models.",
+    "extra": "Examples include use of trigonometric functions for modelling tides, hours of sunlight, etc. Use of exponential functions for growth and decay. Use of reciprocal function for inverse proportion.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["B11"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["2.11"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.02z"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the equation of a straight line, including the forms y - y₁ = m(x - x₁) and ax + by + c = 0; gradient conditions for two straight lines to be parallel or perpendicular.",
+    "extra": "Be able to use straight line models in a variety of contexts. To include the equation of a line through two given points, and the equation of a line parallel or perpendicular to a given line through a given point. For parallel lines m' = m and for perpendicular lines m'm = -1.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["C1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["3.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.03a", "1.03b", "1.03c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["C1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["3.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.03a", "1.03b", "1.03c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A9"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["7.02a", "7.02b"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.02a", "7.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the coordinate geometry of the circle including using the equation of a circle in the form (x - a)² + (y - b)² = r²; completing the square to find the centre and radius of a circle; use of the following properties: the angle in a semicircle is a right angle, the perpendicular from the centre to a chord bisects the chord, the radius of a circle at a given point on its circumference is perpendicular to the tangent to the circle at that point.",
+    "extra": "Students should be able to find the radius and the coordinates of the centre of the circle given the equation of the circle, and vice versa. Students should also be familiar with the equation x² + y² + 2fx + 2gy + c = 0. Ability to investigate whether or not a line and a circle or two circles intersect. Students should be able to find the equation of a tangent at a specified point, using the perpendicular property of tangent and radius.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["C2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["3.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.03d", "1.03e", "1.03f"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["C2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["3.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.03d", "1.03e", "1.03f"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A16"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A16"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["7.01f", "7.02b"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the parametric equations of curves and conversion between Cartesian and parametric forms.",
+    "extra": "Understanding the meaning of the terms parameter and parametric equation. Includes sketching simple parametric curves.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["C3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["3.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.03g"]
+      }
+    ]
+  },
+  {
+    "point": "Use parametric equations in modelling in a variety of contexts.",
+    "extra": "A shape may be modelled using parametric equations or students may be asked to find parametric equations for a motion. The contexts may be within pure mathematics or in realistic contexts, for example those involving related rates of change.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["C4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["3.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.03h"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the binomial expansion of (a + bx)ⁿ for positive integer n; the notations n!, ⁿCᵣ and (n r); link to binomial probabilities.",
+    "extra": "Use of Pascal's triangle. Relation between binomial coefficients. Extend to any rational n, including its use for approximation; be aware that the expansion is valid for |bx/a| < 1 (proof not required). Learners should be able to calculate binomial coefficients and know that 0! = 1.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["D1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["4.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.04a", "1.04b"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["D1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["4.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.04a", "1.04b", "1.04c", "1.04d"]
+      }
+    ]
+  },
+  {
+    "point": "Work with sequences including those given by a formula for the nth term and those generated by a simple relation of the form xₙ₊₁ = f(xₙ); increasing sequences; decreasing sequences; periodic sequences.",
+    "extra": "Learners should know the difference between and be able to recognise: a sequence and a series, finite and infinite sequences.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["D2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["4.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.04e", "1.04f"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A23"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A23"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.06a"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use sigma notation for sums of series.",
+    "extra": "Knowledge that Σ₁ⁿ 1 = n is expected.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["D3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["4.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.04g"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and work with arithmetic sequences and series, including the formulae for nth term and the sum to n terms.",
+    "extra": "The term arithmetic progression (AP) may also be used. The first term will usually be denoted by a, the last term by l and the common difference by d. The sum to n terms will usually be denoted by Sn. The proof of the sum formula should be known including the formula for the sum of the first n natural numbers.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["D4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["4.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.04h"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A24"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["A24"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["6.06b"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and work with geometric sequences and series including the formulae for the nth term and the sum of a finite geometric series; the sum to infinity of a convergent geometric series, including the use of |r| < 1; modulus notation.",
+    "extra": "The term geometric progression (GP) may also be used. The first term will usually be denoted by a and the common ratio by r. The sum to n terms will usually be denoted by Sn and the sum to infinity by S∞. The proof of the sum formula should be known. Given the sum of a series students should be able to use logs to find the value of n.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["D5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["4.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.04i", "1.04j"]
+      }
+    ]
+  },
+  {
+    "point": "Use sequences and series in modelling.",
+    "extra": "Examples could include amounts paid into saving schemes, increasing by the same amount (arithmetic) or by the same percentage (geometric) or could include other series defined by a formula or a relation. Includes solving inequalities involving exponentials and logarithms.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["D6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["4.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.04k"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the definitions of sine, cosine and tangent for all arguments; the sine and cosine rules; the area of a triangle in the form ½absinC.",
+    "extra": "Work with radian measure, including use for arc length and area of sector. The formulae s = rθ and A = ½r²θ. Questions may include the use of bearings and require the use of the ambiguous case of the sine rule. Use of x and y coordinates of points on the unit circle to give cosine and sine respectively.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["E1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["5.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.05a", "1.05b", "1.05c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.05a", "1.05b", "1.05c", "1.05d"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["G22", "G23"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["G22", "G23"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["10.03a", "10.05d", "10.05e"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the standard small angle approximations of sine, cosine and tangent: sin θ ≈ θ, cos θ ≈ 1 - θ²/2, tan θ ≈ θ where θ is in radians.",
+    "extra": "Students should be able to approximate expressions involving these trigonometric functions when θ is small.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.05e"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the sine, cosine and tangent functions; their graphs, symmetries and periodicity.",
+    "extra": "Know and use exact values of sin and cos for 0, π/6, π/4, π/3, π/2, π and multiples thereof, and exact values of tan for 0, π/6, π/4, π/3, π and multiples thereof. Includes knowing and being able to use exact values of sin θ and cos θ for θ = 0°, 30°, 45°, 60°, 90°, 180° and multiples thereof and exact values of tan θ for θ = 0°, 30°, 45°, 60°, 180° and multiples thereof.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["E3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["5.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.05f"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.05f", "1.05g"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G21"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G21"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["10.05c"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the definitions of secant, cosecant and cotangent and of arcsin, arccos and arctan; their relationships to sine, cosine and tangent; understanding of their graphs; their ranges and domains.",
+    "extra": "The principal values of the inverse trigonometric relations may be denoted by arcsin θ or sin⁻¹ θ, arccos θ or cos⁻¹ θ, arctan θ or tan⁻¹θ. Angles measured in both degrees and radians.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.05h", "1.05i"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use tan θ ≡ sinθ/cosθ and sin²θ + cos²θ ≡ 1.",
+    "extra": "Also understand and use sec²θ ≡ 1 + tan²θ and cosec²θ ≡ 1 + cot²θ. These identities may be used to solve trigonometric equations and angles may be in degrees or radians. They may also be used to prove further identities.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["E5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["5.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.05j"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.05j", "1.05k"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use double angle formulae; use of formulae for sin(A±B), cos(A±B) and tan(A±B); understand geometrical proofs of these formulae.",
+    "extra": "To include application to half angles. Understand and use expressions for acos θ + bsin θ in the equivalent forms of rcos(θ±α) or rsin(θ±α). Learners may be required to use the formulae to prove trigonometric identities, simplify expressions, evaluate expressions exactly, solve trigonometric equations or find derivatives and integrals.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.05l", "1.05m", "1.05n"]
+      }
+    ]
+  },
+  {
+    "point": "Solve simple trigonometric equations in a given interval, including quadratic equations in sin, cos and tan and equations involving multiples of the unknown angle.",
+    "extra": "Examples include solving equations such as sin(x + 70°) = 0.5 for 0 < x < 360°, 3 + 5cos 2x = 1 for -180° < x < 180°, 6cos²x + sinx - 5 = 0, 0 ≤ x < 360°.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["E7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["5.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.05o"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.05o"]
+      }
+    ]
+  },
+  {
+    "point": "Construct proofs involving trigonometric functions and identities.",
+    "extra": "Students need to prove identities such as cos x cos 2x + sin x sin 2x ≡ cos x.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E8"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.8"]
+      }
+    ]
+  },
+  {
+    "point": "Use trigonometric functions to solve problems in context, including problems involving vectors, kinematics and forces.",
+    "extra": "Problems could involve wave motion, the height of a point on a vertical circular wheel, or the hours of sunlight throughout the year. Angles may be measured in degrees or in radians.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["E9"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["5.9"]
+      }
+    ]
+  },
+  {
+    "point": "Know and use the function aˣ and its graph, where a is positive.",
+    "extra": "Know and use the function eˣ and its graph. Understand the difference in shape between a < 1 and a > 1.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["F1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["6.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.06a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["F1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["6.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.06a", "1.06b"]
+      }
+    ]
+  },
+  {
+    "point": "Know that the gradient of eᵏˣ is equal to keᵏˣ and hence understand why the exponential model is suitable in many applications.",
+    "extra": "Realise that when the rate of change is proportional to the y value, an exponential model should be used.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["F2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["6.2"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["F2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["6.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.06a", "1.06b"]
+      }
+    ]
+  },
+  {
+    "point": "Know and use the definition of logₐx as the inverse of aˣ, where a is positive and x≥0.",
+    "extra": "Know and use the function lnx and its graph. Know and use lnx as the inverse function of eˣ. Learners should be able to convert from index to logarithmic form and vice versa as a^b = c ⇔ b = loga c. The values loga a = 1 and loga 1 = 0 should be known. Also ln e = 1 and ln 1 = 0.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["F3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["6.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.06c", "1.06d", "1.06e"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["F3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["6.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.06c", "1.06d", "1.06e"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the laws of logarithms: logₐx + logₐy ≡ logₐ(xy); logₐx − logₐy ≡ logₐ(x/y); klogₐx ≡ logₐ(xᵏ) (including, for example, k = −1 and k = −½).",
+    "extra": "Includes logₐa = 1. Learners should be able to use these laws in solving equations and simplifying expressions involving logarithms.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["F4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["6.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.06f"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["F4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["6.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.06f"]
+      }
+    ]
+  },
+  {
+    "point": "Solve equations of the form aˣ = b.",
+    "extra": "Includes solving equations which can be reduced to this form such as 2^x = 3^(2x-1), either by reduction to the form a^x = b or by taking logarithms of both sides. Students may use the change of base formula.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["F5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["6.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.06g"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["F5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["6.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.06g"]
+      }
+    ]
+  },
+  {
+    "point": "Use logarithmic graphs to estimate parameters in relationships of the form y = axⁿ and y = kbˣ, given data for x and y.",
+    "extra": "Plot log y against log x and obtain a straight line where the intercept is log a and the gradient is n. Plot log y against x and obtain a straight line where the intercept is log k and the gradient is log b. Learners should be able to reduce equations of these forms to a linear form and hence estimate values of a and n, or k and b by drawing graphs using given experimental data and using appropriate calculator functions.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["F6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["6.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.06h"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["F6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["6.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.06h"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use exponential growth and decay; use in modelling (examples may include the use of e in continuous compound interest, radioactive decay, drug concentration decay, exponential growth as a model for population growth); consideration of limitations and refinements of exponential models.",
+    "extra": "Students may be asked to find the constants used in a model. They need to be familiar with terms such as initial, meaning when t = 0. They may need to explore the behaviour for large values of t or to consider whether the range of values predicted is appropriate. Consideration of an improved model may be required.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["F7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["6.7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.06i"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["F7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["6.7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.06i"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation"],
+        "uri": ["R16"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["5.03a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["R16"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["R16"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["5.03a"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use the derivative of f(x) as the gradient of the tangent to the graph of y = f(x) at a general point (x, y); the gradient of the tangent as a limit; interpretation as a rate of change; sketching the gradient function for a given curve; second derivatives; differentiation from first principles for small positive integer powers of x and for sin x and cos x.",
+    "extra": "Understand and use the second derivative as the rate of change of gradient; connection to convex and concave sections of curves and points of inflection. The notations f'(x), f''(x), dy/dx, d²y/dx² should be known and their equivalence recognized. Know that dy/dx is the rate of change of y with respect to x. Given for example the graph of y = f(x), sketch the graph of y = f′(x) using given axes and scale.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["G1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["7.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.07a", "1.07b", "1.07c", "1.07d", "1.07e", "1.07g"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["G1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["7.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": [
+          "1.07a",
+          "1.07b",
+          "1.07c",
+          "1.07d",
+          "1.07e",
+          "1.07f",
+          "1.07g",
+          "1.07h"
+        ]
+      }
+    ]
+  },
+  {
+    "point": "Differentiate xⁿ, for rational values of n, and related constant multiples, sums and differences.",
+    "extra": "Differentiate eᵏˣ and aᵏˣ, sinkx, coskx, tankx and related sums, differences and constant multiples. Understand and use the derivative of lnx.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["G2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["7.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.07i"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["G2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["7.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.07i", "1.07j", "1.07k", "1.07l"]
+      }
+    ]
+  },
+  {
+    "point": "Apply differentiation to find gradients, tangents and normals, maxima and minima and stationary points.",
+    "extra": "Identify where functions are increasing or decreasing. Points of inflection. Classification may involve use of the second derivative or first derivative or other methods. To include applications to curve sketching. Maxima and minima problems may be set in the context of a practical problem.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["G3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["7.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.07m", "1.07n", "1.07o"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["G3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["7.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.07m", "1.07n", "1.07o", "1.07p"]
+      }
+    ]
+  },
+  {
+    "point": "Differentiate using the product rule, the quotient rule and the chain rule, including problems involving connected rates of change and inverse functions.",
+    "extra": "Differentiation of cosec x, cot x and sec x. Differentiation of functions of the form x = sin y, x = 3 tan 2y and the use of dy/dx = 1/(dx/dy). Students should be able to use relations: dx/dy = 1/(dy/dx) and dy/dx = dy/du × du/dx.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["G4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["7.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.07q", "1.07r"]
+      }
+    ]
+  },
+  {
+    "point": "Differentiate simple functions and relations defined implicitly or parametrically, for first derivative only.",
+    "extra": "The finding of equations of tangents and normals to curves given parametrically or implicitly is required. Includes differentiation of functions defined in terms of a parameter using the chain rule.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["G5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["7.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.07s"]
+      }
+    ]
+  },
+  {
+    "point": "Construct simple differential equations in pure mathematics and in context, (contexts may include kinematics, population growth and modelling the relationship between price and demand).",
+    "extra": "",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["G6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["7.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.07t"]
+      }
+    ]
+  },
+  {
+    "point": "Know and use the Fundamental Theorem of Calculus.",
+    "extra": "Integration as the reverse process of differentiation. Students should know that for indefinite integrals a constant of integration is required. Includes understanding and being able to use the terms indefinite and definite when applied to integrals.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["H1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["8.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.08a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["H1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["8.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.08a"]
+      }
+    ]
+  },
+  {
+    "point": "Integrate xⁿ (excluding n = −1), and related sums, differences and constant multiples.",
+    "extra": "Integrate eᵏˣ, 1/x, sinkx, coskx and related sums, differences and constant multiples.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["H2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["8.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.08b"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["H2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["8.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.08b", "1.08c"]
+      }
+    ]
+  },
+  {
+    "point": "Evaluate definite integrals; use a definite integral to find the area under a curve.",
+    "extra": "Find the area between two curves. This area is defined to be that enclosed by a curve, the x-axis and two ordinates. Areas may be included which are partly below and partly above the x-axis, or entirely below the x-axis. This includes curves defined parametrically.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["H3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["8.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.08d", "1.08e"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["H3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["8.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.08d", "1.08e", "1.08f"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use integration as the limit of a sum.",
+    "extra": "In particular, learners should know that the area under a graph can be found as the limit of a sum of areas of rectangles.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["H4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["8.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.08g"]
+      }
+    ]
+  },
+  {
+    "point": "Carry out simple cases of integration by substitution and integration by parts; understand these methods as the inverse processes of the chain and product rules respectively.",
+    "extra": "Integration by substitution includes finding a suitable substitution and is limited to cases where one substitution will lead to a function which can be integrated; integration by parts includes more than one application of the method but excludes reduction formulae. Learners should understand the relationship between these methods and the corresponding differentiation rules.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["H5"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["8.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.08h", "1.08i"]
+      }
+    ]
+  },
+  {
+    "point": "Integrate using partial fractions that are linear in the denominator.",
+    "extra": "Integration of rational expressions such as those arising from partial fractions. Denominators no more complicated than the forms (ax + b)(cx + d)² or (ax + b)(cx + d)(ex + f).",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["H6"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["8.6"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.08j"]
+      }
+    ]
+  },
+  {
+    "point": "Evaluate the analytical solution of simple first order differential equations with separable variables, including finding particular solutions.",
+    "extra": "Separation of variables may require factorisation involving a common factor. Includes: finding by integration the general solution of a differential equation involving separating variables or direct integration; using a given initial condition to find a particular solution. Students may be asked to sketch members of the family of solution curves.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["H7"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["8.7"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.08k"]
+      }
+    ]
+  },
+  {
+    "point": "Interpret the solution of a differential equation in the context of solving a problem, including identifying limitations of the solution; includes links to kinematics.",
+    "extra": "The validity of the solution for large values should be considered. e.g. If the solution of a differential equation is v = 20 - 20e⁻ᵗ, where v is the velocity of a parachutist, describe the motion of the parachutist.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["H8"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["8.8"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.08l"]
+      }
+    ]
+  },
+  {
+    "point": "Locate roots of f(x) = 0 by considering changes of sign of f(x) in an interval of x on which f(x) is sufficiently well-behaved.",
+    "extra": "Understand how change of sign methods can fail. Includes verifying the level of accuracy of an approximation by considering upper and lower bounds. e.g. when the curve y = f(x) touches the x-axis or has a vertical asymptote.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["I1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["9.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.09a", "1.09b"]
+      }
+    ]
+  },
+  {
+    "point": "Solve equations approximately using simple iterative methods; be able to draw associated cobweb and staircase diagrams.",
+    "extra": "Solve equations using the Newton-Raphson method and other recurrence relations of the form xₙ₊₁ = g(xₙ). Understand how such methods can fail. The Newton-Raphson method will fail if the initial value coincides with a stationary point. The iteration xₙ₊₁ = g(xₙ) converges to a root at x = a if |g'(a)| < 1, and if x₁ is sufficiently close to a.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["I2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["9.2", "9.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.09c", "1.09d", "1.09e"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Higher"],
+        "uri": ["A20"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Higher"],
+        "uri": ["A20"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Higher"],
+        "uri": ["6.03e"]
+      }
+    ]
+  },
+  {
+    "point": "Understand and use numerical integration of functions, including the use of the trapezium rule and estimating the approximate area under a curve and limits that it must lie between.",
+    "extra": "Learners will be expected to use the trapezium rule to estimate the area under a curve and to determine whether the trapezium rule gives an under- or overestimate of the area under a curve. Learners may also be required to use rectangles to estimate the area under a curve and to establish upper and lower bounds for a given integral.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["I3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["9.4"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.09f"]
+      }
+    ]
+  },
+  {
+    "point": "Use numerical methods to solve problems in context.",
+    "extra": "Iterations may be suggested for the solution of equations not soluble by analytic means.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["I4"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["9.5"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.09g"]
+      }
+    ]
+  },
+  {
+    "point": "Use vectors in two dimensions and in three dimensions.",
+    "extra": "Students/learners should be familiar with column vectors and with the use of i and j unit vectors in two dimensions and i, j and k unit vectors in three dimensions.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["J1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["9.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.10a"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["J1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["10.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.10a", "1.10b"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["J1"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["9.1"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation"],
+        "uri": ["1.10a"]
+      }
+    ]
+  },
+  {
+    "point": "Calculate the magnitude and direction of a vector and convert between component form and magnitude/direction form.",
+    "extra": "Students should be able to find a unit vector in the direction of a, and be familiar with the notation |a|. The direction of a vector is given by the angle the vector makes with a horizontal line parallel to the positive x-axis. For a vector (x, y), magnitude = √(x² + y²) and direction can be found using tan⁻¹(y/x).",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["J2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["9.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.10c"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["J2"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["10.2"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.10c"]
+      }
+    ]
+  },
+  {
+    "point": "Add vectors diagrammatically and perform the algebraic operations of vector addition and multiplication by scalars, and understand their geometrical interpretations.",
+    "extra": "The triangle and parallelogram laws of addition. Parallel vectors. Either a scaling of a single vector or a displacement from one position to another by adding one or more vectors, often in the form of a triangle of vectors.",
+    "tags": [
+      {
+        "examBoard": "AQA",
+        "level": ["AS"],
+        "uri": ["J3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["AS"],
+        "uri": ["9.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["AS"],
+        "uri": ["1.10d"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["A2"],
+        "uri": ["J3"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["A2"],
+        "uri": ["10.3"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["A2"],
+        "uri": ["1.10d"]
+      },
+      {
+        "examBoard": "AQA",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G25"]
+      },
+      {
+        "examBoard": "Edexcel",
+        "level": ["Foundation", "Higher"],
+        "uri": ["G25"]
+      },
+      {
+        "examBoard": "OCR",
+        "level": ["Foundation", "Higher"],
+        "uri": ["9.03a", "9.03b"]
+      }
+    ]
+  }
+]
