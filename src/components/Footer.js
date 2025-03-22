@@ -67,7 +67,7 @@ export default function Footer() {
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
-              <p>info@prosemble.co.uk</p>
+              <p>info@semblance.co.uk</p>
             </div>
 
             <div className={styles.contactItem}>

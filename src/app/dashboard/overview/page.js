@@ -2,15 +2,21 @@
 
 import { useState, useEffect } from "react";
 import styles from "./overview.module.css";
+
 import { useAmplify } from "@/app/context/Providers";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ExamCalendar from "@/components/ExamCalendar";
 import InteractiveMap3D from "@/components/InteractiveMap3D";
 import PredictedGrades from "@/components/PredictedGrades";
 import OmniSearch from "@/components/OmniSearch";
-import json from "./MATH_USS.json";
 import { SearchBar, SearchIndicator } from "@/components/SearchTrigger";
 import { useToast } from "@/app/context/ToastContext";
+import MathContentFilter from "@/components/MathContentFilter";
+import MathContentModal from "@/components/MathContentModal";
+import json from "./MATH_USS.json";
+
+// Use the imported JSON
+const mathData = json;
 
 export default function OverviewPage() {
   const [isPageLoading, setIsPageLoading] = useState(true);
@@ -21,9 +27,47 @@ export default function OverviewPage() {
     completedExams: 0,
     upcomingWeek: 0,
   });
+  
+  // Filter states
+  const [filteredData, setFilteredData] = useState(mathData);
+  const [filters, setFilters] = useState({
+    examBoard: 'all',
+    level: 'all'
+  });
+  
   const toast = useToast();
-
   const { user, isAuthenticated } = useAmplify();
+
+  // Apply filters to math data
+  useEffect(() => {
+    if (filters.examBoard === 'all' && filters.level === 'all') {
+      setFilteredData(mathData);
+      return;
+    }
+    
+    const filtered = mathData.filter(item => {
+      // Skip items without tags
+      if (!item.tags || !Array.isArray(item.tags)) return false;
+      
+      return item.tags.some(tag => {
+        const matchesBoard = filters.examBoard === 'all' || tag.examBoard === filters.examBoard;
+        const matchesLevel = filters.level === 'all' || (tag.level && tag.level.includes(filters.level));
+        return matchesBoard && matchesLevel;
+      });
+    });
+    
+    setFilteredData(filtered);
+  }, [filters]);
+
+  // Handle filter changes
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
+
+  // Custom modal render function for InteractiveMap3D
+  const renderMathContentModal = ({ planetId, data }) => {
+    return <MathContentModal planetId={planetId} data={data} />;
+  };
 
   // Simulate loading user data
   useEffect(() => {
@@ -31,7 +75,7 @@ export default function OverviewPage() {
       try {
         // Simulate API delay
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
+        
         // Mock user data
         const mockUserData = {
           name: "Alex Johnson",
@@ -45,7 +89,7 @@ export default function OverviewPage() {
             "English Literature",
           ],
         };
-
+        
         // Mock upcoming exams
         const mockUpcomingExams = [
           {
@@ -63,14 +107,14 @@ export default function OverviewPage() {
             daysRemaining: 65,
           },
         ];
-
+        
         // Mock user stats
         const mockUserStats = {
           totalExams: 6,
           completedExams: 0,
           upcomingWeek: 0,
         };
-
+        
         setUserData(mockUserData);
         setUpcomingExams(mockUpcomingExams);
         setUserStats(mockUserStats);
@@ -80,7 +124,7 @@ export default function OverviewPage() {
         setIsPageLoading(false);
       }
     };
-
+    
     if (isAuthenticated) {
       loadUserData();
     } else {
@@ -104,19 +148,28 @@ export default function OverviewPage() {
       {/* OmniSearch Bar */}
       <div className={styles.gridContainer}>
         <div className={styles.omniSearchSection}>
-          {/* <OmniSearch /> */}
-          {/* <SearchIndicator /> */}
           <SearchBar />
         </div>
-
+        
         <div className={styles.predictedGrades}>
           <PredictedGrades />
         </div>
+        
         <div className={styles.calendarSection}>
           <ExamCalendar />
         </div>
+        
         <div className={styles.mapSection}>
-          <InteractiveMap3D data={json} pulse={true} />
+          <div className={styles.mapHeader}>
+            <MathContentFilter onFilterChange={handleFilterChange} />
+          </div>
+          
+          <InteractiveMap3D 
+            data={filteredData} 
+            pulse={true}
+            renderModalContent={renderMathContentModal}
+            draggable={true}
+          />
         </div>
       </div>
     </div>
