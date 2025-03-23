@@ -1,0 +1,2418 @@
+[
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Construct and present mathematical arguments through appropriate use of diagrams; sketching graphs; logical deduction; precise statements involving correct use of symbols and connecting language, including: constant, coefficient, expression, equation, function, identity, index, term, variable."
+        ],
+        "uri": "OT1.1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Construct and present mathematical arguments through appropriate use of diagrams; sketching graphs; logical deduction; precise statements involving correct use of symbols and connecting language, including: constant, coefficient, expression, equation, function, identity, index, term, variable."
+        ],
+        "uri": "OT1.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Construct and present mathematical arguments through appropriate use of diagrams; sketching graphs; logical deduction; precise statements involving correct use of symbols and connecting language, including: constant, coefficient, expression, equation, function, identity, index, term, variable"
+        ],
+        "uri": "OT1.1"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use mathematical language and syntax as set out in the content."
+        ],
+        "uri": "OT1.2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use mathematical language and syntax as set out in the content."
+        ],
+        "uri": "OT1.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and use mathematical language and syntax as set out in the content"
+        ],
+        "uri": "OT1.2"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use language and symbols associated with set theory, as set out in the appendices.",
+          "Apply to solutions of inequalities."
+        ],
+        "uri": "OT1.3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use language and symbols associated with set theory, as set out in the content. Apply to solutions of inequalities."
+        ],
+        "uri": "OT1.3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and use language and symbols associated with set theory, as set out in the content",
+          "Apply to solutions of inequalities"
+        ],
+        "uri": "OT1.3"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Comprehend and critique mathematical arguments, proofs and justifications of methods and formulae, including those relating to applications of mathematics."
+        ],
+        "uri": "OT1.5"
+      },
+      {
+        "levels": [
+          {
+            "exam_board": "Edexcel",
+            "level": "AS",
+            "points": [
+              "Comprehend and critique mathematical arguments, proofs and justifications of methods and formulae, including those relating to applications of mathematics."
+            ],
+            "uri": "OT1.5"
+          }
+        ]
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Comprehend and critique mathematical arguments, proofs and justifications of methods and formulae, including those relating to applications of mathematics"
+        ],
+        "uri": "OT1.5"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Recognise the underlying mathematical structure in a situation and simplify and abstract appropriately to enable problems to be solved."
+        ],
+        "uri": "OT2.1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Recognise the underlying mathematical structure in a situation and simplify and abstract appropriately to enable problems to be solved."
+        ],
+        "uri": "OT2.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Recognise the underlying mathematical structure in a situation and simplify and abstract appropriately to enable problems to be solved"
+        ],
+        "uri": "OT2.1"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Construct extended arguments to solve problems presented in an unstructured form, including problems in context."
+        ],
+        "uri": "OT2.2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Construct extended arguments to solve problems presented in an unstructured form, including problems in context."
+        ],
+        "uri": "OT2.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Construct extended arguments to solve problems presented in an unstructured form, including problems in context"
+        ],
+        "uri": "OT2.2"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Interpret and communicate solutions in the context of the original problem."
+        ],
+        "uri": "OT2.3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Interpret and communicate solutions in the context of the original problem."
+        ],
+        "uri": "OT2.3"
+      },
+
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Interpret and communicate solutions in the context of the original problem"
+        ],
+        "uri": "OT2.3"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Evaluate, including by making reasoned estimates, the accuracy or limitations of solutions."
+        ],
+        "uri": "OT2.5"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Evaluate, including by making reasoned estimates, the accuracy or limitations of solutions."
+        ],
+        "uri": "OT2.5"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Evaluate, including by making reasoned estimates, the accuracy or limitations of solutions"
+        ],
+        "uri": "OT2.5"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand the concept of a mathematical problem solving cycle, including specifying the problem, collecting information, processing and representing information and interpreting results, which may identify the need to repeat the cycle."
+        ],
+        "uri": "OT2.6"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand the concept of a mathematical problem-solving cycle, including specifying the problem, collecting information, processing and representing information and interpreting results, which may identify the need to repeat the cycle."
+        ],
+        "uri": "OT2.6"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand the concept of a mathematical problem solving cycle, including specifying the problem, collecting information, processing and representing information and interpreting results, which may identify the need to repeat the cycle"
+        ],
+        "uri": "OT2.6"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand, interpret and extract information from diagrams and construct mathematical diagrams to solve problems, including in mechanics."
+        ],
+        "uri": "OT2.7"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand, interpret and extract information from diagrams and construct mathematical diagrams to solve problems, including in mechanics."
+        ],
+        "uri": "OT2.7"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand, interpret and extract information from diagrams and construct mathematical diagrams to solve problems, including in mechanics"
+        ],
+        "uri": "OT2.7"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Translate a situation in context into a mathematical model, making simplifying assumptions."
+        ],
+        "uri": "OT3.1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Translate a situation in context into a mathematical model, making simplifying assumptions."
+        ],
+        "uri": "OT3.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Translate a situation in context into a mathematical model, making simplifying assumptions"
+        ],
+        "uri": "OT3.1"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Use a mathematical model with suitable inputs to engage with and explore situations (for a given model or a model constructed or selected by the student)."
+        ],
+        "uri": "OT3.2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Use a mathematical model with suitable inputs to engage with and explore situations (for a given model or a model constructed or selected by the student)."
+        ],
+        "uri": "OT3.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Use a mathematical model with suitable inputs to engage with and explore situations (for a given model or a model constructed or selected by the student)"
+        ],
+        "uri": "OT3.2"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Interpret the outputs of a mathematical model in the context of the original situation (for a given model or a model constructed or selected by the student)."
+        ],
+        "uri": "OT3.3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Interpret the outputs of a mathematical model in the context of the original situation (for a given model or a model constructed or selected by the student)."
+        ],
+        "uri": "OT3.3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Interpret the outputs of a mathematical model in the context of the original situation (for a given model or a model constructed or selected by the student)"
+        ],
+        "uri": "OT3.3"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand that a mathematical model can be refined by considering its outputs and simplifying assumptions; evaluate whether the model is appropriate."
+        ],
+        "uri": "OT3.4"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand that a mathematical model can be refined by considering its outputs and simplifying assumptions; evaluate whether the model is appropriate."
+        ],
+        "uri": "OT3.4"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand that a mathematical model can be refined by considering its outputs and simplifying assumptions; evaluate whether the model is appropriate"
+        ],
+        "uri": "OT3.4"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": ["Understand and use modelling assumptions."],
+        "uri": "OT3.5"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": ["Understand and use modelling assumptions."],
+        "uri": "OT3.5"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": ["Understand and use modelling assumptions"],
+        "uri": "OT3.5"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the structure of mathematical proof, proceeding from given assumptions through a series of logical steps to a conclusion; use methods of proof, including proof by deduction, proof by exhaustion.",
+          "Disproof by counter example."
+        ],
+        "uri": "A1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the structure of mathematical proof, proceeding from given assumptions through a series of logical steps to a conclusion; use methods of proof, including:",
+          "Proof by deduction",
+          "Proof by exhaustion",
+          "Disproof by counter example."
+        ],
+        "uri": "1.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the structure of mathematical proof, proceeding from given assumptions through a series of logical steps to a conclusion",
+          "In particular, learners should use methods of proof including proof by deduction and proof by exhaustion"
+        ],
+        "uri": "1.01a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to show disproof by counter example",
+          "Learners should understand that this means that, given a statement of the form \"if P(x) is true then Q(x) is true\", finding a single x for which P(x) is true but Q(x) is false is to offer a disproof by counter example",
+          "Questions requiring a proof will be set on content with which the learner is expected to be familiar e.g. through study of GCSE (9–1) or AS Level Mathematics",
+          "Learners are expected to understand and be able to use terms such as \"integer\", \"real\", \"rational\" and \"irrational\""
+        ],
+        "uri": "1.01c"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the logical connectives ≡, ⇒, ⇔",
+          "Learners should be familiar with the language associated with the logical connectives: \"congruence\", \"if.....then\" and \"if and only if\" (or \"iff\")"
+        ],
+        "uri": "1.01b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the laws of indices for all rational exponents."
+        ],
+        "uri": "B1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the laws of indices for all rational exponents."
+        ],
+        "uri": "2.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the laws of indices for all rational exponents",
+          "Includes negative and zero indices",
+          "Problems may involve the application of more than one of the following laws:",
+          "xᵃ × xᵇ = xᵃ⁺ᵇ, xᵃ ÷ xᵇ = xᵃ⁻ᵇ, (xᵃ)ᵇ = xᵃᵇ",
+          "x⁻ᵃ = 1/xᵃ, x^(n/m) = ⁿ√(xᵐ), x⁰ = 1"
+        ],
+        "uri": "1.02a"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Use and manipulate surds, including rationalising the denominator."
+        ],
+        "uri": "B2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Use and manipulate surds, including rationalising the denominator.",
+"(sqrt(x))^2 = x, sqrt(xy) = sqrt(x) * sqrt(y) and (sqrt(x) + sqrt(y))(sqrt(x) - sqrt(y)) = x - y"
+        ],
+        "uri": "2.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use and manipulate surds, including rationalising the denominator",
+          "Learners should understand and use the equivalence of surd and index notation"
+        ],
+        "uri": "1.02b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Work with quadratic functions and their graphs; the discriminant of a quadratic function, including the conditions for real and repeated roots; completing the square; solution of quadratic equations including solving quadratic equations in a function of the unknown."
+        ],
+        "uri": "B3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Work with quadratic functions and their graphs.",
+          "The discriminant of a quadratic function, including the conditions for real and repeated roots.",
+          "Completing the square.",
+          "Solution of quadratic equations,",
+          "including solving quadratic equations in a function of the unknown."
+        ],
+        "uri": "2.3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to complete the square of the quadratic polynomial ax² + bx + c",
+          "e.g. Writing y = ax² + bx + c in the form y = a(x + p)² + q in order to find the line of symmetry x = −p, the turning point (−p, q) and to determine the nature of the roots of the equation ax² + bx + c = 0 for example 2(x + 3)² + 4 = 0 has no real roots because 4 > 0"
+        ],
+        "uri": "1.02e"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to solve quadratic equations including quadratic equations in a function of the unknown",
+          "e.g. x⁴ − 5x² + 6 = 0, x³ − 5x² + 4 = 0 or",
+          "(5/(2x − 1)²) − (10/(2x − 1)) = 1"
+        ],
+        "uri": "1.02f"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Solve simultaneous equations in two variables by elimination and by substitution, including one linear and one quadratic equation."
+        ],
+        "uri": "B4"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Solve simultaneous equations in two variables by elimination and by substitution, including one linear and one quadratic equation."
+        ],
+        "uri": "2.4"
+      },
+      {
+        "levels": [
+          {
+            "exam_board": "OCR",
+            "level": "AS",
+            "points": [
+              "Be able to solve simultaneous equations in two variables by elimination and by substitution, including one linear and one quadratic equation",
+              "The equations may contain brackets and/or fractions",
+              "e.g. y = 4 − 3x and y = x² + 2x − 2",
+              "2xy + y² = 4 and 2x + 3y = 9"
+            ],
+            "uri": "1.02c"
+          }
+        ]
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to solve linear and quadratic inequalities in a single variable and interpret such inequalities graphically, including inequalities with brackets and fractions",
+          "e.g. 10 < 3x + 1 < 16, (2x + 5)(x + 3) > 0",
+          "[Quadratic equations with complex roots are excluded.]"
+        ],
+        "uri": "1.02g"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Solve linear and quadratic inequalities in a single variable and interpret such inequalities graphically, including inequalities with brackets and fractions.",
+          "Express solutions through correct use of 'and' and 'or', or through set notation.",
+          "Represent linear and quadratic inequalities such as y > x + 1 and y > ax² + bx + c graphically."
+        ],
+        "uri": "B5"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Solve linear and quadratic inequalities in a single variable and interpret such inequalities graphically,",
+          "including inequalities with brackets and fractions.",
+          "Express solutions through correct use of 'and' and 'or', or through set notation.",
+          "Represent linear and quadratic inequalities such as y > x + 1 and y > ax² + bx + c graphically."
+        ],
+        "uri": "2.5"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to work with quadratic functions and their graphs, and the discriminant (D or Δ) of a quadratic function, including the conditions for real and repeated roots",
+          "i.e. Use the conditions:",
+          "1. b² − 4ac > 0 ⇒ real distinct roots",
+          "2. b² − 4ac = 0 ⇒ repeated roots",
+          "3. b² − 4ac < 0 ⇒ roots are not real",
+          "to determine the number and nature of the roots of a quadratic equation and relate the results to a graph of the quadratic function"
+        ],
+        "uri": "1.02d"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to express solutions through correct use of 'and' and 'or', or through set notation",
+          "Familiarity is expected with the correct use of set notation for intervals, e.g.",
+          "{x: x > 3},",
+          "{x: −2 ≤ x ≤ 4},",
+          "{x: x > 3} ∪ {x: −2 ≤ x ≤ 4},",
+          "{x: x > 3} ∩ {x: −2 ≤ x ≤ 4},",
+          "∅",
+          "Familiarity is expected with interval notation, e.g.",
+          "(2, 3), [2, 3) and [2, ∞)"
+        ],
+        "uri": "1.02h"
+      },
+      {
+        "levels": [
+          {
+            "exam_board": "OCR",
+            "level": "AS",
+            "points": [
+              "Be able to represent linear and quadratic inequalities such as y > x + 1 and y > ax² + bx + c graphically"
+            ],
+            "uri": "1.02i"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Manipulate polynomials algebraically, including expanding brackets and collecting like terms, factorisation and simple algebraic division; use of the factor theorem."
+        ],
+        "uri": "B6"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Manipulate polynomials algebraically, including expanding brackets and collecting like terms, factorisation and simple algebraic division; use of the factor theorem."
+        ],
+        "uri": "2.6"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to manipulate polynomials algebraically",
+          "Includes expanding brackets, collecting like terms, factorising, simple algebraic division and use of the factor theorem",
+          "Learners should be familiar with the factor theorem as:",
+          "1. f(a) = 0 ⇔ (x − a) is a factor of f(x);",
+          "2. f(b/a) = 0 ⇔ (ax − b) is a factor of f(x)",
+          "They should be able to use the factor theorem to find a linear factor of a polynomial normally of degree ≤ 3",
+          "They may also be required to find factors of a polynomial, using any valid method, e.g. by inspection",
+          "Learners should be familiar with the terms \"quadratic\", \"cubic\" and \"parabola\""
+        ],
+        "uri": "1.02j"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "AS learners should understand and be able to apply functions and function notation in an informal sense in the context of the factor theorem (1.02j), transformations of graphs (1.02w), differentiation (section 1.07) and the fundamental theorem of calculus (1.08a)"
+        ],
+        "uri": "Functions"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use graphs of functions; sketch curves defined by simple equations including polynomials, y = a/x and y = a/x² (including their vertical and horizontal asymptotes); interpret algebraic solution of equations graphically; use intersection points of graphs to solve equations.",
+          "Understand and use proportional relationships and their graphs."
+        ],
+        "uri": "B7"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use graphs of functions; sketch curves defined by simple equations including polynomials",
+          "y = a/x and y = a/x²",
+          "(including their vertical and horizontal asymptotes)",
+          "Interpret algebraic solution of equations graphically; use intersection points of graphs to solve equations.",
+          "Understand and use proportional relationships and their graphs."
+        ],
+        "uri": "2.7"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use graphs of functions",
+          "The difference between plotting and sketching a curve should be known. See Section 2b"
+        ],
+        "uri": "1.02m"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to sketch curves defined by simple equations including polynomials",
+          "e.g. Familiarity is expected with sketching a polynomial of degree ≤4 in factorised form, including repeated roots",
+          "Sketches may require the determination of stationary points and, where applicable, distinguishing between them"
+        ],
+        "uri": "1.02n"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to sketch curves defined by y = a/x and y = a/x² (including their vertical and horizontal asymptotes)"
+        ],
+        "uri": "1.02o"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to interpret the algebraic solution of equations graphically"
+        ],
+        "uri": "1.02p"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use intersection points of graphs to solve equations",
+          "Intersection points may be between two curves one or more of which may be a polynomial, a trigonometric, an exponential or a reciprocal graph"
+        ],
+        "uri": "1.02q"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use proportional relationships and their graphs",
+          "i.e. Understand and use different proportional relationships and relate them to linear, reciprocal or other graphs of variation"
+        ],
+        "uri": "1.02r"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand the effect of simple transformations on the graph of y = f(x) including sketching associated graphs:",
+          "y = af(x), y = f(x) + a, y = f(x + a), y = f(ax)"
+        ],
+        "uri": "B9"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand the effect of simple transformations on the graph of y = f(x), including sketching associated graphs:",
+          "y = af(x), y = f(x) + a, y = f(x + a), y = f(ax)"
+        ],
+        "uri": "2.8"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand the effect of simple transformations on the graph of y = f(x) including sketching associated graphs, describing transformations and finding relevant equations: y = af(x), y = f(x) + a, y = f(x + a) and y = f(ax), for any real a",
+          "Only single transformations will be requested",
+          "Translations may be specified by a two-dimensional column vector"
+        ],
+        "uri": "1.02w"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the equation of a straight line, including the forms y − y₁ = m(x − x₁) and ax + by + c = 0; gradient conditions for two straight lines to be parallel or perpendicular.",
+          "Be able to use straight line models in a variety of contexts."
+        ],
+        "uri": "C1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the equation of a straight line, including the forms y – y₁ = m(x – x₁) and ax + by + c = 0;",
+          "Gradient conditions for two straight lines to be parallel or perpendicular.",
+          "Be able to use straight line models in a variety of contexts."
+        ],
+        "uri": "3.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the equation of a straight line, including the forms y = mx + c, y − y₁ = m(x − x₁) and ax + by + c = 0",
+          "Learners should be able to draw a straight line given its equation and to form the equation given a graph of the line, the gradient and one point on the line, or at least two points on the line",
+          "Learners should be able to use straight lines to find:",
+          "1. the coordinates of the midpoint of a line segment joining two points,",
+          "2. the distance between two points and",
+          "3. the point of intersection of two lines"
+        ],
+        "uri": "1.03a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use the gradient conditions for two straight lines to be parallel or perpendicular",
+          "i.e. For parallel lines m₁ = m₂ and for perpendicular lines m₁m₂ = −1"
+        ],
+        "uri": "1.03b"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use straight line models in a variety of contexts",
+          "These problems may be presented within realistic contexts including average rates of change"
+        ],
+        "uri": "1.03c"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the coordinate geometry of the circle including using the equation of a circle in the form (x − a)² + (y − b)² = r²; completing the square to find the centre and radius of a circle; use of the following properties:",
+          "• the angle in a semicircle is a right angle",
+          "• the perpendicular from the centre to a chord bisects the chord",
+          "• the radius of a circle at a given point on its circumference is perpendicular to the tangent to the circle at that point."
+        ],
+        "uri": "C2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the coordinate geometry of the circle including using the equation of a circle in the form (x – a)² + (y – b)² = r²",
+          "Completing the square to find the centre and radius of a circle; use of the following properties:",
+          "• the angle in a semicircle is a right angle",
+          "• the perpendicular from the centre to a chord bisects the chord",
+          "• the radius of a circle at a given point on its circumference is perpendicular to the tangent to the circle at that point."
+        ],
+        "uri": "3.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the coordinate geometry of a circle including using the equation of a circle in the form (x − a)² + (y − b)² = r²",
+          "Learners should be able to draw a circle given its equation or to form the equation given its centre and radius"
+        ],
+        "uri": "1.03d"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to complete the square to find the centre and radius of a circle"
+        ],
+        "uri": "1.03e"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use the following circle properties in the context of problems in coordinate geometry:",
+          "1. the angle in a semicircle is a right angle,",
+          "2. the perpendicular from the centre of a circle to a chord bisects the chord,",
+          "3. the radius of a circle at a given point on its circumference is perpendicular to the tangent to the circle at that point",
+          "Learners should also be able to investigate whether or not a line and a circle or two circles intersect"
+        ],
+        "uri": "1.03f"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the binomial expansion of (a + bx)ⁿ for positive integer n; the notations n!, nCr and (n r); link to binomial probabilities."
+        ],
+        "uri": "D1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the binomial expansion of (a + bx)ⁿ for positive integer n; the notations n! and ⁿCᵣ link to binomial probabilities."
+        ],
+        "uri": "4.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": ["Understand and know the link to binomial probabilities"],
+        "uri": "1.04b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the definitions of sine, cosine and tangent for all arguments; the sine and cosine rules; the area of a triangle in the form ½absinC"
+        ],
+        "uri": "E1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the definitions of sine, cosine and tangent for all arguments;",
+          "the sine and cosine rules;",
+          "the area of a triangle in the form ½ab sin C"
+        ],
+        "uri": "5.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the definitions of sine, cosine and tangent for all arguments"
+        ],
+        "uri": "1.05a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the sine and cosine rules",
+          "Questions may include the use of bearings and require the use of the ambiguous case of the sine rule"
+        ],
+        "uri": "1.05b"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the area of a triangle in the form ½ab sin C"
+        ],
+        "uri": "1.05c"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the sine, cosine and tangent functions; their graphs, symmetries and periodicity."
+        ],
+        "uri": "E3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the sine, cosine and tangent functions; their graphs, symmetries and periodicity."
+        ],
+        "uri": "5.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the sine, cosine and tangent functions, their graphs, symmetries and periodicities",
+          "Includes knowing and being able to use exact values of sin θ and cos θ for θ = 0°, 30°, 45°, 60°, 90°, 180° and multiples thereof and exact values of tan θ for θ = 0°, 30°, 45°, 60°, 180° and multiples thereof"
+        ],
+        "uri": "1.05f"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use tan θ ≡ sinθ/cosθ",
+          "Understand and use sin² θ + cos² θ ≡ 1"
+        ],
+        "uri": "E5"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use tan θ = sin θ/cos θ",
+          "Understand and use sin² θ + cos² θ = 1"
+        ],
+        "uri": "5.3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use tan θ ≡ sin θ/cos θ and sin²θ + cos²θ ≡ 1",
+          "In particular, these identities may be used in solving trigonometric equations and simple trigonometric proofs"
+        ],
+        "uri": "1.05j"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Solve simple trigonometric equations in a given interval, including quadratic equations in sin, cos and tan and equations involving multiples of the unknown angle."
+        ],
+        "uri": "E7"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Solve simple trigonometric equations in a given interval, including quadratic equations in sin, cos and tan and equations involving multiples of the unknown angle."
+        ],
+        "uri": "5.4"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to solve simple trigonometric equations in a given interval, including quadratic equations in sin θ, cos θ and tan θ and equations involving multiples of the unknown angle",
+          "e.g.",
+          "sin θ = 0.5 for 0 ≤ θ < 360°",
+          "6 sin² θ + cos θ − 4 = 0 for 0 ≤ θ < 360°",
+          "tan 3θ = −1 for −180° < θ < 180°"
+        ],
+        "uri": "1.05o"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Know and use the function aˣ and its graph, where a is positive.",
+          "Know and use the function eˣ and its graph."
+        ],
+        "uri": "F1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Know and use the function aˣ and its graph, where a is positive.",
+          "Know and use the function eˣ and its graph"
+        ],
+        "uri": "6.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Know and use the function aˣ and its graph, where a is positive",
+          "Know and use the function eˣ and its graph",
+          "Examples may include the comparison of two population models or models in a biological or financial context"
+        ],
+        "uri": "1.06a"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Know that the gradient of eᵏˣ is equal to keᵏˣ and hence understand why the exponential model is suitable in many applications."
+        ],
+        "uri": "F2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Know that the gradient of eᵏˣ is equal to keᵏˣ and hence understand why the exponential model is suitable in many applications."
+        ],
+        "uri": "6.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Know that the gradient of eᵏˣ is equal to keᵏˣ and hence understand why the exponential model is suitable in many applications"
+        ],
+        "uri": "1.06b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Know and use the definition of logₐ x as the inverse of aˣ, where a is positive and x ≥ 0",
+          "Know and use the function ln x and its graph.",
+          "Know and use ln x as the inverse function of eˣ"
+        ],
+        "uri": "F3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Know and use the definition of logₐx as the inverse of aˣ, where a is positive and x ≥ 0",
+          "Know and use the function lnx and its graph",
+          "Know and use lnx as the inverse function of eˣ"
+        ],
+        "uri": "6.3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Know and use the definition of logₐ x (for x > 0) as the inverse of aˣ (for all x), where a is positive",
+          "Learners should be able to convert from index to logarithmic form and vice versa as a = bᶜ ⇔ c = logₐ b",
+          "The values logₐ a = 1 and logₐ 1 = 0 should be known"
+        ],
+        "uri": "1.06c"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": ["Know and use the function ln x and its graph"],
+        "uri": "1.06d"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Know and use ln x as the inverse function of eˣ",
+          "e.g. In solving equations involving logarithms or exponentials",
+          "The values ln e = 1 and ln 1 = 0 should be known"
+        ],
+        "uri": "1.06e"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the laws of logarithms:",
+          "logₐx + logₐy ≡ logₐ(xy); logₐx − logₐy ≡ logₐ(x/y); klogₐx ≡ logₐx^k",
+          "(including, for example, k = −1 and k = −½)"
+        ],
+        "uri": "F4"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the laws of logarithms:",
+          "logₐx + logₐy = logₐ(xy)",
+          "logₐx − logₐy = logₐ(x/y)",
+          "klogₐx = logₐxᵏ",
+          "(including, for example, k = −1 and k = −1/2)"
+        ],
+        "uri": "6.4"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the laws of logarithms:",
+          "1. logₐ x + logₐ y = logₐ(xy)",
+          "2. logₐ x − logₐ y ≡ logₐ(x/y)",
+          "3. k logₐ x = logₐ xᵏ",
+          "(including, for example, k = −1 and k = −½)",
+          "Learners should be able to use these laws in solving equations and simplifying expressions involving logarithms",
+          "[Change of base is excluded.]"
+        ],
+        "uri": "1.06f"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": ["Solve equations of the form aˣ = b"],
+        "uri": "F5"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": ["Solve equations of the form aˣ = b"],
+        "uri": "6.5"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to solve equations of the form aˣ = b for a > 0",
+          "Includes solving equations which can be reduced to this form such as 2ˣ = 3²ˣ⁻¹, either by reduction to the form aˣ = b or by taking logarithms of both sides"
+        ],
+        "uri": "1.06g"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Use logarithmic graphs to estimate parameters in relationships of the form y = axⁿ and y = kb^x, given data for x and y."
+        ],
+        "uri": "F6"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Use logarithmic graphs to estimate parameters in relationships of the form y = axⁿ and y = kbˣ, given data for x and y"
+        ],
+        "uri": "6.6"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use logarithmic graphs to estimate parameters in relationships of the form y = axⁿ and y = kbˣ, given data for x and y",
+          "Learners should be able to reduce equations of these forms to a linear form and hence estimate values of a and n, or k and b by drawing graphs using given experimental data and using appropriate calculator functions"
+        ],
+        "uri": "1.06h"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use exponential growth and decay; use in modelling (examples may include the use of e in continuous compound interest, radioactive decay, drug concentration decay, exponential growth as a model for population growth); consideration of limitations and refinements of exponential models."
+        ],
+        "uri": "F7"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use exponential growth and decay; use in modelling (examples may include the use of e in continuous compound interest, radioactive decay, drug concentration decay, exponential growth as a model for population growth); consideration of limitations and refinements of exponential models."
+        ],
+        "uri": "6.7"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use exponential growth and decay and use the exponential function in modelling",
+          "Examples may include the use of e in continuous compound interest, radioactive decay, drug concentration decay and exponential growth as a model for population growth. Includes consideration of limitations and refinements of exponential models"
+        ],
+        "uri": "1.06i"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the derivative of f(x) as the gradient of the tangent to the graph of y = f(x) at a general point (x, y); the gradient of the tangent as a limit; interpretation as a rate of change; sketching the gradient function for a given curve; second derivatives; differentiation from first principles for small positive integer powers of x",
+          "Understand and use the second derivative as the rate of change of gradient."
+        ],
+        "uri": "G1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use the derivative of f(x) as the gradient of the tangent to the graph of y = f(x) at a general point (x, y); the gradient of the tangent as a limit; interpretation as a rate of change",
+          "sketching the gradient function for a given curve",
+          "second derivatives",
+          "differentiation from first principles for small positive integer powers of x",
+          "Understand and use the second derivative as the rate of change of gradient."
+        ],
+        "uri": "7.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the derivative of f(x) as the gradient of the tangent to the graph of y = f(x) at a general point (x, y)"
+        ],
+        "uri": "1.07a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the gradient of the tangent at a point where x = a as:",
+          "1. the limit of the gradient of a chord as x tends to a",
+          "2. a rate of change of y with respect to x",
+          "Learners should be able to use the notation dy/dx to denote the rate of change of y with respect to x",
+          "Learners should be able to use the notations f'(x) and dy/dx and recognise their equivalence"
+        ],
+        "uri": "1.07b"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to sketch the gradient function for a given curve"
+        ],
+        "uri": "1.07c"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to find second derivatives",
+          "Learners should be able to use the notations f''(x) and d²y/dx² and recognise their equivalence"
+        ],
+        "uri": "1.07d"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the second derivative as the rate of change of gradient",
+          "e.g. For distinguishing between maximum and minimum points"
+        ],
+        "uri": "1.07e"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to show differentiation from first principles for small positive integer powers of x",
+          "In particular, learners should be able to use the definition f'(x) = lim[h→0] [f(x + h) − f(x)]/h including the notation",
+          "[Integer powers greater than 4 are excluded.]"
+        ],
+        "uri": "1.07g"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Differentiate xⁿ, for rational values of n, and related constant multiples, sums and differences."
+        ],
+        "uri": "G2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Differentiate xⁿ, for rational values of n, and related constant multiples, sums and differences."
+        ],
+        "uri": "7.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to differentiate xⁿ, for rational values of n, and related constant multiples, sums and differences"
+        ],
+        "uri": "1.07i"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Apply differentiation to find gradients, tangents and normals, maxima and minima and stationary points.",
+          "Identify where functions are increasing or decreasing."
+        ],
+        "uri": "G3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Apply differentiation to find gradients, tangents and normals,",
+          "maxima and minima and stationary points.",
+          "Identify where functions are increasing or decreasing."
+        ],
+        "uri": "7.3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to apply differentiation to find the gradient at a point on a curve and the equations of tangents and normals to a curve"
+        ],
+        "uri": "1.07m"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to apply differentiation to find and classify stationary points on a curve as either maxima or minima",
+          "Classification may involve use of the second derivative or first derivative or other methods"
+        ],
+        "uri": "1.07n"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to identify where functions are increasing or decreasing",
+          "i.e. To be able to use the sign of dy/dx to determine whether the function is increasing or decreasing"
+        ],
+        "uri": "1.07o"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": ["Know and use the Fundamental Theorem of Calculus."],
+        "uri": "H1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": ["Know and use the Fundamental Theorem of Calculus."],
+        "uri": "8.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Know and be able to use the fundamental theorem of calculus",
+          "i.e. Learners should know that integration may be defined as the reverse of differentiation and be able to apply the result that ∫f(x)dx = F(x) + c ⇔ f(x) = d/dx(F(x)), for sufficiently well-behaved functions",
+          "Includes understanding and being able to use the terms indefinite and definite when applied to integrals"
+        ],
+        "uri": "1.08a"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Integrate xⁿ (excluding n = −1), and related sums, differences and constant multiples."
+        ],
+        "uri": "H2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Integrate xⁿ (excluding n = −1) and related sums, differences and constant multiples."
+        ],
+        "uri": "8.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to integrate xⁿ where n ≠ −1 and related sums, differences and constant multiples",
+          "Learners should also be able to solve problems involving the evaluation of a constant of integration e.g. to find the equation of the curve through (−1, 2) for which dy/dx = 2x + 1"
+        ],
+        "uri": "1.08b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Evaluate definite integrals; use a definite integral to find the area under a curve."
+        ],
+        "uri": "H3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Evaluate definite integrals; use a definite integral to find the area under a curve."
+        ],
+        "uri": "8.3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": ["Be able to evaluate definite integrals"],
+        "uri": "1.08d"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use a definite integral to find the area between a curve and the x-axis",
+          "This area is defined to be that enclosed by a curve, the x-axis and two ordinates. Areas may be included which are partly below and partly above the x-axis, or entirely below the x-axis"
+        ],
+        "uri": "1.08e"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": ["Use vectors in two dimensions."],
+        "uri": "J1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": ["Use vectors in two dimensions."],
+        "uri": "9.1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use vectors in two dimensions",
+          "i.e. Learners should be able to use vectors expressed as xi + yj or as a column vector (x y) and use vector notation appropriately either as AB or a",
+          "Learners should know the difference between a scalar and a vector, and should distinguish between them carefully when writing by hand"
+        ],
+        "uri": "1.10a"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Calculate the magnitude and direction of a vector and convert between component form and magnitude/direction form."
+        ],
+        "uri": "J2"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Calculate the magnitude and direction of a vector and convert between component form and magnitude/direction form."
+        ],
+        "uri": "9.2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to calculate the magnitude and direction of a vector and convert between component form and magnitude/direction form",
+          "Learners should know that the modulus of a vector is its magnitude and the direction of a vector is given by the angle the vector makes with a horizontal line parallel to the positive x-axis. The direction of a vector will be taken to be in the interval [0°, 360°)",
+          "Includes use of the notation |a| for the magnitude of a and |OA| for the magnitude of OA",
+          "Learners should be able to calculate the magnitude of a vector (x y) as √(x² + y²) and its direction by tan⁻¹(y/x)"
+        ],
+        "uri": "1.10c"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Add vectors diagrammatically and perform the algebraic operations of vector addition and multiplication by scalars, and understand their geometrical interpretations."
+        ],
+        "uri": "J3"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Add vectors diagrammatically and perform the algebraic operations of vector addition and multiplication by scalars, and understand their geometrical interpretations."
+        ],
+        "uri": "9.3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to add vectors diagrammatically and perform the algebraic operations of vector addition and multiplication by scalars, and understand their geometrical interpretations",
+          "i.e. Either a scaling of a single vector or a displacement from one position to another by adding one or more vectors, often in the form of a triangle of vectors"
+        ],
+        "uri": "1.10d"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use position vectors; calculate the distance between two points represented by position vectors."
+        ],
+        "uri": "J4"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Understand and use position vectors; calculate the distance between two points represented by position vectors."
+        ],
+        "uri": "9.4"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use position vectors",
+          "Learners should understand the meaning of displacement vector, component vector, resultant vector, parallel vector, equal vector and unit vector"
+        ],
+        "uri": "1.10e"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to calculate the distance between two points represented by position vectors",
+          "i.e. The distance between the points ai + bj and ci + dj is √((c − a)² + (d − b)²)"
+        ],
+        "uri": "1.10f"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Use vectors to solve problems in pure mathematics and in context, including forces."
+        ],
+        "uri": "J5"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Use vectors to solve problems in pure mathematics and in context, (including forces)."
+        ],
+        "uri": "9.5"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use vectors to solve problems in pure mathematics and in context, including forces"
+        ],
+        "uri": "1.10g"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the terms 'population' and 'sample'.",
+          "Use samples to make informal inferences about the population.",
+          "Understand and use sampling techniques, including simple random sampling and opportunity sampling.",
+          "Select or critique sampling techniques in the context of solving a statistical problem, including understanding that different samples can lead to different conclusions about the population."
+        ],
+        "uri": "K1"
+      },
+      {
+        "exam_board": "Edexcel",
+        "level": "AS",
+        "points": [
+          "Pearson has provided a large data set, which will support the assessment of statistics in Paper 2: Statistics and Mechanics. Students are required to become familiar with the data set in advance of the final assessment.",
+          "Assessments will be designed in such a way that questions assume knowledge and understanding of the data set. The expectation is that these questions should be likely to give a material advantage to students who have studied and are familiar with the data set. They might include questions/tasks that:",
+          "• assume familiarity with the terminology and contexts of the data, and do not explain them in a way that gives students who have not studied the data set the same opportunities to access marks as students who have studied them",
+          "• use summary statistics or selected data from, or statistical diagrams based on, the data set – these might be given in the question/task, or as stimulus materials",
+          "• are based on samples related to the contexts in the data set, where students' work with the data set will help them understand the background context, and/or",
+          "• require students to interpret data in ways that would be too demanding in an unfamiliar context.",
+          "Students will not be required to have copies of the data set in the examination, nor will they be required to have detailed knowledge of the actual data within the data set."
+        ],
+        "uri": "Use of data in statistics"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the terms 'population' and 'sample'"
+        ],
+        "uri": "2.01a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use samples to make informal inferences about the population"
+        ],
+        "uri": "2.01b"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use sampling techniques, including simple random sampling and opportunity sampling",
+          "When considering random samples, learners may assume that the population is large enough to sample without replacement unless told otherwise"
+        ],
+        "uri": "2.01c"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to select or critique sampling techniques in the context of solving a statistical problem, including understanding that different samples can lead to different conclusions about the population",
+          "Learners should be familiar with (and be able to critique in context) the following sampling methods, but will not be required to carry them out: systematic, stratified, cluster and quota sampling"
+        ],
+        "uri": "2.01d"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Interpret diagrams for single-variable data, including understanding that area in a histogram represents frequency.",
+          "Connect to probability distributions."
+        ],
+        "uri": "L1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to interpret tables and diagrams for single-variable data",
+          "e.g vertical line charts, dot plots, bar charts, stem-and-leaf diagrams, box-and-whisker plots, cumulative frequency diagrams and histograms (with either equal or unequal class intervals). Includes non-standard representations"
+        ],
+        "uri": "2.02a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand that area in a histogram represents frequency",
+          "Includes the link between histograms and probability distributions",
+          "Includes understanding, in context, the advantages and disadvantages of different statistical diagrams"
+        ],
+        "uri": "2.02b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Interpret scatter diagrams and regression lines for bivariate data, including recognition of scatter diagrams which include distinct sections of the population (calculations involving regression lines are excluded).",
+          "Understand informal interpretation of correlation.",
+          "Understand that correlation does not imply causation."
+        ],
+        "uri": "L2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to interpret scatter diagrams and regression lines for bivariate data, including recognition of scatter diagrams which include distinct sections of the population",
+          "Learners may be asked to add to diagrams in order to interpret data, but not to draw complete scatter diagrams",
+          "[Calculation of equations of regression lines is excluded.]"
+        ],
+        "uri": "2.02c"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to understand informal interpretation of correlation"
+        ],
+        "uri": "2.02d"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to understand that correlation does not imply causation"
+        ],
+        "uri": "2.02e"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Interpret measures of central tendency and variation, extending to standard deviation.",
+          "Be able to calculate standard deviation, including from summary statistics."
+        ],
+        "uri": "L3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to calculate and interpret measures of central tendency and variation, including mean, median, mode, percentile, quartile, inter-quartile range, standard deviation and variance",
+          "Includes understanding that standard deviation is the root mean square deviation from the mean",
+          "Includes using the mean and standard deviation to compare distributions"
+        ],
+        "uri": "2.02f"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to calculate mean and standard deviation from a list of data, from summary statistics or from a frequency distribution, using calculator statistical functions",
+          "Includes understanding that, in the case of a grouped frequency distribution, the calculated mean and standard deviation are estimates",
+          "Learners should understand and be able to use the following formulae for standard deviation:",
+          "√(Σ(x − x̄)²/n) = √(Σx²/n − x̄²), √(Σf(x − x̄)²/Σf) = √(Σfx²/Σf − x̄²)",
+          "[Formal estimation of population variance from a sample is excluded. Learners should be aware that there are different naming and symbol conventions for these measures and what the symbols on their calculator represent.]"
+        ],
+        "uri": "2.02g"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Recognise and interpret possible outliers in data sets and statistical diagrams.",
+          "Select or critique data presentation techniques in the context of a statistical problem.",
+          "Be able to clean data, including dealing with missing data, errors and outliers."
+        ],
+        "uri": "L4"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Recognise and be able to interpret possible outliers in data sets and statistical diagrams"
+        ],
+        "uri": "2.02h"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to select or critique data presentation techniques in the context of a statistical problem"
+        ],
+        "uri": "2.02i"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to clean data, including dealing with missing data, errors and outliers",
+          "Learners should be familiar with definitions of outliers:",
+          "1. more than 1.5 × (interquartile range) from the nearer quartile",
+          "2. more than 2 × (standard deviation) away from the mean"
+        ],
+        "uri": "2.02j"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use mutually exclusive and independent events when calculating probabilities.",
+          "Link to discrete and continuous distributions."
+        ],
+        "uri": "M1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use mutually exclusive and independent events when calculating probabilities",
+          "Includes understanding and being able to use the notation:",
+          "P(A), P(A'), P(X = 2), P(X = x)",
+          "Includes linking their knowledge of probability to probability distributions"
+        ],
+        "uri": "2.03a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use appropriate diagrams to assist in the calculation of probabilities",
+          "Includes tree diagrams, sample space diagrams, Venn diagrams"
+        ],
+        "uri": "2.03b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use simple, discrete probability distributions (calculation of mean and variance of discrete random variables is excluded), including the binomial distribution, as a model; calculate probabilities using the binomial distribution."
+        ],
+        "uri": "N1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use simple, finite, discrete probability distributions, defined in the form of a table or a formula such as:",
+          "P(X = x) = 0.05x(x + 1) for x = 1, 2, 3",
+          "[Calculation of mean and variance of discrete random variables is excluded.]"
+        ],
+        "uri": "2.04a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the binomial distribution, as a model"
+        ],
+        "uri": "2.04b"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to calculate probabilities using the binomial distribution, using appropriate calculator functions",
+          "Includes understanding and being able to use the formula P(X = x) = (n x)pˣ(1 − p)ⁿ⁻ˣ and the notation X ~ B(n, p)",
+          "Learners should understand the conditions for a random variable to have a binomial distribution, be able to identify which of the modelling conditions (assumptions) is/are relevant to a given scenario and be able to explain them in context. They should understand the distinction between conditions and assumptions"
+        ],
+        "uri": "2.04c"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and apply the language of statistical hypothesis testing, developed through a binomial model: null hypothesis, alternative hypothesis, significance level, test statistic, 1-tail test, 2-tail test, critical value, critical region, acceptance region, p-value."
+        ],
+        "uri": "O1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the language of statistical hypothesis testing, developed through a binomial model: null hypothesis, alternative hypothesis, significance level, test statistic, 1-tail test, 2-tail test, critical value, critical region, acceptance region, p-value",
+          "Hypotheses should be stated in terms of parameter values (where relevant) and the meanings of symbols should be stated. For example,",
+          "\"H₀: p = 0.7, H₁: p ≠ 0.7, where p is the population proportion in favour of the resolution\"",
+          "Conclusions should be stated in such a way as to reflect the fact that they are not certain. For example,",
+          "\"There is evidence at the 5% level to reject H₀. It is likely that the mean mass is less than 500 g.\"",
+          "\"There is no evidence at the 2% level to reject H₀. There is no reason to suppose that the mean journey time has changed.\"",
+          "Some examples of incorrect conclusion are as follows:",
+          "\"H₀ is rejected. Waiting times have increased.\"",
+          "\"Accept H₀. Plants in this area have the same height as plants in other areas.\""
+        ],
+        "uri": "2.05a"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Conduct a statistical hypothesis test for the proportion in the binomial distribution and interpret the results in context.",
+          "Understand that a sample is being used to make an inference about the population and appreciate that the significance level is the probability of incorrectly rejecting the null hypothesis."
+        ],
+        "uri": "O2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to conduct a statistical hypothesis test for the proportion in the binomial distribution and interpret the results in context"
+        ],
+        "uri": "2.05b"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand that a sample is being used to make an inference about the population and appreciate that the significance level is the probability of incorrectly rejecting the null hypothesis",
+          "Learners should be able to use a calculator to find critical values",
+          "Includes understanding that, where the significance level of a test is specified, the probability of the test statistic being in the rejection region will always be less than or equal to this level",
+          "[The use of normal approximation is excluded.]"
+        ],
+        "uri": "2.05c"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use fundamental quantities and units in the SI system: length, time, mass.",
+          "Understand and use derived quantities and units: velocity, acceleration, force, weight."
+        ],
+        "uri": "P1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the fundamental quantities and units in the S.I. system: length (in metres), time (in seconds), mass (in kilograms)",
+          "Learners should understand that these three base quantities are mutually independent"
+        ],
+        "uri": "3.01a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use derived quantities and units: velocity (m/s or m s⁻¹), acceleration (m/s² or m s⁻²), force (N), weight (N)",
+          "Learners should be able to add the appropriate unit to a given quantity"
+        ],
+        "uri": "3.01b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use the language of kinematics: position; displacement; distance travelled; velocity; speed; acceleration."
+        ],
+        "uri": "Q1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the language of kinematics: position, displacement, distance, distance travelled, velocity, speed, acceleration, equation of motion",
+          "Learners should understand the vector nature of displacement, velocity and acceleration and the scalar nature of distance travelled and speed"
+        ],
+        "uri": "3.02a"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand, use and interpret graphs in kinematics for motion in a straight line: displacement against time and interpretation of gradient; velocity against time and interpretation of gradient and area under the graph."
+        ],
+        "uri": "Q2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand, use and interpret graphs in kinematics for motion in a straight line"
+        ],
+        "uri": "3.02b"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to interpret displacement-time and velocity-time graphs, and in particular understand and be able to use the facts that the gradient of a displacement-time graph represents the velocity, the gradient of a velocity-time graph represents the acceleration, and the area between the graph and the time axis for a velocity-time graph represents the displacement"
+        ],
+        "uri": "3.02c"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand, use and derive the formulae for constant acceleration for motion in a straight line."
+        ],
+        "uri": "Q3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand, use and derive the formulae for constant acceleration for motion in a straight line:",
+          "v = u + at",
+          "s = ut + ½at²",
+          "s = ½(u + v)t",
+          "v² = u² + 2as",
+          "s = vt − ½at²",
+          "Learners may be required to derive the constant acceleration formulae using a variety of techniques:",
+          "1. by integration, e.g. v = ∫adt ⇒ v = u + at,",
+          "2. by using and interpreting appropriate graphs, e.g. velocity against time,",
+          "3. by substitution of one (given) formula into another (given) formula, e.g. substituting v = u + at into s = ½(u + v)t to obtain s = ut + ½at²"
+        ],
+        "uri": "3.02d"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Use calculus in kinematics for motion in a straight line:",
+          "v = dr/dt, a = dv/dt = d²r/dt², r = ∫v dt, v = ∫a dt."
+        ],
+        "uri": "Q4"
+      },
+      {
+        "levels": [
+          {
+            "exam_board": "OCR",
+            "level": "AS",
+            "points": [
+              "Be able to use differentiation and integration with respect to time in one dimension to solve simple problems concerning the displacement, velocity and acceleration of a particle:",
+              "v = ds/dt",
+              "a = dv/dt = d²s/dt²",
+              "s = ∫vdt and v = ∫adt"
+            ],
+            "uri": "3.02f"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand the concept of a force; understand and use Newton's first law."
+        ],
+        "uri": "R1"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand the concept and vector nature of a force",
+          "A force has both a magnitude and direction and can cause an object with a given mass to change its velocity",
+          "Includes using directed line segments to represent forces (acting in at most two dimensions)",
+          "Learners should be able to identify the forces acting on a system and represent them in a force diagram"
+        ],
+        "uri": "3.03a"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use Newton's first law",
+          "A particle that is at rest (or moving with constant velocity) will remain at rest (or moving with constant velocity) until acted upon by an external force",
+          "Learners should be able to complete a diagram with the force(s) required for a given body to remain in equilibrium"
+        ],
+        "uri": "3.03b"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use Newton's second law for motion in a straight line (restricted to forces in two perpendicular directions or simple cases of forces given as 2D vectors)."
+        ],
+        "uri": "R2"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use Newton's second law (F = ma) for motion in a straight line for bodies of constant mass moving under the action of constant forces",
+          "e.g. A car moving along a road, a passenger riding in a lift or a crane lifting a weight",
+          "Examples will be restricted to problems in which the forces acting on the body will be collinear, in two perpendicular directions or given as 2-D vectors"
+        ],
+        "uri": "3.03c"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use weight and motion in a straight line under gravity; gravitational acceleration, g, and its value in SI units to varying degrees of accuracy.",
+          "(The inverse square law for gravitation is not required and g may be assumed to be constant, but students should be aware that g is not a universal constant but depends on location)."
+        ],
+        "uri": "R3"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the weight (W = mg) of a body to model the motion in a straight line under gravity",
+          "e.g. A ball falling vertically through the air"
+        ],
+        "uri": "3.03f"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand the gravitational acceleration, g, and its value in S.I. units to varying degrees of accuracy",
+          "The value of g may be assumed to take a constant value of 9.8 m s⁻² but learners should be aware that g is not a universal constant but depends on location in the universe",
+          "[The inverse square law for gravitation is not required.]",
+          "[The vector forms a = (0 −g) or a = −gj are excluded.]"
+        ],
+        "uri": "3.03g"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "Understand and use Newton's third law; equilibrium of forces on a particle and motion in a straight line (restricted to forces in two perpendicular directions or simple cases of forces given as 2D vectors); application to problems involving smooth pulleys and connected particles."
+        ],
+        "uri": "R4"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use Newton's third law",
+          "Every action has an equal and opposite reaction",
+          "Learners should understand and be able to use the concept that a system in which none of its components have any relative motion may be modelled as a single particle"
+        ],
+        "uri": "3.03h"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use the concept of equilibrium together with one dimensional motion in a straight line to solve problems that involve connected particles and smooth pulleys",
+          "e.g. A train engine pulling a train carriage(s) along a straight horizontal track or the vertical motion of two particles, connected by a light inextensible string passing over a fixed smooth peg or light pulley"
+        ],
+        "uri": "3.03k"
+      },
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to solve problems involving simple cases of equilibrium of forces on a particle in two dimensions using vectors, including connected particles and smooth pulleys",
+          "e.g. Finding the required force F for a particle to remain in equilibrium when under the action of forces F, F₁, F₂,...",
+          "Examples will be restricted to problems in which the forces acting on the body will be collinear, in two perpendicular directions or given as 2-D vectors"
+        ],
+        "uri": "3.03n"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand and be able to use the concept of a normal reaction force",
+          "Learners should understand and use the result that when an object is resting on a horizontal surface the normal reaction force is equal and opposite to the weight of the object. This includes knowing that when R = 0 contact is lost"
+        ],
+        "uri": "3.03i"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Be able to use the model of a 'smooth' contact and understand the limitations of the model"
+        ],
+        "uri": "3.03j"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "AQA",
+        "level": "AS",
+        "points": [
+          "The dataset featured in statistics questions for exams in 2018 is an extract of a dataset that underpins DEFRA 'Family Food 2014 report' (published in 2015). The dataset contains information on purchased quantities of household food and drink by Government Office Region from 2001 until 2014. The specific extract that students need to be familiar with for the exam is only available via the AQA website.",
+          "For exams from 2019 there is a new dataset. This replacement dataset is also only available on the AQA website.",
+          "The data set must be used in teaching to allow students to perform tasks that build familiarity with the contexts, the main features of the data and the ways in which technology can help explore the data. Students should also be able to demonstrate the ability to analyse a subset or features of the data using a calculator with standard statistical functions."
+        ],
+        "uri": "3.19.1"
+      }
+    ]
+  },
+  {
+    "levels": [
+      {
+        "exam_board": "OCR",
+        "level": "AS",
+        "points": [
+          "Understand the concept of a frictional force and be able to apply it in contexts where the force is given in vector or component form, or the magnitude and direction of the force are given"
+        ],
+        "uri": "3.03r"
+      }
+    ]
+  }
+]
