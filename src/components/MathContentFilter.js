@@ -8,13 +8,13 @@ const MathContentFilter = ({ onFilterChange }) => {
   const handleExamBoardChange = (e) => {
     const value = e.target.value;
     setExamBoard(value);
-    onFilterChange({ examBoard: value, level });
+    onFilterChange({ exam_board: value, level });
   };
 
   const handleLevelChange = (e) => {
     const value = e.target.value;
     setLevel(value);
-    onFilterChange({ examBoard: examBoard, level: value });
+    onFilterChange({ exam_board: examBoard, level: value });
   };
 
   return (
@@ -45,8 +45,8 @@ const MathContentFilter = ({ onFilterChange }) => {
           <option value="all">All Levels</option>
           <option value="AS">AS</option>
           <option value="A2">A2</option>
-          <option value="Foundation">Foundation</option>
-          <option value="Higher">Higher</option>
+          <option value="GCSE_Foundation">GCSE Foundation</option>
+          <option value="GCSE_Higher">GCSE Higher</option>
         </select>
       </div>
     </div>

@@ -56,12 +56,16 @@
 
 .modalHeader {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: var(--gap-m);
   padding-bottom: var(--padding-s);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  cursor: grab;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4rem;
+  width: 100%;
 }
 
 .modalTitle {

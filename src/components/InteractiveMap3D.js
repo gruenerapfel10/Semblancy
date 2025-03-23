@@ -1621,91 +1621,20 @@ const InteractiveMap3D = ({
       planet.castShadow = true;
       planet.receiveShadow = true;
 
-      // Helper function to extract a simple display name from potentially complex data
-      const extractName = (dataItem) => {
-        if (!dataItem) return `Planet ${i + 1}`;
-
-        // Try to use 'name' property first
-        if (typeof dataItem.name === "string") return dataItem.name;
-
-        // Try to use 'title' property next
-        if (typeof dataItem.title === "string") return dataItem.title;
-
-        // If there's a 'point' property that's a string (from example data)
-        if (typeof dataItem.point === "string") {
-          // Return first 30 chars of point
-          return (
-            dataItem.point.substring(0, 30) +
-            (dataItem.point.length > 30 ? "..." : "")
-          );
-        }
-
-        // Look for any string property that might be suitable as a name
-        const stringProps = Object.entries(dataItem)
-          .filter(([_, v]) => typeof v === "string")
-          .map(([k, v]) => ({ key: k, value: v }));
-
-        if (stringProps.length > 0) {
-          // Prefer shorter string properties for names
-          const candidate = stringProps.sort(
-            (a, b) => a.value.length - b.value.length
-          )[0];
-          if (candidate.value.length <= 50) {
-            return (
-              candidate.value.substring(0, 30) +
-              (candidate.value.length > 30 ? "..." : "")
-            );
-          }
-        }
-
-        // Default identifier
-        return `Item ${i + 1}`;
-      };
-
-      // Helper function to extract a details string from potentially complex data
-      const extractDetails = (dataItem) => {
-        if (!dataItem) return `Generated planet ${i + 1}`;
-
-        // If there's a 'details' property that's a string
-        if (typeof dataItem.details === "string") return dataItem.details;
-
-        // If there's a 'description' property that's a string
-        if (typeof dataItem.description === "string")
-          return dataItem.description;
-
-        // If there's a 'point' property that's a string (from example data)
-        if (typeof dataItem.point === "string") return dataItem.point;
-
-        // Look for any suitable string property for details
-        const stringProps = Object.entries(dataItem)
-          .filter(([k, v]) => typeof v === "string" && v.length > 30)
-          .map(([k, v]) => v);
-
-        if (stringProps.length > 0) {
-          return stringProps[0];
-        }
-
-        // If no suitable string, create a placeholder
-        return `This represents data item ${i + 1}`;
-      };
-
       // Set user data from provided data or generate default
       if (isUsingProvidedData) {
         const itemData = data[i];
         planet.userData = {
           type: "planet",
-          id: itemData.id !== undefined ? itemData.id : `planet-${i}`,
+          id: itemData.id !== undefined ? itemData.id : `${i}`,
           data: {
-            name: extractName(itemData),
-            orbit: planetOrbitRadius.toFixed(2),
-            details: extractDetails(itemData),
             ...itemData, // Include all original properties from the data object
           },
         };
       } else {
         planet.userData = {
           type: "planet",
-          id: `planet-${i}`,
+          id: `${i}`,
           data: {
             name: `Planet ${i + 1}`,
             orbit: planetOrbitRadius.toFixed(2),

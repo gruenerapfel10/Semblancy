@@ -13,7 +13,7 @@ import { SearchBar, SearchIndicator } from "@/components/SearchTrigger";
 import { useToast } from "@/app/context/ToastContext";
 import MathContentFilter from "@/components/MathContentFilter";
 import MathContentModal from "@/components/MathContentModal";
-import json from "./MATH_USS.json";
+import json from "./merged_result.json";
 
 // Use the imported JSON
 const mathData = json;
@@ -31,7 +31,7 @@ export default function OverviewPage() {
   // Filter states
   const [filteredData, setFilteredData] = useState(mathData);
   const [filters, setFilters] = useState({
-    examBoard: 'all',
+    exam_board: 'all',
     level: 'all'
   });
   
@@ -40,18 +40,15 @@ export default function OverviewPage() {
 
   // Apply filters to math data
   useEffect(() => {
-    if (filters.examBoard === 'all' && filters.level === 'all') {
+    if (filters.exam_board === 'all' && filters.level === 'all') {
       setFilteredData(mathData);
       return;
     }
     
     const filtered = mathData.filter(item => {
-      // Skip items without tags
-      if (!item.tags || !Array.isArray(item.tags)) return false;
-      
-      return item.tags.some(tag => {
-        const matchesBoard = filters.examBoard === 'all' || tag.examBoard === filters.examBoard;
-        const matchesLevel = filters.level === 'all' || (tag.level && tag.level.includes(filters.level));
+      return item.levels.some(option => {
+        const matchesBoard = filters.exam_board === 'all' || option.exam_board === filters.exam_board;
+        const matchesLevel = filters.level === 'all' || (option.level && option.level.includes(filters.level));
         return matchesBoard && matchesLevel;
       });
     });
@@ -66,7 +63,7 @@ export default function OverviewPage() {
 
   // Custom modal render function for InteractiveMap3D
   const renderMathContentModal = ({ planetId, data }) => {
-    return <MathContentModal planetId={planetId} data={data} />;
+    return <MathContentModal planetId={planetId} data={data} filters={filters} />;
   };
 
   // Simulate loading user data
