@@ -265,7 +265,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1.25rem;
-  background: white;
+  background: var(--primary-color);
   border: none;
   border-radius: 999px;
   color: var(--brand-color);
@@ -345,7 +345,7 @@
 /* Sidebar Styles */
 .sidebar {
   width: 300px;
-  background: white;
+  background: var(--primary-color);
   border-right: 1px solid rgba(0, 0, 0, 0.05);
   padding: 1.5rem 0;
   overflow-y: auto;
@@ -666,7 +666,7 @@
 }
 
 .featuredTopicCard {
-  background: white;
+  background: var(--primary-color);
   border-radius: 16px;
   padding: 1.25rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -795,10 +795,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: var(--primary-color);
   border-radius: 12px;
   padding: 0.5rem 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 1;
 }
 
 .tabsContainer {
@@ -889,7 +890,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: var(--primary-color);
   border-radius: 12px;
   padding: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
@@ -1340,10 +1341,11 @@
 /* Community Metrics */
 .metricsContainer {
   margin-bottom: 2rem;
+  z-index: 1;
 }
 
 .metricsCard {
-  background: white;
+  background: var(--primary-color);
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -1560,11 +1562,12 @@
 
 /* Top Helpers */
 .topHelpersCard, .successStoriesCard {
-  background: white;
+  background: var(--primary-color);
   border-radius: 16px;
   padding: 1.25rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   height: 100%;
+  z-index: 1;
 }
 
 .topHelpersHeader, .successStoriesHeader {
@@ -1726,11 +1729,12 @@
 
 /* Help Needed Card */
 .helpNeededCard, .studyRoomsCard, .pollCard, .challengeCard {
-  background: white;
+  background: var(--primary-color);
   border-radius: 16px;
   padding: 1.25rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   height: 100%;
+  z-index: 1;
 }
 
 .helpNeededHeader, .studyRoomsHeader, .pollHeader, .challengeHeader {
@@ -1941,6 +1945,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
+  color: var(--text-color);
 }
 
 .pollOption:hover {
@@ -2129,7 +2134,7 @@
 }
 
 .profileModalContent {
-  background: white;
+  background: var(--primary-color);
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -2404,7 +2409,7 @@
   justify-content: center;
   padding: 3rem;
   text-align: center;
-  background: white;
+  background: var(--primary-color);
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
@@ -2541,7 +2546,7 @@
 }
 
 .userTopic {
-  background: rgba(var(--brand-color-rgb), 0.02);
+  background: var(--primary-color);
   border: 1px solid rgba(var(--brand-color-rgb), 0.1);
 }
 
