@@ -218,22 +218,27 @@ export default class ForumService {
     }
   }
 
-  static async incrementTopicViews(id: string): Promise<Topic> {
+  static async incrementTopicViews(topicId: string): Promise<Topic> {
     try {
       const command = new UpdateCommand({
         TableName: TOPICS_TABLE,
-        Key: { id },
-        UpdateExpression: "SET views = views + :inc, updatedAt = :updatedAt",
+        Key: {
+          id: topicId,
+        },
+        UpdateExpression: "SET #viewsAttr = if_not_exists(#viewsAttr, :zero) + :inc",
+        ExpressionAttributeNames: {
+          "#viewsAttr": "views"  // Use expression attribute name for reserved keyword
+        },
         ExpressionAttributeValues: {
           ":inc": 1,
-          ":updatedAt": new Date().toISOString(),
+          ":zero": 0,
         },
         ReturnValues: "ALL_NEW",
       });
-
+  
       const docClient = await getDocClient();
       const response = await docClient.send(command);
-
+  
       return response.Attributes as Topic;
     } catch (error) {
       console.error("Error incrementing topic views:", error);
