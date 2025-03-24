@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - development
-      - main
+      - production
 
 permissions:
   id-token: write
@@ -35,7 +35,7 @@ jobs:
           mask-aws-account-id: 'true'
       
       - name: Configure AWS Credentials for PRODUCTION
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/production'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.PRODUCTION_AWS_WEB_PORTAL_IAM_ROLE_ARN }}
@@ -57,7 +57,7 @@ jobs:
           tags: ${{ secrets.ECR_REPOSITORY }}:development
       
       - name: Build and Tag for Production
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/production'
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -86,7 +86,7 @@ jobs:
           
   deploy_to_production:
     needs: Flow
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/production'
     runs-on: ubuntu-latest
     environment:
       name: production
