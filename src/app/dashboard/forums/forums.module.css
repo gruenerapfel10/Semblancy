@@ -1,6 +1,6 @@
 /* app/dashboard/forums/forums.module.css */
 
-.container {
+.forumPageContainer {
   padding: var(--padding-l);
   height: 100%;
   overflow-y: auto;

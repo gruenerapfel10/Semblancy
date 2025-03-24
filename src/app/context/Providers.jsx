@@ -53,12 +53,12 @@ const devConfig = {
             "aws.cognito.signin.user.admin",
           ],
           redirectSignIn: [
-            'http://localhost:3000/login',
-            'https://eu-west-2lhtoxseqh.auth.eu-west-2.amazoncognito.com/oauth2/idpresponse',
-            "https://gcsesimulator.com/login",
-            "https://dev.gcsesimulator.com/login",
-            "https://gcsesimulator.co.uk/login",
-            "https://dev.gcsesimulator.co.uk/login"
+            "http://localhost:3000/login",
+            "https://eu-west-2lhtoxseqh.auth.eu-west-2.amazoncognito.com/oauth2/idpresponse",
+            "https://semblancy.com/login",
+            "https://dev.semblancy.com/login",
+            "https://semblancy.co.uk/login",
+            "https://dev.semblancy.co.uk/login",
           ],
           // Important: We're handling redirect manually in the app,
           // so don't include a redirectSignOut URL to prevent Cognito's automatic redirect
@@ -112,7 +112,7 @@ const prodConfig = {
             "http://localhost:3000/dashboard/overview",
             "https://semblancy.co.uk/dashboard/overview",
             "http://localhost:3000/auth-callback",
-            "https://semblancy.co.uk/auth-callback"
+            "https://semblancy.co.uk/auth-callback",
           ],
           // Important: We're handling redirect manually in the app,
           // so don't include a redirectSignOut URL to prevent Cognito's automatic redirect
@@ -262,6 +262,14 @@ export function AmplifyProvider({ children }) {
       return false;
     }
   };
+
+  const getAWSCredentials = async () => {
+    const session = await fetchAuthSession();
+    if (!session || !session.credentials) {
+      throw new Error("No valid authentication session");
+    }
+    return session.credentials;
+  };  
 
   // Function to clear upload state when complete
   const clearUploadState = async (filePath) => {
@@ -873,17 +881,17 @@ export function AmplifyProvider({ children }) {
     try {
       // First clean up the local session state
       handleSessionCleanup();
-      
+
       // Use signOut without redirect to prevent Cognito from redirecting to its hosted UI
-      await signOut({ 
+      await signOut({
         global: true,
         // Prevent automatic redirection by the Amplify library
         options: {
           // This tells Amplify to use the browser directly without redirection
-          browser: false
-        }
+          browser: false,
+        },
       });
-      
+
       // Manually redirect to login page after session cleanup
       router.push("/login");
     } catch (error) {
@@ -1068,10 +1076,48 @@ export function AmplifyProvider({ children }) {
   };
 
   // List files in a path
-  const listFiles = async (path) => {
+  // List files in a path with pagination support
+  const listFiles = async (path, options = {}) => {
     try {
-      const result = await list({ path });
-      return result.items || [];
+      const allItems = [];
+      let nextToken = null;
+
+      // Configure options with pagination defaults
+      const listOptions = {
+        pageSize: options.pageSize || 1000,
+        recursive: options.recursive || false,
+        ...options,
+      };
+
+      // Initial request
+      let result = await list({
+        path,
+        options: listOptions,
+      });
+
+      // Add items from first request
+      if (result.items) {
+        allItems.push(...result.items);
+      }
+
+      // Continue fetching if there are more items (nextToken exists)
+      while (result.nextToken) {
+        // Update options with the nextToken
+        listOptions.nextToken = result.nextToken;
+
+        // Make next request
+        result = await list({
+          path,
+          options: listOptions,
+        });
+
+        // Add items from subsequent request
+        if (result.items) {
+          allItems.push(...result.items);
+        }
+      }
+
+      return allItems;
     } catch (error) {
       console.error("Error listing files:", error);
       return [];
@@ -1159,6 +1205,7 @@ export function AmplifyProvider({ children }) {
     saveUploadState,
     clearUploadState,
     checkProjectUploads,
+    getAWSCredentials
   };
 
   return (

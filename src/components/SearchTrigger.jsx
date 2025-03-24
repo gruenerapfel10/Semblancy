@@ -1,17 +1,28 @@
-// components/SearchTrigger.jsx
 "use client";
 
 import { Search } from "lucide-react";
 import { useSearch } from "@/app/context/SearchContext";
 import styles from "./SearchTrigger.module.css";
+import { useEffect, useState } from "react";
+
+// Helper to determine theme class
+const getThemeClass = (theme) => {
+  if (!theme) return "";
+  return theme === "dark" ? styles.dark : styles.light;
+};
 
 // Full search bar trigger
-export function SearchBar() {
+export function SearchBar({ theme }) {
   const { openSearch } = useSearch();
+  const [themeClass, setThemeClass] = useState("");
+  
+  useEffect(() => {
+    setThemeClass(getThemeClass(theme));
+  }, [theme]);
 
   return (
     <button
-      className={styles.searchButton}
+      className={`${styles.searchButton} ${themeClass}`}
       onClick={openSearch}
       aria-label="Open search"
     >
@@ -23,21 +34,32 @@ export function SearchBar() {
 }
 
 // Minimal trigger that shows only a keyboard shortcut indicator
-export function SearchIndicator() {
+export function SearchIndicator({ theme }) {
+  const [themeClass, setThemeClass] = useState("");
+  
+  useEffect(() => {
+    setThemeClass(getThemeClass(theme));
+  }, [theme]);
+  
   return (
-    <div className={styles.cmdk}>
+    <div className={`${styles.cmdk} ${themeClass}`}>
       <kbd>⌘K</kbd>
     </div>
   );
 }
 
 // Icon-only search button for navigation bars, etc.
-export function SearchIcon({ size = 20 }) {
+export function SearchIcon({ size = 20, theme }) {
   const { openSearch } = useSearch();
+  const [themeClass, setThemeClass] = useState("");
+  
+  useEffect(() => {
+    setThemeClass(getThemeClass(theme));
+  }, [theme]);
 
   return (
     <button
-      className={styles.iconButton}
+      className={`${styles.iconButton} ${themeClass}`}
       onClick={openSearch}
       aria-label="Open search"
     >

@@ -602,6 +602,8 @@ export default function PastPapers() {
         // Filter out directories and only keep PDF files
         const pdfFiles = files.filter((file) => file.path.endsWith(".pdf"));
 
+        console.log(files);
+
         // Parse files into structured paper objects
         const parsedPapers = pdfFiles
           .map((file) => {

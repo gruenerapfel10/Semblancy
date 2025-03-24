@@ -7,35 +7,37 @@ import styles from "./NavBar.module.css";
 import { extractFullName } from "@/utils";
 import ThemeToggle from "../components/ThemeToggle.js";
 import LogoutButton from "./LogoutButton";
+import { SearchBar } from "./SearchTrigger";
 
 export default function Navbar() {
   const { isAuthenticated, checkAuthState } = useAmplify();
   const [authChecked, setAuthChecked] = useState(false);
-  
+
   // Force auth state check when component mounts
   useEffect(() => {
     const verifyAuth = async () => {
       await checkAuthState();
       setAuthChecked(true);
     };
-    
+
     verifyAuth();
-    
+
     // Set up an event listener for auth state changes
-    window.addEventListener('authStateChange', verifyAuth);
-    
+    window.addEventListener("authStateChange", verifyAuth);
+
     return () => {
-      window.removeEventListener('authStateChange', verifyAuth);
+      window.removeEventListener("authStateChange", verifyAuth);
     };
   }, []);
-  
+
   return (
     <header className={styles.header}>
       <Logo size="large" invert="true" />
+      <div className={styles.omniSearchContainer}>
+        <SearchBar theme="dark"/>
+      </div>
       <div className={styles.headerActions}>
-        {isAuthenticated && (
-          <LogoutButton className={styles.logoutButton} />
-        )}
+        {isAuthenticated && <LogoutButton className={styles.logoutButton} />}
         <ThemeToggle type="button" />
         {!isAuthenticated && authChecked && (
           <Link href="/login" className={styles.loginButton}>

@@ -113,3 +113,26 @@
 .iconButton:active {
   transform: scale(0.95);
 }
+
+/* Add these to your existing SearchTrigger.module.css */
+
+/* Theme overrides */
+.dark {
+  --search-bg: var(--dark-bg, #1a1a1a);
+  --search-text: var(--dark-text, #ffffff);
+  --search-border: var(--dark-border, #333333);
+  --search-shadow: var(--dark-shadow, rgba(0, 0, 0, 0.3));
+  background-color: var(--search-bg);
+  color: var(--search-text);
+  border-color: var(--search-border);
+}
+
+.light {
+  --search-bg: var(--light-bg, #ffffff);
+  --search-text: var(--light-text, #333333);
+  --search-border: var(--light-border, #e0e0e0);
+  --search-shadow: var(--light-shadow, rgba(0, 0, 0, 0.1));
+  background-color: var(--search-bg);
+  color: var(--search-text);
+  border-color: var(--search-border);
+}
