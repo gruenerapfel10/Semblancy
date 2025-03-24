@@ -1585,6 +1585,7 @@ export default function Home() {
               </svg>
             </div>
             <span>14-day money-back guarantee. No questions asked.</span>
+            DEV
           </div>
         </div>
       </section>
