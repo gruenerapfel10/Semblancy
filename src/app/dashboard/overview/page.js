@@ -15,8 +15,6 @@ import MathContentFilter from "@/components/MathContentFilter";
 import MathContentModal from "@/components/MathContentModal";
 
 import A2MATH from "./A2_MATH_SPEC.json";
-import ASMATH from "./AS_MATH_SPEC.json";
-import GCSEMATH from "./GCSE_MATH_SPEC.json";
 
 // Use the imported JSON
 const mathData = A2MATH;
@@ -24,33 +22,6 @@ const mathData = A2MATH;
 const subjects = {
   "Math": {
     "A2": A2MATH,
-    "AS": ASMATH,
-    "GCSE_Higher": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Higher")),
-    "GCSE_Foundation": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Foundation")) 
-  },
-  "Chemistry": {
-    "A2": A2MATH,
-    "AS": ASMATH,
-    "GCSE_Higher": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Higher")),
-    "GCSE_Foundation": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Foundation")) 
-  },
-  "Physics": {
-    "A2": A2MATH,
-    "AS": ASMATH,
-    "GCSE_Higher": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Higher")),
-    "GCSE_Foundation": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Foundation")) 
-  },
-  "Biology": {
-    "A2": A2MATH,
-    "AS": ASMATH,
-    "GCSE_Higher": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Higher")),
-    "GCSE_Foundation": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Foundation")) 
-  },
-  "Further_Math": {
-    "A2": A2MATH,
-    "AS": ASMATH,
-    "GCSE_Higher": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Higher")),
-    "GCSE_Foundation": GCSEMATH.filter(item => item.levels.some(level => level.level == "GCSE_Foundation")) 
   }
 }
 
