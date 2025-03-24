@@ -17,7 +17,7 @@ import {
   faThumbtack,
 } from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { useAmplify } from "@/context/AmplifyProvider";
+import { useAmplify } from "@/app/context/Providers";
 import { useAdminForum, useTopics } from "@/hooks/useForums";
 import ForumService from "@/services/ForumService";
 
