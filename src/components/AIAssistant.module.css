@@ -1,0 +1,997 @@
+
+
+/* Remove the :root selector and use a class-based approach */
+/* All components inheriting from these common variables */
+.aiToast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+}
+
+.aiContainer, .aiTriggerButton, .aiChatInterface,
+.messageContent, .userMessage, .assistantMessage, .messageText,
+.messageActions, .actionButton, .inputArea, .aiInput, .sendButton,
+.aiHeader, .chatContainer, .gradientBlob1, .gradientBlob2 {
+  /* Remove variable definitions and use direct colors in the components themselves */
+}
+
+.aiContainer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--primary-color-50);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Don't animate width/height to prevent lag during resize */
+  transition: border-radius 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resizableContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.aiTriggerButton {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-color), var(--brand-color-mc));
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+
+.aiTriggerButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.aiChatInterface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  /* Use transform for better performance */
+  will-change: transform;
+}
+
+.gradientBlob1 {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 45%;
+  height: 45%;
+  background: linear-gradient(135deg, rgba(var(--brand-color-rgb), 0.4), rgba(var(--brand-color-mc-rgb), 0.3));
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: 0.5;
+  animation: slowMove 20s infinite alternate ease-in-out;
+}
+
+.gradientBlob2 {
+  position: absolute;
+  bottom: 15%;
+  right: 10%;
+  width: 55%;
+  height: 35%;
+  background: linear-gradient(135deg, rgba(var(--brand-color-mc-rgb), 0.4), rgba(var(--brand-color-rgb), 0.3));
+  border-radius: 60% 40% 50% 50% / 60% 50% 50% 40%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: slowMove 25s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes slowMove {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(5%, 5%) scale(1.05);
+  }
+}
+
+.aiHeader {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--background-color), var(--background-light));
+  color: white;
+  cursor: move;
+  z-index: 2;
+}
+
+.aiTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aiTitle h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.aiIcon {
+  color: white;
+}
+
+.aiControls {
+  display: flex;
+  gap: 8px;
+}
+
+.minimizeButton,
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.minimizeButton:hover,
+.closeButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.chatContainer {
+  flex-grow: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  position: relative;
+  height: calc(100% - 140px);
+  z-index: 1;
+  background: transparent;
+  overflow-x: hidden;
+  margin-bottom: var(--gap-l);
+}
+
+.messagesWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.messagesSpacer {
+  height: 8px;
+  min-height: 8px;
+}
+
+.chatContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-color);
+  text-align: center;
+  margin: auto 0;
+  padding: 20px;
+}
+
+.emptyIcon {
+  margin-bottom: 1rem;
+  color: var(--brand-color);
+  opacity: 0.8;
+}
+
+.emptyState h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.emptyState p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 8px;
+  transition: opacity 0.2s;
+  position: relative;
+}
+
+.userMessage {
+  justify-content: flex-end;
+}
+
+.userMessage .messageIcon {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: white;
+  margin-left: 0.5rem;
+  margin-right: 0;
+  order: 2;
+}
+
+.messageText {
+  min-height: 42px;
+  background-color: var(--background-color);
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 100%;
+  overflow-x: visible;
+  word-break: break-word;
+  box-shadow: none;
+  position: relative;
+  color: var(--text-color);
+}
+
+.userMessage .messageText {
+  background-color: var(--brand-color);
+  color: white;
+}
+
+.assistantMessage .messageText {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.messageTextContent {
+  overflow-x: visible;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  flex: 1;
+}
+
+.messageTextContent p {
+  margin: 0.7em 0;
+  line-height: 1.5;
+}
+
+.messageTextContent p:first-child {
+  margin-top: 0;
+}
+
+.messageTextContent p:last-child {
+  margin-bottom: 0;
+}
+
+/* Add spacing for paragraphs with tall LaTeX elements */
+.messageTextContent p[data-has-tall-latex="true"] {
+  line-height: 2.2;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+}
+
+/* Heading styles */
+.messageTextContent h1, 
+.messageTextContent h2, 
+.messageTextContent h3 {
+  margin: 1em 0 0.5em;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.messageTextContent h1 {
+  font-size: 1.5em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 0.3em;
+}
+
+.messageTextContent h2 {
+  font-size: 1.3em;
+}
+
+.messageTextContent h3 {
+  font-size: 1.15em;
+}
+
+.userMessage .messageTextContent h1,
+.userMessage .messageTextContent h2,
+.userMessage .messageTextContent h3 {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.messageActions {
+  position: absolute;
+  top: -30px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  background-color: white;
+  border-radius: 6px;
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.actionButton:hover {
+  background-color: #f3f4f6;
+  color: #6366f1;
+}
+
+.copyNotification {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 1000;
+}
+
+.editMessageContainer {
+  padding: 10px;
+  background-color: #f9fafb;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.editMessageTextarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+
+.editActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancelEditButton,
+.saveEditButton {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cancelEditButton {
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.saveEditButton {
+  background-color: var(--brand-color);
+  color: white;
+  border: none;
+}
+
+.saveEditButton:hover {
+  background-color: var(--brand-color-mc);
+}
+
+.messageTextContent p:first-child {
+  margin-top: 0;
+}
+
+.messageTextContent p:last-child {
+  margin-bottom: 0;
+}
+
+.hiddenBuffer {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.processing .messageTextContent {
+  opacity: 0.99;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.message.processing {
+  min-height: 42px;
+}
+
+.streaming:not(.processing) .messageText {
+  border-right: 2px solid #6366f1;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    border-right-color: #6366f1;
+  }
+  50% {
+    border-right-color: transparent;
+  }
+  100% {
+    border-right-color: #6366f1;
+  }
+}
+
+.latexBlock {
+  background: transparent;
+  border-radius: 6px;
+  padding: 8px;
+  margin: 12px 0;
+  overflow-x: auto;
+  width: 100%;
+  text-align: center;
+  min-height: 2.5em;
+}
+
+.userMessage .latexBlock {
+  background: white;
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.messageTextContent .katex {
+  font-size: 1.1em;
+  max-width: 100%;
+  text-align: left;
+  overflow-x: auto;
+}
+
+.messageTextContent .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0.5em 0;
+  padding: 0.5em 0;
+  max-width: 100%;
+  scrollbar-width: thin;
+}
+
+.messageTextContent .katex-display::-webkit-scrollbar {
+  height: 4px;
+  background-color: transparent;
+}
+
+.messageTextContent .katex-display::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.userMessage .messageTextContent .katex-display::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.messageTextContent .katex-display:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.userMessage .messageTextContent .katex-display:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.messageTextContent .katex-html {
+  text-align: left;
+}
+
+.messageTextContent .latex-inline {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 2px;
+  min-height: 1.2em;
+  min-width: 8px;
+}
+
+.messageTextContent .latex-inline.rendered,
+.messageTextContent .latex-display.rendered {
+  opacity: 1;
+}
+
+.userMessage .messageTextContent .katex-inline {
+  color: black;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 3px;
+  padding: 1px 3px;
+}
+
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: var(--text-color);
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.loadingIcon {
+  animation: spin 1.5s linear infinite;
+  margin-right: 8px;
+  color: var(--brand-color);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.inputArea {
+  display: flex;
+  padding: 16px;
+  gap: 8px;
+  background-color: transparent;
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.aiInput {
+  flex-grow: 1;
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  outline: none;
+  resize: none;
+  max-height: 120px;
+  min-height: 42px;
+  overflow-y: auto;
+  font-family: inherit;
+  background-color: var(--primary-color);
+  color: var(--text-color)
+}
+
+.aiInput:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.aiInput::placeholder {
+  color: #9ca3af;
+}
+
+.sendButton {
+  background: linear-gradient(135deg, var(--brand-color), var(--brand-color-mc));
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.sendButton:hover {
+  background: linear-gradient(135deg, var(--brand-color-mc), var(--brand-color));
+  transform: scale(1.05);
+}
+
+.sendButton:disabled {
+  background-color: #c7d2fe;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .aiToast {
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .aiContainer.expanded {
+    width: 90vw !important;
+    height: 70vh !important;
+  }
+}
+
+/* LaTeX error handling */
+.latexError {
+  background-color: rgba(255, 235, 235, 0.4);
+  border: 1px dashed #ff8a8a;
+  border-radius: 4px;
+  padding: 4px;
+  color: #d32f2f;
+  font-family: monospace;
+  font-size: 0.9em;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.latexErrorContent {
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin-bottom: 4px;
+}
+
+.latexErrorMessage {
+  font-size: 0.8em;
+  color: #d32f2f;
+  opacity: 0.8;
+}
+
+/* User messages need different error styling */
+.userMessage .latexError {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Markdown list styling */
+.messageTextContent ul, 
+.messageTextContent ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.messageTextContent li {
+  margin: 0.25em 0;
+}
+
+/* Fractions in LaTeX */
+.messageTextContent .katex .frac-line {
+  border-bottom-width: 1px;
+  margin: 0 0.1em;
+}
+
+.messageTextContent .katex .mfrac {
+  min-height: 2em;
+  padding: 0.1em 0;
+}
+
+.messageTextContent .katex .int-symbol {
+  font-size: 1.2em;
+  vertical-align: -0.15em;
+}
+
+.messageTextContent .katex .sizing {
+  min-height: 1.2em;
+}
+
+/* Math operators spacing */
+.messageTextContent .katex .mop {
+  margin-right: 0.1em;
+  margin-left: 0.1em;
+}
+
+/* Make sure math symbols are properly sized */
+.messageTextContent .katex .sizing {
+  display: inline-block;
+}
+
+/* Ensure overflows are handled properly */
+.messageTextContent p {
+  overflow-x: visible;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+/* LaTeX containers need special handling */
+.messageTextContent .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0.5em 0;
+  padding: 0.5em 0;
+  max-width: 100%;
+  scrollbar-width: thin;
+}
+
+.messageTextContent .katex-display::-webkit-scrollbar {
+  height: 4px;
+  background-color: transparent;
+}
+
+.messageTextContent .katex-display::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.userMessage .messageTextContent .katex-display::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Only show LaTeX scrollbars when hovering */
+.messageTextContent .katex-display:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.userMessage .messageTextContent .katex-display:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Fix table overflows in messages */
+.messageTextContent table {
+  border-collapse: collapse;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+/* Style for code blocks to prevent overflow */
+.messageTextContent pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  padding: 10px;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 14px;
+  margin: 10px 0;
+  max-width: 100%;
+}
+
+/* Style for inline code */
+.messageTextContent code {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  padding: 0 4px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.messageContent {
+  display: flex;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  /* Remove border, box shadow, background */
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  gap: var(--gap-l);
+}
+
+.userMessage {
+  color: var(--text-color);
+  border-top-right-radius: 4px;
+}
+
+.assistantMessage .messageContent {
+  color: var(--text-color);
+  border: none;
+  box-shadow: none;
+  border-top-left-radius: 4px;
+}
+
+/* Add an additional fix for LaTeX overflow in user messages */
+.userMessage .messageTextContent .katex {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
+/* Improve scrolling for long equations */
+.messageTextContent .katex-display .katex {
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Add nice scrolling for tables */
+.messageTextContent table::-webkit-scrollbar {
+  height: 4px;
+  background-color: transparent;
+}
+
+.messageTextContent table::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* Enhance vertical spacing for integrals and fractions */
+.messageTextContent .katex-display .katex {
+  padding: 0.2em 0;
+}
+
+.messageTextContent .katex-display .mfrac {
+  margin: 0.2em 0;
+}
+
+.messageTextContent .katex-display .mop {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+.messageTextContent .katex .mspace {
+  margin-right: 0.1em;
+  margin-left: 0.1em;
+}
+
+/* Better spacing for subscripts and superscripts */
+.messageTextContent .katex .msupsub {
+  margin-right: 0.05em;
+}
+
+/* Ensure proper spacing for integral symbols */
+.messageTextContent .katex .mop.op-symbol.large-op {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+/* Enhance bold text styling */
+.messageTextContent strong {
+  font-weight: 700;
+}
+
+.userMessage .messageTextContent strong {
+  color: white;
+  font-weight: 700;
+}
+
+/* Improve list styling */
+.messageTextContent ul {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+  list-style-type: disc;
+}
+
+.messageTextContent li {
+  margin: 0.25em 0;
+  position: relative;
+  line-height: 1.5;
+  padding-left: 0.5em;
+}
+
+.userMessage .messageTextContent ul {
+  color: white;
+}
+
+/* For both bullet points and dash lists */
+.messageTextContent li::before {
+  /* Hide default bullet if we're using a custom one */
+  list-style-type: none;
+}
+
+.messageTextContent li:not([type]) {
+  list-style-type: disc;
+}
+
+/* Add some spacing between list items */
+.messageTextContent li + li {
+  margin-top: 0.5em;
+}
+
+/* Make sure bullets stand out properly in user messages */
+.userMessage .messageTextContent li {
+  color: white;
+}
+
+/* Make sure LaTeX dashes look good */
+.messageTextContent .katex .mord.text .textsf {
+  font-family: KaTeX_SansSerif;
+}
+
+.messageTextContent .katex .mord.text .texttt {
+  font-family: KaTeX_Typewriter;
+}
+
+.messageTextContent .katex .mord.text .textrm {
+  font-family: KaTeX_Main;
+}
+
+/* Better spacing for minus signs */
+.messageTextContent .katex .mbin, 
+.messageTextContent .katex .mord.bin {
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+/* Better spacing for dashes in LaTeX */
+.messageTextContent .katex .mord.textord[data-c="-"] {
+  margin-left: 0.05em;
+  margin-right: 0.05em;
+}
+
+/* Ensure minus sign gets proper spacing */
+.messageTextContent .katex .mbin[data-c="−"] {
+  margin-left: 0.15em;
+  margin-right: 0.15em;
+}
+
+/* Add these styles */
+.messageTextContent span.word-chunk {
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.streaming .messageTextContent span.word-chunk {
+  display: inline-block;
+  margin-right: 0.25em;
+}
+
+/* Add new resize handle styles */
+.resizeHandleCorner {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 24px;
+  height: 24px;
+  border-right: 4px solid rgba(99, 102, 241, 0.9);
+  border-bottom: 4px solid rgba(99, 102, 241, 0.9);
+  border-radius: 0 0 5px 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.15s ease;
+  cursor: nwse-resize;
+  z-index: 5;
+}
+
+.resizeHandleCorner:hover {
+  background-color: rgba(99, 102, 241, 0.2);
+  border-right: 4px solid rgba(99, 102, 241, 1);
+  border-bottom: 4px solid rgba(99, 102, 241, 1);
+}

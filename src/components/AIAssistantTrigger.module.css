@@ -1,0 +1,164 @@
+/* AIAssistantTrigger.module.css */
+
+/* Small keyboard shortcut indicator */
+.cmdk {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(var(--text-color-rgb), 0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-color-50);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  cursor: default;
+  user-select: none;
+  transform: translateZ(0);
+  z-index: 100;
+}
+
+.cmdk:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.cmdk kbd {
+  background: var(--primary-color);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: monospace;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(var(--text-color-rgb), 0.2);
+  color: var(--text-color);
+}
+
+/* Assistant button */
+.assistantButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 12px;
+  color: var(--text-color);
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              background-color 0.2s ease,
+              border-color 0.2s ease, 
+              color 0.2s ease,
+              box-shadow 0.2s ease;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: var(--primary-color);
+  border: 1px solid rgba(var(--text-color-rgb), 0.15);
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+.assistantButton:hover {
+  background-color: var(--background-light);
+  border: 1px solid rgba(var(--text-color-rgb), 0.3);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.assistantButton:active {
+  transform: translateY(0) scale(0.99);
+  transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.assistantButton span {
+  margin-left: 8px;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.shortcutKey {
+  background: rgba(var(--text-color-rgb), 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+  color: var(--text-color-75);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.assistantButton:hover .shortcutKey {
+  background: rgba(var(--text-color-rgb), 0.15);
+  color: var(--text-color);
+}
+
+/* Icon-only button */
+.iconButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: 1px solid rgba(var(--text-color-rgb), 0.15);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+.iconButton:hover {
+  background-color: var(--background-light);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  border-color: rgba(var(--text-color-rgb), 0.3);
+}
+
+.iconButton:active {
+  transform: scale(0.95);
+  transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dark theme adjustments */
+.dark.assistantButton,
+.dark.iconButton {
+  background-color: var(--primary-color);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark.assistantButton:hover,
+.dark.iconButton:hover {
+  background-color: var(--background-light);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .shortcutKey {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark.assistantButton:hover .shortcutKey {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .assistantButton {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .shortcutKey {
+    padding: 1px 6px;
+    font-size: 10px;
+  }
+  
+  .iconButton {
+    width: 36px;
+    height: 36px;
+  }
+} 

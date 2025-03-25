@@ -8,6 +8,7 @@ import { extractFullName } from "@/utils";
 import ThemeToggle from "../components/ThemeToggle.js";
 import LogoutButton from "./LogoutButton";
 import { SearchBar } from "./SearchTrigger";
+import { AIAssistantIcon } from "./AIAssistantTrigger";
 
 export default function Navbar() {
   const { isAuthenticated, checkAuthState } = useAmplify();
@@ -37,6 +38,7 @@ export default function Navbar() {
         <SearchBar theme="dark"/>
       </div>
       <div className={styles.headerActions}>
+        <AIAssistantIcon theme="dark" />
         {isAuthenticated && <LogoutButton className={styles.logoutButton} />}
         <ThemeToggle type="button" />
         {!isAuthenticated && authChecked && (

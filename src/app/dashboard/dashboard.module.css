@@ -746,3 +746,11 @@
 .activeMenuItem .spinningIcon {
   color: #2684fc !important; /* Use the accent color for active items */
 }
+
+/* AIIndicatorContainer for collapsed sidebar */
+.aiIndicatorContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}

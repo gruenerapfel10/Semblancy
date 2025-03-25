@@ -8,6 +8,7 @@ import styles from "./dashboard.module.css";
 import { useAmplify } from "../context/Providers";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AIAssistantIndicator } from "@/components/AIAssistantTrigger";
 import {
   faTh,
   faBell,
@@ -391,6 +392,13 @@ export default function DashboardLayout({ children }) {
         {/* Main Content */}
         <main className={styles.mainContent}>{children}</main>
       </div>
+      
+      {/* AI Assistant Indicator (only shown when sidebar is collapsed) */}
+      {isSidebarCollapsed && (
+        <div className={styles.aiIndicatorContainer}>
+          <AIAssistantIndicator theme="dark" />
+        </div>
+      )}
     </div>
   );
 }

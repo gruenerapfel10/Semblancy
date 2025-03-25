@@ -120,7 +120,7 @@ button {
   --scrollbar-thumb-active: #000;
   --scrollbar-thumb-hover: #000;
 
-  --scrollbar-thumb-background: transparent;
+  --scrollbar-thumb-background: #000;
 }
 
 /* Dark Theme */
