@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Logo.module.css";
@@ -21,8 +21,39 @@ const Logo = ({
   invert = false, 
   showIcon = true, 
   showTitle = true, 
-  showTagline = true 
+  showTagline = true,
+  responsive = false 
 }) => {
+  // State to hold the current size based on screen width
+  const [currentSize, setCurrentSize] = useState(size);
+
+  // Handle responsiveness if the responsive prop is true
+  useEffect(() => {
+    if (!responsive) return;
+
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 480) {
+        setCurrentSize("small");
+      } else if (width <= 768) {
+        setCurrentSize("medium");
+      } else if (width <= 1024) {
+        setCurrentSize("large");
+      } else {
+        setCurrentSize(size); // Default to the provided size for larger screens
+      }
+    };
+
+    // Set initial size
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, [responsive, size]);
+
   // Size configurations
   const sizeConfig = {
     small: {
@@ -57,11 +88,11 @@ const Logo = ({
     },
   };
 
-  // Get the configuration based on size
-  const config = sizeConfig[size] || sizeConfig.medium;
+  // Get the configuration based on the current size (which might be dynamically set)
+  const config = sizeConfig[currentSize] || sizeConfig.medium;
 
   return (
-    <div className={styles.logoContainer}>
+    <div className={`${styles.logoContainer} ${responsive ? styles.responsive : ''}`}>
       {showIcon && (
         <div className={styles.logoIcon}>
           <Image

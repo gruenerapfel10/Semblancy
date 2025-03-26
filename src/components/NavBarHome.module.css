@@ -23,16 +23,6 @@
   align-items: center;
 }
 
-/* Show large logo by default */
-.desktopLogo {
-  display: block;
-}
-
-/* Hide mobile logo by default */
-.mobileLogo {
-  display: none;
-}
-
 .navLinks {
   display: flex;
   gap: 2rem;
@@ -171,16 +161,6 @@
   /* Show hamburger button */
   .hamburger {
     display: flex;
-  }
-
-  /* Swap logos on mobile */
-  .desktopLogo {
-    display: none;
-    position: absolute;
-  }
-
-  .mobileLogo {
-    display: block;
   }
 
   /* Mobile menu overlay styles */

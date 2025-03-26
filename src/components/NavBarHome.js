@@ -36,12 +36,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          <div className={styles.desktopLogo}>
-            <Logo size="large" />
-          </div>
-          <div className={styles.mobileLogo}>
-            <Logo size="medium" />
-          </div>
+          <Logo size="large" responsive={true} />
         </Link>
         <div className={styles.navLinks}>
           <Link 

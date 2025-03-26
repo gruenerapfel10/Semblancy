@@ -10,7 +10,7 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.topSection}>
           <div className={styles.logoSection}>
-            <Logo size="xl" invert="true" />
+            <Logo size="xl" invert="true" responsive={true} />
           </div>
 
           <Link

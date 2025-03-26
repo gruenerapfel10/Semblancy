@@ -75,7 +75,7 @@ const GlassNavbar = () => {
       <div className={styles.navbarContainer}>
         <div className={styles.navbarLeft}>
           <Link href="/home" className={styles.logoLink}>
-          <Logo size="large" showTitle={true} showTagline={true} invert={isDarkTheme} />
+            <Logo size="large" showTitle={true} showTagline={true} invert={isDarkTheme} responsive={true} />
           </Link>
         </div>
 

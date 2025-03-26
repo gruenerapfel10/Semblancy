@@ -86,3 +86,63 @@
 .textContainerLarge {
   height: 76px;
 }
+
+/* Responsive styles */
+.responsive {
+  transition: all 0.3s ease;
+}
+
+/* Responsive media queries */
+@media screen and (max-width: 1024px) {
+  .responsive .logoIcon {
+    transform: scale(0.9);
+  }
+  
+  .responsive .logoTextContainer {
+    transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .responsive .logoIcon {
+    transform: scale(0.8);
+  }
+  
+  .responsive .logoTextContainer {
+    transform: scale(0.8);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .responsive .logoIcon {
+    transform: scale(0.7);
+  }
+  
+  .responsive .logoTextContainer {
+    transform: scale(0.7);
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .responsive .logoTextContainer {
+    display: none;
+  }
+  
+  .responsive .logoIcon {
+    transform: scale(0.8);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .responsive {
+    touch-action: manipulation;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .responsive {
+    transition: none;
+  }
+}

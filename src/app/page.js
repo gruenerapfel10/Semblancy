@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <div className={styles.loadingContainer}>
-      <Logo size="large" />
+      <Logo size="large" responsive={true} />
       <LoadingSpinner />
       <p>Loading Semblancy...</p>
     </div>

@@ -456,7 +456,7 @@ const Message = ({ message, isStreaming, onCopy, onEdit, onDelete }) => {
       <div className={styles.messageContent}>
         {message.role === "assistant" ? (
           <div className={styles.messageIcon}>
-            <Logo showIcon={true} showTitle={false} showTagline={false} />
+            <Logo showIcon={true} showTitle={false} showTagline={false} responsive={true} />
           </div>
         ) : (
           <div className={styles.messageIcon}></div>
@@ -806,7 +806,7 @@ export default function AIAssistant() {
                     {/* Header */}
                     <div className={`${styles.aiHeader} handle`}>
                       <div className={styles.aiTitle}>
-                        <Logo showIcon={true} showTitle={false} showTagline={false} className={styles.aiIcon} />
+                        <Logo showIcon={true} showTitle={false} showTagline={false} responsive={true} className={styles.aiIcon} />
                         <h2>Lancy - your personal AI assistant</h2>
                       </div>
                       <div className={styles.aiControls}>
@@ -868,7 +868,7 @@ export default function AIAssistant() {
                         >
                           <div className={styles.messageContent}>
                             <div className={styles.messageIcon}>
-                              <Logo showIcon={true} showTitle={false} showTagline={false} size={"small"}/>
+                              <Logo showIcon={true} showTitle={false} showTagline={false} size={"small"} responsive={true}/>
                             </div>
                             <div className={styles.loadingIndicator}>
                               <RefreshCw size={16} className={styles.loadingIcon} />

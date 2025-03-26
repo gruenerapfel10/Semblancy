@@ -426,7 +426,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 12vw;
+  width: 15vw; /* Increased for larger screens */
   z-index: 10;
   position: relative;
   padding-right: var(--padding-m);
@@ -661,12 +661,12 @@
 }
 
 .menuSection h4 {
+  font-size: 1rem;
+  font-weight: 600;
   color: #fff;
-  font-weight: 400;
-  opacity: 0.5;
-  padding-left: var(--padding-m);
-  font-size: var(--font-s);
-  margin-bottom: var(--gap-m);
+  margin-bottom: 0.8rem;
+  min-width: 60px;
+  white-space: nowrap;
 }
 
 .sectionToggle {
@@ -686,8 +686,20 @@
 }
 
 .sideMenu.collapsed {
-  width: 4vw; /* or any value that suits your design */
+  width: 80px;
+  padding-right: 0; /* Remove padding when collapsed */
   padding-top: 2.5rem;
+}
+
+/* Center icons when sidebar is collapsed */
+.sideMenu.collapsed .menuItems li a {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sideMenu.collapsed .menuItems li a i {
+  margin-right: 0;
 }
 
 /* Hide text when sidebar is collapsed */
@@ -753,4 +765,193 @@
   bottom: 20px;
   right: 20px;
   z-index: 100;
+}
+
+/* Responsive styles for the side navigation */
+@media screen and (max-width: 1200px) {
+  .sideMenu {
+    width: 220px; /* Slightly smaller width */
+  }
+  
+  .sideMenu.collapsed {
+    width: 80px;
+  }
+  
+  .menuItems li a {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .sideMenu {
+    width: 200px;
+  }
+  
+  .menuItems li a {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .menuSection h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.7rem;
+  }
+}
+
+/* Mobile breakpoint - force uncollapse */
+@media screen and (max-width: 768px) {
+  .layoutContainer {
+    flex-direction: column;
+  }
+  
+  .sideMenu {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-right: 0;
+  }
+  
+  .sideMenu.collapsed {
+    width: 100%;
+    padding-right: 0;
+  }
+  
+  /* Force show text in mobile view regardless of collapsed state */
+  .sideMenu.collapsed .menuSection h4,
+  .sideMenu.collapsed .menuItems li a span,
+  .sideMenu.collapsed .userInfo {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  .menuItems li a {
+    padding: 0.5rem;
+    justify-content: center;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+  
+  .menuItems li a span {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-align: center;
+    margin-top: 0.25rem;
+  }
+  
+  .sideMenuTop {
+    padding: 0.5rem;
+  }
+  
+  .menuSection {
+    margin-bottom: 0.5rem;
+    border-bottom: none;
+  }
+  
+  .menuItems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .menuItems li {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-width: 120px;
+  }
+  
+  .collapseContainer {
+    display: none;
+  }
+  
+  .sideMenuBottom {
+    display: none;
+  }
+  
+  .menuSection h4 {
+    font-size: 0.9rem !important;
+    min-width: 55px;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .menuItems li {
+    flex: 1 1 100%;
+  }
+  
+  .menuItems li a {
+    padding: 0.75rem;
+  }
+  
+  .menuItems li a i {
+    font-size: 1.2rem;
+  }
+  
+  .menuItems li a span {
+    font-size: 0.8rem;
+  }
+  
+  .menuSection h4 {
+    display: none;
+  }
+}
+
+/* Add smooth transitions for all responsive changes */
+.sideMenu,
+.menuItems li a,
+.menuSection h4,
+.menuItems li a span,
+.menuItems li a i {
+  transition: all 0.3s ease;
+}
+
+/* Improve touch targets for mobile */
+@media (hover: none) {
+  .menuItems li a {
+    min-height: 44px;
+  }
+  
+  .sidebarToggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Handle landscape orientation on mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .sideMenu {
+    height: auto;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .menuItems {
+    max-height: none;
+  }
+}
+
+/* Add support for high-DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .sideMenu {
+    border-right-width: 0.5px;
+  }
+}
+
+/* Handle reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .sideMenu,
+  .menuItems li a,
+  .menuSection h4,
+  .menuItems li a span,
+  .menuItems li a i {
+    transition: none;
+  }
 }
