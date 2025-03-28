@@ -2,7 +2,7 @@
 
 /* Original CSS (kept for reference and maintained for components) */
 .container {
-  background-color: #fff;
+  background-color: var(--brand-color-mc);
   padding: 2.5em 0;
   height: calc(100vh - 8vh);
   z-index: 10;
@@ -418,22 +418,27 @@
   flex: 1;
   margin: 0 auto;
   width: 100%;
+  background-color: var(--brand-color-mc);
 }
 
 /* Side Menu */
 .sideMenu {
+  width: 280px;
   background-color: var(--brand-color-mc);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 1.5rem 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.03);
   position: relative;
-  width: 15vw; /* Increased for larger screens */
   z-index: 10;
-  position: relative;
-  padding-right: var(--padding-m);
 }
 
 .sideMenu::after {
-  --_corner-color: var(--brand-color-mc);
+  /* --_corner-color: var(--brand-color-mc);
   --_size: 1vw;
   content: "";
   position: absolute;
@@ -446,7 +451,7 @@
   );
   rotate: 0deg;
   right: calc(var(--_size) * -1);
-  top: 0;
+  top: 0; */
 }
 
 .sideMenuTop {
@@ -516,8 +521,10 @@
   padding: 0.75rem 1.25rem;
   color: #fff;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: var(--font-s);
+  position: relative;
+  overflow: hidden;
 }
 
 .menuItems li a i {
@@ -526,9 +533,27 @@
   font-size: 1rem;
 }
 
+.menuItems li a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: #2684fc;
+  transform: scaleY(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top;
+}
+
 .menuItems li a:hover {
   color: #2684fc;
   background-color: rgba(38, 132, 252, 0.05);
+  transform: translateX(5px);
+}
+
+.menuItems li a:hover::before {
+  transform: scaleY(1);
 }
 
 .activeMenuItem a {
@@ -538,13 +563,15 @@
 }
 
 .activeMenuItem a::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 3px;
-  background-color: #2684fc;
+  transform: scaleY(1);
+}
+
+.menuItems li a span {
+  transition: opacity 0.2s ease;
+}
+
+.sideMenu.collapsed .menuItems li a span {
+  opacity: 0;
 }
 
 .activeBadge {
@@ -634,6 +661,8 @@
   flex: 1;
   overflow-y: scroll;
   position: relative;
+  background-color: var(--brand-color-mc);
+  border-radius: var(--br-l);
 }
 
 .mainContent > div {
@@ -667,6 +696,7 @@
   margin-bottom: 0.8rem;
   min-width: 60px;
   white-space: nowrap;
+  transition: opacity 0.2s ease;
 }
 
 .sectionToggle {
@@ -687,8 +717,7 @@
 
 .sideMenu.collapsed {
   width: 80px;
-  padding-right: 0; /* Remove padding when collapsed */
-  padding-top: 2.5rem;
+  padding: 1.5rem 0.5rem;
 }
 
 /* Center icons when sidebar is collapsed */
@@ -713,11 +742,20 @@
 .sidebarToggle {
   background: none;
   border: none;
-  color: #fff;
+  color: #999;
   cursor: pointer;
-  margin: 0.75rem;
-  font-size: 1rem;
-  opacity: 0.75;
+  padding: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebarToggle:hover {
+  color: #2684fc;
+  background-color: rgba(38, 132, 252, 0.05);
+  transform: rotate(180deg);
 }
 
 .collapseContainer.collapsed {
@@ -745,7 +783,7 @@
 }
 
 .spinningIcon {
-  animation: spinLoading 1s linear infinite;
+  animation: spin 1s linear infinite;
   color: var(--kredirel-dark-blue); /* Use a highlight color to make it more visible */
 }
 

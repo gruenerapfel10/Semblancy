@@ -43,6 +43,11 @@ export default function ExamCentreFinder() {
     typeof window !== "undefined" ? window.innerWidth : 0
   );
   const [map, setMap] = useState(null);
+  const [mapCenter, setMapCenter] = useState({
+    lat: 51.5074,
+    lng: -0.1278
+  });
+  const [mapStyles, setMapStyles] = useState([]);
 
   const mapRef = useRef(null);
   const sidebarRef = useRef(null);
@@ -211,6 +216,7 @@ export default function ExamCentreFinder() {
             lng: position.coords.longitude
           };
           setUserLocation(location);
+          setMapCenter(location);
           
           // Center map on user location if map is available
           if (map) {
@@ -222,6 +228,7 @@ export default function ExamCentreFinder() {
           console.error("Error getting location:", error);
           // Default to London center if location access is denied
           setUserLocation(defaultCenter);
+          setMapCenter(defaultCenter);
         }
       );
     }
@@ -298,8 +305,21 @@ export default function ExamCentreFinder() {
     });
   };
 
-  // Custom map style for light/dark mode
-  const mapStyles = [
+  // Update map styles when theme changes
+  useEffect(() => {
+    const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+    setMapStyles(isDarkTheme ? darkMapStyles : []);
+    
+    // If map is loaded, update its styles
+    if (map) {
+      map.setOptions({
+        styles: isDarkTheme ? darkMapStyles : []
+      });
+    }
+  }, [map, document.documentElement.getAttribute('data-theme')]);
+
+  // Custom map style for dark mode
+  const darkMapStyles = [
     {
       featureType: "all",
       elementType: "geometry",
@@ -403,6 +423,7 @@ export default function ExamCentreFinder() {
     if (map && centre && centre.location) {
       map.panTo(centre.location);
       map.setZoom(15);
+      setMapCenter(centre.location);
       setSelectedCentre(centre);
     }
   };
@@ -415,10 +436,10 @@ export default function ExamCentreFinder() {
           {isLoaded ? (
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
-              center={userLocation || defaultCenter}
+              center={mapCenter}
               zoom={12}
               options={{
-                styles: document.documentElement.getAttribute('data-theme') === 'dark' ? mapStyles : [],
+                styles: mapStyles,
                 disableDefaultUI: false,
                 zoomControl: true,
                 mapTypeControl: false,
