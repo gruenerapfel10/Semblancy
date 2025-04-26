@@ -6,7 +6,7 @@ import Navbar from "../components/NavBar";
 import { usePathname } from "next/navigation";
 import './variables.css'
 import Footer from "@/components/Footer";
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeProvider } from "@/components/theme-provider";
 import { DataProvider } from "./context/DataContext";
 import { SearchProvider } from "./context/SearchContext";
 import { AIAssistantProvider } from "./context/AIAssistantContext";
@@ -33,10 +33,16 @@ export default function RootLayout({ children }) {
   }, []);
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body>
-        <AmplifyProvider>
-          <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AmplifyProvider>
             <ToastProvider>
               <SearchProvider>
                 <AIAssistantProvider>
@@ -49,8 +55,8 @@ export default function RootLayout({ children }) {
                 </AIAssistantProvider>
               </SearchProvider>
             </ToastProvider>
-          </ThemeProvider>
-        </AmplifyProvider>
+          </AmplifyProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

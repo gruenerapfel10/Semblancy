@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* app/globals.css */
 
 * {
@@ -207,36 +211,33 @@ button {
   }
 }
 
+/* Scrollbar Styles */
 * {
   /* Firefox */
   scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-thumb-background);
+  scrollbar-color: hsl(var(--neutral-400)) transparent;
 }
 
 /* Chrome, Edge, Safari */
 *::-webkit-scrollbar {
-  width: 6px; /* vertical scrollbar width */
-  height: 6px; /* horizontal scrollbar height */
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
 }
 
 *::-webkit-scrollbar-track {
-  background: #000;
+  background-color: transparent;
+  border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb, rgba(155, 155, 155, 0.5));
+  background-color: hsl(var(--neutral-400));
   border-radius: 10px;
-  border: none;
+  transition: background-color 0.2s ease;
 }
 
-/* On hover, make the thumb slightly more visible */
 *::-webkit-scrollbar-thumb:hover {
-  background-color: var(--scrollbar-thumb-hover, rgba(155, 155, 155, 0.7));
-}
-
-/* Style for when scrolling (active state) */
-*::-webkit-scrollbar-thumb:active {
-  background-color: var(--scrollbar-thumb-active, rgba(155, 155, 155, 0.9));
+  background-color: hsl(var(--neutral-500));
 }
 
 /* For Internet Explorer (limited support) */
@@ -244,31 +245,22 @@ button {
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
-/* Add this to the end of your globals.css file */
-
 /* Minimal Scrollbar - doesn't take up content space */
 .minimalScrollBar {
-  /* Make the container relative for absolute positioning of scrollbar */
   position: relative;
-
-  /* Firefox - thin scrollbar with transparent track */
   scrollbar-width: thin;
-  scrollbar-color: var(--text-color-25) transparent;
-
-  /* IE/Edge - hide default scrollbar */
+  scrollbar-color: hsl(var(--neutral-400)) transparent;
   -ms-overflow-style: -ms-autohiding-scrollbar;
-
-  /* Ensure content goes edge-to-edge */
   padding-right: 0 !important;
   margin-right: 0 !important;
   box-sizing: border-box;
-  overflow: auto; /* Enable scrolling */
+  overflow: auto;
 }
 
 /* Webkit browsers (Chrome, Safari, newer Edge) */
 .minimalScrollBar::-webkit-scrollbar {
-  width: 6px; /* vertical scrollbar width */
-  height: 6px; /* horizontal scrollbar height */
+  width: 6px;
+  height: 6px;
   background-color: transparent;
   position: absolute;
   right: 0;
@@ -281,13 +273,13 @@ button {
 }
 
 .minimalScrollBar::-webkit-scrollbar-thumb {
-  background-color: var(--text-color-25);
+  background-color: hsl(var(--neutral-400));
   border-radius: 10px;
   transition: background-color 0.2s ease;
 }
 
 .minimalScrollBar::-webkit-scrollbar-thumb:hover {
-  background-color: var(--text-color-50);
+  background-color: hsl(var(--neutral-500));
 }
 
 /* Glass effect classes for reuse */
@@ -346,5 +338,327 @@ button {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@layer base {
+  :root {
+    /* Brand Colors - Light Theme */
+    --brand-primary: 220 100% 50%;
+    --brand-primary-light: 220 100% 60%;
+    --brand-primary-dark: 220 100% 40%;
+
+    /* Neutral Colors - Light Theme */
+    --neutral-50: 220 20% 98%;
+    --neutral-100: 220 20% 95%;
+    --neutral-200: 220 20% 90%;
+    --neutral-300: 220 20% 80%;
+    --neutral-400: 220 20% 70%;
+    --neutral-500: 220 20% 60%;
+    --neutral-600: 220 20% 50%;
+    --neutral-700: 220 20% 40%;
+    --neutral-800: 220 20% 30%;
+    --neutral-900: 220 20% 20%;
+
+    /* Semantic Colors */
+    --success: 142 76% 36%;
+    --warning: 38 92% 50%;
+    --error: 0 84% 60%;
+    --info: 200 98% 39%;
+
+    /* Theme Colors */
+    --background: var(--neutral-50);
+    --background-alt: var(--neutral-100);
+    --background-elevated: var(--neutral-200);
+    --text-primary: var(--neutral-900);
+    --text-secondary: var(--neutral-700);
+    --text-tertiary: var(--neutral-500);
+    --border-light: var(--neutral-200);
+    --border-medium: var(--neutral-300);
+
+    /* shadcn Component Colors */
+    --primary: var(--brand-primary);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--neutral-200);
+    --secondary-foreground: var(--neutral-900);
+    --accent: var(--neutral-100);
+    --accent-foreground: var(--neutral-900);
+    --destructive: var(--error);
+    --destructive-foreground: 0 0% 100%;
+    --muted: var(--neutral-100);
+    --muted-foreground: var(--neutral-500);
+    --popover: var(--background);
+    --popover-foreground: var(--text-primary);
+    --ring: var(--brand-primary);
+    --input: var(--border-medium);
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+
+    /* Background Patterns */
+    --grid-line-color: rgba(0, 0, 0, 0.05);
+    --grid-line-color-dark: rgba(255, 255, 255, 0.05);
+    --gradient-overlay: linear-gradient(to bottom, rgba(255, 255, 255, 1), transparent);
+    --gradient-radial: radial-gradient(circle 800px at 100% 200px, rgba(255,255,255,1), transparent);
+  }
+
+  .dark {
+    /* Brand Colors - Dark Theme */
+    --brand-primary: 220 100% 70%;
+    --brand-primary-light: 220 100% 80%;
+    --brand-primary-dark: 220 100% 60%;
+
+    /* Neutral Colors - Dark Theme */
+    --neutral-50: 240 10% 3.9%;
+    --neutral-100: 240 10% 5.9%;
+    --neutral-200: 240 10% 7.9%;
+    --neutral-300: 240 10% 9.9%;
+    --neutral-400: 240 10% 11.9%;
+    --neutral-500: 240 10% 13.9%;
+    --neutral-600: 240 10% 15.9%;
+    --neutral-700: 240 10% 17.9%;
+    --neutral-800: 240 10% 19.9%;
+    --neutral-900: 240 10% 21.9%;
+
+    /* Theme Colors - Dark Theme */
+    --background: var(--neutral-50);
+    --background-alt: var(--neutral-100);
+    --background-elevated: var(--neutral-200);
+    --text-primary: 0 0% 100%;
+    --text-secondary: 0 0% 90%;
+    --text-tertiary: 0 0% 80%;
+    --border-light: var(--neutral-800);
+    --border-medium: var(--neutral-700);
+
+    /* shadcn Component Colors - Dark Theme */
+    --primary: var(--brand-primary);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--neutral-800);
+    --secondary-foreground: 0 0% 100%;
+    --accent: var(--neutral-800);
+    --accent-foreground: 0 0% 100%;
+    --destructive: var(--error);
+    --destructive-foreground: 0 0% 100%;
+    --muted: var(--neutral-800);
+    --muted-foreground: 0 0% 80%;
+    --popover: var(--background);
+    --popover-foreground: 0 0% 100%;
+    --ring: var(--brand-primary);
+    --input: var(--border-medium);
+
+    /* Border Radius - Dark Theme (same as light theme) */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+
+    /* Background Patterns - Dark Theme */
+    --grid-line-color: rgba(255, 255, 255, 0.05);
+    --grid-line-color-dark: rgba(0, 0, 0, 0.05);
+    --gradient-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+    --gradient-radial: radial-gradient(circle 800px at 100% 200px, rgba(59, 130, 246, 0.1), transparent);
+  }
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-text-primary antialiased;
+  }
+
+  /* Typography */
+  h1 {
+    @apply text-4xl font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold tracking-tight;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold tracking-tight;
+  }
+
+  h4 {
+    @apply text-xl font-semibold tracking-tight;
+  }
+
+  p {
+    @apply text-base leading-7;
+  }
+}
+
+/* Component Styles */
+@layer components {
+  /* Button Styles */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors 
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-brand-primary text-white hover:bg-brand-primary-dark;
+  }
+
+  .btn-secondary {
+    @apply bg-background-alt text-text-primary hover:bg-background-elevated;
+  }
+
+  .btn-outline {
+    @apply border border-border-medium bg-transparent hover:bg-background-alt;
+  }
+
+  /* Card Styles */
+  .card {
+    @apply rounded-lg border border-border-light bg-background p-6 shadow-sm;
+  }
+
+  .card-elevated {
+    @apply rounded-lg border border-border-light bg-background-elevated p-6 shadow-md;
+  }
+
+  /* Input Styles */
+  .input {
+    @apply flex h-10 w-full rounded-md border border-border-medium bg-background px-3 py-2 
+           text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm 
+           file:font-medium placeholder:text-text-tertiary focus-visible:outline-none 
+           focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Badge Styles */
+  .badge {
+    @apply inline-flex items-center rounded-full border border-border-light px-2.5 py-0.5 
+           text-xs font-semibold transition-colors focus:outline-none focus:ring-2 
+           focus:ring-brand-primary focus:ring-offset-2;
+  }
+
+  .badge-primary {
+    @apply bg-brand-primary text-white hover:bg-brand-primary-dark;
+  }
+
+  .badge-secondary {
+    @apply bg-brand-complement text-white hover:bg-brand-complement-dark;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .glass-morphism {
+    @apply bg-background/80 backdrop-blur-lg border border-border-light/50;
+  }
+
+  .glass-morphism-strong {
+    @apply bg-background/90 backdrop-blur-xl border border-border-light/70;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-primary-light;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 300ms ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 300ms ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown var(--duration-normal) ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn var(--duration-normal) ease-out;
+  }
+
+  /* Background Pattern Classes */
+  .bg-pattern {
+    @apply relative;
+  }
+
+  .bg-pattern::before {
+    content: '';
+    @apply absolute inset-0;
+    background-image: linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+                      linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .bg-pattern::after {
+    content: '';
+    @apply absolute inset-0;
+    background: var(--gradient-radial);
+  }
+
+  .bg-pattern-dark {
+    @apply relative;
+  }
+
+  .bg-pattern-dark::before {
+    content: '';
+    @apply absolute inset-0;
+    background-image: linear-gradient(to right, var(--grid-line-color-dark) 1px, transparent 1px),
+                      linear-gradient(to bottom, var(--grid-line-color-dark) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .bg-pattern-dark::after {
+    content: '';
+    @apply absolute inset-0;
+    background: var(--gradient-radial);
   }
 }

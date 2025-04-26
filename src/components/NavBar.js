@@ -5,7 +5,7 @@ import { useAmplify } from "../app/context/Providers";
 import Logo from "../components/Logo";
 import styles from "./NavBar.module.css";
 import { extractFullName } from "@/utils";
-import ThemeToggle from "../components/ThemeToggle.js";
+import { ModeToggle } from "./mode-toggle";
 import LogoutButton from "./LogoutButton";
 import { SearchBar } from "./SearchTrigger";
 import { AIAssistantIcon } from "./AIAssistantTrigger";
@@ -76,7 +76,7 @@ export default function Navbar() {
         <div className={styles.headerActions}>
           <AIAssistantIcon theme="dark" />
           {isAuthenticated && <LogoutButton className={styles.logoutButton} />}
-          <ThemeToggle type="button" />
+          <ModeToggle />
           {!isAuthenticated && authChecked && (
             <Link href="/login" className={styles.loginButton}>
               Login
@@ -112,7 +112,7 @@ export default function Navbar() {
         
         <div className={styles.mobileActions}>
           <AIAssistantIcon theme="dark" />
-          <ThemeToggle type="button" />
+          <ModeToggle />
           {isAuthenticated ? (
             <LogoutButton className={styles.mobileLogoutButton} />
           ) : (

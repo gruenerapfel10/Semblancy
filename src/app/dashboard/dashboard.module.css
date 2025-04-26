@@ -663,6 +663,8 @@
   position: relative;
   background-color: var(--brand-color-mc);
   border-radius: var(--br-l);
+  overflow-x: scroll;
+  width: 100%;
 }
 
 .mainContent > div {

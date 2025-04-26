@@ -8,7 +8,7 @@ import styles from "./GlassNavbar.module.css";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useAmplify } from "../app/context/Providers";
 import LogoutButton from "./LogoutButton";
-import ThemeToggle from "./ThemeToggle";
+import { ModeToggle } from "./mode-toggle";
 
 const GlassNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -106,7 +106,7 @@ const GlassNavbar = () => {
             </>
           ) : (
             <>
-              <ThemeToggle type="button" />
+              <ModeToggle />
               <Link href="/login" className={styles.loginButton}>
                 Log In
               </Link>
