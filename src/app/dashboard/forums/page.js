@@ -11,6 +11,7 @@ export default function ForumsPage() {
   const [showTopic, setShowTopic] = useState(false);
   const [currentTopicId, setCurrentTopicId] = useState(null);
 
+  return <div>Forums under development</div>;
   useEffect(() => {
     if (topicId) {
       setCurrentTopicId(topicId);
