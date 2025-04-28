@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   headers: () => [
     {
       source: '/:path*',
@@ -10,4 +11,13 @@ module.exports = {
       ],
     },
   ],
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, 'src'),
+    };
+    return config;
+  },
 }
+
+module.exports = nextConfig;

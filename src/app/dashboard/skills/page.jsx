@@ -7,8 +7,6 @@ import {
   faBookOpen,
   faSearch,
   faTimes,
-  faBars,       // Keep for potential future grid view
-  faListUl,     // Keep for potential future list view
   faSlidersH,   // Keep for mobile filter trigger
   faFilter,     // Added for desktop filter trigger
   faCheck,      // Added for status filter
@@ -36,38 +34,58 @@ import {
   SheetFooter,
   SheetClose
 } from "@/components/ui/sheet"; // Added for mobile filters
-import { SKILLS_DATA } from './data';
+import useSkillsRegistry from '@/lib/skillsRegistry/hooks/useSkillsRegistry'; // Updated import
 import SkillTable from './SkillTable';
-// import FilterSection from './FilterSection'; // Removed
 import CategoryTabs from './CategoryTabs';
 
 export default function Skills() {
   const router = useRouter();
+  const {
+    skills: allSkills, // Renamed to avoid conflict with filteredSkills
+    loading,
+    categories,
+    examBoards,
+    searchSkills, // Get search function from hook
+  } = useSkillsRegistry();
+
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeStatus, setActiveStatus] = useState("all");
   const [examBoard, setExamBoard] = useState("all");
-  // const [viewMode, setViewMode] = useState("list"); // Removed for now, focus on list
-  // const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false); // Replaced with Sheet state
 
   // Memoize filtered skills for performance
   const filteredSkills = useMemo(() => {
-    return SKILLS_DATA.skills.filter((skill) => {
-      const searchLower = searchTerm.toLowerCase();
-      const matchesSearch = 
-        skill.title.toLowerCase().includes(searchLower) || 
-        skill.number.replace('.','').includes(searchLower);
-      const matchesCategory = activeCategory === "all" || skill.category === activeCategory;
-      const matchesStatus = activeStatus === "all" || skill.status === activeStatus;
-      const matchesExamBoard = examBoard === "all" || 
-        (skill.examBoard && skill.examBoard.some(board => 
-          // Match based on ID now for consistency if data changes
-          board.toLowerCase() === examBoard.toLowerCase() || SKILLS_DATA.examBoards.find(eb => eb.id === examBoard && eb.name === board)
-        ));
-
-      return matchesSearch && matchesCategory && matchesStatus && matchesExamBoard;
-    });
-  }, [searchTerm, activeCategory, activeStatus, examBoard]);
+    if (loading) return [];
+    
+    let filtered = allSkills;
+    
+    // Apply category filter
+    if (activeCategory !== 'all') {
+      filtered = filtered.filter(skill => skill.category === activeCategory);
+    }
+    
+    // Apply status filter
+    if (activeStatus !== 'all') {
+      filtered = filtered.filter(skill => skill.status === activeStatus);
+    }
+    
+    // Apply exam board filter
+    if (examBoard !== 'all') {
+      filtered = filtered.filter(skill => skill.examBoard.includes(examBoard));
+    }
+    
+    // Apply search filter
+    if (searchTerm.trim()) {
+      // Use searchSkills from hook for consistency, or filter manually
+      filtered = filtered.filter(skill => 
+        skill.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        skill.number.replace('.','').includes(searchTerm.toLowerCase()) ||
+        skill.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    return filtered;
+  }, [loading, allSkills, activeCategory, activeStatus, examBoard, searchTerm]);
 
   // Memoize active filter count (excluding search term for badge display)
   const activeFilterCount = useMemo(() => {
@@ -75,14 +93,13 @@ export default function Skills() {
       activeCategory !== "all",
       activeStatus !== "all",
       examBoard !== "all",
-      // searchTerm !== "" // Exclude search term from badge count
     ].filter(Boolean).length;
   }, [activeCategory, activeStatus, examBoard]);
   
-   // Count including search term for clear button logic
-   const totalActiveFilterCount = useMemo(() => {
+  // Count including search term for clear button logic
+  const totalActiveFilterCount = useMemo(() => {
     return activeFilterCount + (searchTerm !== "" ? 1 : 0);
-   }, [activeFilterCount, searchTerm]);
+  }, [activeFilterCount, searchTerm]);
 
   // Navigation function - Updated to use ID-based routing
   const navigateToSkill = (skill) => {
@@ -95,7 +112,6 @@ export default function Skills() {
     setActiveCategory("all");
     setActiveStatus("all");
     setExamBoard("all");
-    // setMobileFiltersOpen(false); // Not needed with Sheet
   };
 
   // Common filter components for reuse between desktop dropdown and mobile sheet
@@ -140,20 +156,29 @@ export default function Skills() {
   );
 
   const ExamBoardFilterSelect = () => (
-     <Select value={examBoard} onValueChange={setExamBoard}>
-        <SelectTrigger className="w-full h-9 text-sm">
-          <SelectValue placeholder="Select Exam Board" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all" className="text-sm">All Boards</SelectItem>
-          {SKILLS_DATA.examBoards.map(board => (
-            <SelectItem key={board.id} value={board.id} className="text-sm">
-              {board.name} <span className="text-muted-foreground ml-1">({board.count})</span>
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <Select value={examBoard} onValueChange={setExamBoard}>
+      <SelectTrigger className="w-full h-9 text-sm">
+        <SelectValue placeholder="Select Exam Board" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all" className="text-sm">All Boards</SelectItem>
+        {examBoards.map(board => (
+          <SelectItem key={board.id} value={board.id} className="text-sm">
+            {board.name}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen w-full bg-background">
+        <p>Loading skills...</p> {/* Basic loading indicator */}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen w-full bg-background">
@@ -246,7 +271,6 @@ export default function Skills() {
                     )}
                   </DropdownMenuContent>
                 </DropdownMenu>
-                {/* Optional: View Mode Toggle could go here */}
               </div>
 
               {/* Mobile Filter Trigger (Sheet) */}
@@ -313,9 +337,9 @@ export default function Skills() {
                                 </SelectTrigger>
                                 <SelectContent>
                                   <SelectItem value="all" className="text-sm">All Topics</SelectItem>
-                                  {SKILLS_DATA.categories.map(cat => (
+                                  {categories.map(cat => (
                                     <SelectItem key={cat.id} value={cat.id} className="text-sm">
-                                      {cat.name} <span className="text-muted-foreground ml-1">({cat.count})</span>
+                                      {cat.name}
                                     </SelectItem>
                                   ))}
                                 </SelectContent>
@@ -344,7 +368,7 @@ export default function Skills() {
           {/* Bottom Row: Category Tabs (Desktop/Tablet Only) */}
           <div className="hidden sm:block">
             <CategoryTabs 
-              categories={SKILLS_DATA.categories} 
+              categories={categories} 
               activeCategory={activeCategory} 
               setActiveCategory={setActiveCategory} 
             />
@@ -361,7 +385,7 @@ export default function Skills() {
         <div className="relative z-10 mb-4">
           <p className="text-sm text-muted-foreground">
             Showing {filteredSkills.length} result{filteredSkills.length !== 1 ? 's' : ''}
-            {totalActiveFilterCount > 0 && ` (filtered from ${SKILLS_DATA.skills.length})`}
+            {totalActiveFilterCount > 0 && ` (filtered from ${allSkills.length})`}
           </p>
         </div>
         

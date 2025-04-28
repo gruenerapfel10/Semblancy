@@ -21,14 +21,18 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/dashboard/skills/[skillId]/page.jsx", "src/app/dashboard/skills/[skillId]/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

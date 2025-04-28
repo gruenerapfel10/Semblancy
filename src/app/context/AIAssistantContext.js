@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, useRef } from "react";
-import { sendMessage, generateTestResponse, setApiKey, hasApiKey, clearApiKey } from "@/services/ai-service";
+import { sendMessage, generateTestResponse, setApiKey, hasApiKey, clearApiKey } from "@/services/ai-service.js";
 
 // Create context
 const AIAssistantContext = createContext(undefined);

@@ -1,153 +1,228 @@
-"use client";
+'use client';
 
-import { useState } from 'react';
-import { useParams } from 'next/navigation';
-import { SKILLS_DATA } from '../data';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faLock, faStar, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
-import { TabSystem } from '../components/TabSystem';
-import type { LayoutNode } from '../components/TabSystem';
+import { useParams, useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import useSkillsRegistry from '@/lib/skillsRegistry/hooks/useSkillsRegistry';
 
+// Import modular components
+import { MultipleChoiceQuestion, CalculationQuestion } from '../components/QuestionComponents';
+import { Celebration, LessonComplete } from '../components/Celebration';
+import { Header, Footer, SoundButton } from '../components/Layout';
+import { playSound } from '../components/Utils';
+
+// Main Lesson Page Component - Infinite Runner Style
 export default function SkillPage() {
-  const params = useParams();
-  const skillId = params.skillId;
-  const skill = SKILLS_DATA.skills.find(s => s.id.toString() === skillId);
+  const router = useRouter();
+  const { skillId } = useParams();
+  const { 
+    getSkill, 
+    getModule, 
+    getCurrentQuestionState, 
+    loadInitialQuestion,
+    loadNextQuestion
+  } = useSkillsRegistry();
 
-  // Initial tab system layout
-  const [layout, setLayout] = useState<LayoutNode>({
-    id: 'root_window',
-    type: 'window',
-    tabs: [
-      { id: 'overview', title: 'Overview', iconType: 'bookOpen' },
-      { id: 'topics', title: 'Topics', iconType: 'hash' },
-      { id: 'practice', title: 'Practice', iconType: 'percent' },
-      { id: 'help', title: 'Help', iconType: 'bot' }
-    ],
-    activeTabId: 'overview',
-    isCollapsed: false
-  });
+  // --- State Management --- 
+  const [currentModuleId, setCurrentModuleId] = useState(null);
+  // Game state (less emphasis on module/lesson completion)
+  const [hearts, setHearts] = useState(3);
+  const [streak, setStreak] = useState(0);
+  const [gems, setGems] = useState(0);
+  const [stars, setStars] = useState(0); // Maybe use stars differently?
+  const [score, setScore] = useState(0); // Track overall score
 
-  if (!skill) {
-    return (
-      <div className="min-h-screen bg-background p-6">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Skill not found</h1>
-          <Link href="/dashboard/skills">
-            <Button variant="outline" className="gap-2">
-              <FontAwesomeIcon icon={faArrowLeft} className="h-4 w-4" />
-              Back to Skills
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  // UI state
+  const [showCelebration, setShowCelebration] = useState(false); // Keep for effects
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  // --- Data Fetching & Setup --- 
+  const skill = getSkill(skillId || ''); 
+  const currentModule = currentModuleId ? getModule(skillId || '', currentModuleId) : null;
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'completed':
-        return <FontAwesomeIcon icon={faCheck} className="h-4 w-4 text-green-500" />;
-      case 'attempted':
-        return <FontAwesomeIcon icon={faStar} className="h-4 w-4 text-yellow-500" />;
-      default:
-        return <FontAwesomeIcon icon={faLock} className="h-4 w-4 text-muted-foreground" />;
+  // Get current question state from hook
+  const { currentQuestion, isLoadingNext, error: questionError } = 
+    getCurrentQuestionState(skillId || '', currentModuleId || '');
+
+  // Load the first module and its initial question on mount
+  useEffect(() => {
+    if (skill && skill.modules.length > 0 && !currentModuleId) {
+      const firstModuleId = skill.modules.sort((a, b) => a.order - b.order)[0].id;
+      setCurrentModuleId(firstModuleId);
+    }
+  }, [skill, currentModuleId]);
+
+  // Trigger loading the *initial* question when the module ID is set
+  useEffect(() => {
+      if (skillId && currentModuleId) {
+          // Check if we need to load the initial question for this module
+          const state = getCurrentQuestionState(skillId, currentModuleId);
+          if (!state.currentQuestion && !state.isLoadingNext && !state.error) {
+             loadInitialQuestion(skillId, currentModuleId);
+          }
+      }
+  }, [skillId, currentModuleId, getCurrentQuestionState, loadInitialQuestion]); // Add dependencies
+
+  // --- Event Handlers --- 
+  
+  const handleAnswer = (isCorrect) => {
+    if (isLoadingNext || isTransitioning) return; // Prevent acting during load/transition
+
+    setIsTransitioning(true); // Start transition visual state (e.g., disable buttons)
+
+    if (isCorrect) {
+      console.log("[SkillPage] Correct Answer");
+      playSound('correct');
+      // Update score/streak/gems
+      const newStreak = streak + 1;
+      setStreak(newStreak);
+      const streakBonus = Math.min(Math.floor(newStreak / 3), 3);
+      const pointsToAdd = currentQuestion?.points || 10;
+      setScore(prev => prev + pointsToAdd);
+      setGems(prev => prev + 5 + streakBonus);
+      
+      // Load next question after feedback animation delay
+      setTimeout(() => {
+        if (skillId && currentModuleId) {
+            console.log("[SkillPage] Loading next question after correct answer.");
+            loadNextQuestion(skillId, currentModuleId);
+        }
+        // Reset transition state AFTER potential load starts
+        setIsTransitioning(false); 
+      }, 1500); 
+
+    } else {
+      console.log("[SkillPage] Incorrect Answer");
+      playSound('incorrect');
+      setStreak(0);
+      
+      // --- Deduct heart ONLY on incorrect --- 
+      const newHearts = hearts - 1;
+      setHearts(Math.max(0, newHearts));
+      // -------------------------------------
+
+      if (newHearts <= 0) {
+        // Game Over Logic
+        console.error("GAME OVER - Out of hearts!");
+        // TODO: Show Game Over UI
+        // Reset essentials after a delay
+        setTimeout(() => {
+            setHearts(3); 
+            setStreak(0); 
+            setScore(0);
+            setGems(0); // Reset gems too
+            if (skillId && currentModuleId) {
+                console.log("[SkillPage] Resetting to initial question after game over.");
+                loadInitialQuestion(skillId, currentModuleId); 
+            }
+            setIsTransitioning(false);
+        }, 2000);
+      } else {
+         // Incorrect, but game continues: Load next question after feedback delay
+         setTimeout(() => {
+            if (skillId && currentModuleId) {
+                 console.log("[SkillPage] Loading next question after incorrect answer.");
+                 loadNextQuestion(skillId, currentModuleId);
+            }
+             // Reset transition state AFTER potential load starts
+             setIsTransitioning(false); 
+         }, 1500); 
+      }
     }
   };
 
-  // Content renderer for tabs
-  const getContentForTab = (tabId: string) => {
-    switch (tabId) {
-      case 'overview':
-        return (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-lg font-semibold mb-2">Description</h2>
-              <p className="text-muted-foreground">{skill.description}</p>
-            </div>
-            <div>
-              <h2 className="text-lg font-semibold mb-2">Difficulty</h2>
-              <Badge variant="outline" className="capitalize">
-                {skill.difficulty}
-              </Badge>
-            </div>
-          </div>
-        );
-      case 'topics':
-        return (
-          <div>
-            <h2 className="text-lg font-semibold mb-3">Topics Covered</h2>
-            <ul className="space-y-2">
-              {skill.topics.map((topic, idx) => (
-                <li key={idx} className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-primary/70" />
-                  <span className="text-muted-foreground">{topic}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        );
-      case 'practice':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-lg font-semibold mb-2">Practice Questions Coming Soon</h2>
-            <p className="text-muted-foreground">We're preparing interactive practice questions for this skill.</p>
-          </div>
-        );
-      case 'help':
-        return (
-          <div className="text-center py-12">
-            <h2 className="text-lg font-semibold mb-2">AI Assistant</h2>
-            <p className="text-muted-foreground">Get help with this skill using our AI tutor.</p>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
+  // --- Navigation & Reset --- 
+  const handleGoBack = () => router.push('/dashboard/skills');
+
+  // --- Render Logic --- 
+
+  // Loading Skill/Module itself
+  if (!skill) return <div className="h-full flex items-center justify-center">Loading Skill...</div>;
+  if (!currentModule) return <div className="h-full flex items-center justify-center">Loading Module...</div>;
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b border-border/50">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center gap-4">
-            <Link href="/dashboard/skills">
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <FontAwesomeIcon icon={faArrowLeft} className="h-4 w-4" />
-              </Button>
-            </Link>
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">{skill.title}</h1>
-              <div className="flex items-center gap-2 mt-1">
-                <Badge variant="outline" className="text-xs">
-                  {skill.category.charAt(0).toUpperCase() + skill.category.slice(1)}
-                </Badge>
-                {skill.examBoard.map((board, idx) => (
-                  <Badge key={idx} variant="secondary" className="text-xs">
-                    {board}
-                  </Badge>
-                ))}
-                <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                  {getStatusIcon(skill.status)}
-                  <span className="capitalize">{skill.status}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="h-full flex flex-col bg-background w-full overflow-hidden">
+      {/* Header: Remove progress bar, maybe show score? */}
+      <Header 
+        // progress={progress} // Removed progress 
+        hearts={hearts} 
+        streak={streak} 
+        onBack={handleGoBack} 
+        // Optional: Pass score to display
+        score={score}
+      />
+      
+      <main className="flex-1 flex flex-col items-center justify-center p-2 relative">
+        <div className="mb-2 text-center">
+          <h1 className="text-lg font-bold text-text-primary">{skill.title} - {currentModule.title}</h1>
+          {/* Maybe show current streak or score here? */}
+          <p className="text-xs text-text-secondary">Streak: {streak}</p>
         </div>
-      </div>
+        
+        <div className="w-full max-w-2xl bg-background-elevated rounded-lg shadow p-3 mb-2 min-h-[200px] flex items-center justify-center relative">
+           {/* Loading Indicator for Next Question (Subtle) */}
+           {isLoadingNext && (
+               <div className="absolute top-2 right-2 text-xs text-text-secondary animate-pulse">Generating...</div>
+           )}
 
-      {/* Main Content with TabSystem */}
-      <div className="max-w-6xl mx-auto px-6 py-6 h-[calc(100vh-8rem)]">
-        <TabSystem
-          layout={layout}
-          onLayoutChange={setLayout}
-          getContentForTab={getContentForTab}
-        />
-      </div>
+            {/* Error State */}
+            {questionError && !isLoadingNext && (
+                <div className="text-center text-error">
+                    <p>Error generating the next question.</p>
+                    <p className="text-xs mt-1">({questionError.message || 'Please try again or go back.'})</p>
+                    <button 
+                        onClick={() => loadNextQuestion(skillId, currentModuleId)}
+                        className="mt-2 px-3 py-1 bg-error text-white rounded text-sm hover:bg-red-700"
+                        disabled={isLoadingNext} // Disable if already loading
+                    >
+                        Retry
+                    </button>
+                </div>
+            )}
+            
+            {/* Render Current Question - Ensure Key Prop is Correct */}
+            {!questionError && currentQuestion && (
+                 <AnimatePresence mode="wait">
+                    {currentQuestion.type === 'multiple_choice' ? (
+                        <MultipleChoiceQuestion 
+                            key={currentQuestion.id} // CRUCIAL: Forces re-mount on ID change
+                            question={currentQuestion} 
+                            onAnswer={handleAnswer} 
+                            disabled={isLoadingNext || isTransitioning} 
+                        />
+                    ) : ( 
+                        <CalculationQuestion 
+                            key={currentQuestion.id} // CRUCIAL: Forces re-mount on ID change
+                            question={currentQuestion} 
+                            onAnswer={handleAnswer} 
+                            disabled={isLoadingNext || isTransitioning}
+                        />
+                    )}
+                </AnimatePresence>
+            )}
+
+            {/* Initial Loading State (different from isLoadingNext) */}
+            {!currentQuestion && isLoadingNext && !questionError && (
+                 <div className="text-text-secondary">Loading first question...</div>
+            )}
+        </div>
+        
+        <SoundButton />
+      </main>
+      
+      {/* Footer: Remove question count, show gems/stars */}
+      <Footer 
+        // currentQuestion={currentQuestionIndex} // Removed
+        // totalQuestions={totalQuestionsInModule} // Removed
+        gems={gems} 
+        stars={stars} 
+      />
+      
+      {/* Celebration component might need adjustment or different trigger */}
+      {/* <Celebration show={showCelebration} onComplete={() => {}} /> */}
+      
+      {/* Lesson Complete doesn't make sense here, remove or replace with Game Over */}
+
     </div>
   );
-} 
+}

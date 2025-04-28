@@ -1037,8 +1037,4 @@ export function TabSystem({ layout, onLayoutChange, getContentForTab }: TabSyste
       )}
     </div>
   );
-}
-
-// Re-export TabSystem from the original location
-export { TabSystem } from './TabSystem';
-export type { LayoutNode } from './TabSystem'; 
+} 
