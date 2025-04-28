@@ -21,6 +21,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-google-maps/api": "^2.20.6",
     "aws-amplify": "^6.0.25",
+    "better-react-mathjax": "^2.3.0",
     "date-fns": "^4.1.0",
     "dom-to-image": "^2.6.0",
     "framer-motion": "^12.5.0",
