@@ -25,14 +25,18 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/app/dashboard/skills/[skillId]/page.jsx", "src/app/dashboard/skills/[skillId]/page.jsx"  ],
+    "**/*.tsx",
+    "src/app/dashboard/skills/[skillId]/page.jsx", 
+    "src/app/dashboard/skills/[skillId]/page.jsx",
+    "src/types/**/*.d.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
