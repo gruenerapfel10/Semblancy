@@ -6,6 +6,17 @@
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
+    /* Brand and Changelog Tints */
+    --brand: 210 100% 50%; /* rgb(0, 112, 255) */
+    --brand-tint-1: 210 100% 60%; /* lighter */
+    --brand-tint-2: 210 100% 40%; /* darker */
+    --brand-tint-3: 210 80% 70%; /* pastel */
+    --brand-tint-4: 210 90% 95%; /* very light */
+    --brand-gradient: linear-gradient(90deg, hsl(210,100%,50%) 0%, hsl(210,80%,70%) 100%);
+    --brand-gradient-blue: linear-gradient(90deg, hsl(210,100%,50%) 0%, hsl(210,100%,60%) 100%);
+    --brand-gradient-pink: linear-gradient(90deg, hsl(210,100%,50%) 0%, hsl(320,100%,70%) 100%);
+    --brand-gradient-muted: linear-gradient(90deg, hsl(210,100%,95%) 0%, hsl(210,100%,98%) 100%);
+    --brand-shadow: 0 4px 24px 0 hsl(210, 100%, 70%, 0.15);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,6 +24,17 @@
         --foreground-rgb: 255, 255, 255;
         --background-start-rgb: 0, 0, 0;
         --background-end-rgb: 0, 0, 0;
+        /* Brand and Changelog Tints (Dark) */
+        --brand: 210 100% 60%;
+        --brand-tint-1: 210 100% 70%;
+        --brand-tint-2: 210 100% 45%;
+        --brand-tint-3: 210 80% 80%;
+        --brand-tint-4: 210 90% 20%;
+        --brand-gradient: linear-gradient(90deg, hsl(210,100%,60%) 0%, hsl(210,80%,80%) 100%);
+        --brand-gradient-blue: linear-gradient(90deg, hsl(210,100%,60%) 0%, hsl(210,100%,60%) 100%);
+        --brand-gradient-pink: linear-gradient(90deg, hsl(210,100%,60%) 0%, hsl(320,100%,70%) 100%);
+        --brand-gradient-muted: linear-gradient(90deg, hsl(210,20%,20%) 0%, hsl(210,20%,18%) 100%);
+        --brand-shadow: 0 4px 24px 0 hsl(210, 100%, 60%, 0.18);
     }
 }
 

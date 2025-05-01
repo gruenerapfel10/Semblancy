@@ -1,0 +1,438 @@
+/* app/dashboard/contact/contact.module.css */
+
+.container {
+  padding: var(--padding-l);
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-l);
+  background-color: var(--background-color);
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.title {
+  font-size: var(--font-xl);
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: var(--font-m);
+  color: var(--text-color-75);
+  margin-bottom: var(--gap-s);
+}
+
+.contactContent {
+  display: flex;
+  gap: var(--gap-l);
+  flex: 1;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.contactOptions {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-l);
+  min-width: 0;
+}
+
+.contactMethods {
+  background-color: var(--card-background);
+  border-radius: var(--br-m);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: var(--padding-l);
+  animation: slideUp 0.5s ease-in-out;
+}
+
+.sectionTitle {
+  font-size: var(--font-l);
+  color: var(--text-color);
+  margin: 0 0 var(--gap-m) 0;
+  font-weight: 600;
+}
+
+.methodsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--gap-m);
+}
+
+.methodCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--padding-l);
+  background-color: var(--primary-color-10);
+  border-radius: var(--br-m);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.methodCard:hover {
+  background-color: var(--primary-color-25);
+  transform: translateY(-3px);
+}
+
+.activeMethod {
+  border-color: var(--brand-color);
+  background-color: var(--primary-color-25);
+}
+
+.methodIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--brand-color);
+  color: white;
+  border-radius: 50%;
+  margin-bottom: var(--gap-m);
+  font-size: var(--font-l);
+}
+
+.methodTitle {
+  font-size: var(--font-m);
+  color: var(--text-color);
+  margin: 0 0 var(--gap-s) 0;
+  font-weight: 600;
+}
+
+.methodDescription {
+  font-size: var(--font-s);
+  color: var(--text-color-75);
+  margin: 0;
+}
+
+.faqSection {
+  background-color: var(--card-background);
+  border-radius: var(--br-m);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: var(--padding-l);
+  flex: 1;
+  animation: slideUp 0.6s ease-in-out;
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--padding-m);
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.faqQuestion {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-m);
+  margin-bottom: var(--gap-s);
+}
+
+.faqIcon {
+  color: var(--brand-color);
+  font-size: var(--font-m);
+  margin-top: 3px;
+}
+
+.faqQuestion h3 {
+  font-size: var(--font-m);
+  color: var(--text-color);
+  margin: 0;
+  font-weight: 600;
+}
+
+.faqAnswer {
+  font-size: var(--font-s);
+  color: var(--text-color-75);
+  line-height: 1.6;
+  padding-left: calc(var(--font-m) + var(--gap-m));
+}
+
+.contactForm {
+  flex: 1;
+  background-color: var(--card-background);
+  border-radius: var(--br-m);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: var(--padding-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+  min-width: 0;
+  animation: slideUp 0.7s ease-in-out;
+}
+
+.formTitle {
+  font-size: var(--font-l);
+  color: var(--text-color);
+  margin: 0 0 var(--gap-m) 0;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--padding-m);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  margin-bottom: var(--gap-m);
+}
+
+.formGroup label {
+  font-size: var(--font-s);
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.formInput,
+.formTextarea,
+.formSelect {
+  padding: var(--padding-m);
+  border: 1px solid var(--border-color);
+  border-radius: var(--br-s);
+  font-size: var(--font-s);
+  color: var(--text-color);
+  background-color: var(--input-background);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.formInput:focus,
+.formTextarea:focus,
+.formSelect:focus {
+  outline: none;
+  border-color: var(--brand-color);
+  box-shadow: 0 0 0 2px rgba(var(--brand-color-rgb), 0.2);
+}
+
+.formTextarea {
+  resize: vertical;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectWrapper::after {
+  content: "▼";
+  position: absolute;
+  right: var(--padding-m);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-color-50);
+  pointer-events: none;
+  font-size: 12px;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-s);
+  background-color: var(--brand-color);
+  color: white;
+  border: none;
+  border-radius: var(--br-s);
+  padding: var(--padding-m) var(--padding-l);
+  font-size: var(--font-s);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: var(--gap-m);
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--brand-color-darker);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.buttonSpinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.successMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--padding-xl) var(--padding-l);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  border-radius: 50%;
+  margin-bottom: var(--gap-m);
+  font-size: var(--font-xl);
+}
+
+.successMessage h3 {
+  font-size: var(--font-l);
+  color: var(--text-color);
+  margin: 0 0 var(--gap-s) 0;
+  font-weight: 600;
+}
+
+.successMessage p {
+  font-size: var(--font-m);
+  color: var(--text-color-75);
+  margin: 0;
+}
+
+.helpResources {
+  margin-top: auto;
+  padding-top: var(--padding-l);
+  border-top: 1px solid var(--border-color);
+}
+
+.resourcesTitle {
+  font-size: var(--font-m);
+  color: var(--text-color);
+  margin: 0 0 var(--gap-m) 0;
+  font-weight: 600;
+}
+
+.resourcesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-m);
+}
+
+.resourceLink {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-s);
+  background-color: var(--primary-color-10);
+  color: var(--text-color);
+  border-radius: var(--br-s);
+  padding: var(--padding-s) var(--padding-m);
+  font-size: var(--font-s);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.resourceLink:hover {
+  background-color: var(--primary-color-25);
+  transform: translateY(-2px);
+}
+
+.resourceIcon {
+  color: var(--brand-color);
+}
+
+@media (max-width: 1024px) {
+  .contactContent {
+    flex-direction: column;
+  }
+
+  .methodsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .methodsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .methodsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Glass morphism effect */
+[data-theme="light"] .contactMethods,
+[data-theme="light"] .faqSection,
+[data-theme="light"] .contactForm {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .contactMethods,
+[data-theme="dark"] .faqSection,
+[data-theme="dark"] .contactForm {
+  background: rgba(14, 17, 34, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(54, 57, 74, 0.2);
+}
+
+[data-theme="light"] .methodCard {
+  background: rgba(245, 245, 245, 0.7);
+}
+
+[data-theme="dark"] .methodCard {
+  background: rgba(18, 21, 38, 0.7);
+}
+
+[data-theme="light"] .activeMethod {
+  background: rgba(235, 235, 235, 0.9);
+}
+
+[data-theme="dark"] .activeMethod {
+  background: rgba(24, 27, 44, 0.9);
+}

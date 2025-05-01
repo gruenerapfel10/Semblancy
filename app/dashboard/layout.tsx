@@ -23,20 +23,6 @@ export default function DashboardLayout({
           <AppSidebar />
         </div>
         <div className="flex-1 flex flex-col w-full">
-          <SiteHeader>
-            <Suspense fallback={<div className="h-14 w-full animate-pulse bg-muted/50" />}>
-              <PageIndicator />
-            </Suspense>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="ml-auto"
-              onClick={() => setIsAIPanelOpen(!isAIPanelOpen)}
-            >
-              <Bot className="h-5 w-5" />
-              <span className="sr-only">Toggle AI Assistant</span>
-            </Button>
-          </SiteHeader>
           <main className="flex-1 min-h-0 overflow-y-auto relative bg-blue">
               {children}
           </main>
