@@ -1,92 +1,62 @@
-# Google and Apple Authentication Setup
+<a href="https://chat.vercel.ai/">
+  <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
+  <h1 align="center">Chat SDK</h1>
+</a>
 
-## Implementation Overview
-- The social authentication with Google and Apple has been implemented in the application.
-- The auth flow uses AWS Cognito for identity management through Amplify.
-- Both login and signup pages have been updated with Google and Apple authentication options.
-- A dedicated auth-callback page has been created to handle redirects after social authentication.
+<p align="center">
+    Chat SDK is a free, open-source template built with Next.js and the AI SDK that helps you quickly build powerful chatbot applications.
+</p>
 
-## Configuration
+<p align="center">
+  <a href="https://chat-sdk.dev"><strong>Read Docs</strong></a> ·
+  <a href="#features"><strong>Features</strong></a> ·
+  <a href="#model-providers"><strong>Model Providers</strong></a> ·
+  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
+  <a href="#running-locally"><strong>Running locally</strong></a>
+</p>
+<br/>
 
-### What's been added:
-1. Updated Amplify configuration in `Providers.jsx` with:
-   - Google and Apple OAuth providers
-   - Proper redirect URLs for both development and production environments
-   - Callback handling
+## Features
 
-2. Added social login buttons to:
-   - Login page (`/src/app/login/page.js`)
-   - Signup page (`/src/app/signup/page.js`)
+- [Next.js](https://nextjs.org) App Router
+  - Advanced routing for seamless navigation and performance
+  - React Server Components (RSCs) and Server Actions for server-side rendering and increased performance
+- [AI SDK](https://sdk.vercel.ai/docs)
+  - Unified API for generating text, structured objects, and tool calls with LLMs
+  - Hooks for building dynamic chat and generative user interfaces
+  - Supports xAI (default), OpenAI, Fireworks, and other model providers
+- [shadcn/ui](https://ui.shadcn.com)
+  - Styling with [Tailwind CSS](https://tailwindcss.com)
+  - Component primitives from [Radix UI](https://radix-ui.com) for accessibility and flexibility
+- Data Persistence
+  - [Neon Serverless Postgres](https://vercel.com/marketplace/neon) for saving chat history and user data
+  - [Vercel Blob](https://vercel.com/storage/blob) for efficient file storage
+- [Auth.js](https://authjs.dev)
+  - Simple and secure authentication
 
-3. Created an auth callback handler:
-   - Component: `/src/components/AuthCallback.js`
-   - Page: `/src/app/auth-callback/page.js`
+## Model Providers
 
-## What You Need to Do
+This template ships with [xAI](https://x.ai) `grok-2-1212` as the default chat model. However, with the [AI SDK](https://sdk.vercel.ai/docs), you can switch LLM providers to [OpenAI](https://openai.com), [Anthropic](https://anthropic.com), [Cohere](https://cohere.com/), and [many more](https://sdk.vercel.ai/providers/ai-sdk-providers) with just a few lines of code.
 
-### 1. Google OAuth Configuration
-1. Make sure you have a Google OAuth client created in [Google Cloud Console](https://console.cloud.google.com/).
-2. Configure your Google OAuth client with the following settings:
-   - Authorized JavaScript origins:
-     - `http://localhost:3000`
-     - `https://gcsesimulator.co.uk`
-   - Authorized redirect URIs:
-     - `http://localhost:3000/auth-callback`
-     - `https://gcsesimulator.co.uk/auth-callback`
-     - `https://eu-west-2lhtoxseqh.auth.eu-west-2.amazoncognito.com/oauth2/idpresponse` (For dev environment)
-     - `https://auth.gcsesimulator.co.uk/oauth2/idpresponse` (For production environment)
+## Deploy Your Own
 
-3. Update the Google client ID in `Providers.jsx` if different from the one already set.
+You can deploy your own version of the Next.js AI Chatbot to Vercel with one click:
 
-### 2. Apple Sign In Configuration
-1. Create an Apple Developer account if you don't have one.
-2. Register your app for Sign in with Apple:
-   - Go to [Apple Developer Portal](https://developer.apple.com/)
-   - Navigate to Certificates, Identifiers & Profiles
-   - Register a new identifier or use existing one
-   - Enable "Sign In with Apple" capability
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot&env=AUTH_SECRET&envDescription=Generate%20a%20random%20secret%20to%20use%20for%20authentication&envLink=https%3A%2F%2Fgenerate-secret.vercel.app%2F32&project-name=my-awesome-chatbot&repository-name=my-awesome-chatbot&demo-title=AI%20Chatbot&demo-description=An%20Open-Source%20AI%20Chatbot%20Template%20Built%20With%20Next.js%20and%20the%20AI%20SDK%20by%20Vercel&demo-url=https%3A%2F%2Fchat.vercel.ai&products=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22ai%22%2C%22productSlug%22%3A%22grok%22%2C%22integrationSlug%22%3A%22xai%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22productSlug%22%3A%22neon%22%2C%22integrationSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22blob%22%7D%5D)
 
-3. Configure the following settings:
-   - Return URLs:
-     - `https://eu-west-2lhtoxseqh.auth.eu-west-2.amazoncognito.com/oauth2/idpresponse` (For dev environment)
-     - `https://auth.gcsesimulator.co.uk/oauth2/idpresponse` (For production environment)
+## Running locally
 
-4. Generate the necessary private key and configure it in AWS Cognito.
+You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js AI Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/projects/environment-variables) for this, but a `.env` file is all that is necessary.
 
-### 3. AWS Cognito Configuration
-1. In the AWS Console, go to Amazon Cognito.
-2. Configure your User Pool to include Google and Apple as identity providers:
-   - Add "Google" as an Identity Provider with your Google client ID and secret
-   - Add "Sign in with Apple" as an Identity Provider with your Apple Service ID, Team ID, Key ID, and private key
+> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various AI and authentication provider accounts.
 
-3. Configure the App client settings:
-   - Enable Google and Sign in with Apple as Enabled Identity Providers
-   - Set the callback URLs to match the ones in the code:
-     - `http://localhost:3000/dashboard/overview`
-     - `https://gcsesimulator.co.uk/dashboard/overview`
-     - `http://localhost:3000/auth-callback`
-     - `https://gcsesimulator.co.uk/auth-callback`
-   - Set the sign out URLs:
-     - `http://localhost:3000/login`
-     - `https://gcsesimulator.co.uk/login`
-   - Make sure "Authorization code grant" is selected
-   - Select all the OAuth scopes needed (openid, email, profile, etc.)
+1. Install Vercel CLI: `npm i -g vercel`
+2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
+3. Download your environment variables: `vercel env pull`
 
-### 4. Testing
-1. Test the authentication flow in both development and production environments.
-2. Make sure redirection works properly after successful authentication.
-3. Test error handling by intentionally causing authentication errors.
+```bash
+pnpm install
+pnpm dev
+```
 
-## Troubleshooting
-If you encounter issues with the authentication flow:
-
-1. Check your browser console for errors
-2. Verify that the Cognito configuration matches the Amplify configuration in the code
-3. Ensure all redirect URLs are properly configured in Google Console, Apple Developer Portal, and AWS Cognito
-4. Check that your environment variables are properly set
-5. For Apple Sign In issues, ensure that your private key is valid and properly configured
-
-## Additional Notes
-- The current implementation uses temporary G and A icons for Google and Apple. You might want to replace these with proper SVG icons.
-- Consider adding proper error handling and user feedback for authentication failures.
-- Remember to update both the development and production configurations when making changes.
+Your app template should now be running on [localhost:3000](http://localhost:3000).

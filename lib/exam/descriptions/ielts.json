@@ -1,0 +1,223 @@
+{
+  "reading": {
+    "description": "Test your ability to understand and analyze written English texts",
+    "skills": [
+      {
+        "name": "Reading comprehension",
+        "description": "Understanding main ideas and specific details in academic texts",
+        "examples": [
+          "Identifying key information",
+          "Understanding context",
+          "Following instructions"
+        ]
+      },
+      {
+        "name": "Text analysis",
+        "description": "Analyzing text structure and language features",
+        "examples": [
+          "Recognizing text types",
+          "Understanding text organization",
+          "Identifying language patterns"
+        ]
+      }
+    ],
+    "textTypes": [
+      {
+        "name": "Academic texts",
+        "description": "Texts from academic journals, textbooks, and research papers",
+        "examples": [
+          "Research articles",
+          "Academic papers",
+          "Textbook extracts"
+        ]
+      },
+      {
+        "name": "Diagrams",
+        "description": "Visual representations of information",
+        "examples": [
+          "Flow charts",
+          "Process diagrams",
+          "Technical drawings"
+        ]
+      }
+    ],
+    "questionTypes": [
+      {
+        "name": "Multiple choice",
+        "description": "Select the correct answer from given options",
+        "examples": [
+          "Single correct answer",
+          "Multiple correct answers",
+          "Best answer selection"
+        ]
+      },
+      {
+        "name": "True/False/Not Given",
+        "description": "Determine if statements are true, false, or not mentioned in the text",
+        "examples": [
+          "Factual statements",
+          "Inference questions",
+          "Opinion statements"
+        ]
+      }
+    ],
+    "examStructure": {
+      "description": "The IELTS reading exam tests your ability to understand and analyze academic texts",
+      "parts": [
+        {
+          "name": "Part 1",
+          "description": "Short texts and notices",
+          "duration": 20,
+          "questions": 13,
+          "skills": ["Skimming", "Scanning", "Detailed reading"],
+          "format": "Multiple choice and matching questions",
+          "tips": [
+            "Read questions before the text",
+            "Look for key words",
+            "Pay attention to time management"
+          ]
+        },
+        {
+          "name": "Part 2",
+          "description": "Longer texts with complex information",
+          "duration": 20,
+          "questions": 13,
+          "skills": ["Inference", "Analysis", "Evaluation"],
+          "format": "True/False/Not Given and multiple choice questions",
+          "tips": [
+            "Read the text carefully",
+            "Make notes of key points",
+            "Check your answers before submitting"
+          ]
+        },
+        {
+          "name": "Part 3",
+          "description": "Academic texts with detailed analysis",
+          "duration": 20,
+          "questions": 14,
+          "skills": ["Critical analysis", "Synthesis", "Evaluation"],
+          "format": "Matching and summary completion questions",
+          "tips": [
+            "Understand the text structure",
+            "Identify key arguments",
+            "Pay attention to detail"
+          ]
+        }
+      ],
+      "totalDuration": 60,
+      "totalQuestions": 40,
+      "passingScore": 6.0,
+      "difficulty": "6",
+      "preparationTime": "3-4 months",
+      "recommendedResources": [
+        "Cambridge IELTS practice materials",
+        "British Council resources",
+        "Online reading comprehension exercises"
+      ]
+    }
+  },
+  "writing": {
+    "description": "Test your ability to write in English",
+    "skills": [
+      {
+        "name": "Task achievement",
+        "description": "Completing the task requirements",
+        "examples": [
+          "Following the task instructions",
+          "Meeting the word count",
+          "Using appropriate language"
+        ]
+      },
+      {
+        "name": "Task response",
+        "description": "Responding to the task",
+        "examples": [
+          "Using appropriate language",
+          "Following the task instructions",
+          "Meeting the word count"
+        ]
+      }
+    ],
+    "textTypes": [
+      {
+        "name": "Academic essays",
+        "description": "Formal academic writing tasks",
+        "examples": [
+          "Argumentative essays",
+          "Descriptive essays",
+          "Compare and contrast essays"
+        ]
+      },
+      {
+        "name": "Reports",
+        "description": "Data interpretation and analysis",
+        "examples": [
+          "Graph descriptions",
+          "Process descriptions",
+          "Chart analysis"
+        ]
+      }
+    ],
+    "questionTypes": [
+      {
+        "name": "Task 1",
+        "description": "Data interpretation and report writing",
+        "examples": [
+          "Graph description",
+          "Process description",
+          "Map description"
+        ]
+      },
+      {
+        "name": "Task 2",
+        "description": "Essay writing on given topic",
+        "examples": [
+          "Opinion essays",
+          "Discussion essays",
+          "Problem-solution essays"
+        ]
+      }
+    ],
+    "examStructure": {
+      "description": "The IELTS writing exam tests your ability to write academic English",
+      "parts": [
+        {
+          "name": "Task 1",
+          "description": "Report writing based on visual information",
+          "duration": 20,
+          "questions": 1,
+          "skills": ["Data analysis", "Report writing", "Academic vocabulary"],
+          "format": "Report writing task",
+          "tips": [
+            "Analyze the data carefully",
+            "Use appropriate academic language",
+            "Include key features"
+          ]
+        },
+        {
+          "name": "Task 2",
+          "description": "Essay writing on academic topic",
+          "duration": 40,
+          "questions": 1,
+          "skills": ["Essay writing", "Critical thinking", "Argumentation"],
+          "format": "Essay writing task",
+          "tips": [
+            "Plan your essay structure",
+            "Support your arguments",
+            "Use academic vocabulary"
+          ]
+        }
+      ],
+      "totalDuration": 60,
+      "totalQuestions": 2,
+      "passingScore": 6.0,
+      "difficulty": "6",
+      "preparationTime": "3-4 months",
+      "recommendedResources": [
+        "Cambridge IELTS practice materials",
+        "IELTS writing task samples",
+        "Academic word lists"
+      ]
+    }
+  }
+} 

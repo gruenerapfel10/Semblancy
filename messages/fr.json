@@ -1,0 +1,62 @@
+{
+  "common": {
+    "languageName": "Français",
+    "changeLanguage": "Changer de langue",
+    "more": "Plus"
+  },
+  "sidebar": {
+    "title": "Tableau de bord",
+    "overview": "Aperçu",
+    "mocks": "Mocks",
+    "competition": "Compétition",
+    "forums": "Forums",
+    "howItWorks": "Comment ça marche",
+    "changelog": "Journal des modifications",
+    "examCentreFinder": "Trouver un centre d'examen",
+    "pastPapers": "Sujets précédents",
+    "notes": "Notes",
+    "skills": "Compétences",
+    "flashcards": "Flashcards",
+    "specifications": "Spécifications",
+    "refresh": "Rafraîchir",
+    "settings": "Paramètres",
+    "contact": "Contact",
+    "viewProject": "Voir le projet",
+    "shareProject": "Partager le projet",
+    "deleteProject": "Supprimer le projet"
+  },
+  "reading": {
+    "title": "Exercice de lecture",
+    "timer": "Temps restant",
+    "question": "Question",
+    "of": "sur",
+    "finish": "Terminer",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "tryAgain": "Réessayer",
+    "results": "Résultats",
+    "score": "Votre score: {score} sur {total}",
+    "loading": "Chargement du texte de lecture...",
+    "error": "Erreur: {message}",
+    "failedToLoad": "Échec du chargement du texte de lecture. Veuillez réessayer.",
+    "generatingTitle": "Génération du texte...",
+    "generatingContent": "Génération du contenu...",
+    "generatingQuestions": "Génération des questions",
+    "waitingForPassage": "Veuillez patienter pendant la génération du texte",
+    "readPassageFirst": "Veuillez d'abord lire le texte"
+  },
+  "languages": {
+    "english": "Anglais",
+    "german": "Allemand",
+    "french": "Français"
+  },
+  "exams": {
+    "ieltsTitle": "IELTS",
+    "ieltsDescription": "Système d'évaluation de langue anglaise internationale",
+    "goetheTitle": "Goethe",
+    "goetheDescription": "Examen de langue allemande de l'Institut Goethe",
+    "targetLanguage": "Langue cible",
+    "examType": "Type d'examen",
+    "interfaceLanguage": "Langue d'interface"
+  }
+} 

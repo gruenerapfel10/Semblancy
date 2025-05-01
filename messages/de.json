@@ -1,0 +1,62 @@
+{
+    "common": {
+      "languageName": "Deutsch",
+      "changeLanguage": "Sprache ändern",
+      "more": "Mehr"
+    },
+    "sidebar": {
+      "title": "Dashboard",
+      "overview": "Übersicht",
+      "mocks": "Mocks",
+      "competition": "Wettbewerb",
+      "forums": "Foren",
+      "howItWorks": "So funktioniert's",
+      "changelog": "Änderungsprotokoll",
+      "examCentreFinder": "Prüfungszentrum finden",
+      "pastPapers": "Frühere Prüfungen",
+      "notes": "Notizen",
+      "skills": "Fähigkeiten",
+      "flashcards": "Karteikarten",
+      "specifications": "Spezifikationen",
+      "refresh": "Aktualisieren",
+      "settings": "Einstellungen",
+      "contact": "Kontakt",
+      "viewProject": "Projekt anzeigen",
+      "shareProject": "Projekt teilen",
+      "deleteProject": "Projekt löschen"
+    },
+    "reading": {
+      "title": "Leseübung",
+      "timer": "Verbleibende Zeit",
+      "question": "Frage",
+      "of": "von",
+      "finish": "Fertigstellen",
+      "next": "Weiter",
+      "previous": "Zurück",
+      "tryAgain": "Erneut versuchen",
+      "results": "Ergebnisse",
+      "score": "Ihre Punktzahl: {score} von {total}",
+      "loading": "Leseabschnitt wird geladen...",
+      "error": "Fehler: {message}",
+      "failedToLoad": "Leseabschnitt konnte nicht geladen werden. Bitte versuchen Sie es erneut.",
+      "generatingTitle": "Text wird generiert...",
+      "generatingContent": "Textinhalt wird generiert...",
+      "generatingQuestions": "Fragen werden generiert",
+      "waitingForPassage": "Bitte warten Sie, während der Text generiert wird",
+      "readPassageFirst": "Bitte lesen Sie zuerst den Text"
+    },
+    "languages": {
+      "english": "Englisch",
+      "german": "Deutsch",
+      "french": "Französisch"
+    },
+    "exams": {
+      "ieltsTitle": "IELTS",
+      "ieltsDescription": "Internationales Englisch-Sprachtestsystem",
+      "goetheTitle": "Goethe",
+      "goetheDescription": "Deutschprüfung des Goethe-Instituts",
+      "targetLanguage": "Zielsprache",
+      "examType": "Prüfungstyp",
+      "interfaceLanguage": "Anzeigesprache"
+    }
+  }

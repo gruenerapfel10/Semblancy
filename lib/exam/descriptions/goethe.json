@@ -1,0 +1,210 @@
+{
+  "reading": {
+    "description": "Test your ability to understand written German texts",
+    "skills": [
+      {
+        "name": "Reading comprehension",
+        "description": "Understanding main ideas and specific details in texts",
+        "examples": [
+          "Identifying key information",
+          "Understanding context",
+          "Following instructions"
+        ]
+      },
+      {
+        "name": "Text analysis",
+        "description": "Analyzing text structure and language features",
+        "examples": [
+          "Recognizing text types",
+          "Understanding text organization",
+          "Identifying language patterns"
+        ]
+      }
+    ],
+    "textTypes": [
+      {
+        "name": "Articles",
+        "description": "Informative texts from newspapers, magazines, or websites",
+        "examples": [
+          "News articles",
+          "Feature articles",
+          "Blog posts"
+        ]
+      },
+      {
+        "name": "Short stories",
+        "description": "Narrative texts with a clear plot and characters",
+        "examples": [
+          "Fictional stories",
+          "Personal narratives",
+          "Anecdotes"
+        ]
+      }
+    ],
+    "questionTypes": [
+      {
+        "name": "Multiple choice",
+        "description": "Select the correct answer from given options",
+        "examples": [
+          "Single correct answer",
+          "Multiple correct answers",
+          "Best answer selection"
+        ]
+      },
+      {
+        "name": "True/False",
+        "description": "Determine if statements are true or false based on the text",
+        "examples": [
+          "Factual statements",
+          "Inference questions",
+          "Opinion statements"
+        ]
+      }
+    ],
+    "examStructure": {
+      "description": "The reading exam consists of multiple parts testing different aspects of reading comprehension",
+      "parts": [
+        {
+          "name": "Part 1",
+          "description": "Short texts and notices",
+          "duration": 20,
+          "questions": 10,
+          "skills": ["Skimming", "Scanning", "Detailed reading"],
+          "format": "Multiple choice and matching questions",
+          "tips": [
+            "Read questions before the text",
+            "Look for key words",
+            "Pay attention to time management"
+          ]
+        },
+        {
+          "name": "Part 2",
+          "description": "Longer texts with complex information",
+          "duration": 20,
+          "questions": 10,
+          "skills": ["Inference", "Analysis", "Evaluation"],
+          "format": "True/False and multiple choice questions",
+          "tips": [
+            "Read the text carefully",
+            "Make notes of key points",
+            "Check your answers before submitting"
+          ]
+        }
+      ],
+      "totalDuration": 40,
+      "totalQuestions": 20,
+      "passingScore": 60,
+      "difficulty": "b1",
+      "preparationTime": "3-4 months",
+      "recommendedResources": [
+        "Goethe Institute practice materials",
+        "German newspapers and magazines",
+        "Online reading comprehension exercises"
+      ]
+    }
+  },
+  "writing": {
+    "description": "Test your ability to write in German",
+    "skills": [
+      {
+        "name": "Essay writing",
+        "description": "Writing structured essays with proper grammar and vocabulary",
+        "examples": [
+          "Argumentative essays",
+          "Descriptive essays",
+          "Opinion pieces"
+        ]
+      },
+      {
+        "name": "Letter writing",
+        "description": "Writing formal and informal letters",
+        "examples": [
+          "Formal letters",
+          "Informal letters",
+          "Emails"
+        ]
+      }
+    ],
+    "textTypes": [
+      {
+        "name": "Formal letters",
+        "description": "Professional and official correspondence",
+        "examples": [
+          "Business letters",
+          "Application letters",
+          "Complaint letters"
+        ]
+      },
+      {
+        "name": "Essays",
+        "description": "Structured written compositions",
+        "examples": [
+          "Argumentative essays",
+          "Descriptive essays",
+          "Opinion pieces"
+        ]
+      }
+    ],
+    "questionTypes": [
+      {
+        "name": "Essay",
+        "description": "Writing structured essays on given topics",
+        "examples": [
+          "Argumentative essays",
+          "Descriptive essays",
+          "Opinion pieces"
+        ]
+      },
+      {
+        "name": "Letter",
+        "description": "Writing formal or informal letters",
+        "examples": [
+          "Formal letters",
+          "Informal letters",
+          "Application letters"
+        ]
+      }
+    ],
+    "examStructure": {
+      "description": "The writing exam tests your ability to write in German",
+      "parts": [
+        {
+          "name": "Part 1",
+          "description": "Formal letter writing",
+          "duration": 30,
+          "questions": 1,
+          "skills": ["Formal writing", "Grammar", "Vocabulary"],
+          "format": "Formal letter",
+          "tips": [
+            "Use appropriate formal language",
+            "Follow the letter format",
+            "Check grammar and spelling"
+          ]
+        },
+        {
+          "name": "Part 2",
+          "description": "Essay writing",
+          "duration": 30,
+          "questions": 1,
+          "skills": ["Essay writing", "Argumentation", "Structure"],
+          "format": "Essay",
+          "tips": [
+            "Plan your essay structure",
+            "Use appropriate vocabulary",
+            "Support your arguments"
+          ]
+        }
+      ],
+      "totalDuration": 60,
+      "totalQuestions": 2,
+      "passingScore": 60,
+      "difficulty": "b1",
+      "preparationTime": "3-4 months",
+      "recommendedResources": [
+        "Goethe Institute materials",
+        "German writing guides",
+        "Online writing practice"
+      ]
+    }
+  }
+} 
