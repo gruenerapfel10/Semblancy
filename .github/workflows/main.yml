@@ -5,6 +5,7 @@ on:
     branches:
       - development
       - production
+      - v2_dev
 
 permissions:
   id-token: write
@@ -27,7 +28,7 @@ jobs:
           driver: docker-container
 
       - name: Configure AWS Credentials for DEVELOPMENT
-        if: github.ref == 'refs/heads/development'
+        if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/v2_dev'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.DEVELOPMENT_AWS_WEB_PORTAL_IAM_ROLE_ARN }}
@@ -35,7 +36,7 @@ jobs:
           mask-aws-account-id: "true"
 
       - name: Configure AWS Credentials for PRODUCTION
-        if: github.ref == 'refs/heads/production'
+        if: github.ref == 'refs/heads/production' || github.ref == 'refs/heads/v2_dev'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.PRODUCTION_AWS_WEB_PORTAL_IAM_ROLE_ARN }}
@@ -47,7 +48,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and Tag for Development
-        if: github.ref == 'refs/heads/development'
+        if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/v2_dev'
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -69,14 +70,14 @@ jobs:
             ${{ secrets.ECR_REPOSITORY }}:production
 
       - name: Fetch and clean task definition for Development
-        if: github.ref == 'refs/heads/development'
+        if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/v2_dev'
         run: |
           aws ecs describe-task-definition --task-definition gcse-simulator-web-app-task-dev --query taskDefinition > task-def-full.json
           jq 'del(.taskDefinitionArn, .status, .requiresAttributes, .compatibilities, .revision, .registeredAt, .registeredBy, .enableFaultInjection)' task-def-full.json > task-definition.json
           cat task-definition.json
 
       - name: Update Development ECS Service
-        if: github.ref == 'refs/heads/development'
+        if: github.ref == 'refs/heads/development' || github.ref == 'refs/heads/v2_dev'
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: task-definition.json
@@ -86,7 +87,7 @@ jobs:
 
   deploy_to_production:
     needs: Flow
-    if: github.ref == 'refs/heads/production'
+    if: github.ref == 'refs/heads/production' || github.ref == 'refs/heads/v2_dev'
     runs-on: ubuntu-latest
     environment:
       name: production

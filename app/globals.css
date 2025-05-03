@@ -2,6 +2,166 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/* MDXEditor Dark Mode Styles */
+.mdx-editor-dark {
+    --mdx-editor-toolbar-bg: hsl(var(--background));
+    --mdx-editor-toolbar-fg: hsl(var(--foreground));
+    --mdx-editor-button-bg: hsl(var(--secondary));
+    --mdx-editor-button-fg: hsl(var(--secondary-foreground));
+    --mdx-editor-toolbar-divider: hsl(var(--border));
+    --mdx-editor-button-active-bg: hsl(var(--primary));
+    --mdx-editor-button-active-fg: hsl(var(--primary-foreground));
+    --mdx-editor-button-hover-bg: hsl(var(--accent));
+    --mdx-editor-button-hover-fg: hsl(var(--accent-foreground));
+    --mdx-editor-placeholder-color: hsl(var(--muted-foreground));
+    --mdx-editor-content-bg: hsl(var(--background));
+    --mdx-editor-text-fg: hsl(var(--foreground));
+    /* Dialog, tooltip, and popover colors */
+    --mdx-editor-dialog-bg: hsl(var(--popover));
+    --mdx-editor-dialog-fg: hsl(var(--popover-foreground));
+    --mdx-editor-dialog-divider: hsl(var(--border));
+    /* Code blocks and code spans */
+    --mdx-editor-code-bg: hsl(var(--muted));
+    --mdx-editor-code-fg: hsl(var(--muted-foreground));
+}
+
+/* Direct style overrides with high specificity for dark mode */
+.mdx-editor-dark.mdxeditor-root {
+    --toolbar-background: hsl(var(--background)) !important;
+    --toolbar-foreground: hsl(var(--foreground)) !important;
+    --toolbar-border: hsl(var(--border)) !important;
+    --toolbar-divider: hsl(var(--border)) !important;
+    
+    --button-background: transparent !important;
+    --button-foreground: hsl(var(--foreground)) !important;
+    --button-border: hsl(var(--border)) !important;
+    
+    --button-hover-background: hsl(var(--accent)) !important;
+    --button-hover-foreground: hsl(var(--accent-foreground)) !important;
+    
+    --button-active-background: hsl(var(--primary)) !important;
+    --button-active-foreground: hsl(var(--primary-foreground)) !important;
+    
+    --editor-background: hsl(var(--background)) !important;
+    --editor-foreground: hsl(var(--foreground)) !important;
+    
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+}
+
+/* Override editor's default styles */
+.mdx-editor-dark [data-lexical-editor] {
+    color: hsl(var(--foreground)) !important;
+    background-color: hsl(var(--background)) !important;
+}
+
+/* Override toolbar styling with very specific selectors */
+.mdx-editor-dark .mdxeditor-toolbar,
+.mdx-editor-dark .toolbar-container {
+    background-color: hsl(var(--background)) !important;
+    border-bottom: 1px solid hsl(var(--border)) !important;
+    color: hsl(var(--foreground)) !important;
+}
+
+/* Override all button styling in the toolbar */
+.mdx-editor-dark .mdxeditor-toolbar button, 
+.mdx-editor-dark .mdxeditor-toolbar select,
+.mdx-editor-dark .toolbar-container button, 
+.mdx-editor-dark .toolbar-container select,
+.mdx-editor-dark .mdxeditor-toolbar-item,
+.mdx-editor-dark .mdxeditor-toolbar-dropdown {
+    color: hsl(var(--foreground)) !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    fill: hsl(var(--foreground)) !important;
+    stroke: hsl(var(--foreground)) !important;
+}
+
+/* SVG icons inside buttons */
+.mdx-editor-dark .mdxeditor-toolbar button svg,
+.mdx-editor-dark .toolbar-container button svg,
+.mdx-editor-dark .mdxeditor-toolbar-item svg {
+    color: hsl(var(--foreground)) !important;
+    fill: hsl(var(--foreground)) !important;
+    stroke: hsl(var(--foreground)) !important;
+}
+
+/* Hover states */
+.mdx-editor-dark .mdxeditor-toolbar button:hover, 
+.mdx-editor-dark .mdxeditor-toolbar select:hover,
+.mdx-editor-dark .toolbar-container button:hover, 
+.mdx-editor-dark .toolbar-container select:hover,
+.mdx-editor-dark .mdxeditor-toolbar-item:hover {
+    background-color: hsl(var(--accent)) !important;
+    color: hsl(var(--accent-foreground)) !important;
+}
+
+/* Active/selected button styling */
+.mdx-editor-dark .mdxeditor-toolbar button[data-active="true"],
+.mdx-editor-dark .toolbar-container button[data-active="true"],
+.mdx-editor-dark .mdxeditor-toolbar-item[data-active="true"] {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Active button SVG icons */
+.mdx-editor-dark .mdxeditor-toolbar button[data-active="true"] svg,
+.mdx-editor-dark .toolbar-container button[data-active="true"] svg,
+.mdx-editor-dark .mdxeditor-toolbar-item[data-active="true"] svg {
+    color: hsl(var(--primary-foreground)) !important;
+    fill: hsl(var(--primary-foreground)) !important;
+    stroke: hsl(var(--primary-foreground)) !important;
+}
+
+/* Dialog styling */
+.mdx-editor-dark .dialog-container,
+.mdx-editor-dark .mdxeditor-dialog,
+.mdx-editor-dark .mdxeditor-modal,
+.mdx-editor-dark .popover {
+    background-color: hsl(var(--popover)) !important;
+    color: hsl(var(--popover-foreground)) !important;
+    border: 1px solid hsl(var(--border)) !important;
+}
+
+/* Override dialog inputs */
+.mdx-editor-dark .dialog-container input,
+.mdx-editor-dark .dialog-container textarea,
+.mdx-editor-dark .mdxeditor-dialog input,
+.mdx-editor-dark .mdxeditor-dialog textarea,
+.mdx-editor-dark .mdxeditor-modal input,
+.mdx-editor-dark .mdxeditor-modal textarea {
+    background-color: hsl(var(--input)) !important;
+    color: hsl(var(--foreground)) !important;
+    border: 1px solid hsl(var(--border)) !important;
+}
+
+/* Override code blocks */
+.mdx-editor-dark .code-block,
+.mdx-editor-dark pre,
+.mdx-editor-dark code {
+    background-color: hsl(var(--muted)) !important;
+    color: hsl(var(--muted-foreground)) !important;
+}
+
+/* General MDXEditor light/dark mode shared styles */
+.toolbar-container {
+    @apply rounded-t-md;
+}
+
+.content-editable-container {
+    @apply rounded-b-md;
+}
+
 :root {
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
@@ -79,6 +239,8 @@
         --sidebar-accent-foreground: 240 5.9% 10%;
         --sidebar-border: 220 13% 91%;
         --sidebar-ring: 217.2 91.2% 59.8%;
+        --success: 142 76% 36%;
+        --success-foreground: 0 0% 98%;
     }
     .dark {
         --background: 240 10% 3.9%;
@@ -105,24 +267,16 @@
         --chart-3: 30 80% 55%;
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
-        --sidebar-background: 240 5.9% 10%;
+        --sidebar-background: 240 5.9% 7%;
         --sidebar-foreground: 240 4.8% 95.9%;
         --sidebar-primary: 224.3 76.3% 48%;
         --sidebar-primary-foreground: 0 0% 100%;
-        --sidebar-accent: 240 3.7% 15.9%;
+        --sidebar-accent: 240 3.7% 12%;
         --sidebar-accent-foreground: 240 4.8% 95.9%;
-        --sidebar-border: 240 3.7% 15.9%;
+        --sidebar-border: 240 3.7% 13%;
         --sidebar-ring: 217.2 91.2% 59.8%;
-    }
-}
-
-@layer base {
-    * {
-        @apply border-border;
-    }
-
-    body {
-        @apply bg-background text-foreground;
+        --success: 142 70% 45%;
+        --success-foreground: 0 0% 98%;
     }
 }
 
@@ -227,3 +381,183 @@
   .split-view-view::before {
     content: none !important;
   }
+
+/* Enhanced learning typography styles */
+.learning-content {
+  @apply leading-relaxed tracking-wide;
+}
+
+.learning-heading {
+  @apply font-serif text-3xl md:text-4xl leading-tight tracking-tight;
+}
+
+.learning-question {
+  @apply font-serif text-2xl md:text-3xl leading-relaxed;
+}
+
+.learning-answer {
+  @apply font-serif text-xl md:text-2xl leading-relaxed text-green-600 dark:text-green-400;
+}
+
+.learning-feedback {
+  @apply prose prose-lg dark:prose-invert max-w-none leading-relaxed;
+}
+
+.flashcard-input {
+  @apply text-lg p-6 h-16 rounded-full bg-muted/30 border-2 border-muted focus:border-primary transition-colors;
+}
+
+.flashcard-button {
+  @apply text-lg px-8 h-16 rounded-full transition-transform hover:scale-105;
+}
+
+/* Subtle animations for learning UI */
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.pulse-attention {
+  animation: soft-pulse 2s infinite ease-in-out;
+}
+
+/* Flowing Border Animation for Flashcards */
+@keyframes border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.flowing-border-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.flowing-border-card::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: calc(var(--radius) + 3px);
+  padding: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--primary)) 25%,
+    hsl(var(--primary)) 75%,
+    transparent 100%
+  );
+  background-size: 300% 100%;
+  animation: border-flow 3s ease infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.95;
+  transition: all 0.3s ease;
+}
+
+.flowing-border-correct::before {
+  inset: -3px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    hsl(var(--success)) 25%,
+    hsl(var(--success)) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  background-size: 300% 100%;
+  animation: border-flow 3s ease infinite;
+  box-shadow: 0 0 15px 0 hsla(var(--success), 0.5);
+}
+
+.flowing-border-incorrect::before {
+  inset: -3px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    hsl(var(--destructive)) 25%,
+    hsl(var(--destructive)) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  background-size: 300% 100%;
+  animation: border-flow 3s ease infinite;
+  box-shadow: 0 0 15px 0 hsla(var(--destructive), 0.5);
+}
+
+/* Add these styles for the flashcard animations */
+
+/* Card rotation and flipping */
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Attention pulse animation */
+.pulse-attention {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Flowing border animation */
+.flowing-border-card {
+  position: relative;
+  z-index: 0;
+}
+
+.flowing-border-card::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), transparent, var(--primary));
+  background-size: 200% 100%;
+  animation: borderFlow 2s linear infinite;
+}
+
+.flowing-border-correct::before {
+  background: linear-gradient(90deg, rgb(22, 163, 74), transparent, rgb(22, 163, 74));
+  background-size: 200% 100%;
+}
+
+.flowing-border-incorrect::before {
+  background: linear-gradient(90deg, rgb(220, 38, 38), transparent, rgb(220, 38, 38));
+  background-size: 200% 100%;
+}
+
+@keyframes borderFlow {
+  0% { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Styles for flashcard content */
+.learning-question {
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.learning-answer {
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.learning-content, .learning-feedback {
+  line-height: 1.7;
+}

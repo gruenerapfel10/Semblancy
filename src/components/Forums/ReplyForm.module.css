@@ -1,0 +1,271 @@
+.replyForm {
+  background: var(--background-light);
+  border-radius: var(--br-m);
+  padding: var(--padding-m);
+  margin-bottom: var(--gap-m);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(var(--text-color-rgb), 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.replyForm:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-color: rgba(var(--brand-color-rgb), 0.3);
+}
+
+.replyForm.expanded {
+  padding: var(--padding-l);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gap-s);
+}
+
+.expandToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  font-size: var(--font-xs);
+  color: var(--text-color-50);
+  cursor: pointer;
+  padding: var(--padding-xs) var(--padding-s);
+  border-radius: var(--br-s);
+  transition: all 0.2s ease;
+}
+
+.expandToggle:hover {
+  color: var(--text-color);
+  background: rgba(var(--text-color-rgb), 0.05);
+}
+
+.formattingBar {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+}
+
+.formattingButton {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--text-color-rgb), 0.05);
+  border: none;
+  border-radius: var(--br-s);
+  color: var(--text-color-50);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.formattingButton:hover {
+  background: rgba(var(--text-color-rgb), 0.1);
+  color: var(--text-color);
+  transform: translateY(-2px);
+}
+
+.textareaWrapper {
+  position: relative;
+  margin-bottom: var(--gap-m);
+}
+
+.replyInput {
+  width: 100%;
+  padding: var(--padding-m);
+  background: rgba(var(--card-background), 0.5);
+  border: 1px solid rgba(var(--text-color-rgb), 0.1);
+  border-radius: var(--br-m);
+  font-size: var(--font-s);
+  color: var(--text-color);
+  resize: none;
+  min-height: 60px;
+  transition: all 0.3s ease;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.replyForm.expanded .replyInput {
+  min-height: 120px;
+}
+
+.replyInput:focus {
+  outline: none;
+  border-color: var(--brand-color);
+  box-shadow: 0 0 0 3px rgba(var(--brand-color-rgb), 0.1);
+}
+
+.textareaTools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--gap-xs);
+  padding: 0 var(--padding-xs);
+}
+
+.emojiPickerWrapper {
+  position: relative;
+}
+
+.emojiToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: var(--br-s);
+  color: var(--text-color-50);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emojiToggle:hover, .emojiToggle.active {
+  background: rgba(var(--text-color-rgb), 0.05);
+  color: var(--text-color);
+}
+
+.emojiPicker {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  background: var(--background-light);
+  border-radius: var(--br-m);
+  padding: var(--padding-s);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-xs);
+  width: 240px;
+  border: 1px solid rgba(var(--text-color-rgb), 0.1);
+  z-index: 5;
+}
+
+.emojiButton {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: var(--br-xs);
+  font-size: var(--font-m);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.emojiButton:hover {
+  background: rgba(var(--text-color-rgb), 0.1);
+  transform: scale(1.2);
+}
+
+.charCount {
+  font-size: var(--font-xs);
+  color: var(--text-color-50);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--gap-s);
+}
+
+.cancelButton {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  padding: var(--padding-s) var(--padding-m);
+  background: rgba(var(--text-color-rgb), 0.05);
+  border: 1px solid rgba(var(--text-color-rgb), 0.1);
+  border-radius: var(--br-m);
+  color: var(--text-color-75);
+  font-size: var(--font-xs);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: rgba(var(--text-color-rgb), 0.1);
+  color: var(--text-color);
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  padding: var(--padding-s) var(--padding-m);
+  background: linear-gradient(135deg, var(--brand-color) 0%, var(--brand-color-darker) 100%);
+  border: none;
+  border-radius: var(--br-m);
+  color: white;
+  font-size: var(--font-xs);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(var(--brand-color-rgb), 0.3);
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  box-shadow: 0 6px 15px rgba(var(--brand-color-rgb), 0.5);
+  transform: translateY(-2px);
+}
+
+.submitButton.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton:disabled,
+.cancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .replyForm {
+    padding: var(--padding-s);
+  }
+  
+  .replyForm.expanded {
+    padding: var(--padding-m);
+  }
+  
+  .formHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-s);
+  }
+  
+  .formattingBar {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .formActions {
+    flex-direction: column;
+    gap: var(--gap-s);
+  }
+  
+  .cancelButton, .submitButton {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .emojiPicker {
+    left: -50px;
+    width: 200px;
+  }
+  
+  .emojiButton {
+    width: 32px;
+    height: 32px;
+  }
+}

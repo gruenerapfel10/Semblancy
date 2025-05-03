@@ -37,6 +37,7 @@ export function NavProjects({
     name: string
     url: string
     icon: React.ElementType
+    iconColor?: string
     actions?: {
       view?: boolean
       share?: boolean
@@ -58,7 +59,11 @@ export function NavProjects({
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild tooltip={t(item.name)}>
               <a href={item.url}>
-                <item.icon />
+                {item.iconColor ? (
+                  <item.icon style={{ color: item.iconColor }} />
+                ) : (
+                  <item.icon />
+                )}
                 <span>{t(item.name)}</span>
               </a>
             </SidebarMenuButton>

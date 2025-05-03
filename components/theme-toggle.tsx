@@ -9,39 +9,39 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
 
-  const getThemeIcon = () => {
-    switch (theme) {
-      case "light":
-        return <Sun className="mr-2 size-4" />
-      case "dark":
-        return <Moon className="mr-2 size-4" />
-      default:
-        return <Laptop className="mr-2 size-4" />
-    }
-  }
+  // useEffect only runs on the client, so now we can safely show the UI
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
-  const getThemeLabel = () => {
-    switch (theme) {
-      case "light":
-        return "Light"
-      case "dark":
-        return "Dark"
-      default:
-        return "System"
-    }
+  if (!mounted) {
+    return (
+      <Button variant="ghost" size="icon">
+        <Laptop className="size-4" />
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    )
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-          {getThemeIcon()}
-          Theme: {getThemeLabel()}
-        </DropdownMenuItem>
+        <Button variant="ghost" size="icon">
+          {theme === 'dark' ? (
+            <Moon className="size-4" />
+          ) : theme === 'light' ? (
+            <Sun className="size-4" />
+          ) : (
+            <Laptop className="size-4" />
+          )}
+          <span className="sr-only">Toggle theme</span>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" side="right" sideOffset={-5}>
         <DropdownMenuItem onClick={() => setTheme("light")}>

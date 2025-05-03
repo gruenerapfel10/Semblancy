@@ -1,0 +1,21 @@
+.learnMoreButton {
+  height: 4vw;
+  min-width: 15vw;
+  border-radius: 50px;
+  background-color: var(--kredirel-light-blue);
+  border: 2px solid var(--kredirel-light-blue);
+  font-weight: 500;
+  color: #fff;
+  font-size: 1.25vw;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.learnMoreButton:hover {
+  background-color: rgba(29, 164, 221, 0.2);
+}

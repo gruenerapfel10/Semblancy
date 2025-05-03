@@ -15,6 +15,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarProvider,
 } from "@/components/ui/sidebar"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { useTranslation } from "@/lib/i18n/hooks"
@@ -27,6 +28,7 @@ const menuItems = [
     translationKey: "sidebar.overview",
     url: "/dashboard/overview",
     icon: FaHome,
+    iconColor: "#4f46e5", // Indigo
     description: "Overview of your progress and next steps",
     actions: { view: false, share: false, delete: false }
   },
@@ -35,6 +37,7 @@ const menuItems = [
     translationKey: "sidebar.mocks",
     url: "/dashboard/mocks",
     icon: FaFileAlt,
+    iconColor: "#0ea5e9", // Sky blue
     description: "Practice mock exams",
     actions: { view: false, share: false, delete: false }
   },
@@ -43,6 +46,7 @@ const menuItems = [
     translationKey: "sidebar.competition",
     url: "/dashboard/competition",
     icon: FaTrophy,
+    iconColor: "#f59e0b", // Amber
     description: "Compete with others",
     actions: { view: false, share: false, delete: false }
   },
@@ -51,6 +55,7 @@ const menuItems = [
     translationKey: "sidebar.forums",
     url: "/dashboard/forums",
     icon: FaComments,
+    iconColor: "#10b981", // Emerald
     description: "Join the discussion forums",
     actions: { view: false, share: false, delete: false }
   },
@@ -59,6 +64,7 @@ const menuItems = [
     translationKey: "sidebar.howItWorks",
     url: "/dashboard/how-it-works",
     icon: FaQuestionCircle,
+    iconColor: "#8b5cf6", // Violet
     description: "Learn how the platform works",
     actions: { view: false, share: false, delete: false }
   },
@@ -67,6 +73,7 @@ const menuItems = [
     translationKey: "sidebar.changelog",
     url: "/dashboard/changelog",
     icon: FaHistory,
+    iconColor: "#ec4899", // Pink
     description: "See recent updates",
     actions: { view: false, share: false, delete: false }
   },
@@ -75,6 +82,7 @@ const menuItems = [
     translationKey: "sidebar.examCentreFinder",
     url: "/dashboard/exam-centre-finder",
     icon: FaMapMarkerAlt,
+    iconColor: "#ef4444", // Red
     description: "Find exam centres",
     actions: { view: false, share: false, delete: false }
   },
@@ -86,6 +94,7 @@ const revisionItems = [
     translationKey: "sidebar.pastPapers",
     url: "/dashboard/past-papers",
     icon: FaFileArchive,
+    iconColor: "#6366f1", // Indigo
     description: "Access past exam papers",
     actions: { view: false, share: false, delete: false }
   },
@@ -94,6 +103,7 @@ const revisionItems = [
     translationKey: "sidebar.notes",
     url: "/dashboard/notes",
     icon: FaStickyNote,
+    iconColor: "#f97316", // Orange
     description: "View and create notes",
     actions: { view: false, share: false, delete: false }
   },
@@ -102,6 +112,7 @@ const revisionItems = [
     translationKey: "sidebar.skills",
     url: "/dashboard/skills",
     icon: FaTools,
+    iconColor: "#0284c7", // Sky blue dark
     description: "Practice skills",
     actions: { view: false, share: false, delete: false }
   },
@@ -110,6 +121,7 @@ const revisionItems = [
     translationKey: "sidebar.flashcards",
     url: "/dashboard/flashcards",
     icon: FaRegClone,
+    iconColor: "#4ade80", // Green
     description: "Review flashcards",
     actions: { view: false, share: false, delete: false }
   },
@@ -118,6 +130,7 @@ const revisionItems = [
     translationKey: "sidebar.specifications",
     url: "/dashboard/specifications",
     icon: FaListAlt,
+    iconColor: "#a855f7", // Purple
     description: "View exam specifications",
     actions: { view: false, share: false, delete: false }
   },
@@ -129,6 +142,7 @@ const supportItems = [
     translationKey: "sidebar.refresh",
     url: "/dashboard/refresh",
     icon: FaSync,
+    iconColor: "#3b82f6", // Blue
     description: "Refresh the page",
     actions: { view: false, share: false, delete: false }
   },
@@ -137,6 +151,7 @@ const supportItems = [
     translationKey: "sidebar.settings",
     url: "/dashboard/settings",
     icon: FaCog,
+    iconColor: "#64748b", // Slate
     description: "Customize your experience",
     actions: { view: false, share: false, delete: false }
   },
@@ -145,6 +160,7 @@ const supportItems = [
     translationKey: "sidebar.contact",
     url: "/dashboard/contact",
     icon: FaEnvelope,
+    iconColor: "#06b6d4", // Cyan
     description: "Contact support",
     actions: { view: false, share: false, delete: false }
   },
@@ -207,10 +223,16 @@ export function AppSidebar({ user: propUser, ...props }: AppSidebarProps) {
   };
 
   return (
-    <Sidebar collapsible="icon" className="pb-[50px]" {...props}>
+    <Sidebar 
+      collapsible="icon"
+      variant="inset"
+      side="left"
+      className="relative h-full pb-[50px] bg-sidebar" 
+      {...props}
+    >
       <SidebarHeader>
         <div className="px-2 py-2 flex flex-col gap-4">
-          <div className="flex flex-col gap-2 bg-muted/50 rounded-lg">
+          <div className="flex flex-col gap-2 rounded-lg">
             <ExamSwitcher />
             <LanguageSwitcher />
           </div>
@@ -245,7 +267,6 @@ export function AppSidebar({ user: propUser, ...props }: AppSidebarProps) {
       <SidebarFooter>
         <NavUser user={userData} />
       </SidebarFooter>
-      <SidebarRail />
     </Sidebar>
   )
 }

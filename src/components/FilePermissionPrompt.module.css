@@ -1,0 +1,96 @@
+.permissionPrompt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.promptContent {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.promptContent h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin: 16px 0;
+  background-color: #f9f9f9;
+}
+
+.fileIcon {
+  margin-right: 12px;
+}
+
+.fileName {
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.promptHelp {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.progress {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.progressBar {
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #4361ee;
+  transition: width 0.3s ease;
+}
+
+.promptActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.cancelButton {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancelButton:hover {
+  background-color: #f5f5f5;
+}
+
+.cancelButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

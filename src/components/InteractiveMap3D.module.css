@@ -1,0 +1,262 @@
+/* Container styles */
+.container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    height: 600px;
+  }
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+}
+
+/* Modal styles */
+.modal {
+  position: absolute;
+  z-index: 1000;
+  max-height: min(500px, 60vh);
+  width: 400px;
+  max-width: 90vw;
+  padding: var(--padding-m);
+  border-radius: 16px;
+
+  /* Glass effect with CSS variables */
+  background: var(--card-background);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+
+  /* Animation */
+  animation: modalFadeIn 0.3s ease-out;
+  transform-origin: center center;
+  transition: all 0.3s ease;
+
+  color: var(--text-color);
+  overflow: hidden;
+  resize: none;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: var(--gap-m);
+  padding-bottom: var(--padding-s);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4rem;
+  width: 100%;
+}
+
+.modalTitle {
+  font-size: var(--font-l);
+  font-weight: bold;
+  margin: 0;
+  color: var(--complementary-color);
+  user-select: none;
+}
+
+:global([data-theme="dark"]) .modalTitle {
+  color: var(--text-color);
+}
+
+.modalClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--text-color);
+  transition: all 0.2s ease;
+}
+
+.modalClose:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.modalClose:active {
+  transform: scale(0.95);
+}
+
+.modalContent {
+  font-size: var(--font-s);
+  color: var(--text-color);
+  overflow-y: auto;
+  max-height: 320px;
+  padding-right: var(--padding-s);
+}
+
+.modalContent p {
+  margin: var(--gap-s) 0;
+  line-height: 1.5;
+}
+
+.modal:hover {
+  cursor: grab;
+}
+
+.modal:active {
+  cursor: grabbing;
+}
+
+/* Planet glow animation */
+@keyframes planetGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--brand-color-rgb), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--brand-color-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--brand-color-rgb), 0);
+  }
+}
+
+/* Draggable corners */
+.dragHandle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.modal:hover .dragHandle {
+  opacity: 1;
+}
+
+.dragHandle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  cursor: grab;
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
+/* Modal footer and button styles */
+.modalFooter {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--text-color-10);
+}
+
+.learningMaterialsBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--brand-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.learningMaterialsBtn:hover {
+  background: var(--brand-color-darker);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.learningMaterialsBtn:active {
+  transform: translateY(0);
+}
+
+.modal {
+  position: absolute;
+  z-index: 1000;
+  max-height: min(500px, 60vh);
+  width: 400px;
+  max-width: 90vw;
+  padding: var(--padding-m);
+  border-radius: 16px;
+
+  /* Glass effect with CSS variables */
+  background: var(--card-background);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+
+  /* Animation but exclude position properties */
+  animation: modalFadeIn 0.3s ease-out;
+  transform-origin: center center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  color: var(--text-color);
+  overflow: hidden;
+  resize: none;
+}
+
+/* Add a class for dragging state */
+.modalDragging {
+  transition: none !important;
+}
+
+/* Add these styles to your CSS module or global styles */
+
+/* Base modal styles that can be used by custom modals */
+.customModal {
+  position: fixed;
+  z-index: 1000;
+  border-radius: 12px;
+  background: var(--card-background, rgba(255, 255, 255, 0.9));
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+
+  /* Use specific properties for transitions to avoid position lag */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+/* Disable transitions while dragging */
+.modalDragging {
+  transition: none !important;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

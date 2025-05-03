@@ -1,0 +1,30 @@
+/* Flashcard styles */
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Interactive mode matching animation */
+@keyframes pulse-correct {
+  0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+@keyframes pulse-incorrect {
+  0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+.animate-pulse-correct {
+  animation: pulse-correct 1.5s;
+}
+
+.animate-pulse-incorrect {
+  animation: pulse-incorrect 1.5s;
+} 

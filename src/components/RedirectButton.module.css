@@ -1,0 +1,61 @@
+.redirectButton {
+  height: 3vw;
+  width: 12vw;
+  border-radius: 10vw;
+  background-color: var(--kredirel-orange);
+  border: none;
+  font-weight: 500;
+  color: #fff;
+  font-size: 1vw;
+  padding: 0 1vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.redirectButton:hover {
+  opacity: 0.9;
+}
+
+/* Small size */
+.sizeS {
+  height: 3vw;
+  min-width: 10vw;
+  font-size: 1vw;
+  padding: 0 1.5vw;
+}
+
+/* Medium size (default) */
+.sizeM {
+  height: 4vw;
+  min-width: 20vw;
+  font-size: 1.25vw;
+  padding: 0 1vw;
+}
+
+/* Large size */
+.sizeL {
+  height: 8vw;
+  min-width: 25vw;
+  font-size: 1.5vw;
+  padding: 0 1vw;
+}
+
+/* Extra large size */
+.sizeXL {
+  height: 6vw;
+  min-width: 30vw;
+  font-size: 1.8vw;
+  padding: 0 1vw;
+}
+
+@media (max-width: 768px) {
+  .redirectButton {
+    height: 14vw;
+    width: 100%;
+    font-size: 3.5vw;
+  }
+}
