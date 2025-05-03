@@ -458,7 +458,7 @@ const FlashcardDashboard: React.FC = () => {
                       <div className="mt-6 p-4 bg-muted/30 rounded-lg">
                         <h4 className="text-sm font-medium mb-2">About Forgetting Curve</h4>
                         <p className="text-xs text-muted-foreground">
-                          Based on Hermann Ebbinghaus' research, our algorithm calculates memory retention using the exponential forgetting curve formula: R = e^(-t/S), where R is retention, t is time since last review, and S is memory strength (which increases with repetition and performance).
+                          Based on Hermann Ebbinghaus&apos; research, our algorithm calculates memory retention using the exponential forgetting curve formula: R = e^(-t/S), where R is retention, t is time since last review, and S is memory strength (which increases with repetition and performance).
                         </p>
                         <p className="text-xs text-muted-foreground mt-2">
                           Libraries that need review are indicated with colored borders in the sidebar, making it easy to identify which content needs your attention while maintaining a clean interface.

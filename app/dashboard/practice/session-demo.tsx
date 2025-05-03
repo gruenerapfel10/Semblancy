@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -22,15 +22,15 @@ export default function SessionDemo() {
   const examTypes = ExamModuleRegistry.getAllExamTypes();
   
   // Get modules for selected exam type
-  const modules = React.useMemo(() => {
-    const module = ExamModuleRegistry.getModule(examType);
-    return module ? module.getModules() : [];
+  const moduleData = useMemo(() => {
+    const examModule = ExamModuleRegistry.getModule(examType);
+    return examModule ? examModule.getModules() : [];
   }, [examType]);
 
   // Get levels for selected exam type
-  const levels = React.useMemo(() => {
-    const module = ExamModuleRegistry.getModule(examType);
-    return module ? module.getLevels() : [];
+  const levels = useMemo(() => {
+    const examModule = ExamModuleRegistry.getModule(examType);
+    return examModule ? examModule.getLevels() : [];
   }, [examType]);
 
   // Handle starting a new session
@@ -96,7 +96,7 @@ export default function SessionDemo() {
                     <SelectValue placeholder="Select Module" />
                   </SelectTrigger>
                   <SelectContent>
-                    {modules.map(module => (
+                    {moduleData.map(module => (
                       <SelectItem key={module.id} value={module.id}>
                         {module.label}
                       </SelectItem>
@@ -152,13 +152,13 @@ export default function SessionDemo() {
             <ol className="list-decimal pl-5 space-y-1">
               <li>Select an exam type, module, and level</li>
               <li>Choose the number of questions</li>
-              <li>Click "Start New Session" to create a session</li>
+              <li>Click &quot;Start New Session&quot; to create a session</li>
               <li>Use the session controller to interact with the session</li>
               <li>Answer the questions to see progress tracking</li>
               <li>End the session when finished</li>
             </ol>
             <p className="mt-2 text-sm text-muted-foreground">
-              This demo shows how the session management system tracks user progress during an exam.
+              &quot;This demo shows how the session management system tracks user progress during an exam.&quot;
             </p>
           </div>
         </div>

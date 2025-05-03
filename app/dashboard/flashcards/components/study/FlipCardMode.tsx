@@ -56,7 +56,7 @@ const FlipCardMode: React.FC<FlipCardModeProps> = ({
           disabled={!flipped}
         >
           <XCircle className="h-5 w-5" />
-          Didn't Know
+          Didn&apos;t Know
         </Button>
         
         <Button

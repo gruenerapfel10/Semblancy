@@ -25,7 +25,7 @@ export default function DashboardLayout({
           </main>
           <AIPanel open={isAIPanelOpen} onOpenChange={setIsAIPanelOpen} />
         </div>
-        <DebugControls />
+        {/* <DebugControls /> */}
       </div>
     </SidebarProvider>
   );

@@ -74,16 +74,16 @@ const FlashcardStudyConfig: React.FC<FlashcardStudyConfigProps> = ({
             {studyMode === 'flip' ? (
               <div>
                 <p className="text-sm mb-2">
-                  In Flip Cards mode, you'll see the front of each card and can flip it to reveal the answer.
+                  In Flip Cards mode, you&apos;ll see the front of each card and can flip it to reveal the answer.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  After seeing the answer, you'll self-report whether you knew it or not.
+                  After seeing the answer, you&apos;ll self-report whether you knew it or not.
                 </p>
               </div>
             ) : (
               <div>
                 <p className="text-sm mb-2">
-                  In Interactive mode, you'll be asked to type your answer for each card.
+                  In Interactive mode, you&apos;ll be asked to type your answer for each card.
                 </p>
                 <p className="text-sm text-muted-foreground">
                   Your answer will be automatically checked against the correct answer.

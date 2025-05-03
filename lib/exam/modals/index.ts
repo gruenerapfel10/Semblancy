@@ -1,4 +1,7 @@
+// Import base registry
 import { modalRegistry } from './base';
+
+// Import modals
 import { multipleChoiceModal } from './multiple-choice';
 import { fillGapModal } from './fill-gap';
 
@@ -9,7 +12,4 @@ modalRegistry.register(fillGapModal);
 // Export everything
 export * from './base';
 export * from './multiple-choice';
-export * from './fill-gap';
-
-// Export registry instance
-export { modalRegistry }; 
+export * from './fill-gap'; 

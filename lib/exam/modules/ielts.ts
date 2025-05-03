@@ -52,6 +52,10 @@ export class IeltsExamModule extends BaseExamModule {
         label: 'Reading',
         details: {
           ...descriptions.reading,
+          examStructure: {
+            ...descriptions.reading.examStructure,
+            difficulty: this.getDescriptiveDifficulty(descriptions.reading.examStructure.difficulty)
+          },
           supportedModals: this.getSupportedModalsForModule(IELTS_MODULES.READING)
         }
       },
@@ -60,6 +64,10 @@ export class IeltsExamModule extends BaseExamModule {
         label: 'Writing',
         details: {
           ...descriptions.writing,
+          examStructure: {
+            ...descriptions.writing.examStructure,
+            difficulty: this.getDescriptiveDifficulty(descriptions.writing.examStructure.difficulty)
+          },
           supportedModals: this.getSupportedModalsForModule(IELTS_MODULES.WRITING)
         }
       },
@@ -68,6 +76,10 @@ export class IeltsExamModule extends BaseExamModule {
         label: 'Listening',
         details: {
           ...descriptions.listening,
+          examStructure: {
+            ...descriptions.listening.examStructure,
+            difficulty: this.getDescriptiveDifficulty(descriptions.listening.examStructure.difficulty)
+          },
           supportedModals: this.getSupportedModalsForModule(IELTS_MODULES.LISTENING)
         }
       },
@@ -76,6 +88,10 @@ export class IeltsExamModule extends BaseExamModule {
         label: 'Speaking',
         details: {
           ...descriptions.speaking,
+          examStructure: {
+            ...descriptions.speaking.examStructure,
+            difficulty: this.getDescriptiveDifficulty(descriptions.speaking.examStructure.difficulty)
+          },
           supportedModals: this.getSupportedModalsForModule(IELTS_MODULES.SPEAKING)
         }
       }
@@ -134,74 +150,15 @@ export class IeltsExamModule extends BaseExamModule {
   private createBandDetails(band: string, moduleId: IeltsModuleType) {
     const bandNum = parseInt(band, 10);
     
+    // Base details for the band
     const baseDetails = {
       description: `This Band ${band} exam tests your ability to understand and use English in ${moduleId} contexts at an ${this.getBandLabel(band).toLowerCase()} level.`,
-      skills: [
-        {
-          name: `${moduleId.charAt(0).toUpperCase() + moduleId.slice(1)} at Band ${band}`,
-          description: `Understanding and processing ${moduleId} content at Band ${band} level`,
-          examples: [
-            'Identifying main ideas',
-            'Understanding specific details',
-            'Following instructions'
-          ]
-        },
-        {
-          name: 'Vocabulary building',
-          description: 'Expanding and using appropriate vocabulary',
-          examples: [
-            'Learning new words in context',
-            'Using vocabulary accurately',
-            'Understanding word relationships'
-          ]
-        },
-        {
-          name: 'Grammar practice',
-          description: 'Using correct grammar structures',
-          examples: [
-            'Applying grammar rules',
-            'Using appropriate tenses',
-            'Forming correct sentences'
-          ]
-        }
-      ],
-      textTypes: [
-        {
-          name: 'Academic texts',
-          description: 'Texts from academic sources',
-          examples: ['Research papers', 'Academic articles', 'Textbook extracts']
-        },
-        {
-          name: 'Diagrams',
-          description: 'Visual representations of information',
-          examples: ['Flow charts', 'Process diagrams', 'Technical drawings']
-        },
-        {
-          name: 'Charts',
-          description: 'Data visualization and statistical information',
-          examples: ['Bar charts', 'Line graphs', 'Pie charts']
-        }
-      ],
-      questionTypes: [
-        {
-          name: 'Multiple choice',
-          description: 'Select the correct answer from options',
-          examples: ['Single answer', 'Multiple answers', 'Best answer']
-        },
-        {
-          name: 'True/False/Not Given',
-          description: 'Determine if statements are true, false, or not mentioned',
-          examples: ['Factual statements', 'Inference questions', 'Opinion statements']
-        },
-        {
-          name: 'Matching',
-          description: 'Match related items or information',
-          examples: ['Headings with paragraphs', 'Questions with answers', 'Statements with speakers']
-        }
-      ],
+      skills: this.getSkillsForBand(bandNum, moduleId),
+      textTypes: this.getTextTypesForBand(bandNum, moduleId),
+      questionTypes: this.getQuestionTypesForBand(bandNum, moduleId),
       supportedModals: this.getSupportedModalsForModule(moduleId),
       examStructure: {
-        description: `The Band ${band} exam structure is designed to test your ${moduleId} skills comprehensively.`,
+        description: this.getExamStructureDescription(bandNum, moduleId),
         parts: [
           {
             name: 'Part 1',
@@ -249,7 +206,7 @@ export class IeltsExamModule extends BaseExamModule {
         totalDuration: 60,
         totalQuestions: 40,
         passingScore: bandNum,
-        difficulty: this.getDifficultyLevel(bandNum),
+        difficulty: this.getDescriptiveDifficulty(band),
         preparationTime: this.getPreparationTime(bandNum),
         recommendedResources: [
           'Cambridge IELTS materials',
@@ -262,9 +219,117 @@ export class IeltsExamModule extends BaseExamModule {
     return baseDetails;
   }
 
+  // Helper method to get skills for a band level
+  private getSkillsForBand(band: number, moduleId: IeltsModuleType) {
+    return [
+      {
+        name: `${moduleId.charAt(0).toUpperCase() + moduleId.slice(1)} at Band ${band}`,
+        description: `Understanding and processing ${moduleId} content at Band ${band} level`,
+        examples: [
+          'Identifying main ideas',
+          'Understanding specific details',
+          'Following instructions'
+        ]
+      },
+      {
+        name: 'Vocabulary building',
+        description: 'Expanding and using appropriate vocabulary',
+        examples: [
+          'Learning new words in context',
+          'Using vocabulary accurately',
+          'Understanding word relationships'
+        ]
+      },
+      {
+        name: 'Grammar practice',
+        description: 'Using correct grammar structures',
+        examples: [
+          'Applying grammar rules',
+          'Using appropriate tenses',
+          'Forming correct sentences'
+        ]
+      }
+    ];
+  }
+
+  // Helper method to get text types for a band level
+  private getTextTypesForBand(band: number, moduleId: IeltsModuleType) {
+    return [
+      {
+        name: 'Academic texts',
+        description: 'Texts from academic sources',
+        examples: ['Research papers', 'Academic articles', 'Textbook extracts']
+      },
+      {
+        name: 'Diagrams',
+        description: 'Visual representations of information',
+        examples: ['Flow charts', 'Process diagrams', 'Technical drawings']
+      },
+      {
+        name: 'Charts',
+        description: 'Data visualization and statistical information',
+        examples: ['Bar charts', 'Line graphs', 'Pie charts']
+      }
+    ];
+  }
+
+  // Helper method to get question types for a band level
+  private getQuestionTypesForBand(band: number, moduleId: IeltsModuleType) {
+    return [
+      {
+        name: 'Multiple choice',
+        description: 'Select the correct answer from options',
+        examples: ['Single answer', 'Multiple answers', 'Best answer']
+      },
+      {
+        name: 'True/False/Not Given',
+        description: 'Determine if statements are true, false, or not mentioned',
+        examples: ['Factual statements', 'Inference questions', 'Opinion statements']
+      },
+      {
+        name: 'Matching',
+        description: 'Match related items or information',
+        examples: ['Headings with paragraphs', 'Questions with answers', 'Statements with speakers']
+      }
+    ];
+  }
+
+  // Helper method to get exam structure description
+  private getExamStructureDescription(band: number, moduleId: IeltsModuleType) {
+    return `The Band ${band} exam structure is designed to test your ${moduleId} skills comprehensively.`;
+  }
+
   // Helper method to determine difficulty level based on band
   private getDifficultyLevel(band: number): '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' {
     return band.toString() as '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+  }
+
+  // Helper method to map band/CEFR level to descriptive difficulty
+  private getDescriptiveDifficulty(level: string): 'beginner' | 'elementary' | 'intermediate' | 'upper-intermediate' | 'advanced' | 'proficiency' {
+    // Map CEFR levels
+    const cefrMap: Record<string, 'beginner' | 'elementary' | 'intermediate' | 'upper-intermediate' | 'advanced' | 'proficiency'> = {
+      'a1': 'beginner',
+      'a2': 'elementary',
+      'b1': 'intermediate',
+      'b2': 'upper-intermediate',
+      'c1': 'advanced',
+      'c2': 'proficiency'
+    };
+
+    // Map numeric bands (IELTS)
+    const numericMap: Record<string, 'beginner' | 'elementary' | 'intermediate' | 'upper-intermediate' | 'advanced' | 'proficiency'> = {
+      '1': 'beginner',
+      '2': 'beginner',
+      '3': 'elementary',
+      '4': 'elementary',
+      '5': 'intermediate',
+      '6': 'intermediate',
+      '7': 'upper-intermediate',
+      '8': 'advanced',
+      '9': 'proficiency'
+    };
+
+    return cefrMap[level.toLowerCase()] || numericMap[level] || 'intermediate';
   }
 
   // Helper method to determine preparation time based on band

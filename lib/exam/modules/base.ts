@@ -41,7 +41,7 @@ export interface ExamModuleDetails {
     totalDuration: number;
     totalQuestions: number;
     passingScore: number;
-    difficulty: 'a1' | 'a2' | 'b1' | 'b2' | 'c1' | 'c2' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+    difficulty: 'beginner' | 'elementary' | 'intermediate' | 'upper-intermediate' | 'advanced' | 'proficiency';
     preparationTime: string;
     recommendedResources: string[];
   };

@@ -35,6 +35,19 @@ export class GoetheExamModule extends BaseExamModule {
   private levelConfigs: Record<GoetheLevelType, Record<GoetheModuleType, LevelConfig>>;
   private examTypeConfig: ExamTypeConfig;
 
+  // Helper method to map CEFR level to descriptive difficulty
+  private getDescriptiveDifficulty(level: string): 'beginner' | 'elementary' | 'intermediate' | 'upper-intermediate' | 'advanced' | 'proficiency' {
+    const difficultyMap: Record<string, 'beginner' | 'elementary' | 'intermediate' | 'upper-intermediate' | 'advanced' | 'proficiency'> = {
+      'a1': 'beginner',
+      'a2': 'elementary',
+      'b1': 'intermediate',
+      'b2': 'upper-intermediate',
+      'c1': 'advanced',
+      'c2': 'proficiency'
+    };
+    return difficultyMap[level.toLowerCase()] || 'intermediate';
+  }
+
   constructor() {
     super();
 
@@ -60,6 +73,10 @@ export class GoetheExamModule extends BaseExamModule {
         label: 'Reading',
         details: {
           ...descriptions.reading,
+          examStructure: {
+            ...descriptions.reading.examStructure,
+            difficulty: this.getDescriptiveDifficulty(descriptions.reading.examStructure.difficulty)
+          },
           supportedModals: this.getSupportedModalsForModule(GOETHE_MODULES.READING)
         }
       },
@@ -68,6 +85,10 @@ export class GoetheExamModule extends BaseExamModule {
         label: 'Writing',
         details: {
           ...descriptions.writing,
+          examStructure: {
+            ...descriptions.writing.examStructure,
+            difficulty: this.getDescriptiveDifficulty(descriptions.writing.examStructure.difficulty)
+          },
           supportedModals: this.getSupportedModalsForModule(GOETHE_MODULES.WRITING)
         }
       },
@@ -76,6 +97,10 @@ export class GoetheExamModule extends BaseExamModule {
         label: 'Listening',
         details: {
           ...descriptions.listening,
+          examStructure: {
+            ...descriptions.listening.examStructure,
+            difficulty: this.getDescriptiveDifficulty(descriptions.listening.examStructure.difficulty)
+          },
           supportedModals: this.getSupportedModalsForModule(GOETHE_MODULES.LISTENING)
         }
       },
@@ -84,6 +109,10 @@ export class GoetheExamModule extends BaseExamModule {
         label: 'Speaking',
         details: {
           ...descriptions.speaking,
+          examStructure: {
+            ...descriptions.speaking.examStructure,
+            difficulty: this.getDescriptiveDifficulty(descriptions.speaking.examStructure.difficulty)
+          },
           supportedModals: this.getSupportedModalsForModule(GOETHE_MODULES.SPEAKING)
         }
       }
@@ -191,10 +220,17 @@ export class GoetheExamModule extends BaseExamModule {
     // Create a record with a configuration for each level and module
     return levels.reduce((levelConfigs, levelId) => {
       levelConfigs[levelId] = modules.reduce((moduleConfigs, moduleId) => {
+        const baseDetails = this.moduleConfigs[moduleId].details;
         moduleConfigs[moduleId] = {
           id: levelId,
           label: this.getLevelLabel(levelId),
-          details: this.moduleConfigs[moduleId].details
+          details: {
+            ...baseDetails,
+            examStructure: {
+              ...baseDetails.examStructure,
+              difficulty: this.getDescriptiveDifficulty(levelId)
+            }
+          }
         };
         return moduleConfigs;
       }, {} as Record<GoetheModuleType, LevelConfig>);

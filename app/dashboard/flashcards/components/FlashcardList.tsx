@@ -132,7 +132,7 @@ const FlashcardList: React.FC<FlashcardListProps> = ({
                 <>
                   <h3 className="text-lg font-medium">No matching cards</h3>
                   <p className="mb-4 text-sm text-muted-foreground max-w-sm mt-1">
-                    No cards match your search query "{searchQuery}"
+                    No cards match your search query &quot;{searchQuery}&quot;
                   </p>
                 </>
               )}
@@ -152,7 +152,9 @@ const FlashcardList: React.FC<FlashcardListProps> = ({
                     <div className="grid grid-cols-[1fr,1fr,auto] gap-4">
                       <div className="p-4 border-r">
                         <div className="text-xs font-medium text-muted-foreground mb-1">Front</div>
-                        <div className="font-medium">{card.front}</div>
+                        <div className="text-sm text-muted-foreground">
+                          &quot;{card.front}&quot;
+                        </div>
                       </div>
                       <div className="p-4">
                         <div className="text-xs font-medium text-muted-foreground mb-1">Back</div>

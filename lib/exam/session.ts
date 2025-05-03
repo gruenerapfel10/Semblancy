@@ -83,15 +83,16 @@ export class ExamSession {
 
   // Get module details for current session
   private getExamModule() {
-    return ExamModuleRegistry.getModule(this.state.examType);
+    const examModule = ExamModuleRegistry.getModule(this.state.examType);
+    return examModule;
   }
 
   // Get total duration from exam module
   private getTotalDuration(): number {
-    const module = this.getExamModule();
-    if (!module) return 60; // default 60 min if module not found
+    const examModule = this.getExamModule();
+    if (!examModule) return 60; // default 60 min if module not found
     
-    const levelConfig = module.getLevelConfig(this.state.levelId, this.state.moduleId);
+    const levelConfig = examModule.getLevelConfig(this.state.levelId, this.state.moduleId);
     if (!levelConfig) return 60;
     
     return levelConfig.details.examStructure.totalDuration;

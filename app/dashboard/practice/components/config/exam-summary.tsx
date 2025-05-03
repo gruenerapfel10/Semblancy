@@ -23,22 +23,29 @@ export function ExamSummary({
 }: ExamSummaryProps) {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const { startSession } = useExamSession();
-  
-  if (!moduleConfig || !levelConfig) return null;
-  const { details } = levelConfig;
+
+  // Move hooks before any conditionals
+  const handleStartExam = useCallback(() => {
+    if (onStart) {
+      onStart();
+    }
+  }, [onStart]);
 
   // Handle starting the exercise
   const handleStartExercise = useCallback(() => {
     // Start a new session with the current configs
     startSession({
       examType,
-      moduleId: moduleConfig.id,
-      levelId: levelConfig.id
+      moduleId: moduleConfig?.id,
+      levelId: levelConfig?.id
     });
     
     // Call the parent's onStart handler
-    onStart();
-  }, [examType, moduleConfig.id, levelConfig.id, onStart, startSession]);
+    handleStartExam();
+  }, [examType, moduleConfig?.id, levelConfig?.id, handleStartExam, startSession]);
+  
+  if (!moduleConfig || !levelConfig) return null;
+  const { details } = levelConfig;
 
   return (
     <Card className="h-full flex flex-col bg-muted/50">

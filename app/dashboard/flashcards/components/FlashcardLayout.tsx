@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { useFlashcards } from './FlashcardContext';
+import { useFlashcards, StudySessionResult } from './FlashcardContext';
 import FlashcardSidebar from './FlashcardSidebar';
 import FlashcardLibraryDialog from './FlashcardLibraryDialog';
 import FlashcardCardDialog from './FlashcardCardDialog';
@@ -10,6 +10,23 @@ import FlashcardStudyMode from './FlashcardStudyMode';
 import FlashcardStudyResults from './FlashcardStudyResults';
 import FlashcardStudyConfig from './FlashcardStudyConfig';
 import FlashcardDashboard from './FlashcardDashboard';
+import { StudySession } from './types';
+
+// Helper function to convert StudySessionResult to StudySession
+const convertToStudySession = (result: StudySessionResult): StudySession => {
+  return {
+    id: result.id,
+    libraryId: result.libraryId,
+    startTime: result.startTime,
+    endTime: result.endTime,
+    cardsReviewed: result.total,
+    correctAnswers: result.correct,
+    score: result.score,
+    studyMode: result.studyMode,
+    sessionType: result.sessionType,
+    reps: result.reps
+  };
+};
 
 const FlashcardLayout: React.FC = () => {
   const {
@@ -44,6 +61,9 @@ const FlashcardLayout: React.FC = () => {
     selectedReps
   } = useFlashcards();
 
+  // Convert study sessions to the correct type
+  const convertedStudySessions = libraryStudySessions.map(convertToStudySession);
+
   // If in study mode
   if (isStudyMode && selectedLibrary) {
     return (
@@ -77,7 +97,7 @@ const FlashcardLayout: React.FC = () => {
         libraryName={selectedLibrary.name}
         onRestart={() => startStudyMode(selectedStudyMode, selectedSessionType, selectedReps)}
         onExit={exitStudyMode}
-        previousSessions={libraryStudySessions}
+        previousSessions={convertedStudySessions}
       />
     );
   }

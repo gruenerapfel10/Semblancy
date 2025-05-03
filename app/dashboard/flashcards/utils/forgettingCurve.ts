@@ -21,7 +21,7 @@ import { type StudySessionResult } from "../components/FlashcardContext";
  */
 export const DEBUG_CONFIG = {
   isEnabled: true, // Enable for testing
-  timeAcceleration: 240, // 10 days per hour for faster testing
+  timeAcceleration: 24, // 10 days per hour for faster testing
 };
 
 // Days thresholds for different urgency levels

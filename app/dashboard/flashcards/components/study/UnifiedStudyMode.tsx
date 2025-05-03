@@ -13,7 +13,12 @@ import {
   Loader2, 
   RotateCcw, 
   ThumbsUp, 
-  ThumbsDown 
+  ThumbsDown,
+  TrendingUp,
+  TrendingDown,
+  BarChart,
+  BookOpen,
+  Eye
 } from 'lucide-react';
 import { Flashcard, StudyMode, SessionType, MarkingResponse } from '../types';
 import { cn } from '@/lib/utils';
@@ -35,6 +40,14 @@ interface UnifiedStudyModeProps {
   onEndSession: () => void;
   isFlipped?: boolean;
   libraryName: string;
+  onAdjustCardWeight?: (adjustment: -1 | 0 | 1) => void;
+  sessionStats?: {
+    totalCards: number;
+    seenCards: number;
+    masteredCards: number;
+    unseenCards: number;
+    completion: number;
+  };
 }
 
 const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
@@ -52,6 +65,8 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
   onEndSession,
   isFlipped = false,
   libraryName,
+  onAdjustCardWeight,
+  sessionStats,
 }) => {
   // Use a ref to store the current card ID to detect changes
   const currentCardIdRef = useRef<string>(currentCard?.id);
@@ -186,8 +201,46 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
   const frontContent = stableCurrentCard.front;
   const backContent = stableCurrentCard.back;
 
+  // Handle card weight adjustment
+  const handleSeeMore = useCallback(() => {
+    onAdjustCardWeight?.(1);
+  }, [onAdjustCardWeight]);
+
+  const handleSeeLess = useCallback(() => {
+    onAdjustCardWeight?.(-1);
+  }, [onAdjustCardWeight]);
+
+  // Calculate learning cards (total - unseen - mastered)
+  const learningCards = sessionStats ? 
+    sessionStats.totalCards - sessionStats.unseenCards - sessionStats.masteredCards : 0;
+
   return (
     <div className="w-full max-w-4xl mx-auto transition-all duration-300 relative">
+      {/* Session Stats Badge (if available) */}
+      {sessionStats && (
+        <div className="absolute -top-14 right-0 text-sm text-muted-foreground flex items-center gap-3 bg-background/80 p-2 rounded-md border border-border/50 shadow-sm">
+          <div className="flex items-center gap-1">
+            <BarChart className="h-3.5 w-3.5" />
+            <span>{sessionStats.completion}% completed</span>
+          </div>
+          <div className="h-3 w-px bg-border/50"></div>
+          <div className="flex items-center gap-1">
+            <Eye className="h-3.5 w-3.5 text-gray-500/80" />
+            <span>{sessionStats.unseenCards} new</span>
+          </div>
+          <div className="h-3 w-px bg-border/50"></div>
+          <div className="flex items-center gap-1">
+            <BookOpen className="h-3.5 w-3.5 text-blue-500/70" />
+            <span>{learningCards} learning</span>
+          </div>
+          <div className="h-3 w-px bg-border/50"></div>
+          <div className="flex items-center gap-1">
+            <Check className="h-3.5 w-3.5 text-emerald-500/70" />
+            <span>{sessionStats.masteredCards} mastered</span>
+          </div>
+        </div>
+      )}
+
       <Card className="w-full shadow-lg hover:shadow-xl transition-all duration-300 border-0">
         <CardContent className="p-8 md:p-12 relative">
           {/* Progress indicator */}
@@ -255,6 +308,33 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
                     </div>
                   )}
                 </div>
+
+                {/* Card frequency adjustment */}
+                {onAdjustCardWeight && (
+                  <div className="flex items-center justify-between mt-4 bg-muted/20 p-3 rounded-lg">
+                    <div className="text-sm text-muted-foreground">Adjust this card&apos;s frequency:</div>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleSeeLess}
+                        className="flex items-center gap-1 text-amber-500 hover:text-amber-600 hover:border-amber-200"
+                      >
+                        <TrendingDown className="h-3.5 w-3.5" />
+                        See Less
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleSeeMore}
+                        className="flex items-center gap-1 text-emerald-600 hover:text-emerald-700 hover:border-emerald-200"
+                      >
+                        <TrendingUp className="h-3.5 w-3.5" />
+                        See More
+                      </Button>
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex justify-end mt-4">
                   <Button 
@@ -370,6 +450,33 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
                         Correct
                       </Button>
                     </div>
+                    
+                    {/* Card frequency adjustment */}
+                    {onAdjustCardWeight && (
+                      <div className="flex items-center justify-between mt-4 bg-muted/20 p-3 rounded-md">
+                        <div className="text-sm text-muted-foreground">Adjust this card&apos;s frequency:</div>
+                        <div className="flex gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={handleSeeLess}
+                            className="flex items-center gap-1 text-amber-500 hover:text-amber-600"
+                          >
+                            <TrendingDown className="h-3.5 w-3.5" />
+                            Less
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={handleSeeMore}
+                            className="flex items-center gap-1 text-emerald-600 hover:text-emerald-700"
+                          >
+                            <TrendingUp className="h-3.5 w-3.5" />
+                            More
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                     
                     <div className="flex justify-end mt-2">
                       <Button 

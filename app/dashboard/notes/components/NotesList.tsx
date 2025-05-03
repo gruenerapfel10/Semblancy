@@ -30,7 +30,7 @@ export function NotesList({
     return (
       <div className="flex flex-col items-center justify-center h-full p-6 text-center text-muted-foreground">
         <p className="mb-2">No notes found</p>
-        <p className="text-sm">Click "New Note" above to create your first note</p>
+        <p className="text-sm">Click &quot;New Note&quot; above to create your first note</p>
       </div>
     );
   }

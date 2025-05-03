@@ -48,6 +48,7 @@ interface FlashcardSidebarProps {
   libraries: FlashcardLibrary[];
   selectedLibraryId: string | null;
   onSelectLibrary: (id: string) => void;
+  onNewLibrary: () => void;
 }
 
 // Cookie name to save the sidebar state
@@ -282,6 +283,7 @@ const FlashcardSidebar: React.FC<FlashcardSidebarProps> = ({
   libraries,
   selectedLibraryId,
   onSelectLibrary,
+  onNewLibrary,
 }) => {
   const { openLibraryDialog, openDeleteDialog, manager, groups, ungroupedLibraryObjects, handleSaveGroup, studySessions } = useFlashcards();
   const isMobile = useMediaQuery("(max-width: 768px)");

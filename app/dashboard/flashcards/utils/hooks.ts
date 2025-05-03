@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Flashcard, FlashcardLibrary, StudySession, StudyMode } from '../components/types';
+import { Flashcard, FlashcardLibrary, StudySession, StudyMode, SessionType } from '../components/types';
 
 // Local storage keys
 const LIBRARIES_STORAGE_KEY = "flashcard-libraries";
@@ -189,7 +189,13 @@ export const useStudySessions = () => {
     }
   }, [studySessions]);
 
-  const addStudySession = (libraryId: string, results: { correct: number; total: number; score: number; studyMode: StudyMode }) => {
+  const addStudySession = (libraryId: string, results: { 
+    correct: number; 
+    total: number; 
+    score: number; 
+    studyMode: StudyMode;
+    sessionType: SessionType;
+  }) => {
     const newSession: StudySession = {
       id: uuidv4(),
       libraryId,
