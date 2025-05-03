@@ -154,7 +154,7 @@ const Changelog1 = ({
                     {/* Animated Icon Background with Tooltip */}
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <span
+                        <div
                           className={`absolute -left-5 -top-3 flex items-center justify-center w-10 h-10 aspect-square rounded-xl text-xl transition-all duration-300 z-20
                             ${idx === 0
                               ? "bg-[hsl(var(--brand-tint-1)/0.15)] text-[hsl(var(--brand))] shadow"
@@ -166,9 +166,8 @@ const Changelog1 = ({
                           aria-label={entry.title}
                         >
                           <Icon size={24} className="w-6 h-6 transition-transform duration-200 group-hover:scale-110 group-active:scale-95" style={{display: 'block'}} />
-                          {/* Pulse dot for active */}
                           {isActive && <span className="absolute bottom-1 right-1 w-2 h-2 rounded-full bg-[hsl(var(--brand)/0.7)] animate-pulse border-2 border-white" />}
-                        </span>
+                        </div>
                       </TooltipTrigger>
                       <TooltipContent side="right" align="center">{entry.title}</TooltipContent>
                     </Tooltip>
