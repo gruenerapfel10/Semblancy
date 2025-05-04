@@ -170,29 +170,42 @@ export function updateCardState(
  * Pick the next card based on the simplified algorithm
  * 1. If not all cards have been seen in current cycle, pick randomly from unseen
  * 2. If all cards seen, reset cycle and pick randomly from all cards
+ * 
+ * UPDATED: Now returns a new state object instead of mutating the input state
  */
-export function pickNextCard(sessionState: SessionState): { card: Flashcard | null, reason: string } {
-  const { cards, seenInCurrentCycle } = sessionState;
+export function pickNextCard(sessionState: SessionState): { 
+  card: Flashcard | null, 
+  reason: string,
+  newState: SessionState // Added return value for the new state
+} {
+  const { cards } = sessionState;
+  let newSeenInCurrentCycle = [...sessionState.seenInCurrentCycle]; // Create a copy to avoid mutation
   
   // If all cards have been seen in this cycle, reset
-  if (seenInCurrentCycle.length >= cards.length) {
-    sessionState.seenInCurrentCycle = []; // Reset seen cards
+  if (newSeenInCurrentCycle.length >= cards.length) {
+    // Reset seen cards for the new cycle
+    newSeenInCurrentCycle = []; 
     
     // Pick a random card from all cards
     const randomIndex = Math.floor(Math.random() * cards.length);
     const selectedCard = cards[randomIndex];
     
     // Add to seen cards for this cycle
-    sessionState.seenInCurrentCycle.push(selectedCard.card.id);
+    newSeenInCurrentCycle.push(selectedCard.card.id);
     
+    // Return both the card and the new state
     return { 
       card: selectedCard.card, 
-      reason: "Starting a new cycle. Random selection from all cards." 
+      reason: "Starting a new cycle. Random selection from all cards.",
+      newState: {
+        ...sessionState,
+        seenInCurrentCycle: newSeenInCurrentCycle
+      }
     };
   }
   
   // Get cards not yet seen in the current cycle
-  const unseenCards = cards.filter(card => !seenInCurrentCycle.includes(card.card.id));
+  const unseenCards = cards.filter(card => !newSeenInCurrentCycle.includes(card.card.id));
   
   // If there are unseen cards, pick one randomly
   if (unseenCards.length > 0) {
@@ -200,18 +213,24 @@ export function pickNextCard(sessionState: SessionState): { card: Flashcard | nu
     const selectedCard = unseenCards[randomIndex];
     
     // Add to seen cards for this cycle
-    sessionState.seenInCurrentCycle.push(selectedCard.card.id);
+    newSeenInCurrentCycle.push(selectedCard.card.id);
     
+    // Return both the card and the new state
     return { 
       card: selectedCard.card, 
-      reason: `Randomly selected from ${unseenCards.length} unseen cards in current cycle.` 
+      reason: `Randomly selected from ${unseenCards.length} unseen cards in current cycle.`,
+      newState: {
+        ...sessionState,
+        seenInCurrentCycle: newSeenInCurrentCycle
+      }
     };
   }
   
   // Should not reach here, but just in case
   return { 
     card: null, 
-    reason: "Error: No cards available to select." 
+    reason: "Error: No cards available to select.",
+    newState: sessionState // Return original state if there's an error
   };
 }
 

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Flashcard, FlashcardLibrary, StudyMode, SessionType } from './types';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { Flashcard, FlashcardLibrary, StudyMode, SessionType, MarkingResponse } from './types';
+import { streamMarkAnswer } from '../actions';
 
 // Local storage keys
 const LIBRARIES_STORAGE_KEY = "flashcard-libraries";
@@ -59,6 +60,16 @@ export interface StudySessionResult {
   reps?: number;    
 }
 
+// Add interface for study session results
+interface StudySessionResults {
+  correct: number;
+  total: number;
+  score: number;
+  studyMode: StudyMode;
+  sessionType: SessionType;
+  reps?: number;
+}
+
 // Add this interface for search results
 export interface SearchResult {
   type: 'library' | 'card';
@@ -70,6 +81,114 @@ export interface SearchResult {
   matchField: 'name' | 'front' | 'back' | 'tags';
   matchScore: number;
   tags?: string[];
+}
+
+// Type for our context
+interface FlashcardContextType {
+  // Core manager access
+  manager: FlashcardManager;
+  
+  // Reactive state
+  libraries: FlashcardLibrary[];
+  groups: LibraryGroup[];
+  ungroupedLibraries: string[];
+  ungroupedLibraryObjects: FlashcardLibrary[];
+  studySessions: StudySessionResult[];
+  
+  // Selected state
+  selectedLibraryId: string | null;
+  selectedLibrary: FlashcardLibrary | null;
+  libraryStudySessions: StudySessionResult[];
+  
+  // UI state
+  activeTab: string;
+  showLibraryDialog: boolean;
+  showCardDialog: boolean;
+  showDeleteDialog: boolean;
+  editingLibrary: FlashcardLibrary | null;
+  editingCard: Flashcard | null;
+  deletingItem: { type: 'library' | 'card' | 'group', item: any } | null;
+  
+  // Study mode state
+  isStudyMode: boolean;
+  showStudyResults: boolean;
+  showStudyConfig: boolean;
+  selectedStudyMode: StudyMode;
+  selectedSessionType: SessionType;
+  selectedReps: number;
+  currentStudyResults: {
+    correct: number;
+    total: number;
+    score: number;
+  } | null;
+
+  // Search state
+  searchQuery: string;
+  searchResults: SearchResult[];
+  isSearchOpen: boolean;
+  
+  // Enhanced study state for managing all study mode functionality
+  currentCard: Flashcard | null;
+  sessionState: any | null; // Using any for now to match the type from cardPickingAlgorithm
+  studyStateData: {
+    flipped: boolean;
+    score: number;
+    totalCards: number;
+    completedCards: { card: Flashcard, correct: boolean }[];
+    isLoading: boolean;
+  };
+  selectionReason: string;
+  sessionStats: any | null;
+
+  // Additional study state for interactive mode
+  userAnswer: string;
+  isChecking: boolean;
+  markingResult: MarkingResponse | null;
+  selectedGrade: number | null;
+  
+  // Study mode actions
+  handleFlip: () => void;
+  handleAnswer: (grade: number) => void;
+  handleNextCard: () => void;
+  handleSkip: () => void;
+  handleEndStudySession: () => void;
+  initializeStudySession: (library: FlashcardLibrary, studyMode: StudyMode, sessionType: SessionType, reps?: number) => void;
+  
+  // Additional study actions for interactive mode
+  setUserAnswer: (value: string) => void;
+  handleCheckAnswer: () => Promise<void>;
+  
+  // Actions
+  setActiveTab: (tab: string) => void;
+  setSelectedLibraryId: (id: string | null) => void;
+  
+  // Dialog controls
+  openLibraryDialog: (library?: FlashcardLibrary | null) => void;
+  closeLibraryDialog: () => void;
+  openCardDialog: (card?: Flashcard | null) => void;
+  closeCardDialog: () => void;
+  openDeleteDialog: (type: 'library' | 'card' | 'group', item: any) => void;
+  closeDeleteDialog: () => void;
+  
+  // Study mode controls
+  startStudyMode: (mode: StudyMode, sessionType: SessionType, reps: number) => void;
+  exitStudyMode: () => void;
+  finishStudySession: (results: StudySessionResults) => void;
+  openStudyConfig: () => void;
+  closeStudyConfig: () => void;
+  
+  // Search actions
+  setSearchQuery: (query: string) => void;
+  performSearch: (query: string) => void;
+  openSearch: () => void;
+  closeSearch: () => void;
+  calculateMatchScore: (text: string, query: string) => number;
+  
+  // Operation handlers
+  handleSaveLibrary: (libraryData: Partial<FlashcardLibrary>) => void;
+  handleSaveCard: (cardData: Partial<Flashcard>) => void;
+  handleSaveGroup: (groupId: string | null, name: string) => void;
+  handleConfirmDelete: () => void;
 }
 
 /**
@@ -492,83 +611,6 @@ class FlashcardManager {
 // Create a singleton instance
 const flashcardManager = new FlashcardManager();
 
-// Type for our context
-interface FlashcardContextType {
-  // Core manager access
-  manager: FlashcardManager;
-  
-  // Reactive state
-  libraries: FlashcardLibrary[];
-  groups: LibraryGroup[];
-  ungroupedLibraries: string[];
-  ungroupedLibraryObjects: FlashcardLibrary[];
-  studySessions: StudySessionResult[];
-  
-  // Selected state
-  selectedLibraryId: string | null;
-  selectedLibrary: FlashcardLibrary | null;
-  libraryStudySessions: StudySessionResult[];
-  
-  // UI state
-  activeTab: string;
-  showLibraryDialog: boolean;
-  showCardDialog: boolean;
-  showDeleteDialog: boolean;
-  editingLibrary: FlashcardLibrary | null;
-  editingCard: Flashcard | null;
-  deletingItem: { type: 'library' | 'card' | 'group', item: any } | null;
-  
-  // Study mode state
-  isStudyMode: boolean;
-  showStudyResults: boolean;
-  showStudyConfig: boolean;
-  selectedStudyMode: StudyMode;
-  selectedSessionType: SessionType;
-  selectedReps: number;
-  currentStudyResults: {
-    correct: number;
-    total: number;
-    score: number;
-  } | null;
-
-  // Search state
-  searchQuery: string;
-  searchResults: SearchResult[];
-  isSearchOpen: boolean;
-  
-  // Actions
-  setActiveTab: (tab: string) => void;
-  setSelectedLibraryId: (id: string | null) => void;
-  
-  // Dialog controls
-  openLibraryDialog: (library?: FlashcardLibrary | null) => void;
-  closeLibraryDialog: () => void;
-  openCardDialog: (card?: Flashcard | null) => void;
-  closeCardDialog: () => void;
-  openDeleteDialog: (type: 'library' | 'card' | 'group', item: any) => void;
-  closeDeleteDialog: () => void;
-  
-  // Study mode controls
-  startStudyMode: (mode: StudyMode, sessionType: SessionType, reps: number) => void;
-  exitStudyMode: () => void;
-  finishStudySession: (results: { correct: number; total: number; score: number; studyMode: StudyMode; sessionType: SessionType }) => void;
-  openStudyConfig: () => void;
-  closeStudyConfig: () => void;
-  
-  // Search actions
-  setSearchQuery: (query: string) => void;
-  performSearch: (query: string) => void;
-  openSearch: () => void;
-  closeSearch: () => void;
-  calculateMatchScore: (text: string, query: string) => number;
-  
-  // Operation handlers
-  handleSaveLibrary: (libraryData: Partial<FlashcardLibrary>) => void;
-  handleSaveCard: (cardData: Partial<Flashcard>) => void;
-  handleSaveGroup: (groupId: string | null, name: string) => void;
-  handleConfirmDelete: () => void;
-}
-
 // Create the context
 const FlashcardContext = createContext<FlashcardContextType | undefined>(undefined);
 
@@ -609,6 +651,25 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // Add new study mode state for the enhanced functionality
+  const [currentCard, setCurrentCard] = useState<Flashcard | null>(null);
+  const [sessionState, setSessionState] = useState<any | null>(null);
+  const [studyStateData, setStudyStateData] = useState({
+    flipped: false,
+    score: 0,
+    totalCards: 0,
+    completedCards: [] as { card: Flashcard, correct: boolean }[],
+    isLoading: true,
+  });
+  const [selectionReason, setSelectionReason] = useState<string>("");
+  const [sessionStats, setSessionStats] = useState<any | null>(null);
+
+  // Add state for interactive mode
+  const [userAnswer, setUserAnswer] = useState('');
+  const [isChecking, setIsChecking] = useState(false);
+  const [markingResult, setMarkingResult] = useState<MarkingResponse | null>(null);
+  const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
 
   // Subscribe to manager changes to keep React state in sync
   useEffect(() => {
@@ -680,7 +741,7 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     setShowStudyConfig(false);
   };
 
-  const finishStudySession = (results: { correct: number; total: number; score: number; studyMode: StudyMode; sessionType: SessionType }) => {
+  const finishStudySession = (results: StudySessionResults) => {
     if (!selectedLibraryId) return;
     
     // Add the study session
@@ -693,6 +754,15 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     setCurrentStudyResults(results);
     setIsStudyMode(false);
     setShowStudyResults(true);
+    setStudyStateData({
+      flipped: false,
+      score: 0,
+      totalCards: 0,
+      completedCards: [],
+      isLoading: true,
+    });
+    setCurrentCard(null);
+    setSessionState(null);
   };
 
   const openStudyConfig = () => {
@@ -877,6 +947,258 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     // setSearchQuery('');
   };
 
+  // Initialize a study session with cards
+  const initializeStudySession = useCallback((
+    library: FlashcardLibrary,
+    studyMode: StudyMode,
+    sessionType: SessionType,
+    reps: number = 1
+  ) => {
+    // Reset study state
+    setStudyStateData({
+      flipped: false,
+      score: 0,
+      totalCards: 0,
+      completedCards: [],
+      isLoading: true,
+    });
+    
+    setSelectedStudyMode(studyMode);
+    setSelectedSessionType(sessionType);
+    setSelectedReps(reps);
+    setIsStudyMode(true);
+    
+    // Import the necessary functions from cardPickingAlgorithm
+    import('../utils/cardPickingAlgorithm').then(({ 
+      initializeSession, 
+      pickNextCard,
+      getSessionStats
+    }) => {
+      // Create a stable set of cards based on session type
+      let allCards: Flashcard[] = [];
+      
+      // Helper to shuffle cards
+      const shuffleCards = (cards: Flashcard[]) => {
+        const shuffled = [...cards];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      };
+      
+      // Get shuffled cards from the library
+      const getShuffledCards = () => shuffleCards(library.cards);
+      
+      // For fixed sessions, repeat cards based on reps
+      if (sessionType === 'fixed') {
+        for (let i = 0; i < reps; i++) {
+          allCards = [...allCards, ...getShuffledCards()];
+        }
+      } else {
+        // For infinite sessions, just shuffle once initially
+        allCards = getShuffledCards();
+      }
+      
+      // Initialize the session state with these cards
+      const newSessionState = initializeSession(allCards);
+      
+      // Pick the first card
+      const { card: firstCard, reason, newState } = pickNextCard(newSessionState);
+      
+      if (!firstCard) {
+        console.error("Failed to pick first card");
+        return;
+      }
+      
+      // Update state with the initial setup
+      setSessionState(newState);
+      setCurrentCard(firstCard);
+      setSelectionReason(reason);
+      setStudyStateData(prev => ({
+        ...prev,
+        totalCards: sessionType === 'fixed' ? allCards.length : library.cards.length,
+        isLoading: false,
+      }));
+      
+      // Calculate session stats
+      setSessionStats(getSessionStats(newState));
+    });
+  }, []);
+
+  // Flip card handler
+  const handleFlip = useCallback(() => {
+    setStudyStateData(prev => ({ ...prev, flipped: !prev.flipped }));
+  }, []);
+
+  // Process user answer
+  const handleAnswer = useCallback((grade: number) => {
+    if (!sessionState || !currentCard) return;
+    
+    // Import necessary functions
+    import('../utils/cardPickingAlgorithm').then(({ updateCardState }) => {
+      // Determine if correct based on grade >= 3 for scoring purposes
+      const isCorrect = grade >= 3;
+
+      // Update score in study state
+      setStudyStateData(prev => {
+        // Create a new completedCards array with the current card
+        const newCompletedCards = [...prev.completedCards, { card: currentCard, correct: isCorrect }];
+        
+        return {
+          ...prev,
+          score: prev.score + (isCorrect ? 1 : 0),
+          completedCards: newCompletedCards,
+        };
+      });
+      
+      // Update card state in session state using the provided grade
+      setSessionState((prevSession: any | null) => {
+        if (!prevSession) return null;
+        return updateCardState(prevSession, currentCard.id, grade);
+      });
+
+      // Log for debugging
+      console.log(`Card answered: ${isCorrect ? 'correct' : 'incorrect'}, grade: ${grade}`);
+    });
+  }, [sessionState, currentCard]);
+
+  // Move to next card
+  const handleNextCard = useCallback(() => {
+    // Reset interactive mode state
+    setUserAnswer('');
+    setMarkingResult(null);
+    setSelectedGrade(null);
+    
+    if (!sessionState) return;
+    
+    // Import necessary functions
+    import('../utils/cardPickingAlgorithm').then(({ pickNextCard, getSessionStats }) => {
+      // For fixed mode, check if we've completed all cards
+      if (selectedSessionType === 'fixed' && studyStateData.completedCards.length >= studyStateData.totalCards - 1) {
+        const totalCards = studyStateData.completedCards.length + 1; // +1 for current card
+        
+        finishStudySession({
+          correct: studyStateData.score,
+          total: totalCards,
+          score: totalCards > 0 ? Math.round((studyStateData.score / totalCards) * 100) : 0,
+          studyMode: selectedStudyMode,
+          sessionType: selectedSessionType,
+          reps: selectedReps,
+        });
+        return;
+      }
+      
+      // Pick the next card based on the algorithm
+      const { card: nextCard, reason, newState } = pickNextCard(sessionState);
+      
+      if (!nextCard) {
+        console.error("Failed to pick next card");
+        return;
+      }
+      
+      // Update session state with the new state returned from pickNextCard
+      setSessionState(newState);
+      
+      // Update session stats
+      setSessionStats(getSessionStats(newState));
+      
+      // Update the current card and reset flipped state
+      setCurrentCard(nextCard);
+      setSelectionReason(reason);
+      setStudyStateData(prev => ({
+        ...prev,
+        flipped: false,
+      }));
+    });
+  }, [sessionState, selectedSessionType, studyStateData.completedCards.length, studyStateData.totalCards, studyStateData.score, finishStudySession, selectedStudyMode, selectedSessionType, selectedReps]);
+
+  // Skip current card
+  const handleSkip = useCallback(() => {
+    if (!sessionState || !currentCard) return;
+    
+    // Import necessary functions
+    import('../utils/cardPickingAlgorithm').then(({ pickNextCard, getSessionStats }) => {
+      // Pick a new card without updating state
+      const { card: nextCard, reason, newState } = pickNextCard(sessionState);
+      
+      if (!nextCard) {
+        console.error("Failed to pick next card");
+        return;
+      }
+      
+      // Update session state with the new state returned from pickNextCard
+      setSessionState(newState);
+      
+      // Update session stats
+      setSessionStats(getSessionStats(newState));
+      
+      // Update the current card and reset flipped state
+      setCurrentCard(nextCard);
+      setSelectionReason(reason);
+      setStudyStateData(prev => ({
+        ...prev,
+        flipped: false,
+      }));
+    });
+  }, [sessionState, currentCard]);
+
+  // End the current session and save progress
+  const handleEndStudySession = useCallback(() => {
+    // Calculate total based on completed cards
+    const totalCards = studyStateData.completedCards.length;
+    
+    // No cards completed, nothing to save
+    if (totalCards === 0) {
+      exitStudyMode();
+      return;
+    }
+    
+    // Calculate score
+    const score = Math.round((studyStateData.score / totalCards) * 100);
+
+    // Finish the session with the current stats
+    finishStudySession({
+      correct: studyStateData.score,
+      total: totalCards,
+      score: score,
+      studyMode: selectedStudyMode,
+      sessionType: selectedSessionType,
+      reps: selectedSessionType === 'fixed' ? selectedReps : undefined
+    });
+  }, [studyStateData.completedCards.length, studyStateData.score, exitStudyMode, finishStudySession, selectedStudyMode, selectedSessionType, selectedReps]);
+
+  // Handle checking answer for interactive mode
+  const handleCheckAnswer = useCallback(async () => {
+    if (isChecking || !userAnswer.trim() || !currentCard) return;
+    
+    setIsChecking(true);
+    setMarkingResult(null);
+    setSelectedGrade(null); // Reset grade selection
+    
+    try {
+      await streamMarkAnswer(
+        userAnswer,
+        currentCard.back,
+        currentCard.front,
+        (data) => {
+          setMarkingResult(data);
+        }
+      );
+    } catch (error) {
+      console.error('Error marking answer:', error);
+      // If AI marking fails, provide feedback but still allow user grading
+      setMarkingResult({
+        isCorrect: false,
+        score: 0,
+        feedback: "AI couldn't evaluate your answer. Please rate your recall using the buttons below.",
+        explanation: ""
+      });
+    } finally {
+      setIsChecking(false);
+    }
+  }, [userAnswer, currentCard, isChecking]);
+
   // Value object with all context data and functions
   const contextValue: FlashcardContextType = {
     // Core manager access
@@ -917,6 +1239,19 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     searchResults,
     isSearchOpen,
     
+    // Enhanced study state for managing all study mode functionality
+    currentCard,
+    sessionState,
+    studyStateData,
+    selectionReason,
+    sessionStats,
+    handleFlip,
+    handleAnswer,
+    handleNextCard,
+    handleSkip,
+    handleEndStudySession,
+    initializeStudySession,
+    
     // Actions
     setActiveTab,
     setSelectedLibraryId,
@@ -948,6 +1283,16 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     handleSaveCard,
     handleSaveGroup,
     handleConfirmDelete,
+    
+    // Interactive mode state
+    userAnswer,
+    isChecking,
+    markingResult,
+    selectedGrade,
+    
+    // Interactive mode methods
+    setUserAnswer,
+    handleCheckAnswer,
   };
 
   return (

@@ -1,22 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { Flashcard, FlashcardLibrary, StudyMode, SessionType } from './types';
-import { useStudyCards } from '../utils/hooks';
-import UnifiedStudyMode from './study/UnifiedStudyMode';
 import { Button } from '@/components/ui/button';
-import { X, Save, Sparkles, RotateCcw, Info, TrendingDown, TrendingUp } from 'lucide-react';
-import { 
-  initializeSession, 
-  updateCardState, 
-  pickNextCard, 
-  getSessionStats,
-  getCardInfo,
-  getCardDistribution,
-  SessionState,
-  LearningStage,
-  stageColors
-} from '../utils/cardPickingAlgorithm';
+import { X, Save, Sparkles, RotateCcw } from 'lucide-react';
+import UnifiedStudyMode from './study/UnifiedStudyMode';
+import { useFlashcards } from './FlashcardContext';
+import { LearningStage } from '../utils/cardPickingAlgorithm';
 
 interface FlashcardStudyModeProps {
   library: FlashcardLibrary;
@@ -35,162 +25,34 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
   onFinish,
   onExit,
 }) => {
-  const { getShuffledCards } = useStudyCards(library.cards);
-  
-  // State for study session
-  const [studyState, setStudyState] = useState({
-    flipped: false,
-    score: 0,
-    totalCards: 0,
-    completedCards: [] as { card: Flashcard, correct: boolean }[],
-    isLoading: true,
-  });
+  // Use the context for all state and logic
+  const { 
+    currentCard,
+    sessionState,
+    studyStateData,
+    handleFlip,
+    handleAnswer,
+    handleNextCard,
+    handleSkip,
+    handleEndStudySession,
+    initializeStudySession,
+    sessionStats,
+    // Additional interactive mode props
+    userAnswer,
+    setUserAnswer,
+    isChecking,
+    handleCheckAnswer,
+    markingResult,
+    selectedGrade
+  } = useFlashcards();
 
-  // State for the card picking algorithm
-  const [sessionState, setSessionState] = useState<SessionState | null>(null);
-  const [currentCard, setCurrentCard] = useState<Flashcard | null>(null);
-  const [selectionReason, setSelectionReason] = useState<string>("");
-  const [showTooltip, setShowTooltip] = useState<boolean>(false);
-  
-  // Initialize cards and session state once on mount
+  // Initialize the study session when the component mounts
   useEffect(() => {
-    const setupCards = () => {
-      let allCards: Flashcard[] = [];
-      
-      // Create a stable set of cards based on session type
-      if (sessionType === 'fixed') {
-        // For fixed sessions, repeat cards based on reps
-        for (let i = 0; i < reps; i++) {
-          allCards = [...allCards, ...getShuffledCards()];
-        }
-      } else {
-        // For infinite sessions, just shuffle once initially
-        allCards = getShuffledCards();
-      }
-      
-      // Initialize the session state with these cards
-      const newSessionState = initializeSession(allCards);
-      
-      // Pick the first card
-      const { card: firstCard, reason } = pickNextCard(newSessionState);
-      
-      setSessionState(newSessionState);
-      setCurrentCard(firstCard);
-      setSelectionReason(reason);
-      setStudyState(prev => ({
-        ...prev,
-        totalCards: sessionType === 'fixed' ? allCards.length : library.cards.length,
-        isLoading: false,
-      }));
-    };
-    
-    setupCards();
-  }, [library.id]); // Only re-run if library changes completely
+    initializeStudySession(library, studyMode, sessionType, reps);
+  }, [library, studyMode, sessionType, reps, initializeStudySession]);
 
-  // Memoized handlers to prevent unnecessary rerenders
-  const handleFlip = useCallback(() => {
-    setStudyState(prev => ({ ...prev, flipped: !prev.flipped }));
-  }, []);
-
-  // Toggle tooltip visibility
-  const handleToggleTooltip = useCallback(() => {
-    setShowTooltip(prev => !prev);
-  }, []);
-
-  // Process user answer
-  const handleAnswer = useCallback((grade: number) => {
-    if (!sessionState || !currentCard) return;
-    
-    // Determine if correct based on grade >= 3 for scoring purposes
-    const isCorrect = grade >= 3;
-
-    // Update score in study state
-    setStudyState(prev => ({
-      ...prev,
-      score: prev.score + (isCorrect ? 1 : 0),
-      completedCards: [
-        ...prev.completedCards,
-        { card: currentCard, correct: isCorrect }
-      ],
-    }));
-    
-    // Update card state in session state using the provided grade
-    setSessionState(prevSession => {
-      if (!prevSession) return null;
-      return updateCardState(prevSession, currentCard.id, grade);
-    });
-  }, [sessionState, currentCard]);
-
-  // Move to next card
-  const handleNextCard = useCallback(() => {
-    if (!sessionState) return;
-    
-    // For fixed mode, check if we've completed all cards
-    if (sessionType === 'fixed' && studyState.completedCards.length >= studyState.totalCards - 1) {
-      const totalCards = studyState.completedCards.length + 1; // +1 for current card
-      
-      onFinish({
-        correct: studyState.score,
-        total: totalCards,
-        score: totalCards > 0 ? Math.round((studyState.score / totalCards) * 100) : 0,
-        studyMode,
-        sessionType,
-        reps,
-      });
-      return;
-    }
-    
-    // Pick the next card based on the algorithm
-    const { card: nextCard, reason } = pickNextCard(sessionState);
-    
-    // Update the current card and reset flipped state
-    setCurrentCard(nextCard);
-    setSelectionReason(reason);
-    setStudyState(prev => ({
-      ...prev,
-      flipped: false,
-    }));
-  }, [sessionState, sessionType, studyState.completedCards.length, studyState.totalCards, studyState.score, onFinish, studyMode, reps]);
-
-  // Skip current card
-  const handleSkip = useCallback(() => {
-    if (!sessionState || !currentCard) return;
-    
-    // For infinite mode, pick a new card without updating state
-    const { card: nextCard, reason } = pickNextCard(sessionState);
-    
-    // Update the current card and reset flipped state
-    setCurrentCard(nextCard);
-    setSelectionReason(reason);
-    setStudyState(prev => ({
-      ...prev,
-      flipped: false,
-    }));
-  }, [sessionState, currentCard]);
-
-  // End the current session and save progress
-  const handleEndSession = useCallback(() => {
-    // Calculate total based on completed cards
-    const totalCards = studyState.completedCards.length;
-    
-    // Calculate score
-    const score = totalCards > 0
-      ? Math.round((studyState.score / totalCards) * 100)
-      : 0;
-
-    // Finish the session
-    onFinish({
-      correct: studyState.score,
-      total: totalCards,
-      score: score,
-      studyMode,
-      sessionType,
-      reps: sessionType === 'fixed' ? reps : undefined
-    });
-  }, [studyState.completedCards, studyState.score, onFinish, studyMode, sessionType, reps]);
-  
   // Show loading state
-  if (studyState.isLoading || !sessionState || !currentCard) {
+  if (studyStateData.isLoading || !sessionState || !currentCard) {
     return (
       <div className="flex flex-col items-center justify-center p-8">
         <h3 className="text-2xl font-bold">Loading cards...</h3>
@@ -199,8 +61,8 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
   }
 
   // Calculate score percentage for display
-  const scorePercentage = studyState.completedCards.length > 0 
-    ? Math.round((studyState.score / studyState.completedCards.length) * 100) 
+  const scorePercentage = studyStateData.completedCards.length > 0 
+    ? Math.round((studyStateData.score / studyStateData.completedCards.length) * 100) 
     : 0;
 
   // Helper function to get score color
@@ -210,15 +72,6 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
     if (score >= 50) return 'text-amber-500 dark:text-amber-400';
     return 'text-red-500 dark:text-red-400';
   };
-
-  // Get session stats
-  const sessionStats = getSessionStats(sessionState);
-  
-  // Get card distribution for visualization
-  const distribution = getCardDistribution(sessionState);
-  
-  // Get current card info for tooltip
-  const cardInfo = currentCard ? getCardInfo(sessionState, currentCard.id) : null;
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-100px)]">
@@ -245,24 +98,22 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
               <span>{sessionType === 'fixed' ? 'Fixed Session' : 'Continuous'}</span>
               <span>
                 Score: <span className={getScoreColor(scorePercentage)}>
-                  {studyState.score}/{studyState.completedCards.length} ({scorePercentage}%)
+                  {studyStateData.score}/{studyStateData.completedCards.length} ({scorePercentage}%)
                 </span>
               </span>
             </div>
           </div>
           
           <div className="flex gap-2">
-            {sessionType === 'infinite' && studyState.completedCards.length > 0 && (
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleEndSession}
-                className="gap-1"
-              >
-                <Save className="h-3.5 w-3.5" />
-                End Session
-              </Button>
-            )}
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleEndStudySession}
+              className="gap-1"
+            >
+              <Save className="h-3.5 w-3.5" />
+              End Session
+            </Button>
             <Button 
               variant="outline" 
               size="sm" 
@@ -280,21 +131,28 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
         <UnifiedStudyMode 
           currentCard={currentCard}
           remainingCards={sessionState.cards
-            .filter(c => c.stage === LearningStage.NEW)
-            .map(c => c.card)}
-          completedCards={studyState.completedCards}
-          totalCards={studyState.totalCards}
-          score={studyState.score}
+            .filter((c: any) => c.stage === LearningStage.NEW)
+            .map((c: any) => c.card)}
+          completedCards={studyStateData.completedCards}
+          totalCards={studyStateData.totalCards}
+          score={studyStateData.score}
           studyMode={studyMode}
           sessionType={sessionType}
           onAnswer={handleAnswer}
           onNextCard={handleNextCard}
           onSkip={handleSkip}
           onFlip={handleFlip}
-          onEndSession={handleEndSession}
-          isFlipped={studyState.flipped}
+          onEndSession={handleEndStudySession}
+          isFlipped={studyStateData.flipped}
           libraryName={library.name}
           sessionStats={sessionStats}
+          // Interactive mode props
+          userAnswer={userAnswer}
+          setUserAnswer={setUserAnswer}
+          isChecking={isChecking}
+          handleCheckAnswer={handleCheckAnswer}
+          markingResult={markingResult}
+          selectedGrade={selectedGrade}
         />
       </div>
     </div>

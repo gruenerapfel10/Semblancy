@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,17 +12,12 @@ import {
   X, 
   Loader2, 
   RotateCcw, 
-  ThumbsUp, 
-  ThumbsDown,
-  TrendingUp,
-  TrendingDown,
   BarChart,
   BookOpen,
   Eye
 } from 'lucide-react';
 import { Flashcard, StudyMode, SessionType, MarkingResponse } from '../types';
 import { cn } from '@/lib/utils';
-import { streamMarkAnswer } from '../../actions';
 import { Progress } from '@/components/ui/progress';
 
 interface UnifiedStudyModeProps {
@@ -46,7 +41,20 @@ interface UnifiedStudyModeProps {
     masteredCards: number;
     unseenCards: number;
     completion: number;
+    stageCounts: {
+      [key: string]: number;
+      new: number;
+      learning: number;
+      mastered: number;
+    };
+    currentCycleProgress: number;
   };
+  isChecking?: boolean;
+  userAnswer?: string;
+  setUserAnswer?: (value: string) => void;
+  handleCheckAnswer?: () => void;
+  markingResult?: MarkingResponse | null;
+  selectedGrade?: number | null;
 }
 
 const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
@@ -65,133 +73,66 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
   isFlipped = false,
   libraryName,
   sessionStats,
+  isChecking = false,
+  userAnswer = '',
+  setUserAnswer = () => {},
+  handleCheckAnswer = () => {},
+  markingResult = null,
+  selectedGrade = null,
 }) => {
-  // Use a ref to store the current card ID to detect changes
-  const currentCardIdRef = useRef<string>(currentCard?.id);
+  // Input reference for focus management
   const inputRef = useRef<HTMLInputElement>(null);
-  const [userAnswer, setUserAnswer] = useState('');
-  const [isChecking, setIsChecking] = useState(false);
-  const [markingResult, setMarkingResult] = useState<MarkingResponse | null>(null);
-  const [isStreamingComplete, setIsStreamingComplete] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
-  
-  // Memoize the current card to prevent unnecessary re-renders
-  const stableCurrentCard = useMemo(() => currentCard, [currentCard.id]);
 
-  // Wrapper for next card to clear state first
-  const handleNextCard = useCallback(() => {
-    setMarkingResult(null);
-    setIsStreamingComplete(false);
-    setIsAnimating(false);
-    setSelectedGrade(null); // Reset grade selection on next card
-    onNextCard();
-  }, [onNextCard]);
-
-  // Reset when card changes
-  useEffect(() => {
-    // Only reset if the card actually changed
-    if (currentCardIdRef.current !== currentCard.id) {
-      currentCardIdRef.current = currentCard.id;
-      setUserAnswer('');
-      setMarkingResult(null);
-      setIsStreamingComplete(false);
-      setIsChecking(false);
-      setIsAnimating(false);
-    }
-  }, [currentCard.id]);
-
-  // Focus input for interactive mode when card changes
-  useEffect(() => {
+  // Focus the input (can still be done via a ref)
+  React.useEffect(() => {
     if (studyMode === 'interactive' && !isFlipped && inputRef.current) {
       inputRef.current.focus();
     }
   }, [currentCard.id, isFlipped, studyMode]);
 
-  // Check answer for interactive mode
-  const handleCheckAnswer = useCallback(async () => {
-    if (isChecking || !userAnswer.trim()) return;
-    
-    setIsChecking(true);
-    setMarkingResult(null);
-    setIsStreamingComplete(false);
-    setSelectedGrade(null); // Reset grade selection
-    
-    try {
-      await streamMarkAnswer(
-        userAnswer,
-        stableCurrentCard.back,
-        stableCurrentCard.front,
-        (data) => {
-          setMarkingResult(data);
-          setIsAnimating(true);
-          
-          // Remove automatic grade assignment - user must explicitly grade with buttons
-          // Don't call onAnswer here as the SuperMemo approach requires explicit user grading
-        }
-      );
-      setIsStreamingComplete(true);
-    } catch (error) {
-      console.error('Error marking answer:', error);
-      // If AI marking fails, provide feedback but still allow user grading
-      setMarkingResult({
-        isCorrect: false, // Keep as boolean to satisfy type check
-        score: 0,
-        feedback: "AI couldn't evaluate your answer. Please rate your recall using the buttons below.",
-        explanation: ""
-      });
-      // Remove automatic grading - user must explicitly grade with buttons
-    } finally {
-      setIsChecking(false);
-    }
-  }, [userAnswer, stableCurrentCard, isChecking]);
-
-  // In flip card mode, handle user marking their own answer using grades
-  const handleManualAnswer = useCallback((grade: number) => {
-    setSelectedGrade(grade); // Set feedback state
-    onAnswer(grade); // Pass the selected grade
+  // Handle manual answer in flip card mode
+  const handleManualAnswer = (grade: number) => {
+    // Call parent's onAnswer function to register the card as completed
+    onAnswer(grade);
     
     // Move to next card after providing rating
     setTimeout(() => {
-      handleNextCard();
-    }, 150); // 150ms delay
-  }, [onAnswer, handleNextCard]);
+      onNextCard();
+    }, 300); // Slightly longer delay to ensure the state is updated
+  };
 
   // Handle user selecting a grade (used by both modes)
-  const handleGradeSelection = useCallback((grade: number) => {
-    setSelectedGrade(grade); // Set feedback state
-    onAnswer(grade); // Call parent handler with the selected grade
+  const handleGradeSelection = (grade: number) => {
+    // Call parent's onAnswer function to update completedCards state
+    onAnswer(grade);
     
-    // Move to next card after providing rating
+    // Wait a bit before continuing to the next card so the user sees their selection
     setTimeout(() => {
-      handleNextCard();
-    }, 150); // 150ms delay
-  }, [onAnswer, handleNextCard]);
+      onNextCard();
+    }, 300); // Slightly longer delay to ensure the state is updated
+  };
 
   // Calculate progress percentage
-  const progressPercent = useMemo(() => 
-    (completedCards.length / totalCards) * 100,
-    [completedCards.length, totalCards]
-  );
+  const progressPercent = (completedCards.length / totalCards) * 100;
 
   // Calculate score color
-  const getScoreColor = useCallback((score: number) => {
+  const getScoreColor = (score: number) => {
     if (score >= 90) return 'text-green-500 dark:text-green-400';
     if (score >= 70) return 'text-emerald-500 dark:text-emerald-400';
     if (score >= 50) return 'text-amber-500 dark:text-amber-400';
     return 'text-red-500 dark:text-red-400';
-  }, []);
+  };
 
   // Ensure we render based on stable data
-  const frontContent = stableCurrentCard.front;
-  const backContent = stableCurrentCard.back;
+  const frontContent = currentCard.front;
+  const backContent = currentCard.back;
 
   // Calculate learning cards (total - unseen - mastered)
   const learningCards = sessionStats ? 
     sessionStats.totalCards - sessionStats.unseenCards - sessionStats.masteredCards : 0;
 
   // Handle keypress events
-  useEffect(() => {
+  React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       // --- Enter Key --- 
       if (e.key === 'Enter') {
@@ -200,14 +141,14 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
             handleCheckAnswer(); // Check answer if not already checked
           } else if (markingResult) {
             // If answer shown, Enter continues to next card
-            handleNextCard();
+            onNextCard();
           }
         } else if (studyMode === 'flip') {
           if (!isFlipped) {
             onFlip?.(); // Flip if not flipped
           } else {
             // If card is flipped, Enter continues to next card
-            handleNextCard();
+            onNextCard();
           }
         }
       // --- Space Key --- (Only in Flip mode)
@@ -220,15 +161,14 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
         // Arrow right also continues
         if ((studyMode === 'interactive' && markingResult) || 
             (studyMode === 'flip' && isFlipped)) {
-          handleNextCard();
+          onNextCard();
         }
       }
     };
     
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-    // Dependencies reflect states that influence the handler's logic
-  }, [studyMode, isFlipped, markingResult, isChecking, userAnswer, onFlip, handleCheckAnswer, handleNextCard]);
+  }, [studyMode, isFlipped, markingResult, isChecking, userAnswer, onFlip, handleCheckAnswer, onNextCard]);
 
   return (
     <div className="w-full max-w-4xl mx-auto transition-all duration-300 relative">
@@ -247,7 +187,7 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
           <div className="h-3 w-px bg-border/50"></div>
           <div className="flex items-center gap-1">
             <BookOpen className="h-3 w-3 text-blue-500/70" /> 
-            <span>{learningCards} learn</span> 
+            <span>{sessionStats.stageCounts?.learning || 0} learn</span> 
           </div>
           <div className="h-3 w-px bg-border/50"></div>
           <div className="flex items-center gap-1">
@@ -324,7 +264,7 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
                 <div className="flex justify-end mt-4">
                   <Button 
                     className="flashcard-button bg-primary hover:bg-primary/90"
-                    onClick={handleNextCard}
+                    onClick={onNextCard}
                   >
                     Continue
                     <ArrowRight className="h-5 w-5 ml-2" />
@@ -447,7 +387,7 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
                     <div className="flex justify-end">
                       <Button 
                         className="flashcard-button bg-primary hover:bg-primary/90"
-                        onClick={handleNextCard}
+                        onClick={onNextCard}
                       >
                         Continue
                         <ArrowRight className="h-5 w-5 ml-2" />
@@ -517,7 +457,7 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
           </Button>
           
           <Button 
-            onClick={isFlipped ? handleNextCard : onFlip}
+            onClick={isFlipped ? onNextCard : onFlip}
             className="flex items-center gap-2"
           >
             {isFlipped ? (
