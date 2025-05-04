@@ -185,11 +185,15 @@ export function getSessionStats(sessionState: SessionState) {
   
   // Overall progress
   const completionPercentage = totalCards > 0 ? Math.round((seenCards / totalCards) * 100) : 0;
+
+  // For backwards compatibility, treat all seen cards as mastered
+  const masteredCards = stageCounts[LearningStage.SEEN];
   
   return {
     totalCards,
     seenCards,
     unseenCards,
+    masteredCards,
     stageCounts,
     currentRound: Math.floor(sessionState.currentPosition / totalCards) + 1,
     roundProgress,
