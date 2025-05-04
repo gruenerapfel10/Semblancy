@@ -1,193 +1,246 @@
 /**
- * Simple Shuffle-Based Card Picker
+ * Simplified Flashcard Selection Algorithm
  * 
- * A basic random card picker that ensures all cards are seen equally:
- * 1. Shuffle cards
- * 2. Show cards one by one
- * 3. After all cards are shown, shuffle and repeat
+ * This implementation ensures:
+ * 1. Every card is seen at least once before any card is repeated
+ * 2. Card selection has randomness
+ * 3. After all cards are seen, the process resets
  */
 
 import { Flashcard } from '../components/types';
 
-// Learning stages are simplified but kept for compatibility
+// Learning stages for cards (simplified but kept for compatibility)
 export enum LearningStage {
-  NEW = 'new',
-  SEEN = 'seen'
+  NEW = 'new',           // Never seen before
+  LEARNING = 'learning', // In the process of learning
+  MASTERED = 'mastered'  // Consistently answered correctly
 }
 
-// Color codes for stages (for UI visual cues)
+// Color codes for stages (kept for UI compatibility)
 export const stageColors = {
   [LearningStage.NEW]: 'gray',
-  [LearningStage.SEEN]: 'blue',
+  [LearningStage.LEARNING]: 'blue',
+  [LearningStage.MASTERED]: 'green',
 };
 
-// Simplified card state
+// Track state for each card
 export interface CardState {
   card: Flashcard;
-  seen: number;          // How many times this card has been seen
-  stage: LearningStage;  // Current learning stage
-  positionInDeck: number; // Position in the current shuffled deck
+  seen: number;             // How many times this card has been seen
+  correct: number;          // How many times answered correctly
+  incorrect: number;        // How many times answered incorrectly
+  lastSeen: number;         // Position in the current study cycle when last shown
+  stage: LearningStage;     // Current learning stage (simplified)
+  lastSelectionReason: string;  // Explanation for why card was selected
 }
 
 export interface SessionState {
   cards: CardState[];
   currentPosition: number;  // Current position in the session
-  cardsInCurrentRound: number; // Number of cards seen in the current round
+  seenInCurrentCycle: string[]; // IDs of cards seen in current cycle
   selectionHistory: Array<{
     position: number;
     cardId: string;
     stage: LearningStage;
     reason: string;
+    grade?: number; // Store the grade given
   }>;
-}
-
-/**
- * Shuffle an array using Fisher-Yates algorithm
- */
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
 }
 
 /**
  * Initialize a new session state with cards
  */
 export function initializeSession(cards: Flashcard[]): SessionState {
-  // Create card states
-  let cardStates: CardState[] = cards.map(card => ({
+  const cardStates: CardState[] = cards.map(card => ({
     card,
     seen: 0,
+    correct: 0,
+    incorrect: 0,
+    lastSeen: -1,           // -1 means never seen
     stage: LearningStage.NEW,
-    positionInDeck: 0 // Will be set during shuffle
-  }));
-
-  // Shuffle and assign positions
-  cardStates = shuffleArray(cardStates).map((card, index) => ({
-    ...card,
-    positionInDeck: index
+    lastSelectionReason: "New card, not yet seen"
   }));
 
   return {
     cards: cardStates,
     currentPosition: 0,
-    cardsInCurrentRound: 0,
+    seenInCurrentCycle: [],
     selectionHistory: []
   };
 }
 
 /**
- * Update card state based on viewing
- * Note: This no longer uses grades, but we keep the parameter for compatibility
+ * Determine a card's learning stage based on simple metrics
+ */
+function determineCardStage(cardState: CardState): LearningStage {
+  const { seen, correct, incorrect } = cardState;
+  
+  // New cards
+  if (seen === 0) {
+    return LearningStage.NEW;
+  }
+  
+  // Simple mastery criteria: more correct than incorrect and seen multiple times
+  if (seen >= 2 && correct > incorrect) {
+    return LearningStage.MASTERED;
+  } else {
+    return LearningStage.LEARNING;
+  }
+}
+
+/**
+ * Update card state based on user's grade (0-5)
+ * Grade >= 3 is considered correct, < 3 is incorrect
  */
 export function updateCardState(
   sessionState: SessionState,
   cardId: string,
-  grade: number // Not used but kept for compatibility
+  grade: number // User grade (0-5)
 ): SessionState {
   const cardIndex = sessionState.cards.findIndex(c => c.card.id === cardId);
   if (cardIndex === -1) return sessionState;
 
   const cardState = sessionState.cards[cardIndex];
   
-  // Update the card state
+  // Update simple performance metrics
+  const seen = cardState.seen + 1;
+  const correct = grade >= 3 ? cardState.correct + 1 : cardState.correct;
+  const incorrect = grade < 3 ? cardState.incorrect + 1 : cardState.incorrect;
+  
+  // Determine the new stage based on updated state
+  const tempUpdatedState = { 
+    ...cardState, 
+    seen, 
+    correct, 
+    incorrect
+  };
+  const newStage = determineCardStage(tempUpdatedState);
+  
+  // Generate explanation
+  const gradeDescriptions: { [key: number]: string } = {
+    0: 'Total blackout',
+    1: 'Incorrect response',
+    2: 'Incorrect, seemed easy',
+    3: 'Correct, difficult',
+    4: 'Correct, hesitation',
+    5: 'Perfect recall'
+  };
+  let lastSelectionReason = `Card graded ${grade} (${gradeDescriptions[grade] || 'Unknown'}).`;
+  if (newStage !== cardState.stage) {
+    lastSelectionReason += ` Stage changed from ${cardState.stage} to ${newStage}.`;
+  }
+
+  // Create the updated card state
   const updatedCardState: CardState = {
     ...cardState,
-    seen: cardState.seen + 1,
-    stage: LearningStage.SEEN
+    seen,
+    correct,
+    incorrect,
+    stage: newStage,
+    lastSeen: sessionState.currentPosition,
+    lastSelectionReason
   };
 
   // Update the card in the session state
   const updatedCards = [...sessionState.cards];
   updatedCards[cardIndex] = updatedCardState;
 
-  // Update selection history
+  // Record in selection history
   const updatedHistory = [
     ...sessionState.selectionHistory,
     {
       position: sessionState.currentPosition,
       cardId: cardId,
-      stage: LearningStage.SEEN,
-      reason: "Card shown in shuffle order"
+      stage: newStage,
+      reason: lastSelectionReason,
+      grade: grade
     }
   ];
 
-  // Increment cards seen in current round
-  const cardsInCurrentRound = sessionState.cardsInCurrentRound + 1;
-  
-  // Check if we've seen all cards in this round
-  const needsShuffle = cardsInCurrentRound >= sessionState.cards.length;
-  
-  // If all cards have been seen, reshuffle
-  let finalCards = updatedCards;
-  if (needsShuffle) {
-    // Shuffle and reset positions
-    finalCards = shuffleArray(updatedCards).map((card, index) => ({
-      ...card,
-      positionInDeck: index
-    }));
-  }
-
   return {
     ...sessionState,
-    cards: finalCards,
+    cards: updatedCards,
     currentPosition: sessionState.currentPosition + 1,
-    cardsInCurrentRound: needsShuffle ? 0 : cardsInCurrentRound,
+    seenInCurrentCycle: [...sessionState.seenInCurrentCycle], // Don't modify here, only in pickNextCard
     selectionHistory: updatedHistory
   };
 }
 
 /**
- * Pick the next card to show based on current session state
- * Simply returns the next card in the shuffled order
+ * Pick the next card based on the simplified algorithm
+ * 1. If not all cards have been seen in current cycle, pick randomly from unseen
+ * 2. If all cards seen, reset cycle and pick randomly from all cards
  */
 export function pickNextCard(sessionState: SessionState): { card: Flashcard | null, reason: string } {
-  const { cards, cardsInCurrentRound } = sessionState;
+  const { cards, seenInCurrentCycle } = sessionState;
   
-  // Find the card with the matching position in the current round
-  const nextCard = cards.find(c => c.positionInDeck === cardsInCurrentRound);
-
-  if (!nextCard) {
+  // If all cards have been seen in this cycle, reset
+  if (seenInCurrentCycle.length >= cards.length) {
+    sessionState.seenInCurrentCycle = []; // Reset seen cards
+    
+    // Pick a random card from all cards
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    const selectedCard = cards[randomIndex];
+    
+    // Add to seen cards for this cycle
+    sessionState.seenInCurrentCycle.push(selectedCard.card.id);
+    
     return { 
-      card: null, 
-      reason: "No card found at the current position. The deck might be empty." 
+      card: selectedCard.card, 
+      reason: "Starting a new cycle. Random selection from all cards." 
     };
   }
-
+  
+  // Get cards not yet seen in the current cycle
+  const unseenCards = cards.filter(card => !seenInCurrentCycle.includes(card.card.id));
+  
+  // If there are unseen cards, pick one randomly
+  if (unseenCards.length > 0) {
+    const randomIndex = Math.floor(Math.random() * unseenCards.length);
+    const selectedCard = unseenCards[randomIndex];
+    
+    // Add to seen cards for this cycle
+    sessionState.seenInCurrentCycle.push(selectedCard.card.id);
+    
+    return { 
+      card: selectedCard.card, 
+      reason: `Randomly selected from ${unseenCards.length} unseen cards in current cycle.` 
+    };
+  }
+  
+  // Should not reach here, but just in case
   return { 
-    card: nextCard.card, 
-    reason: `Card selected at position ${cardsInCurrentRound} in the current shuffled round.` 
+    card: null, 
+    reason: "Error: No cards available to select." 
   };
 }
 
 /**
- * Get detailed statistics for the current session (simplified)
+ * Get statistics for the current session (simplified)
  */
 export function getSessionStats(sessionState: SessionState) {
-  const { cards, cardsInCurrentRound } = sessionState;
+  const { cards, seenInCurrentCycle } = sessionState;
   
   // Count cards in each stage
   const stageCounts = {
     [LearningStage.NEW]: cards.filter(c => c.stage === LearningStage.NEW).length,
-    [LearningStage.SEEN]: cards.filter(c => c.stage === LearningStage.SEEN).length
+    [LearningStage.LEARNING]: cards.filter(c => c.stage === LearningStage.LEARNING).length,
+    [LearningStage.MASTERED]: cards.filter(c => c.stage === LearningStage.MASTERED).length
   };
   
-  // Performance stats
+  // Basic stats
   const totalCards = cards.length;
   const seenCards = cards.filter(c => c.seen > 0).length;
   const unseenCards = totalCards - seenCards;
+  const masteredCards = stageCounts[LearningStage.MASTERED];
   
-  // Progress in current round
-  const roundProgress = totalCards > 0 ? Math.round((cardsInCurrentRound / totalCards) * 100) : 0;
-  
-  // Overall progress
+  // Calculate completion percentage
   const completionPercentage = totalCards > 0 ? Math.round((seenCards / totalCards) * 100) : 0;
-
-  // For backwards compatibility, treat all seen cards as mastered
-  const masteredCards = stageCounts[LearningStage.SEEN];
+  
+  // Current cycle progress
+  const currentCycleProgress = totalCards > 0 
+    ? Math.round((seenInCurrentCycle.length / totalCards) * 100) 
+    : 0;
   
   return {
     totalCards,
@@ -195,9 +248,8 @@ export function getSessionStats(sessionState: SessionState) {
     unseenCards,
     masteredCards,
     stageCounts,
-    currentRound: Math.floor(sessionState.currentPosition / totalCards) + 1,
-    roundProgress,
     completion: completionPercentage,
+    currentCycleProgress,
     selectionHistory: sessionState.selectionHistory.slice(-10) // Last 10 selections
   };
 }
@@ -211,7 +263,8 @@ export function getCardDistribution(sessionState: SessionState) {
   
   const distribution = {
     [LearningStage.NEW]: cards.filter(c => c.stage === LearningStage.NEW).length,
-    [LearningStage.SEEN]: cards.filter(c => c.stage === LearningStage.SEEN).length
+    [LearningStage.LEARNING]: cards.filter(c => c.stage === LearningStage.LEARNING).length,
+    [LearningStage.MASTERED]: cards.filter(c => c.stage === LearningStage.MASTERED).length
   };
   
   // Convert to percentages
@@ -227,19 +280,22 @@ export function getCardDistribution(sessionState: SessionState) {
 }
 
 /**
- * Get detailed information about a specific card (simplified)
+ * Get information about a specific card (simplified)
  */
 export function getCardInfo(sessionState: SessionState, cardId: string) {
   const card = sessionState.cards.find(c => c.card.id === cardId);
   if (!card) return null;
   
-  const { seen, stage, positionInDeck } = card;
+  const { seen, correct, incorrect, stage, lastSelectionReason } = card;
+  const successRate = seen > 0 ? Math.round((correct / seen) * 100) : 0;
   
   return {
     id: cardId,
     seen,
+    correct,
+    incorrect,
     stage,
-    positionInDeck,
-    roundNumber: Math.floor(seen / sessionState.cards.length) + 1
+    successRate,
+    lastSelectionReason: lastSelectionReason || "N/A"
   };
 } 

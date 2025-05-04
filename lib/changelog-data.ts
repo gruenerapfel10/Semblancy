@@ -9,6 +9,23 @@ export const DEFAULT_PLACEHOLDER = 'https://shadcnblocks.com/images/block/placeh
 
 export const changelogData: ChangelogEntry[] = [
   {
+    version: "Version 1.4.0",
+    date: "18 June 2023",
+    title: "Simplified Learning Algorithm",
+    description:
+      "We've revamped our flashcard algorithm with a simplified approach that ensures all cards are seen at least once before any card repeats.",
+    items: [
+      "Randomized card selection with equal distribution",
+      "Guaranteed exposure to all flashcards in each learning cycle",
+      "Improved performance for large flashcard collections",
+      "Simplified interface that maintains the same user experience",
+      "Better progress tracking for each study cycle"
+    ],
+    get image() {
+      return getChangelogImage(this.version);
+    },
+  },
+  {
     version: "Version 1.3.0",
     date: "15 May 2023",
     title: "Mass Selection & Improved Algorithm",
