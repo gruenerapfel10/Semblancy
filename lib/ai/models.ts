@@ -46,7 +46,7 @@ import {
   export const myProvider = customProvider({
     languageModels: {
         'gpt-4o-mini': customModel('openai.gpt-4o-mini'),
-        flash: customModel('gemini.gemini-2.0-flash-exp'),
+        flash: customModel('gemini.gemini-2.0-flash'),
       haiku: customModel('anthropic.claude-3-haiku-20240307-v1:0'),
       'general-bedrock-agent': customModel('anthropic.claude-3-sonnet-20240229-v1:0'),
       'sharepoint-agent': customModel('anthropic.claude-3-sonnet-20240229-v1:0'),
