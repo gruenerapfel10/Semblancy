@@ -738,7 +738,7 @@ const FlashcardSidebar: React.FC<FlashcardSidebarProps> = ({
       </Dialog>
 
       {/* Search Component */}
-      <FlashcardSearch onSelectLibrary={onSelectLibrary} />
+      <FlashcardSearch />
     </div>
   );
 };
