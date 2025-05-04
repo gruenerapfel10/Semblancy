@@ -3,6 +3,7 @@
 import * as React from "react"
 import { FaHome, FaFileAlt, FaTrophy, FaComments, FaQuestionCircle, FaHistory, FaMapMarkerAlt, FaFileArchive, FaStickyNote, FaTools, FaRegClone, FaListAlt, FaSync, FaCog, FaEnvelope } from "react-icons/fa"
 import { createClient } from "@/lib/supabase/client"
+import { usePathname } from "next/navigation"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
@@ -16,19 +17,21 @@ import {
   SidebarHeader,
   SidebarRail,
   SidebarProvider,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { useTranslation } from "@/lib/i18n/hooks"
 import { ExamSwitcher } from "@/components/exam-switcher"
+import { cn } from "@/lib/utils"
 
-// Define new sidebar items based on the provided image
+// Define new sidebar items with a more sophisticated styling approach
 const menuItems = [
   {
     name: "Overview",
     translationKey: "sidebar.overview",
     url: "/dashboard/overview",
     icon: FaHome,
-    iconColor: "#4f46e5", // Indigo
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Overview of your progress and next steps",
     actions: { view: false, share: false, delete: false }
   },
@@ -37,7 +40,7 @@ const menuItems = [
     translationKey: "sidebar.mocks",
     url: "/dashboard/mocks",
     icon: FaFileAlt,
-    iconColor: "#0ea5e9", // Sky blue
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Practice mock exams",
     actions: { view: false, share: false, delete: false }
   },
@@ -46,7 +49,7 @@ const menuItems = [
     translationKey: "sidebar.competition",
     url: "/dashboard/competition",
     icon: FaTrophy,
-    iconColor: "#f59e0b", // Amber
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Compete with others",
     actions: { view: false, share: false, delete: false }
   },
@@ -55,7 +58,7 @@ const menuItems = [
     translationKey: "sidebar.forums",
     url: "/dashboard/forums",
     icon: FaComments,
-    iconColor: "#10b981", // Emerald
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Join the discussion forums",
     actions: { view: false, share: false, delete: false }
   },
@@ -64,7 +67,7 @@ const menuItems = [
     translationKey: "sidebar.howItWorks",
     url: "/dashboard/how-it-works",
     icon: FaQuestionCircle,
-    iconColor: "#8b5cf6", // Violet
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Learn how the platform works",
     actions: { view: false, share: false, delete: false }
   },
@@ -73,7 +76,7 @@ const menuItems = [
     translationKey: "sidebar.changelog",
     url: "/dashboard/changelog",
     icon: FaHistory,
-    iconColor: "#ec4899", // Pink
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "See recent updates",
     actions: { view: false, share: false, delete: false }
   },
@@ -82,7 +85,7 @@ const menuItems = [
     translationKey: "sidebar.examCentreFinder",
     url: "/dashboard/exam-centre-finder",
     icon: FaMapMarkerAlt,
-    iconColor: "#ef4444", // Red
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Find exam centres",
     actions: { view: false, share: false, delete: false }
   },
@@ -94,7 +97,7 @@ const revisionItems = [
     translationKey: "sidebar.pastPapers",
     url: "/dashboard/past-papers",
     icon: FaFileArchive,
-    iconColor: "#6366f1", // Indigo
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Access past exam papers",
     actions: { view: false, share: false, delete: false }
   },
@@ -103,7 +106,7 @@ const revisionItems = [
     translationKey: "sidebar.notes",
     url: "/dashboard/notes",
     icon: FaStickyNote,
-    iconColor: "#f97316", // Orange
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "View and create notes",
     actions: { view: false, share: false, delete: false }
   },
@@ -112,7 +115,7 @@ const revisionItems = [
     translationKey: "sidebar.skills",
     url: "/dashboard/skills",
     icon: FaTools,
-    iconColor: "#0284c7", // Sky blue dark
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Practice skills",
     actions: { view: false, share: false, delete: false }
   },
@@ -121,7 +124,7 @@ const revisionItems = [
     translationKey: "sidebar.flashcards",
     url: "/dashboard/flashcards",
     icon: FaRegClone,
-    iconColor: "#4ade80", // Green
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Review flashcards",
     actions: { view: false, share: false, delete: false }
   },
@@ -130,7 +133,7 @@ const revisionItems = [
     translationKey: "sidebar.specifications",
     url: "/dashboard/specifications",
     icon: FaListAlt,
-    iconColor: "#a855f7", // Purple
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "View exam specifications",
     actions: { view: false, share: false, delete: false }
   },
@@ -142,7 +145,7 @@ const supportItems = [
     translationKey: "sidebar.refresh",
     url: "/dashboard/refresh",
     icon: FaSync,
-    iconColor: "#3b82f6", // Blue
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Refresh the page",
     actions: { view: false, share: false, delete: false }
   },
@@ -151,7 +154,7 @@ const supportItems = [
     translationKey: "sidebar.settings",
     url: "/dashboard/settings",
     icon: FaCog,
-    iconColor: "#64748b", // Slate
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Customize your experience",
     actions: { view: false, share: false, delete: false }
   },
@@ -160,7 +163,7 @@ const supportItems = [
     translationKey: "sidebar.contact",
     url: "/dashboard/contact",
     icon: FaEnvelope,
-    iconColor: "#06b6d4", // Cyan
+    className: "text-foreground/80 group-hover:text-primary/90 group-hover:drop-shadow-sm transition-all duration-200",
     description: "Contact support",
     actions: { view: false, share: false, delete: false }
   },
@@ -174,12 +177,62 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   };
 }
 
+const categoryStyle = "text-xs font-medium text-muted-foreground uppercase tracking-wider ml-1.5 mb-1.5";
+
 export function AppSidebar({ user: propUser, ...props }: AppSidebarProps) {
   const { examType } = useExam();
   const { t, isLoaded: isTranslationLoaded } = useTranslation();
   const currentLanguage = EXAM_LANGUAGES[examType];
   const [user, setUser] = React.useState(propUser);
   const supabase = createClient();
+  const pathname = usePathname();
+  
+  // Track whether the sidebar was originally collapsed
+  const [wasCollapsed, setWasCollapsed] = React.useState(false);
+  
+  // Reference to the sidebar for mouse events
+  const sidebarRef = React.useRef<HTMLDivElement>(null);
+  
+  // Initialize with sidebar context
+  const sidebar = useSidebar();
+  
+  // Track if hover expanded the sidebar
+  const [expandedByHover, setExpandedByHover] = React.useState(false);
+  
+  // Track initial collapse state when component mounts
+  React.useEffect(() => {
+    if (sidebar.state === 'collapsed') {
+      setWasCollapsed(true);
+    }
+  }, []);
+  
+  // Handle mouse enter event
+  const handleMouseEnter = React.useCallback(() => {
+    if (sidebar.state === 'collapsed') {
+      setExpandedByHover(true);
+      sidebar.setOpen(true);
+    }
+  }, [sidebar]);
+  
+  // Handle mouse leave event
+  const handleMouseLeave = React.useCallback(() => {
+    if (expandedByHover) {
+      setExpandedByHover(false);
+      sidebar.setOpen(false);
+    }
+  }, [expandedByHover, sidebar]);
+  
+  // Update tracking state when sidebar is manually toggled
+  React.useEffect(() => {
+    // If user manually collapsed the sidebar, reset hover state
+    if (sidebar.state === 'collapsed') {
+      setExpandedByHover(false);
+    }
+    // If user manually expanded, it's no longer in "hover expanded" mode
+    else if (sidebar.state === 'expanded' && !expandedByHover) {
+      setWasCollapsed(false);
+    }
+  }, [sidebar.state, expandedByHover]);
 
   React.useEffect(() => {
     const getUser = async () => {
@@ -212,6 +265,22 @@ export function AppSidebar({ user: propUser, ...props }: AppSidebarProps) {
     };
   }, [supabase.auth]);
 
+  // Add active status to menu items based on current path
+  const getItemsWithActiveStatus = (items: typeof menuItems) => {
+    return items.map(item => ({
+      ...item,
+      active: pathname === item.url,
+      className: cn(
+        item.className,
+        pathname === item.url && "text-primary font-medium"
+      )
+    }));
+  };
+
+  const menuItemsWithActive = getItemsWithActiveStatus(menuItems);
+  const revisionItemsWithActive = getItemsWithActiveStatus(revisionItems);
+  const supportItemsWithActive = getItemsWithActiveStatus(supportItems);
+
   const userData = user ? {
     name: user.name || user.email || 'User',
     email: user.email || '',
@@ -224,47 +293,53 @@ export function AppSidebar({ user: propUser, ...props }: AppSidebarProps) {
 
   return (
     <Sidebar 
+      ref={sidebarRef}
       collapsible="icon"
       variant="inset"
       side="left"
-      className="relative h-full pb-[50px] bg-sidebar" 
+      className="relative h-full pb-[50px] bg-sidebar/30 backdrop-blur-sm border-r border-border/30 shadow-md transition-all duration-150" 
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       {...props}
     >
-      <SidebarHeader>
-        <div className="px-2 py-2 flex flex-col gap-4">
+      <SidebarHeader className="border-b border-border/20 pb-4">
+        <div className="px-2 py-3 flex flex-col gap-4">
           <div className="flex flex-col gap-2 rounded-lg">
             <ExamSwitcher />
             <LanguageSwitcher />
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="px-1.5 py-3 space-y-7">
         <NavProjects 
-          title="Menu" 
-          projects={menuItems.map(item => ({
+          title={<div className={categoryStyle}>Menu</div>} 
+          projects={menuItemsWithActive.map(item => ({
             ...item,
             name: isTranslationLoaded ? t(item.translationKey) : item.name,
           }))} 
           showActions={false}
+          className="pb-5 space-y-1"
         />
         <NavProjects 
-          title="Revision" 
-          projects={revisionItems.map(item => ({
+          title={<div className={categoryStyle}>Revision</div>} 
+          projects={revisionItemsWithActive.map(item => ({
             ...item,
             name: isTranslationLoaded ? t(item.translationKey) : item.name,
           }))} 
           showActions={false}
+          className="pb-5 space-y-1"
         />
         <NavProjects 
-          title="Support" 
-          projects={supportItems.map(item => ({
+          title={<div className={categoryStyle}>Support</div>} 
+          projects={supportItemsWithActive.map(item => ({
             ...item,
             name: isTranslationLoaded ? t(item.translationKey) : item.name,
           }))} 
           showActions={false}
+          className="space-y-1"
         />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="border-t border-border/20 mt-auto bg-background/50 backdrop-blur-sm">
         <NavUser user={userData} />
       </SidebarFooter>
     </Sidebar>

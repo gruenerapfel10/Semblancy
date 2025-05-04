@@ -9,6 +9,7 @@ import {
 } from "lucide-react"
 import { useTranslation } from "@/lib/i18n/hooks"
 import React from "react"
+import { cn } from "@/lib/utils"
 
 import {
   DropdownMenu,
@@ -32,32 +33,45 @@ export function NavProjects({
   title,
   showMore = false,
   showActions = false,
+  className,
 }: {
   projects: {
     name: string
     url: string
     icon: React.ElementType
     iconColor?: string
+    className?: string
     actions?: {
       view?: boolean
       share?: boolean
       delete?: boolean
     }
   }[]
-  title?: string
+  title?: React.ReactNode | string
   showMore?: boolean
   showActions?: boolean
+  className?: string
 }) {
   const { isMobile } = useSidebar()
   const { t } = useTranslation()
 
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">{title ? t(title) : t('sidebar.study')}</SidebarGroupLabel>
+    <SidebarGroup className={className}>
+      {typeof title === 'string' ? (
+        <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">
+          {title ? t(title) : t('sidebar.study')}
+        </SidebarGroupLabel>
+      ) : (
+        <div className="group-data-[collapsible=icon]:hidden">{title}</div>
+      )}
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild tooltip={t(item.name)}>
+            <SidebarMenuButton 
+              asChild 
+              tooltip={t(item.name)}
+              className={cn("group", item.className)}
+            >
               <a href={item.url}>
                 {item.iconColor ? (
                   <item.icon style={{ color: item.iconColor }} />
