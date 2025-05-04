@@ -120,37 +120,41 @@ const InteractiveMode: React.FC<InteractiveModeProps> = ({
             <Progress value={progressPercent} className="rounded-none h-full" />
           </div>
 
-          <div className="mb-10">
-            <div className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-3">Question</div>
-            <p className="learning-question">{currentCard.front}</p>
+          {/* Question Area - Increased prominence and spacing */}
+          <div className="mb-8"> 
+            <p className="learning-question text-2xl font-semibold">{currentCard.front}</p> 
           </div>
 
+          {/* Conditional Rendering: Answer Input or Results */}
           {markingResult ? (
-            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-5 duration-500">
-              <div className="bg-muted/30 rounded-lg p-6 border border-muted">
-                <div className="text-sm uppercase tracking-wider text-muted-foreground mb-2">Your Answer</div>
-                <p className="text-lg md:text-xl font-medium leading-relaxed learning-content">
+            // --- Results Display --- 
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-5 duration-500 mt-8"> 
+              {/* User's Answer Box */}
+              <div className="bg-muted/30 rounded-lg p-5 border border-muted">
+                {/* Title removed - context is clear */}
+                <p className="text-lg font-medium leading-relaxed learning-content">
                   {userAnswer || "(No answer provided)"}
                 </p>
               </div>
               
-              <div className="bg-muted/30 rounded-lg p-6 border border-muted">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-sm uppercase tracking-wider text-muted-foreground">AI Evaluation</div>
+              {/* AI Evaluation Box */}
+              <div className="bg-muted/30 rounded-lg p-5 border border-muted">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">AI Evaluation</div> 
                   <div className="flex items-center gap-2">
                     <Sparkles className="h-4 w-4 text-primary pulse-attention" />
                     <span className="text-sm font-medium">AI Marked</span>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-3">
                   {markingResult.isCorrect ? (
                     <Check className="h-6 w-6 text-green-500 dark:text-green-400" />
                   ) : (
                     <X className="h-6 w-6 text-red-500 dark:text-red-400" />
                   )}
                   <span className={cn(
-                    "text-2xl font-bold",
+                    "text-xl font-bold", 
                     getScoreColor(markingResult.score)
                   )}>
                     {markingResult.score}%
@@ -162,21 +166,24 @@ const InteractiveMode: React.FC<InteractiveModeProps> = ({
                 </div>
               </div>
               
-              <div className="bg-muted/30 rounded-lg p-6 border border-muted">
-                <div className="text-sm uppercase tracking-wider text-muted-foreground mb-2">Correct Answer</div>
-                <p className="learning-answer">
+              {/* Correct Answer Box */}
+              <div className="bg-muted/30 rounded-lg p-5 border border-muted">
+                <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">Correct Answer</div> 
+                <p className="learning-answer text-lg font-medium">
                   {currentCard.back}
                 </p>
                 
+                {/* Optional Explanation */}
                 {markingResult.explanation && (
                   <div className="mt-4 pt-4 border-t border-border">
-                    <div className="text-sm uppercase tracking-wider text-muted-foreground mb-2">Explanation</div>
-                    <p className="text-md leading-relaxed font-medium learning-content">{markingResult.explanation}</p>
+                    <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">Explanation</div> 
+                    <p className="text-md leading-relaxed learning-content">{markingResult.explanation}</p>
                   </div>
                 )}
               </div>
 
-              <div className="flex justify-end mt-8">
+              {/* Continue Button */}
+              <div className="flex justify-end mt-6"> 
                 <Button 
                   className="flashcard-button"
                   onClick={handleNextCard}
@@ -187,9 +194,10 @@ const InteractiveMode: React.FC<InteractiveModeProps> = ({
               </div>
             </div>
           ) : (
-            <div className="space-y-8">
+            // --- Answer Input Area --- 
+            <div className="space-y-6 mt-6"> 
               <div>
-                <div className="text-sm uppercase tracking-wider text-muted-foreground mb-4">Your Answer</div>
+                {/* Title removed - input context is clear */}
                 <div className="flex gap-3">
                   <Input
                     ref={inputRef}
@@ -219,7 +227,8 @@ const InteractiveMode: React.FC<InteractiveModeProps> = ({
                 </div>
               </div>
 
-              <div className="flex justify-end">
+              {/* Skip Button - Adjusted spacing */}
+              <div className="flex justify-end pt-2"> 
                 <Button 
                   variant="ghost" 
                   size="lg" 

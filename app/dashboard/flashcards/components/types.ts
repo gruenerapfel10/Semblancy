@@ -5,6 +5,7 @@ export interface Flashcard {
   front: string;
   back: string;
   lastReviewed?: Date;
+  tags?: string[];
 }
 
 export interface FlashcardLibrary {

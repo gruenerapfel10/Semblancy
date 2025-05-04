@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { FiPackage, FiSmartphone, FiBarChart2, FiFlag } from 'react-icons/fi';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { CheckCircleFillIcon } from "@/components/icons";
+import { changelogData } from "@/lib/changelog-data";
 
 export type ChangelogEntry = {
   version: string;
@@ -26,7 +27,7 @@ export interface Changelog1Props {
 const Changelog1 = ({
   title = "Changelog",
   description = "Get the latest updates and improvements to our platform.",
-  entries = defaultChangelogData,
+  entries = changelogData,
 }: Changelog1Props) => {
   const [activeIdx, setActiveIdx] = useState(0);
   const entryRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -273,138 +274,3 @@ const Changelog1 = ({
 };
 
 export { Changelog1 };
-
-export const defaultChangelogData: ChangelogEntry[] = [
-  {
-    version: "Version 2.1.0",
-    date: "10 June 2025",
-    title: "AI-Powered Revision Planner",
-    description:
-      "Introducing a smart revision planner that adapts to your strengths and weaknesses for A Level and GCSE subjects.",
-    items: [
-      "Personalized study schedules",
-      "AI-driven topic recommendations",
-      "Progress tracking dashboard",
-      "Syncs with your calendar",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 2.0.0",
-    date: "25 May 2025",
-    title: "Live Group Study Rooms",
-    description:
-      "Join or create live group study sessions with peers, complete with collaborative whiteboards and quizzes.",
-    items: [
-      "Real-time video and chat",
-      "Collaborative whiteboard",
-      "Instant group quizzes",
-      "Session scheduling",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 1.9.0",
-    date: "12 May 2025",
-    title: "Exam-Style Mock Generator",
-    description:
-      "Generate unlimited exam-style mocks for any A Level or GCSE subject, instantly marked with feedback.",
-    items: [
-      "Customizable difficulty and topics",
-      "Instant marking and feedback",
-      "Downloadable PDF mocks",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 1.8.0",
-    date: "28 April 2025",
-    title: "Flashcard AI Assistant",
-    description:
-      "Create, import, and study flashcards with AI-generated hints and explanations.",
-    items: [
-      "AI-generated flashcard hints",
-      "Spaced repetition scheduling",
-      "Import from Quizlet or CSV",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 1.7.0",
-    date: "15 April 2025",
-    title: "Subject Mastery Insights",
-    description:
-      "Get detailed analytics on your mastery of each subject and topic, with actionable next steps.",
-    items: [
-      "Topic-by-topic mastery heatmap",
-      "Suggested next topics",
-      "Compare with national averages",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 1.6.0",
-    date: "2 April 2025",
-    title: "Mobile App Beta Release",
-    description:
-      "Try Semblancy on the go! Our mobile app beta is now available for iOS and Android.",
-    items: [
-      "Offline revision mode",
-      "Push notifications for reminders",
-      "Seamless sync with web",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 1.5.0",
-    date: "18 March 2025",
-    title: "Interactive Past Paper Library",
-    description:
-      "Access a searchable library of past papers with instant marking and worked solutions.",
-    items: [
-      "Filter by exam board and year",
-      "Instant marking",
-      "Step-by-step worked solutions",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 1.4.0",
-    date: "5 March 2025",
-    title: "Gamified Streaks & Achievements",
-    description:
-      "Stay motivated with daily streaks, badges, and leaderboards for revision milestones.",
-    items: [
-      "Daily and weekly streaks",
-      "Achievement badges",
-      "Global and friends leaderboards",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 1.3.0",
-    date: "20 February 2025",
-    title: "Teacher Dashboard Launch",
-    description:
-      "Teachers can now track class progress, assign tasks, and review student analytics.",
-    items: [
-      "Class progress overview",
-      "Task assignment",
-      "Student analytics export",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-  {
-    version: "Version 1.2.0",
-    date: "1 February 2025",
-    title: "Launch of Semblancy Platform",
-    description:
-      "We're live! Start preparing for your A Level and GCSE exams with modern, AI-powered tools.",
-    items: [
-      "Smart revision planner",
-      "Mock exam generator",
-      "Flashcards and analytics",
-    ],
-    image: "https://shadcnblocks.com/images/block/placeholder-aspect-video-1.svg",
-  },
-];

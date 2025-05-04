@@ -4,7 +4,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { FlashcardLibrary } from './types';
-import { MoreHorizontal, Pencil, Trash2, Plus, ChevronRight, FolderPlus, GripVertical, ChevronLeft, PanelLeftClose, PanelLeft, Folder, Clock } from 'lucide-react';
+import { MoreHorizontal, Pencil, Trash2, Plus, ChevronRight, FolderPlus, GripVertical, ChevronLeft, PanelLeftClose, PanelLeft, Folder, Clock, Search } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { getLibraryRetention, getUrgencyColor, UrgencyLevel } from '../utils/forgettingCurve';
+import { FlashcardSearch } from './FlashcardSearch';
 
 interface LibraryGroup {
   id: string;
@@ -57,6 +58,19 @@ const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 const SIDEBAR_WIDTH = "260px";
 const SIDEBAR_WIDTH_COLLAPSE = "56px";
 const SIDEBAR_KEYBOARD_SHORTCUT = "s";
+
+// New interface for search results
+interface SearchResult {
+  type: 'library' | 'card';
+  id: string;
+  libraryId?: string;
+  libraryName?: string;
+  title: string;
+  content?: string;
+  matchField: 'name' | 'front' | 'back' | 'tags';
+  matchScore: number;
+  tags?: string[];
+}
 
 function LibraryItem({ 
   library, 
@@ -285,7 +299,7 @@ const FlashcardSidebar: React.FC<FlashcardSidebarProps> = ({
   onSelectLibrary,
   onNewLibrary,
 }) => {
-  const { openLibraryDialog, openDeleteDialog, manager, groups, ungroupedLibraryObjects, handleSaveGroup, studySessions } = useFlashcards();
+  const { openLibraryDialog, openDeleteDialog, manager, groups, ungroupedLibraryObjects, handleSaveGroup, studySessions, openSearch } = useFlashcards();
   const isMobile = useMediaQuery("(max-width: 768px)");
   
   // Group dialog state
@@ -416,6 +430,15 @@ const FlashcardSidebar: React.FC<FlashcardSidebarProps> = ({
                   <Button 
                     size="sm" 
                     variant="outline"
+                    onClick={openSearch}
+                    className="transition-all duration-200 hover:bg-muted group mr-1"
+                  >
+                    <Search className="w-4 h-4 mr-1 text-primary/70 transition-transform duration-200 group-hover:scale-110" />
+                    Search
+                  </Button>
+                  <Button 
+                    size="sm" 
+                    variant="outline"
                     onClick={handleCreateGroup}
                     className="transition-all duration-200 hover:bg-muted group"
                   >
@@ -435,6 +458,26 @@ const FlashcardSidebar: React.FC<FlashcardSidebarProps> = ({
                       translate-x-[-100%] group-hover:translate-x-[100%] group-hover:opacity-50" />
                   </Button>
                 </>
+              )}
+              
+              {isCollapsed && (
+                <TooltipProvider>
+                  <Tooltip delayDuration={300}>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 rounded-full hover:bg-muted/80 transition-all duration-200 mb-2"
+                        onClick={openSearch}
+                      >
+                        <Search className="h-4 w-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      Search libraries and flashcards
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
               
               <TooltipProvider>
@@ -693,6 +736,9 @@ const FlashcardSidebar: React.FC<FlashcardSidebarProps> = ({
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Search Component */}
+      <FlashcardSearch onSelectLibrary={onSelectLibrary} />
     </div>
   );
 };

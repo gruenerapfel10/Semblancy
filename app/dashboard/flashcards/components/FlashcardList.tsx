@@ -9,12 +9,13 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Flashcard, FlashcardLibrary } from './types';
-import { Pencil, Trash2, Plus, BookOpen, Search, X } from 'lucide-react';
+import { Pencil, Trash2, Plus, BookOpen, Search, X, Check } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Tooltip,
   TooltipContent,
@@ -40,6 +41,9 @@ const FlashcardList: React.FC<FlashcardListProps> = ({
   // Local state for search if not provided externally
   const [internalSearchQuery, setInternalSearchQuery] = useState('');
   
+  // State for selected cards
+  const [selectedCards, setSelectedCards] = useState<Set<string>>(new Set());
+  
   // Use external search query if provided, otherwise use internal
   const searchQuery = externalSearchQuery !== undefined ? externalSearchQuery : internalSearchQuery;
   
@@ -54,6 +58,50 @@ const FlashcardList: React.FC<FlashcardListProps> = ({
     );
   }, [library.cards, searchQuery]);
 
+  // Handler to toggle selection for a single card
+  const toggleCardSelection = (cardId: string) => {
+    setSelectedCards(prev => {
+      const newSelection = new Set(prev);
+      if (newSelection.has(cardId)) {
+        newSelection.delete(cardId);
+      } else {
+        newSelection.add(cardId);
+      }
+      return newSelection;
+    });
+  };
+
+  // Handler to toggle selection for all filtered cards
+  const toggleSelectAll = () => {
+    if (selectedCards.size === filteredCards.length) {
+      // If all are selected, deselect all
+      setSelectedCards(new Set());
+    } else {
+      // Otherwise, select all filtered cards
+      setSelectedCards(new Set(filteredCards.map(card => card.id)));
+    }
+  };
+
+  // Handler for bulk delete
+  const handleBulkDelete = () => {
+    // Create a copy of the selected cards to work with
+    const toDelete = [...selectedCards];
+    
+    // Find and delete each selected card
+    toDelete.forEach(cardId => {
+      const card = library.cards.find(c => c.id === cardId);
+      if (card) {
+        onDelete(card);
+      }
+    });
+    
+    // Clear selection after deletion
+    setSelectedCards(new Set());
+  };
+
+  const areAllCardsSelected = filteredCards.length > 0 && selectedCards.size === filteredCards.length;
+  const isAnyCardSelected = selectedCards.size > 0;
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 pb-4 border-b">
@@ -63,6 +111,11 @@ const FlashcardList: React.FC<FlashcardListProps> = ({
             <Badge variant="outline" className="text-sm py-1">
               {filteredCards.length} / {library.cards.length} {library.cards.length === 1 ? 'card' : 'cards'}
             </Badge>
+            {isAnyCardSelected && (
+              <Badge variant="secondary" className="ml-2">
+                {selectedCards.size} selected
+              </Badge>
+            )}
           </div>
           {library.description && (
             <p className="text-muted-foreground mt-1 max-w-2xl">{library.description}</p>
@@ -70,6 +123,17 @@ const FlashcardList: React.FC<FlashcardListProps> = ({
         </div>
         
         <div className="flex items-center gap-2">
+          {isAnyCardSelected ? (
+            <Button 
+              variant="destructive" 
+              size="sm" 
+              onClick={handleBulkDelete}
+              className="flex items-center gap-2"
+            >
+              <Trash2 className="h-4 w-4" /> Delete Selected
+            </Button>
+          ) : null}
+          
           <div className="relative">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
@@ -111,6 +175,21 @@ const FlashcardList: React.FC<FlashcardListProps> = ({
         </div>
       </div>
 
+      {filteredCards.length > 0 && (
+        <div className="flex items-center mb-4">
+          <div className="flex items-center gap-2">
+            <Checkbox 
+              id="select-all" 
+              checked={areAllCardsSelected}
+              onCheckedChange={toggleSelectAll}
+            />
+            <label htmlFor="select-all" className="text-sm cursor-pointer select-none">
+              {areAllCardsSelected ? 'Deselect All' : 'Select All'}
+            </label>
+          </div>
+        </div>
+      )}
+
       <ScrollArea className="flex-grow">
         {filteredCards.length === 0 ? (
           <Card className="border-dashed bg-muted/20">
@@ -149,7 +228,13 @@ const FlashcardList: React.FC<FlashcardListProps> = ({
               >
                 <Card className="overflow-hidden hover:shadow-md transition-shadow">
                   <CardContent className="p-0">
-                    <div className="grid grid-cols-[1fr,1fr,auto] gap-4">
+                    <div className="grid grid-cols-[auto,1fr,1fr,auto] gap-4">
+                      <div className="flex items-center justify-center pl-4">
+                        <Checkbox 
+                          checked={selectedCards.has(card.id)}
+                          onCheckedChange={() => toggleCardSelection(card.id)}
+                        />
+                      </div>
                       <div className="p-4 border-r">
                         <div className="text-xs font-medium text-muted-foreground mb-1">Front</div>
                         <div className="text-sm text-muted-foreground">

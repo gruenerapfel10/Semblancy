@@ -59,6 +59,19 @@ export interface StudySessionResult {
   reps?: number;    
 }
 
+// Add this interface for search results
+export interface SearchResult {
+  type: 'library' | 'card';
+  id: string;
+  libraryId?: string;
+  libraryName?: string;
+  title: string;
+  content?: string;
+  matchField: 'name' | 'front' | 'back' | 'tags';
+  matchScore: number;
+  tags?: string[];
+}
+
 /**
  * FlashcardManager class to handle all operations related to flashcards
  * Following OOP principles to centralize business logic
@@ -518,6 +531,11 @@ interface FlashcardContextType {
     score: number;
   } | null;
 
+  // Search state
+  searchQuery: string;
+  searchResults: SearchResult[];
+  isSearchOpen: boolean;
+  
   // Actions
   setActiveTab: (tab: string) => void;
   setSelectedLibraryId: (id: string | null) => void;
@@ -536,6 +554,13 @@ interface FlashcardContextType {
   finishStudySession: (results: { correct: number; total: number; score: number; studyMode: StudyMode; sessionType: SessionType }) => void;
   openStudyConfig: () => void;
   closeStudyConfig: () => void;
+  
+  // Search actions
+  setSearchQuery: (query: string) => void;
+  performSearch: (query: string) => void;
+  openSearch: () => void;
+  closeSearch: () => void;
+  calculateMatchScore: (text: string, query: string) => number;
   
   // Operation handlers
   handleSaveLibrary: (libraryData: Partial<FlashcardLibrary>) => void;
@@ -579,6 +604,11 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
   const [selectedStudyMode, setSelectedStudyMode] = useState<StudyMode>('flip');
   const [selectedSessionType, setSelectedSessionType] = useState<SessionType>('infinite');
   const [selectedReps, setSelectedReps] = useState<number>(1);
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // Subscribe to manager changes to keep React state in sync
   useEffect(() => {
@@ -729,6 +759,124 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     closeDeleteDialog();
   };
 
+  // Helper function to calculate search match score (0-1)
+  const calculateMatchScore = (text: string, query: string): number => {
+    if (!text || !query) return 0;
+    
+    const lowerText = text.toLowerCase();
+    const lowerQuery = query.toLowerCase();
+    const queryLength = lowerQuery.length;
+    const textLength = lowerText.length;
+    
+    // Exact match gets highest score
+    if (lowerText === lowerQuery) return 1;
+    
+    // Starting with the query is very good
+    if (lowerText.startsWith(lowerQuery)) return 0.9;
+    
+    // Calculate how much of the text matches the query as a percentage
+    const indexOfQuery = lowerText.indexOf(lowerQuery);
+    if (indexOfQuery >= 0) {
+      // Higher score if query appears earlier in the text
+      const positionFactor = 1 - (indexOfQuery / textLength);
+      // Higher score if query is larger portion of the text
+      const lengthFactor = queryLength / textLength;
+      return 0.7 + (0.3 * positionFactor * lengthFactor);
+    }
+    
+    // Lower score for partial word matches
+    const words = lowerText.split(/\s+/);
+    for (const word of words) {
+      if (word.startsWith(lowerQuery)) return 0.6;
+      if (word.includes(lowerQuery)) return 0.5;
+    }
+    
+    return 0.4; // Generic match
+  };
+
+  // Helper function to truncate text
+  const truncateText = (text: string, maxLength: number): string => {
+    if (!text || text.length <= maxLength) return text || '';
+    return text.substring(0, maxLength) + '...';
+  };
+
+  // Search functionality
+  const performSearch = (query: string) => {
+    if (!query.trim() || query.length < 2) {
+      setSearchResults([]);
+      return;
+    }
+
+    const trimmedQuery = query.toLowerCase().trim();
+    const results: SearchResult[] = [];
+
+    // Search through all libraries
+    libraries.forEach(library => {
+      // Match library names
+      const libraryNameMatch = library.name.toLowerCase().includes(trimmedQuery);
+      if (libraryNameMatch) {
+        results.push({
+          type: 'library',
+          id: library.id,
+          title: library.name,
+          matchField: 'name',
+          matchScore: calculateMatchScore(library.name, trimmedQuery),
+        });
+      }
+
+      // Match cards within libraries
+      library.cards.forEach(card => {
+        const frontMatch = card.front.toLowerCase().includes(trimmedQuery);
+        const backMatch = card.back.toLowerCase().includes(trimmedQuery);
+        
+        // Check if any tags match
+        const tagMatches = card.tags && card.tags.some(tag => 
+          tag.toLowerCase().includes(trimmedQuery)
+        );
+
+        if (frontMatch || backMatch || tagMatches) {
+          results.push({
+            type: 'card',
+            id: card.id,
+            libraryId: library.id,
+            libraryName: library.name,
+            title: truncateText(card.front, 50),
+            content: truncateText(card.back, 100),
+            matchField: frontMatch ? 'front' : backMatch ? 'back' : 'tags',
+            matchScore: Math.max(
+              frontMatch ? calculateMatchScore(card.front, trimmedQuery) : 0,
+              backMatch ? calculateMatchScore(card.back, trimmedQuery) : 0,
+              tagMatches ? 0.8 : 0
+            ),
+            tags: card.tags,
+          });
+        }
+      });
+    });
+
+    // Sort results by match score (highest first)
+    results.sort((a, b) => b.matchScore - a.matchScore);
+    
+    setSearchResults(results);
+  };
+
+  // Handle search query changes
+  useEffect(() => {
+    performSearch(searchQuery);
+  }, [searchQuery, libraries]);
+
+  // Open search dialog
+  const openSearch = () => {
+    setIsSearchOpen(true);
+  };
+
+  // Close search dialog
+  const closeSearch = () => {
+    setIsSearchOpen(false);
+    // Optionally keep the last search query or clear it:
+    // setSearchQuery('');
+  };
+
   // Value object with all context data and functions
   const contextValue: FlashcardContextType = {
     // Core manager access
@@ -764,6 +912,11 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     selectedReps,
     currentStudyResults,
     
+    // Search state
+    searchQuery,
+    searchResults,
+    isSearchOpen,
+    
     // Actions
     setActiveTab,
     setSelectedLibraryId,
@@ -782,6 +935,13 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     finishStudySession,
     openStudyConfig,
     closeStudyConfig,
+    
+    // Search actions
+    setSearchQuery,
+    performSearch,
+    openSearch,
+    closeSearch,
+    calculateMatchScore,
     
     // Operation handlers
     handleSaveLibrary,

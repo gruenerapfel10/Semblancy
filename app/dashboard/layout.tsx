@@ -6,6 +6,8 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { AIPanel } from "@/components/ai-panel";
 import { Navbar } from "@/components/navbar";
 import { DebugControls } from "./flashcards/components/DebugControls";
+import { UpdateNotification } from "@/components/ui/UpdateNotification";
+import { changelogData } from "@/lib/changelog-data";
 
 export default function DashboardLayout({
   children,
@@ -26,6 +28,13 @@ export default function DashboardLayout({
           <AIPanel open={isAIPanelOpen} onOpenChange={setIsAIPanelOpen} />
         </div>
         {/* <DebugControls /> */}
+        
+        {/* Automated update notification */}
+        <UpdateNotification 
+          entries={changelogData} 
+          showButton={false} 
+          autoShowLatest={true} 
+        />
       </div>
     </SidebarProvider>
   );

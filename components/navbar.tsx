@@ -6,6 +6,8 @@ import Logo from "@/components/Logo";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { SidebarTrigger } from "@/components/sidebar-trigger";
+import { UpdateNotification } from "@/components/ui/UpdateNotification";
+import { changelogData } from "@/lib/changelog-data";
 
 export function Navbar() {
   const { theme } = useTheme();
@@ -25,6 +27,11 @@ export function Navbar() {
           </Button>
         </div>
         <nav className="ml-auto flex items-center gap-4">
+          <UpdateNotification 
+            entries={changelogData}
+            showButton={true}
+            autoShowLatest={false}
+          />
           <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

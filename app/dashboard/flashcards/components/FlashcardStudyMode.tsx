@@ -5,11 +5,10 @@ import { Flashcard, FlashcardLibrary, StudyMode, SessionType } from './types';
 import { useStudyCards } from '../utils/hooks';
 import UnifiedStudyMode from './study/UnifiedStudyMode';
 import { Button } from '@/components/ui/button';
-import { X, Save, Sparkles, RotateCcw, Info } from 'lucide-react';
+import { X, Save, Sparkles, RotateCcw, Info, TrendingDown, TrendingUp } from 'lucide-react';
 import { 
   initializeSession, 
   updateCardState, 
-  adjustCardWeight, 
   pickNextCard, 
   getSessionStats,
   getCardInfo,
@@ -99,9 +98,12 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
   }, []);
 
   // Process user answer
-  const handleAnswer = useCallback((isCorrect: boolean) => {
+  const handleAnswer = useCallback((grade: number) => {
     if (!sessionState || !currentCard) return;
     
+    // Determine if correct based on grade >= 3 for scoring purposes
+    const isCorrect = grade >= 3;
+
     // Update score in study state
     setStudyState(prev => ({
       ...prev,
@@ -112,20 +114,10 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
       ],
     }));
     
-    // Update card state in session state based on user's answer
+    // Update card state in session state using the provided grade
     setSessionState(prevSession => {
       if (!prevSession) return null;
-      return updateCardState(prevSession, currentCard.id, isCorrect);
-    });
-  }, [sessionState, currentCard]);
-
-  // Adjust the weight of the current card
-  const handleAdjustCardWeight = useCallback((adjustment: -1 | 0 | 1) => {
-    if (!sessionState || !currentCard) return;
-    
-    setSessionState(prevSession => {
-      if (!prevSession) return null;
-      return adjustCardWeight(prevSession, currentCard.id, adjustment);
+      return updateCardState(prevSession, currentCard.id, grade);
     });
   }, [sessionState, currentCard]);
 
@@ -285,68 +277,6 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
       </div>
 
       <div className="mx-auto p-4 max-w-4xl w-full">
-        {/* Card selection explanation */}
-        <div className="mb-4 text-sm text-muted-foreground flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex gap-1">
-              {cardInfo && (
-                <div className={`w-2 h-2 rounded-full bg-${stageColors[cardInfo.stage]}-400/80`}></div>
-              )}
-              <span className="font-medium">Selection Logic:</span>
-            </div>
-            <span>{selectionReason}</span>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleToggleTooltip}
-            className="h-7 w-7 p-0 rounded-full"
-          >
-            <Info className="h-4 w-4" />
-          </Button>
-        </div>
-        
-        {/* Learning stages statistics */}
-        {showTooltip && (
-          <div className="mb-4 p-3 bg-muted/30 border border-border rounded-md text-sm">
-            <h4 className="font-medium mb-2">Card Distribution:</h4>
-            <div className="flex gap-2 mb-2">
-              {Object.entries(distribution.counts).map(([stage, count]) => (
-                count > 0 && (
-                  <div key={stage} className="flex items-center gap-1">
-                    <div className={`w-2 h-2 rounded-full bg-${stageColors[stage as LearningStage]}-400/80`}></div>
-                    <span>{stage}: {count}</span>
-                  </div>
-                )
-              ))}
-            </div>
-            <div className="flex items-center h-3 bg-muted rounded-full overflow-hidden">
-              {Object.entries(distribution.percentages).map(([stage, percentage]) => (
-                percentage > 0 && (
-                  <div 
-                    key={stage} 
-                    className={`h-full bg-${stageColors[stage as LearningStage]}-400/80`}
-                    style={{ width: `${percentage}%` }}
-                    title={`${stage}: ${percentage}%`}
-                  ></div>
-                )
-              ))}
-            </div>
-            
-            {cardInfo && (
-              <div className="mt-3 pt-2 border-t border-border">
-                <h4 className="font-medium mb-1">Current Card:</h4>
-                <div className="grid grid-cols-2 gap-2">
-                  <div>Stage: {cardInfo.stage}</div>
-                  <div>Success Rate: {cardInfo.successRate}%</div>
-                  <div>Seen: {cardInfo.seen}x</div>
-                  <div>Streak: {cardInfo.streak}</div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
         <UnifiedStudyMode 
           currentCard={currentCard}
           remainingCards={sessionState.cards
@@ -364,7 +294,6 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
           onEndSession={handleEndSession}
           isFlipped={studyState.flipped}
           libraryName={library.name}
-          onAdjustCardWeight={handleAdjustCardWeight}
           sessionStats={sessionStats}
         />
       </div>
