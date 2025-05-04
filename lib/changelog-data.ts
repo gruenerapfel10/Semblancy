@@ -9,6 +9,91 @@ export const DEFAULT_PLACEHOLDER = 'https://shadcnblocks.com/images/block/placeh
 
 export const changelogData: ChangelogEntry[] = [
   {
+    version: "Version 1.8.0",
+    date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    title: "Command Palette for Fast Navigation",
+    description:
+      "We've added a powerful command palette search bar that lets you quickly navigate to any page in the application with just a keyboard shortcut.",
+    items: [
+      "Press Cmd+K (Mac) or Ctrl+K (Windows) to open the search bar",
+      "Easily navigate to any section without using the mouse",
+      "Visual indicator in the navbar with keyboard shortcut hint",
+      "Grouped search results by category for better organization",
+      "Complete keyboard navigation support"
+    ],
+    get image() {
+      return getChangelogImage(this.version);
+    },
+  },
+  {
+    version: "Version 1.7.0",
+    date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    title: "AI Assistant Panel Integration",
+    description:
+      "Introducing our new AI helper assistant panel that provides contextual assistance and language learning support with a simple keyboard shortcut.",
+    items: [
+      "Toggle the AI panel with Cmd+J (Mac) or Ctrl+J (Windows)",
+      "Integrated brain icon in the navbar for easy access",
+      "Contextual language learning assistance",
+      "Real-time explanations and translations",
+      "Enhanced learning experience with AI-powered feedback"
+    ],
+    get image() {
+      return getChangelogImage(this.version);
+    },
+  },
+  {
+    version: "Version 1.6.0",
+    date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    title: "Custom 404 Page Experience",
+    description:
+      "We've implemented a custom 404 error page that helps users navigate back to valid content when they encounter a missing page.",
+    items: [
+      "Friendly and helpful error messaging",
+      "Suggestions for popular pages to visit instead",
+      "Quick navigation back to the dashboard",
+      "Improved user experience during navigation errors",
+      "Clear visual design consistent with our brand"
+    ],
+    get image() {
+      return getChangelogImage(this.version);
+    },
+  },
+  {
+    version: "Version 1.5.0",
+    date: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    title: "Complete Boilerplate Pages",
+    description:
+      "We've added boilerplate pages for all sections listed in the sidebar to ensure a consistent navigation experience without 404 errors.",
+    items: [
+      "All sidebar navigation links now lead to valid pages",
+      "Placeholder content for upcoming features",
+      "Consistent layout and design across all sections",
+      "Improved navigation flow through the application",
+      "Ready framework for future feature additions"
+    ],
+    get image() {
+      return getChangelogImage(this.version);
+    },
+  },
+  {
+    version: "Version 1.4.5",
+    date: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    title: "Enhanced Sidebar Experience",
+    description:
+      "We've completely revamped the sidebar with improved styling, keyboard shortcuts, and a more intuitive navigation experience.",
+    items: [
+      "Toggle sidebar visibility with Cmd+E or Ctrl+E",
+      "Refined visual design with improved spacing and typography",
+      "Hover states that provide additional context",
+      "Better organization of menu items by category",
+      "Responsive design that adapts to different screen sizes"
+    ],
+    get image() {
+      return getChangelogImage(this.version);
+    },
+  },
+  {
     version: "Version 1.4.0",
     date: "18 June 2023",
     title: "Simplified Learning Algorithm",

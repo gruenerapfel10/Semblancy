@@ -4,6 +4,7 @@ import * as React from "react"
 import { FaHome, FaFileAlt, FaTrophy, FaComments, FaQuestionCircle, FaHistory, FaMapMarkerAlt, FaFileArchive, FaStickyNote, FaTools, FaRegClone, FaListAlt, FaSync, FaCog, FaEnvelope } from "react-icons/fa"
 import { createClient } from "@/lib/supabase/client"
 import { usePathname } from "next/navigation"
+import { useHotkeys } from "react-hotkeys-hook"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
@@ -198,6 +199,13 @@ export function AppSidebar({ user: propUser, ...props }: AppSidebarProps) {
   
   // Track if hover expanded the sidebar
   const [expandedByHover, setExpandedByHover] = React.useState(false);
+  
+  // Add hotkey to toggle sidebar with Ctrl/Cmd+\
+  useHotkeys(['meta+e', 'ctrl+e'], (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    sidebar.setOpen(!sidebar.open);
+  }, { enableOnFormTags: true });
   
   // Track initial collapse state when component mounts
   React.useEffect(() => {

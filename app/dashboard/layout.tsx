@@ -19,7 +19,10 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <div className="flex flex-col h-screen w-full">
-          <Navbar />
+          <Navbar 
+            isAIPanelOpen={isAIPanelOpen} 
+            onAIPanelOpenChange={setIsAIPanelOpen} 
+          />
         <div className="flex flex-1 w-full min-h-0 overflow-hidden bg-sidebar">
           <AppSidebar />
           <main className="flex-1 overflow-y-auto relative bg-background p-4 rounded-tl-2xl border-l border-t">

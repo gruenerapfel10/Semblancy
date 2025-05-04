@@ -132,10 +132,14 @@ const FlashcardDashboard: React.FC = () => {
 
   const metrics = calculateMetrics();
 
-  // Register keyboard shortcuts
-  useHotkeys('ctrl+n', () => openCardDialog(null), { enableOnFormTags: true });
-  useHotkeys('ctrl+e', () => selectedLibrary && openLibraryDialog(selectedLibrary), { enableOnFormTags: true });
-  useHotkeys('ctrl+s', () => startStudyMode(studyMode, sessionType, sessionType === 'fixed' ? reps : 0), { enableOnFormTags: true });
+  // Determine if running on Mac to display correct shortcut labels
+  const isMac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
+  const modKey = isMac ? '⌘' : 'Ctrl';
+
+  // Register keyboard shortcuts - updated to support both Ctrl and Cmd (meta) keys
+  useHotkeys(['ctrl+n', 'meta+n'], () => openCardDialog(null), { enableOnFormTags: true });
+  useHotkeys(['ctrl+e', 'meta+e'], () => selectedLibrary && openLibraryDialog(selectedLibrary), { enableOnFormTags: true });
+  useHotkeys(['ctrl+s', 'meta+s'], () => startStudyMode(studyMode, sessionType, sessionType === 'fixed' ? reps : 0), { enableOnFormTags: true });
   useHotkeys('shift+/', () => setShowShortcutsDialog(true), { enableOnFormTags: true });
   useHotkeys('1', () => setActiveTab('cards'), { enableOnFormTags: true });
   useHotkeys('2', () => setActiveTab('stats'), { enableOnFormTags: true });
@@ -196,7 +200,7 @@ const FlashcardDashboard: React.FC = () => {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Edit Library (Ctrl+E)</p>
+                    <p>Edit Library ({modKey}+E)</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -250,12 +254,12 @@ const FlashcardDashboard: React.FC = () => {
                 <DropdownMenuItem onClick={() => openLibraryDialog(selectedLibrary)}>
                   <Edit className="h-4 w-4 mr-2" />
                   Edit Library
-                  <DropdownMenuShortcut>Ctrl+E</DropdownMenuShortcut>
+                  <DropdownMenuShortcut>{modKey}+E</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => openCardDialog(null)}>
                   <Plus className="h-4 w-4 mr-2" />
                   Add Card
-                  <DropdownMenuShortcut>Ctrl+N</DropdownMenuShortcut>
+                  <DropdownMenuShortcut>{modKey}+N</DropdownMenuShortcut>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
@@ -281,7 +285,7 @@ const FlashcardDashboard: React.FC = () => {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Start Study Session (Ctrl+S)</p>
+                    <p>Start Study Session ({modKey}+S)</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -653,7 +657,7 @@ const FlashcardDashboard: React.FC = () => {
                   >
                     <Play className="h-4 w-4" />
                     Start Studying
-                    <DropdownMenuShortcut>Ctrl+S</DropdownMenuShortcut>
+                    <DropdownMenuShortcut>{modKey}+S</DropdownMenuShortcut>
                   </Button>
                   {selectedLibrary.cards.length === 0 && (
                     <p className="text-sm text-muted-foreground mt-4">
@@ -682,15 +686,15 @@ const FlashcardDashboard: React.FC = () => {
           <div className="grid grid-cols-2 gap-4 py-4">
             <div className="flex items-center justify-between">
               <span className="text-sm">Create new card</span>
-              <kbd className="px-2 py-1 bg-muted rounded text-xs">Ctrl+N</kbd>
+              <kbd className="px-2 py-1 bg-muted rounded text-xs">{modKey}+N</kbd>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm">Edit library</span>
-              <kbd className="px-2 py-1 bg-muted rounded text-xs">Ctrl+E</kbd>
+              <kbd className="px-2 py-1 bg-muted rounded text-xs">{modKey}+E</kbd>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm">Start studying</span>
-              <kbd className="px-2 py-1 bg-muted rounded text-xs">Ctrl+S</kbd>
+              <kbd className="px-2 py-1 bg-muted rounded text-xs">{modKey}+S</kbd>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm">View shortcuts</span>
@@ -707,6 +711,10 @@ const FlashcardDashboard: React.FC = () => {
             <div className="flex items-center justify-between">
               <span className="text-sm">Study tab</span>
               <kbd className="px-2 py-1 bg-muted rounded text-xs">3</kbd>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm">Toggle sidebar</span>
+              <kbd className="px-2 py-1 bg-muted rounded text-xs">{modKey}+\</kbd>
             </div>
           </div>
         </DialogContent>
