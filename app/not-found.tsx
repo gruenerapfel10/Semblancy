@@ -36,8 +36,8 @@ export default function NotFound() {
           </CardHeader>
           
           <CardContent className="text-center space-y-4">
-            <p className="text-muted-foreground">
-              The page you're looking for doesn't exist or has been moved.
+            <p className="text-lg text-muted-foreground">
+              We couldn&apos;t find the page you&apos;re looking for.
             </p>
             
             <div className="py-4">
