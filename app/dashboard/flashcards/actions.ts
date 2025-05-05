@@ -8,7 +8,8 @@ export async function streamMarkAnswer(
   userAnswer: string,
   correctAnswer: string,
   question: string,
-  onMarkingUpdate: (data: MarkingResponse) => void
+  onMarkingUpdate: (data: MarkingResponse) => void,
+  isFlipped: boolean = false
 ) {
   try {
     const response = await fetch('/api/flashcards/mark', {
@@ -20,6 +21,7 @@ export async function streamMarkAnswer(
         userAnswer,
         correctAnswer,
         question,
+        isFlipped
       }),
     });
 

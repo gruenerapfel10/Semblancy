@@ -1,7 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Flashcard, FlashcardLibrary, StudyMode, SessionType, MarkingResponse } from './types';
+import { FlippedCard } from '../utils/cardPickingAlgorithm';
 import { streamMarkAnswer } from '../actions';
 
 // Local storage keys
@@ -1177,13 +1179,22 @@ export const FlashcardProvider: React.FC<{ children: ReactNode }> = ({ children 
     setSelectedGrade(null); // Reset grade selection
     
     try {
+      // Check if the card is a FlippedCard with isFlipped property
+      const isFlippedCard = 'isFlipped' in currentCard;
+      const flippedCard = isFlippedCard ? currentCard as unknown as FlippedCard : null;
+      const isFlipped = flippedCard?.isFlipped || false;
+      
+      // When card is flipped, we need to indicate this to the AI
+      // For flipped cards, we need to use the originalFront/originalBack 
+      // to make sure AI understands the correct relationship
       await streamMarkAnswer(
         userAnswer,
-        currentCard.back,
-        currentCard.front,
+        isFlipped && flippedCard ? flippedCard.originalFront : currentCard.back, // What the user should answer
+        isFlipped && flippedCard ? flippedCard.originalBack : currentCard.front, // What the user sees as a question
         (data) => {
           setMarkingResult(data);
-        }
+        },
+        isFlipped // Pass isFlipped flag to the marking service
       );
     } catch (error) {
       console.error('Error marking answer:', error);

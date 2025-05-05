@@ -235,6 +235,11 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
                     <div className="flex items-center gap-2">
                       <Sparkles className="h-4 w-4 text-primary pulse-attention" />
                       <span className="text-sm font-medium">AI Marked</span>
+                      {currentCard.isFlipped && (
+                        <span className="text-xs bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">
+                          Flipped Card Marking
+                        </span>
+                      )}
                     </div>
                   </div>
                   

@@ -16,6 +16,7 @@ const requestSchema = z.object({
   userAnswer: z.string().min(1, "User answer is required"),
   correctAnswer: z.string().min(1, "Correct answer is required"),
   question: z.string().min(1, "Question is required"),
+  isFlipped: z.boolean().optional().default(false),
 });
 
 export async function POST(req: NextRequest) {
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Validate request
-    const { userAnswer, correctAnswer, question } = requestSchema.parse(body);
+    const { userAnswer, correctAnswer, question, isFlipped } = requestSchema.parse(body);
     
     return new Response(
       // Use ReadableStream to stream the AI response
@@ -38,8 +39,11 @@ export async function POST(req: NextRequest) {
                       Consider semantic similarity, not just exact matching.
                       Provide a score (0-100) and helpful, encouraging feedback.
                       Be lenient with minor spelling mistakes or alternate phrasings that convey the same meaning.
-                      For partially correct answers, explain what was missing or incorrect.`,
-              prompt: `Question: ${question}\nUser Answer: ${userAnswer}\nCorrect Answer: ${correctAnswer}`,
+                      For partially correct answers, explain what was missing or incorrect.
+                      ${isFlipped ? "IMPORTANT: This is a flipped flashcard where the answer was shown as the question. The user was asked to provide the original question in response." : ""}`,
+              prompt: `${isFlipped ? "Original Question (Now Expected Answer)" : "Question"}: ${question}
+                      User Answer: ${userAnswer}
+                      ${isFlipped ? "Original Answer (Now Shown as Question)" : "Correct Answer"}: ${correctAnswer}`,
               schema: markingResponseSchema,
             });
 
