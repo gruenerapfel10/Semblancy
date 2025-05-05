@@ -129,7 +129,7 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
 
       <div className="mx-auto p-4 max-w-4xl w-full">
         <UnifiedStudyMode 
-          currentCard={currentCard}
+          currentCard={currentCard as FlippedCard}
           remainingCards={sessionState.cards
             .filter((c: any) => c.stage === LearningStage.NEW)
             .map((c: any) => c.card)}
