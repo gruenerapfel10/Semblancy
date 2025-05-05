@@ -9,6 +9,23 @@ export const DEFAULT_PLACEHOLDER = 'https://shadcnblocks.com/images/block/placeh
 
 export const changelogData: ChangelogEntry[] = [
   {
+    version: "Version 1.9.0",
+    date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    title: "Bi-Directional Flashcard Learning",
+    description:
+      "Introducing dynamic flashcard flipping! Cards now have a 50% chance to be presented with the answer as the question, helping you master content from both directions.",
+    items: [
+      "Random 50/50 chance for question/answer orientation",
+      "Clear visual indicators when cards are flipped",
+      "Maintains original context while testing bi-directional recall",
+      "Enhanced learning through varied question formats",
+      "Compatible with both flip-card and interactive study modes"
+    ],
+    get image() {
+      return getChangelogImage(this.version);
+    },
+  },
+  {
     version: "Version 1.8.0",
     date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
     title: "Command Palette for Fast Navigation",
