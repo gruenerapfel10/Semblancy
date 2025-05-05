@@ -19,9 +19,10 @@ import {
 import { Flashcard, StudyMode, SessionType, MarkingResponse } from '../types';
 import { cn } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
+import { FlippedCard } from '../../utils/cardPickingAlgorithm';
 
 interface UnifiedStudyModeProps {
-  currentCard: Flashcard;
+  currentCard: FlippedCard;
   remainingCards: Flashcard[];
   completedCards: { card: Flashcard, correct: boolean }[];
   totalCards: number;
@@ -194,6 +195,11 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
             <Check className="h-3 w-3 text-emerald-500/70" /> 
             <span>{sessionStats.masteredCards} master</span> 
           </div>
+          <div className="h-3 w-px bg-border/50"></div>
+          <div className="flex items-center gap-1">
+            <RotateCcw className="h-3 w-3 text-blue-500/70" /> 
+            <span>{currentCard.isFlipped ? 'A→Q' : 'Q→A'}</span>
+          </div>
         </div>
       )}
 
@@ -205,7 +211,12 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
           </div>
 
           <div className="mb-8"> 
-            <p className="learning-question text-2xl font-semibold">{frontContent}</p> 
+            <p className="learning-question text-2xl font-semibold">
+              {frontContent}
+              {/* {currentCard.isFlipped && (
+                <span className="text-xs ml-2 text-muted-foreground">(Answer shown as question)</span>
+              )} */}
+            </p> 
           </div>
 
           {/* Interactive Mode Answer UI */}
@@ -247,14 +258,18 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
                 </div>
                 
                 <div className="bg-muted/30 rounded-lg p-5 border border-muted">
-                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">Correct Answer</div> 
+                  <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">
+                    {currentCard.isFlipped ? 'Original Question' : 'Correct Answer'}
+                  </div> 
                   <p className="learning-answer text-lg font-medium">
                     {backContent}
                   </p>
                   
                   {markingResult.explanation && (
                     <div className="mt-4 pt-4 border-t border-border">
-                      <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">Explanation</div> 
+                      <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">
+                        Explanation {currentCard.isFlipped && '(Adjusted for flipped card)'}
+                      </div> 
                       <p className="text-md leading-relaxed learning-content">{markingResult.explanation}</p>
                     </div>
                   )}
@@ -352,7 +367,11 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
           {studyMode === 'flip' && (
             <div className="relative min-h-[300px] flex flex-col justify-between"> 
               <div className="flex-grow">
-                {/* Empty div to push button down or add padding to parent if needed */}
+                {currentCard.isFlipped && (
+                  <div className="text-xs text-muted-foreground mb-4">
+                    Note: This card is flipped - the answer is shown as the question
+                  </div>
+                )}
               </div>
 
               <div className={cn(
@@ -432,12 +451,12 @@ const UnifiedStudyMode: React.FC<UnifiedStudyModeProps> = ({
             {studyMode === 'interactive' ? (
               <>
                 <Sparkles className="h-3 w-3 pulse-attention" />
-                AI-Powered Study
+                AI-Powered Study {currentCard.isFlipped && '(Flipped Q/A)'}
               </>
             ) : (
               <>
                 <RotateCcw className="h-3 w-3" />
-                Flip Cards
+                Flip Cards {currentCard.isFlipped && '(Flipped Q/A)'}
               </>
             )}
           </div>

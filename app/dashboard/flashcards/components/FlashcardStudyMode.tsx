@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { X, Save, Sparkles, RotateCcw } from 'lucide-react';
 import UnifiedStudyMode from './study/UnifiedStudyMode';
 import { useFlashcards } from './FlashcardContext';
-import { LearningStage } from '../utils/cardPickingAlgorithm';
+import { LearningStage, FlippedCard } from '../utils/cardPickingAlgorithm';
 
 interface FlashcardStudyModeProps {
   library: FlashcardLibrary;
@@ -86,12 +86,12 @@ const FlashcardStudyMode: React.FC<FlashcardStudyModeProps> = ({
                 {studyMode === 'flip' ? (
                   <>
                     <RotateCcw className="h-3.5 w-3.5 mr-1" />
-                    Flip Cards
+                    Flip Cards {(currentCard as FlippedCard)?.isFlipped ? '(Q/A Swapped)' : ''}
                   </>
                 ) : (
                   <>
                     <Sparkles className="h-3.5 w-3.5 mr-1" />
-                    Interactive
+                    Interactive {(currentCard as FlippedCard)?.isFlipped ? '(Q/A Swapped)' : ''}
                   </>
                 )}
               </span>

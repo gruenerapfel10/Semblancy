@@ -34,6 +34,13 @@ export interface CardState {
   lastSelectionReason: string;  // Explanation for why card was selected
 }
 
+// Add this interface before SessionState
+export interface FlippedCard extends Flashcard {
+  isFlipped: boolean;
+  originalFront: string;
+  originalBack: string;
+}
+
 export interface SessionState {
   cards: CardState[];
   currentPosition: number;  // Current position in the session
@@ -44,22 +51,39 @@ export interface SessionState {
     stage: LearningStage;
     reason: string;
     grade?: number; // Store the grade given
+    wasFlipped?: boolean;
   }>;
+}
+
+// Add this function before initializeSession
+function createFlippedCard(card: Flashcard): FlippedCard {
+  const shouldFlip = Math.random() < 0.5;
+  return {
+    ...card,
+    isFlipped: shouldFlip,
+    originalFront: card.front,
+    originalBack: card.back,
+    front: shouldFlip ? card.back : card.front,
+    back: shouldFlip ? card.front : card.back,
+  };
 }
 
 /**
  * Initialize a new session state with cards
  */
 export function initializeSession(cards: Flashcard[]): SessionState {
-  const cardStates: CardState[] = cards.map(card => ({
-    card,
-    seen: 0,
-    correct: 0,
-    incorrect: 0,
-    lastSeen: -1,           // -1 means never seen
-    stage: LearningStage.NEW,
-    lastSelectionReason: "New card, not yet seen"
-  }));
+  const cardStates: CardState[] = cards.map(card => {
+    const flippedCard = createFlippedCard(card);
+    return {
+      card: flippedCard,
+      seen: 0,
+      correct: 0,
+      incorrect: 0,
+      lastSeen: -1,
+      stage: LearningStage.NEW,
+      lastSelectionReason: "New card, not yet seen"
+    };
+  });
 
   return {
     cards: cardStates,
@@ -174,31 +198,36 @@ export function updateCardState(
  * UPDATED: Now returns a new state object instead of mutating the input state
  */
 export function pickNextCard(sessionState: SessionState): { 
-  card: Flashcard | null, 
+  card: FlippedCard | null, 
   reason: string,
-  newState: SessionState // Added return value for the new state
+  newState: SessionState
 } {
   const { cards } = sessionState;
-  let newSeenInCurrentCycle = [...sessionState.seenInCurrentCycle]; // Create a copy to avoid mutation
+  let newSeenInCurrentCycle = [...sessionState.seenInCurrentCycle];
   
   // If all cards have been seen in this cycle, reset
   if (newSeenInCurrentCycle.length >= cards.length) {
-    // Reset seen cards for the new cycle
-    newSeenInCurrentCycle = []; 
+    newSeenInCurrentCycle = [];
     
-    // Pick a random card from all cards
     const randomIndex = Math.floor(Math.random() * cards.length);
-    const selectedCard = cards[randomIndex];
+    const selectedCardState = cards[randomIndex];
+    const flippedCard = createFlippedCard(selectedCardState.card);
     
-    // Add to seen cards for this cycle
-    newSeenInCurrentCycle.push(selectedCard.card.id);
+    // Update the card state with the new flipped card
+    const updatedCards = [...cards];
+    updatedCards[randomIndex] = {
+      ...selectedCardState,
+      card: flippedCard
+    };
     
-    // Return both the card and the new state
+    newSeenInCurrentCycle.push(flippedCard.id);
+    
     return { 
-      card: selectedCard.card, 
-      reason: "Starting a new cycle. Random selection from all cards.",
+      card: flippedCard, 
+      reason: `Starting a new cycle. Random selection from all cards. Card is ${flippedCard.isFlipped ? 'flipped' : 'not flipped'}.`,
       newState: {
         ...sessionState,
+        cards: updatedCards,
         seenInCurrentCycle: newSeenInCurrentCycle
       }
     };
@@ -207,30 +236,38 @@ export function pickNextCard(sessionState: SessionState): {
   // Get cards not yet seen in the current cycle
   const unseenCards = cards.filter(card => !newSeenInCurrentCycle.includes(card.card.id));
   
-  // If there are unseen cards, pick one randomly
   if (unseenCards.length > 0) {
     const randomIndex = Math.floor(Math.random() * unseenCards.length);
-    const selectedCard = unseenCards[randomIndex];
+    const selectedCardState = unseenCards[randomIndex];
+    const flippedCard = createFlippedCard(selectedCardState.card);
     
-    // Add to seen cards for this cycle
-    newSeenInCurrentCycle.push(selectedCard.card.id);
+    // Find the index of the selected card in the original cards array
+    const originalIndex = cards.findIndex(c => c.card.id === selectedCardState.card.id);
     
-    // Return both the card and the new state
+    // Update the card state with the new flipped card
+    const updatedCards = [...cards];
+    updatedCards[originalIndex] = {
+      ...selectedCardState,
+      card: flippedCard
+    };
+    
+    newSeenInCurrentCycle.push(flippedCard.id);
+    
     return { 
-      card: selectedCard.card, 
-      reason: `Randomly selected from ${unseenCards.length} unseen cards in current cycle.`,
+      card: flippedCard, 
+      reason: `Randomly selected from ${unseenCards.length} unseen cards in current cycle. Card is ${flippedCard.isFlipped ? 'flipped' : 'not flipped'}.`,
       newState: {
         ...sessionState,
+        cards: updatedCards,
         seenInCurrentCycle: newSeenInCurrentCycle
       }
     };
   }
   
-  // Should not reach here, but just in case
   return { 
     card: null, 
     reason: "Error: No cards available to select.",
-    newState: sessionState // Return original state if there's an error
+    newState: sessionState
   };
 }
 
