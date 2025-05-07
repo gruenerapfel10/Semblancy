@@ -336,7 +336,7 @@ function TabWindow({
 
   return (
     <Card ref={dropRef} className={cn(
-        "relative flex flex-col h-full w-full rounded-lg overflow-hidden",
+        "relative flex flex-col h-full w-full rounded-lg overflow-y-scroll",
         "transition-all duration-200",
         "bg-muted/50"
     )}>
@@ -909,7 +909,7 @@ export function TabSystem({ layout, onLayoutChange, getContentForTab }: TabSyste
   }
 
   return (
-    <div ref={tabSystemRef} className="relative flex-1 overflow-hidden h-full">
+    <div ref={tabSystemRef} className="relative flex-1 overflow-y-scroll h-full">
       {renderNode(layout)} 
 
       {showGlobalOverlay && (

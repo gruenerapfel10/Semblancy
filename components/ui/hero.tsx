@@ -1,157 +1,260 @@
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+"use client"
 
-interface Testimonial {
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
-  avatars: Array<{
-    image: string;
-    fallback: string;
-  }>;
+import { useEffect, useState, useRef } from "react"
+import type * as React from "react"
+import Link from "next/link"
+import { ArrowRight, Users, Activity, Clock, CheckCircle, Sparkles, BookOpen } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import DotBackground from "@/components/ui/dot-background"
+import { Typewriter } from "@/components/ui/typewriter"
+import { FadeIn } from "@/components/ui/fade-in"
+import { VideoPlayer } from "@/components/ui/video-player"
+
+export interface HeroProps {
+  /** Main headline text */
+  title?: string
+  /** Word to highlight in the title */
+  highlightWord?: string
+  /** Subtitle or description text */
+  subtitle?: string
+  /** Primary call-to-action button text */
+  primaryCta?: {
+    text: string
+    href: string
+  }
+  /** Secondary call-to-action button text */
+  secondaryCta?: {
+    text: string
+    href: string
+  }
+  /** Additional content to display below the showcase */
+  bottomContent?: React.ReactNode
+  /** Video source for the showcase */
+  videoSrc?: string
+  /** Whether to animate the text */
+  animateText?: boolean
+  /** Additional CSS classes for the container */
+  className?: string
+  /** Pop word to highlight with gradient */
+  popWord?: string
 }
 
-interface Hero151Props {
-  heading?: string;
-  description?: string;
-  button?: {
-    text: string;
-    url: string;
-  };
-  testimonial?: Testimonial;
-  images: {
-    first: string;
-    second: string;
-    third: string;
-    fourth: string;
-  };
-}
-
-const Hero151 = ({
-  heading = "Blocks built with Shadcn & Tailwind",
-  description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
-  button = {
+export function Hero({
+  title = "Semblancy",
+  highlightWord,
+  subtitle = "The all-in-one revision app. Everything you need in one place, no other apps required.",
+  primaryCta = {
     text: "Get Started",
-    url: "#",
+    href: "/signup"
   },
-  testimonial = {
-    quote: "Focused strategy, swift delivery",
-    author: "John Doe",
-    role: "CEO",
-    company: "Company",
-    avatars: [
-      { image: "https://shadcnblocks.com/images/block/avatar-1.webp", fallback: "AB" },
-      { image: "https://shadcnblocks.com/images/block/avatar-2.webp", fallback: "CD" },
-      { image: "https://shadcnblocks.com/images/block/avatar-3.webp", fallback: "EF" },
-    ],
+  secondaryCta = {
+    text: "Why We're Better",
+    href: "/why-better"
   },
-  images = {
-    first: "https://shadcnblocks.com/images/block/placeholder-1.svg",
-    second: "https://shadcnblocks.com/images/block/placeholder-dark-2.svg",
-    third: "https://shadcnblocks.com/images/block/placeholder-dark-3.svg",
-    fourth: "https://shadcnblocks.com/images/block/placeholder-dark-7-tall.svg",
-  },
-}: Hero151Props) => {
+  bottomContent,
+  videoSrc = "/4884238-uhd_2160_3840_30fps.mp4",
+  animateText = true,
+  className,
+  popWord = "Semblancy", // Default pop word
+}: HeroProps) {
+  // State for scroll animation
+  const [scrolled, setScrolled] = useState(false)
+  
+  // Refs for parallax effect
+  const videoContainerRef = useRef<HTMLDivElement>(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  
+  // Track scroll position for parallax effects
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+  
+  // Handle mouse move for parallax effect
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!videoContainerRef.current) return
+    
+    const rect = videoContainerRef.current.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width - 0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5
+    
+    setMousePosition({ x, y })
+  }
+
+  // Key features for reinforcement sections
+  const keyFeatures = [
+    { 
+      title: "100K+ Users", 
+      icon: <Users className="h-5 w-5 text-primary" />,
+      description: "Trusted by students worldwide"
+    },
+    { 
+      title: "All-in-One Solution", 
+      icon: <CheckCircle className="h-5 w-5 text-primary" />,
+      description: "No need for multiple revision apps"
+    },
+    { 
+      title: "24/7 Support", 
+      icon: <Clock className="h-5 w-5 text-primary" />,
+      description: "Help available whenever you need it"
+    },
+  ]
+
+  // Function to render title with pop word styled with gradient
+  const renderTitle = () => {
+    if (!popWord || !title.includes(popWord)) {
+      return title;
+    }
+
+    const parts = title.split(popWord);
+    return (
+      <>
+        {parts[0]}
+        <span className="relative inline-block bg-clip-text text-transparent bg-gradient-to-r from-[#ff0046] to-[#9896f0] font-black animate-pulse">
+          {popWord}
+        </span>
+        {parts[1]}
+      </>
+    );
+  };
+
   return (
-    <section className="py-12 md:py-20">
-      <div className="container">
-        <div className="flex flex-col items-center gap-8 md:flex-row">
-          <div className="flex-1">
-            <div className="flex flex-col gap-4 lg:gap-8">
-              <h1 className="max-w-[80%] text-4xl leading-tight font-semibold text-foreground lg:text-5xl xl:text-7xl">
-                {heading}
-              </h1>
-              <p className="text-lg leading-relaxed text-muted-foreground xl:text-2xl">
-                {description}
-              </p>
-            </div>
-            <div className="my-6 lg:my-10">
-              <Button asChild size="lg">
-                <a href={button.url}>{button.text}</a>
-              </Button>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="relative flex -space-x-[1.5rem]">
-                {testimonial.avatars.map((avatar, index) => (
-                  <Avatar
-                    key={index}
-                    className={`relative z-${index + 1}0 flex h-12 w-12 flex-shrink-0 rounded-full border-2 border-white object-cover`}
+    <div className="relative w-full">
+      <DotBackground 
+        className={cn(
+          "relative z-0 py-0 flex items-center min-h-screen backdrop-blur-sm", 
+          scrolled ? "dot-fade" : "",
+          className
+        )}
+      >
+        <div className="container relative mx-auto px-6 max-w-[1400px] z-10 flex flex-col items-center justify-center py-10 lg:py-20">
+          {/* Text content - centered above video */}
+          <div className="w-full text-center mb-10">
+            {animateText ? (
+              <>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] pb-4 max-w-none">
+                  <Typewriter 
+                    words={title} 
+                    speed={30} 
+                    cursor={true} 
+                    align="center"
+                    onComplete={() => {}} // Empty function, handled by subtitle delay
+                  />
+                  {!animateText && renderTitle()}
+                </h1>
+                {/* Subtitle with calculated delay */}
+                <FadeIn 
+                  show={true} 
+                  direction="up" 
+                  className="mt-6 text-xl md:text-2xl text-muted-foreground font-light max-w-3xl mx-auto"
+                  delay={calculateTypeDelay(title, 30) + 0.3}
+                >
+                  {subtitle}
+                </FadeIn>
+              </>
+            ) : (
+              <>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] pb-4 max-w-none">
+                  {renderTitle()}
+                </h1>
+                <p className="mt-6 text-xl md:text-2xl text-muted-foreground font-light max-w-3xl mx-auto">
+                  {subtitle}
+                </p>
+              </>
+            )}
+
+            {/* CTA buttons with improved hover effects */}
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
+              {primaryCta && (
+                <FadeIn delay={animateText ? calculateTypeDelay(title, 30) + 0.6 : 0} direction="up">
+                  <Button 
+                    asChild 
+                    size="lg" 
+                    className="rounded-full text-lg px-8 py-6 h-auto bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/20"
                   >
-                    <AvatarImage src={avatar.image} alt="" />
-                    <AvatarFallback>{avatar.fallback}</AvatarFallback>
-                  </Avatar>
-                ))}
-              </div>
-              <div>
-                <p className="mb-1 text-sm text-muted-2-foreground italic">
-                  &quot;{testimonial.quote}&quot;
-                </p>
-                <p className="text-sm font-medium text-muted-2-foreground">
-                  {testimonial.author}, {testimonial.role} @
-                  {testimonial.company}
-                </p>
-              </div>
+                    <Link href={primaryCta.href} className="flex items-center gap-2">
+                      {primaryCta.text}
+                      <ArrowRight className="h-5 w-5 ml-1" />
+                    </Link>
+                  </Button>
+                </FadeIn>
+              )}
+
+              {secondaryCta && (
+                <FadeIn delay={animateText ? calculateTypeDelay(title, 30) + 0.8 : 0} direction="up">
+                  <Button 
+                    asChild 
+                    variant="outline" 
+                    size="lg" 
+                    className="rounded-full text-lg px-7 py-6 h-auto border-foreground/20 hover:border-foreground/40 hover:scale-105 transition-all duration-300"
+                  >
+                    <Link href={secondaryCta.href || "/why-better"}>{secondaryCta.text}</Link>
+                  </Button>
+                </FadeIn>
+              )}
             </div>
           </div>
-          <div className="w-full flex-1">
-            <div className="w-full max-w-[50rem]">
-              <AspectRatio ratio={1 / 1} className="h-full w-full">
-                <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-[3.5%]">
-                  <div className="overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <img
-                      src={images.first}
-                      alt=""
-                      className="object-fit h-full w-full object-center"
-                    />
+
+          {/* Video content - centered below text */}
+          <div 
+            className="w-full mx-auto mb-16"
+            ref={videoContainerRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setMousePosition({ x: 0, y: 0 })}
+          >
+            <FadeIn 
+              delay={animateText ? 0.5 : 0} 
+              direction="up" 
+            >
+              <div 
+                className="relative rounded-xl overflow-hidden shadow-2xl border border-foreground/10 transform transition-transform duration-200"
+                style={{ 
+                  transform: `perspective(1000px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * -5}deg) scale(1.02)`,
+                  transition: 'all 0.2s ease-out'
+                }}
+              >
+                <VideoPlayer 
+                  src={videoSrc} 
+                  className="w-full h-full"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-background/30 to-transparent pointer-events-none"></div>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Feature reinforcement cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-4">
+            {keyFeatures.map((feature, index) => (
+              <FadeIn 
+                key={index} 
+                delay={animateText ? 1.2 + (index * 0.1) : 0} 
+                direction="up"
+              >
+                <Card className="p-6 flex flex-col items-center text-center h-full group hover:shadow-lg transition-all duration-300 border border-border/50 bg-background/50 backdrop-blur-sm">
+                  <div className="mb-4 p-3 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    {feature.icon}
                   </div>
-                  <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="absolute top-1/2 left-[5%] w-[110%] max-w-[25rem] -translate-y-1/2 overflow-hidden rounded-md">
-                      <AspectRatio ratio={1.739130435 / 1}>
-                        <img
-                          src={images.second}
-                          alt=""
-                          className="size-full object-cover object-center"
-                        />
-                      </AspectRatio>
-                    </div>
-                  </div>
-                  <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="absolute top-[9%] left-[9%] w-[200%] max-w-[37.5rem] overflow-hidden rounded-md">
-                      <AspectRatio ratio={1.6 / 1}>
-                        <img
-                          src={images.third}
-                          alt=""
-                          className="size-full object-cover object-center"
-                        />
-                      </AspectRatio>
-                    </div>
-                  </div>
-                  <div className="relative overflow-hidden rounded-[5.2%] border border-muted bg-muted">
-                    <div className="relative top-[12%] left-[50%] w-[70%] max-w-[17.5rem] -translate-x-[50%]">
-                      <AspectRatio ratio={0.52 / 1}>
-                        <img
-                          src="https://shadcnblocks.com/images/block/mockups/phone-1.png"
-                          alt=""
-                          className="absolute z-20 w-full"
-                        />
-                        <img
-                          src={images.fourth}
-                          alt=""
-                          className="absolute z-10 w-full rounded-[16%]"
-                        />
-                      </AspectRatio>
-                    </div>
-                  </div>
-                </div>
-              </AspectRatio>
-            </div>
+                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </Card>
+              </FadeIn>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-};
+      </DotBackground>
+    </div>
+  )
+}
 
-export { Hero151 };
+// Helper function to calculate typing delay based on text length
+function calculateTypeDelay(text: string, speed: number): number {
+  return (text.length * speed) / 1000;
+}
+

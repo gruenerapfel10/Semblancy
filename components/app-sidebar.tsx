@@ -189,7 +189,7 @@ export function AppSidebar({ user: propUser, ...props }: AppSidebarProps) {
   const pathname = usePathname();
   
   // Track whether the sidebar was originally collapsed
-  const [wasCollapsed, setWasCollapsed] = React.useState(false);
+  const [wasCollapsed, setWasCollapsed] = React.useState(true);
   
   // Reference to the sidebar for mouse events
   const sidebarRef = React.useRef<HTMLDivElement>(null);
