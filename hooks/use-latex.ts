@@ -5,9 +5,9 @@ import type React from "react"
 // React hook for the frontend
 
 import { useEffect, useRef, useReducer, useCallback } from "react"
-import { LatexEditor } from "@/lib/latex-editor"
-import { KeyHandler } from "@/lib/key-handler"
-import type { EditorState } from "@/lib/editor-core"
+import { LatexEditor } from "@/lib/latex/latex-editor"
+import { KeyHandler } from "@/lib/latex/key-handler"
+import type { EditorState } from "@/lib/latex/editor-core"
 
 interface UseLatexOptions {
   initialContent?: string

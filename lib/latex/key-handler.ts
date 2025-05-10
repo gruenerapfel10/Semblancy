@@ -1,11 +1,11 @@
 import type React from "react"
-import type { LatexEditor } from "./latex/latex-editor"
-import { getCursorContext } from "./latex/latex-parser"
-import { getNextValidPosition, getPreviousValidPosition, isValidCursorPosition, calculateCursorPosition, findNextTabStop } from "./cursor-manager"
-import { parseLatex } from "./latex/latex-parser"
-import type { ParsedToken } from "./latex/latex-parser"
-import { CommandManager } from "./command-manager"
-import * as PS from "./latex/positioning-system"
+import type { LatexEditor } from "./latex-editor"
+import { getCursorContext } from "./latex-parser"
+import { getNextValidPosition, getPreviousValidPosition, isValidCursorPosition, calculateCursorPosition, findNextTabStop } from "../cursor-manager"
+import { parseLatex } from "./latex-parser"
+import type { ParsedToken } from "./latex-parser"
+import { CommandManager } from "../command-manager"
+import * as PS from "./positioning-system"
 
 export interface KeyHandlerOptions {
   editor: LatexEditor

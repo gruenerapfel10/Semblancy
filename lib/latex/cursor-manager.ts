@@ -1,7 +1,7 @@
-import { getCursorContext } from "./latex/latex-parser"
-import { parseLatex } from "./latex/latex-parser"
-import type { ParsedToken } from "./latex/latex-parser"
-import * as PS from "./latex/positioning-system"
+import { getCursorContext } from "./latex-parser"
+import { parseLatex } from "./latex-parser"
+import type { ParsedToken } from "./latex-parser"
+import * as PS from "./positioning-system"
 
 export interface CursorPosition {
   index: number

@@ -1,4 +1,4 @@
-import { getCursorState, type CursorState } from "./cursor-manager"
+import { getCursorState, type CursorState } from "../cursor-manager"
 
 export interface EditorState {
   content: string

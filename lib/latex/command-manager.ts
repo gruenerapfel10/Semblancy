@@ -1,9 +1,9 @@
-import type { LatexEditor } from "./latex/latex-editor"
-import { getCursorContext } from "./latex/latex-parser"
-import type { ParsedToken } from "./latex/latex-parser"
-import { parseLatex } from "./latex/latex-parser"
+import type { LatexEditor } from "./latex-editor"
+import { getCursorContext } from "./latex-parser"
+import type { ParsedToken } from "./latex-parser"
+import { parseLatex } from "./latex-parser"
 import { isValidCursorPosition, getNextValidPosition, getPreviousValidPosition, isAtMathDelimiter } from "./cursor-manager"
-import * as PS from "./latex/positioning-system"
+import * as PS from "./positioning-system"
 
 // Define a proper type for our context objects
 interface TokenContext {

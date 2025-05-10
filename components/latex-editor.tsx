@@ -1,15 +1,15 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
-import { LatexEditor } from "../lib/latex-editor"
-import { KeyHandler } from "../lib/key-handler"
-import { getCursorContext } from "../lib/latex-parser"
-import * as PS from "../lib/positioning-system"
+import { LatexEditor } from "../lib/latex/latex-editor"
+import { KeyHandler } from "../lib/latex/key-handler"
+import { getCursorContext } from "../lib/latex/latex-parser"
+import * as PS from "../lib/latex/positioning-system"
 import { DebugPanel } from "@/components/debug-panel"
-import { getCursorState, type CursorState, globalTabTrap, useTabManagement } from "@/lib/cursor-manager"
+import { getCursorState, type CursorState, globalTabTrap, useTabManagement } from "@/lib/latex/cursor-manager"
 import { Button } from "@/components/ui/button"
 import { CalculatorIcon as MathOperationIcon } from "lucide-react"
-import { parseLatex, debugTokens } from "@/lib/latex-parser"
+import { parseLatex, debugTokens } from "@/lib/latex/latex-parser"
 
 interface LatexEditorProps {
   value: string

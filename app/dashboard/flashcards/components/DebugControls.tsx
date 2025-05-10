@@ -5,7 +5,7 @@ import { Button } from "../../../../components/ui/button";
 import { Switch } from "../../../../components/ui/switch";
 import { Label } from "../../../../components/ui/label";
 import { DEBUG_CONFIG } from "../utils/forgettingCurve";
-import { globalTabTrap } from "../../../../lib/cursor-manager";
+import { globalTabTrap } from "../../../../lib/latex/cursor-manager";
 
 export function DebugControls() {
   const containerRef = useRef<HTMLDivElement>(null);

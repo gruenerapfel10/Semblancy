@@ -3,9 +3,9 @@
 // Debug panel to track cursor position and context
 
 import { useState, useEffect } from "react"
-import type { CursorState } from "@/lib/cursor-manager"
-import { parseLatex, findCommandAtPosition } from "@/lib/latex-parser"
-import { isValidCursorPosition } from "@/lib/cursor-manager"
+import type { CursorState } from "@/lib/latex/cursor-manager"
+import { parseLatex, findCommandAtPosition } from "@/lib/latex/latex-parser"
+import { isValidCursorPosition } from "@/lib/latex/cursor-manager"
 
 interface EditorState {
   content: string

@@ -6,7 +6,7 @@ import { LatexPreview } from "@/components/latex-preview"
 import { ShortcutHelp } from "@/components/shortcut-help"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { DebugPanel } from "@/components/debug-panel"
-import { getCursorState } from "@/lib/cursor-manager"
+import { getCursorState } from "@/lib/latex/cursor-manager"
 import "./latex.css"
 
 export default function Home() {

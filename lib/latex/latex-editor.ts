@@ -1,6 +1,6 @@
 import { createInitialEditorState, editorReducer, type EditorState, type EditorAction } from "./editor-core"
-import { normalizeAdjacentMathEnvironments } from "./latex/latex-parser"
-import * as PS from "./latex/positioning-system"
+import { normalizeAdjacentMathEnvironments } from "./latex-parser"
+import * as PS from "./positioning-system"
 
 export interface LatexEditorOptions {
   onContentChange?: (content: string, selectionStart: number, selectionEnd: number) => void

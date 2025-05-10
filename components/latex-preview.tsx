@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { renderLatexMarkdown } from "@/lib/latex-markdown-renderer"
+import { renderLatexMarkdown } from "@/lib/latex/latex-markdown-renderer"
 
 interface LatexPreviewProps {
   content: string
