@@ -1,5 +1,6 @@
 import { createInitialEditorState, editorReducer, type EditorState, type EditorAction } from "./editor-core"
 import { normalizeAdjacentMathEnvironments } from "./latex-parser"
+import { adjustCursorPositionsAfterTransformation } from "./cursor-manager"
 import * as PS from "./positioning-system"
 
 export interface LatexEditorOptions {
@@ -39,50 +40,27 @@ export class LatexEditor {
     // Normalize adjacent math environments
     const normalizedContent = normalizeAdjacentMathEnvironments(content);
     
-    // Adjust cursor positions if content was changed by normalization
-    let adjustedSelectionStart = selectionStart;
-    let adjustedSelectionEnd = selectionEnd;
-    
-    if (normalizedContent !== content) {
-      // Content was changed - try to preserve cursor position
-      // Simple approach: if cursor is after a change, adjust by the difference in length
-      const lengthDiff = normalizedContent.length - content.length;
-      
-      // If the cursor is after character changes, adjust positions
-      if (lengthDiff !== 0) {
-        // Check if positions need to be adjusted due to normalization
-        if (selectionStart > content.length / 2) {
-          adjustedSelectionStart = Math.min(normalizedContent.length, selectionStart + lengthDiff);
-        }
-        
-        if (selectionEnd > content.length / 2) {
-          adjustedSelectionEnd = Math.min(normalizedContent.length, selectionEnd + lengthDiff);
-        }
-      }
-    }
-    
-    // Ensure cursor positions are valid in the new content
-    const validStart = PS.isValidPosition(normalizedContent, adjustedSelectionStart) 
-      ? adjustedSelectionStart 
-      : PS.nextValidPosition(normalizedContent, adjustedSelectionStart).index;
-      
-    const validEnd = PS.isValidPosition(normalizedContent, adjustedSelectionEnd)
-      ? adjustedSelectionEnd
-      : PS.nextValidPosition(normalizedContent, adjustedSelectionEnd).index;
+    // Use the centralized function to adjust cursor positions after normalization
+    const adjustedPositions = adjustCursorPositionsAfterTransformation(
+      content, 
+      normalizedContent, 
+      selectionStart, 
+      selectionEnd
+    );
     
     // Update the state
     this.dispatch({
       type: "SET_CONTENT",
       payload: {
         content: normalizedContent,
-        selectionStart: validStart,
-        selectionEnd: validEnd,
+        selectionStart: adjustedPositions.start,
+        selectionEnd: adjustedPositions.end,
       },
     })
 
     // Notify listeners
     if (this.options.onContentChange) {
-      this.options.onContentChange(normalizedContent, validStart, validEnd)
+      this.options.onContentChange(normalizedContent, adjustedPositions.start, adjustedPositions.end)
     }
   }
 

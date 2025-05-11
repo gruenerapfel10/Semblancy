@@ -1,4 +1,6 @@
-type TokenType =
+import { parseLatex, ParsedToken } from "./latex-parser"
+
+type MarkdownTokenType =
   | "text"
   | "heading"
   | "bold"
@@ -7,13 +9,11 @@ type TokenType =
   | "ordered-list-item"
   | "link"
   | "code"
-  | "math-inline"
-  | "math-display"
   | "paragraph"
   | "line-break"
 
-interface Token {
-  type: TokenType
+interface MarkdownToken {
+  type: MarkdownTokenType
   content: string
   level?: number // For headings
   url?: string // For links
@@ -21,16 +21,16 @@ interface Token {
 
 // Main function to render LaTeX and Markdown
 export function renderLatexMarkdown(content: string): string {
-  // First, tokenize the content
-  const tokens = tokenize(content)
+  // First, tokenize the content into markdown tokens
+  const markdownTokens = tokenizeMarkdown(content)
 
   // Then render the tokens to HTML
-  return renderTokens(tokens)
+  return renderMarkdownTokens(markdownTokens)
 }
 
-// Tokenize the content into a structured format
-function tokenize(content: string): Token[] {
-  const tokens: Token[] = []
+// Tokenize the content into markdown tokens
+function tokenizeMarkdown(content: string): MarkdownToken[] {
+  const tokens: MarkdownToken[] = []
   const lines = content.split("\n")
 
   let inOrderedList = false
@@ -91,7 +91,6 @@ function tokenize(content: string): Token[] {
     }
 
     // If we reach here, it's a regular paragraph
-    // Process inline formatting and math within the paragraph
     tokens.push({
       type: "paragraph",
       content: line,
@@ -101,8 +100,8 @@ function tokenize(content: string): Token[] {
   return tokens
 }
 
-// Render tokens to HTML
-function renderTokens(tokens: Token[]): string {
+// Render markdown tokens to HTML
+function renderMarkdownTokens(tokens: MarkdownToken[]): string {
   let html = ""
   let inUnorderedList = false
   let inOrderedList = false
@@ -161,7 +160,7 @@ function renderTokens(tokens: Token[]): string {
 
 // Process inline formatting (bold, italic, code, links, and math)
 function processInlineFormatting(text: string): string {
-  // Process math expressions first
+  // Process math expressions first using the LaTeX parser
   text = processMathExpressions(text)
 
   // Process bold text
@@ -176,27 +175,180 @@ function processInlineFormatting(text: string): string {
   text = text.replace(/`(.+?)`/g, "<code>$1</code>")
 
   // Process links
-  text = text.replace(/\[(.+?)\]$$(.+?)$$/g, '<a href="$2">$1</a>')
+  text = text.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>')
 
   return text
 }
 
-// Process math expressions (both inline and display)
+// Process math expressions using the LaTeX parser
 function processMathExpressions(text: string): string {
-  // Process display math ($$...$$)
-  text = text.replace(/\$\$(.*?)\$\$/g, (match, p1) => {
-    return `<div class="math-display">${renderLatexExpression(p1)}</div>`
-  })
+  // Parse the entire text to get math environments
+  const tokens = parseLatex(text)
+  
+  // Replace each math environment with its rendered HTML
+  let result = text
+  let offset = 0
 
-  // Process inline math ($...$)
-  text = text.replace(/\$([^$]+?)\$/g, (match, p1) => {
-    return `<span class="math-inline">${renderLatexExpression(p1)}</span>`
-  })
+  for (const token of tokens) {
+    if (token.type === "math") {
+      const rendered = renderLatexToken(token)
+      const beforeMath = result.substring(0, token.start + offset)
+      const afterMath = result.substring(token.end + offset)
+      result = beforeMath + rendered
+      offset += rendered.length - (token.end - token.start)
+    }
+  }
 
-  return text
+  return result
 }
 
-// LaTeX symbol mappings
+// Component renderers for different LaTeX elements
+const latexComponents = {
+  fraction: (numerator: string, denominator: string): string => `
+    <span class="latex-frac">
+      <span class="latex-frac-num">${numerator}</span>
+      <span class="latex-frac-line"></span>
+      <span class="latex-frac-denom">${denominator}</span>
+    </span>
+  `,
+
+  sqrt: (content: string, index?: string): string => 
+    index ? `
+      <span class="latex-root">
+        <sup class="latex-root-index">${index}</sup>
+        <span class="latex-sqrt-symbol">√</span>
+        <span class="latex-sqrt-content">${content}</span>
+      </span>
+    ` : `
+      <span class="latex-sqrt">
+        <span class="latex-sqrt-symbol">√</span>
+        <span class="latex-sqrt-content">${content}</span>
+      </span>
+    `,
+
+  operator: (symbol: string, lowerLimit?: string, upperLimit?: string): string => `
+    <span class="latex-operator">
+      ${upperLimit ? `<span class="latex-upper-limit">${upperLimit}</span>` : ""}
+      <span class="latex-operator-symbol">${symbol}</span>
+      ${lowerLimit ? `<span class="latex-lower-limit">${lowerLimit}</span>` : ""}
+    </span>
+  `,
+
+  limit: (content: string): string => `
+    <span class="latex-limit">
+      lim
+      <span class="latex-lower-limit">${content}</span>
+    </span>
+  `,
+
+  symbol: (symbol: string): string => `
+    <span class="latex-symbol">${latexSymbols[symbol] || symbol}</span>
+  `,
+  
+  superscript: (content: string): string => `
+    <span class="latex-superscript"><sup>${content}</sup></span>
+  `,
+  
+  subscript: (content: string): string => `
+    <span class="latex-subscript"><sub>${content}</sub></span>
+  `,
+}
+
+// Render a LaTeX token to HTML using the component system
+function renderLatexToken(token: ParsedToken): string {
+  // Handle null or undefined tokens
+  if (!token) return ""
+  
+  // Handle tokens without children - return content directly
+  if (!token.children || token.children.length === 0) {
+    return token.content || ""
+  }
+
+  switch (token.type) {
+    case "math":
+      const mathContent = token.children.find(child => child.type === "math-content")
+      if (!mathContent) return token.content
+      
+      const isDisplay = token.content.startsWith("$$")
+      const wrapper = isDisplay ? "div" : "span"
+      const className = isDisplay ? "math-display" : "math-inline"
+      
+      return `<${wrapper} class="${className}">${renderLatexToken(mathContent)}</${wrapper}>`
+
+    case "math-content":
+      return token.children.map(child => renderLatexToken(child)).join("")
+
+    case "command":
+      const commandName = token.children.find(child => child.type === "command-name")?.content
+      const args = token.children.filter(child => child.type === "command-args")
+      const optArgs = token.children.filter(child => child.type === "command-optional")
+
+      switch (commandName) {
+        case "frac":
+          if (args.length < 2) return token.content
+          // Process argument tokens recursively
+          return latexComponents.fraction(
+            renderLatexToken(args[0]),
+            renderLatexToken(args[1])
+          )
+
+        case "sqrt":
+          if (args.length < 1) return token.content
+          return latexComponents.sqrt(
+            renderLatexToken(args[0]),
+            optArgs[0] ? renderLatexToken(optArgs[0]) : undefined
+          )
+
+        case "sum":
+        case "prod":
+        case "int":
+          const symbol = latexSymbols[commandName] || commandName
+          return latexComponents.operator(
+            symbol,
+            args[0] ? renderLatexToken(args[0]) : undefined,
+            args[1] ? renderLatexToken(args[1]) : undefined
+          )
+
+        case "lim":
+          if (args.length < 1) return token.content
+          return latexComponents.limit(renderLatexToken(args[0]))
+          
+        case "^":
+          if (args.length < 1) return token.content
+          return latexComponents.superscript(renderLatexToken(args[0]))
+          
+        case "_":
+          if (args.length < 1) return token.content
+          return latexComponents.subscript(renderLatexToken(args[0]))
+
+        default:
+          // Check if it's a known symbol
+          if (commandName && commandName in latexSymbols) {
+            return latexComponents.symbol(commandName)
+          }
+          // Fall back to original content if unknown command
+          return token.content
+      }
+
+    case "command-args":
+    case "command-optional":
+      // When processing an argument that might contain nested commands
+      // recursively render all its children
+      return token.children.map(child => renderLatexToken(child)).join("")
+
+    case "text":
+      return token.content
+
+    default:
+      // For other token types, recursively process their children
+      if (token.children && token.children.length > 0) {
+        return token.children.map(child => renderLatexToken(child)).join("")
+      }
+      return token.content
+  }
+}
+
+// LaTeX symbol mappings (keep existing symbols)
 const latexSymbols: Record<string, string> = {
   // Greek letters
   alpha: "α",
@@ -271,292 +423,4 @@ const latexSymbols: Record<string, string> = {
   sum: "∑",
   prod: "∏",
   int: "∫",
-}
-
-// Interface for LaTeX command renderers
-interface LatexCommandRenderer {
-  canRender(command: string): boolean
-  render(command: string, args: string[], options?: string): string
-}
-
-// Fraction renderer
-const fractionRenderer: LatexCommandRenderer = {
-  canRender(command: string): boolean {
-    return command === "frac"
-  },
-  render(command: string, args: string[]): string {
-    if (args.length < 2) return `\\${command}{${args.join("}{")}}` // Return as-is if not enough args
-
-    const numerator = renderLatexExpression(args[0])
-    const denominator = renderLatexExpression(args[1])
-
-    return `<span class="latex-frac">
-      <span class="latex-frac-num">${numerator}</span>
-      <span class="latex-frac-line"></span>
-      <span class="latex-frac-denom">${denominator}</span>
-    </span>`
-  },
-}
-
-// Square root renderer
-const sqrtRenderer: LatexCommandRenderer = {
-  canRender(command: string): boolean {
-    return command === "sqrt"
-  },
-  render(command: string, args: string[], options?: string): string {
-    if (args.length < 1) return `\\${command}{${args.join("}{")}}` // Return as-is if not enough args
-
-    const content = renderLatexExpression(args[0])
-
-    if (options) {
-      // This is an nth root
-      const rootIndex = renderLatexExpression(options)
-      return `<span class="latex-root">
-        <sup class="latex-root-index">${rootIndex}</sup>
-        <span class="latex-sqrt-symbol">√</span>
-        <span class="latex-sqrt-content">${content}</span>
-      </span>`
-    } else {
-      // This is a square root
-      return `<span class="latex-sqrt">
-        <span class="latex-sqrt-symbol">√</span>
-        <span class="latex-sqrt-content">${content}</span>
-      </span>`
-    }
-  },
-}
-
-// Sum, product, integral renderer
-const operatorRenderer: LatexCommandRenderer = {
-  canRender(command: string): boolean {
-    return ["sum", "prod", "int"].includes(command)
-  },
-  render(command: string, args: string[]): string {
-    const symbolMap: Record<string, string> = {
-      sum: "∑",
-      prod: "∏",
-      int: "∫",
-    }
-
-    const symbol = symbolMap[command] || command
-
-    // Check if we have limits
-    if (args.length >= 2) {
-      const lowerLimit = renderLatexExpression(args[0])
-      const upperLimit = args.length > 1 ? renderLatexExpression(args[1]) : ""
-
-      return `<span class="latex-operator">
-        ${upperLimit ? `<span class="latex-upper-limit">${upperLimit}</span>` : ""}
-        <span class="latex-operator-symbol">${symbol}</span>
-        <span class="latex-lower-limit">${lowerLimit}</span>
-      </span>`
-    } else if (args.length === 1) {
-      // Only lower limit
-      const lowerLimit = renderLatexExpression(args[0])
-
-      return `<span class="latex-operator">
-        <span class="latex-operator-symbol">${symbol}</span>
-        <span class="latex-lower-limit">${lowerLimit}</span>
-      </span>`
-    } else {
-      // No limits
-      return `<span class="latex-operator">
-        <span class="latex-operator-symbol">${symbol}</span>
-      </span>`
-    }
-  },
-}
-
-// Limit renderer
-const limitRenderer: LatexCommandRenderer = {
-  canRender(command: string): boolean {
-    return command === "lim"
-  },
-  render(command: string, args: string[]): string {
-    if (args.length < 1) return "lim" // Return as-is if no args
-
-    const limit = renderLatexExpression(args[0])
-
-    return `<span class="latex-limit">
-      lim
-      <span class="latex-lower-limit">${limit}</span>
-    </span>`
-  },
-}
-
-// Symbol renderer
-const symbolRenderer: LatexCommandRenderer = {
-  canRender(command: string): boolean {
-    return command in latexSymbols
-  },
-  render(command: string): string {
-    return `<span class="latex-symbol">${latexSymbols[command]}</span>`
-  },
-}
-
-// Collection of all renderers
-const commandRenderers: LatexCommandRenderer[] = [
-  fractionRenderer,
-  sqrtRenderer,
-  operatorRenderer,
-  limitRenderer,
-  symbolRenderer,
-]
-
-// Render a LaTeX expression to HTML
-function renderLatexExpression(expr: string): string {
-  if (!expr) return "" // Handle empty expressions
-
-  let html = '<span class="latex-expression">'
-
-  // Process LaTeX commands
-  let i = 0
-  while (i < expr.length) {
-    if (expr[i] === "\\") {
-      // This is a LaTeX command
-      i++
-      let command = ""
-
-      // Extract the command name
-      while (i < expr.length && /[a-zA-Z]/.test(expr[i])) {
-        command += expr[i]
-        i++
-      }
-
-      // Extract optional argument if present
-      let optionalArg = ""
-      if (i < expr.length && expr[i] === "[") {
-        const { content, newIndex } = extractBracketContent(expr, i)
-        optionalArg = content
-        i = newIndex
-      }
-
-      // Extract arguments
-      const args: string[] = []
-      while (i < expr.length && expr[i] === "{") {
-        const { content, newIndex } = extractBraceContent(expr, i)
-        args.push(content)
-        i = newIndex
-      }
-
-      // Find a renderer for this command
-      let rendered = false
-      for (const renderer of commandRenderers) {
-        if (renderer.canRender(command)) {
-          html += renderer.render(command, args, optionalArg)
-          rendered = true
-          break
-        }
-      }
-
-      // If no renderer found, just output the command as-is
-      if (!rendered) {
-        html += `\\${command}`
-        for (const arg of args) {
-          html += `{${arg}}`
-        }
-      }
-    } else if (expr[i] === "^") {
-      // Superscript
-      i++
-      let superscript = ""
-
-      if (i < expr.length && expr[i] === "{") {
-        const { content, newIndex } = extractBraceContent(expr, i)
-        superscript = content
-        i = newIndex
-      } else if (i < expr.length) {
-        // Handle single character superscripts
-        superscript = expr[i]
-        i++
-      } else {
-        // Handle case where ^ is at the end of the string
-        html += "^"
-        break
-      }
-
-      html += `<sup class="latex-superscript">${renderLatexExpression(superscript)}</sup>`
-    } else if (expr[i] === "_") {
-      // Subscript
-      i++
-      let subscript = ""
-
-      if (i < expr.length && expr[i] === "{") {
-        const { content, newIndex } = extractBraceContent(expr, i)
-        subscript = content
-        i = newIndex
-      } else if (i < expr.length) {
-        // Handle single character subscripts
-        subscript = expr[i]
-        i++
-      } else {
-        // Handle case where _ is at the end of the string
-        html += "_"
-        break
-      }
-
-      html += `<sub class="latex-subscript">${renderLatexExpression(subscript)}</sub>`
-    } else {
-      // Regular character
-      html += expr[i]
-      i++
-    }
-  }
-
-  html += "</span>"
-  return html
-}
-
-// Helper function to extract content inside braces
-function extractBraceContent(text: string, startIndex: number): { content: string; newIndex: number } {
-  if (text[startIndex] !== "{") {
-    return { content: "", newIndex: startIndex }
-  }
-
-  let braceLevel = 1
-  let content = ""
-  let i = startIndex + 1
-
-  while (i < text.length && braceLevel > 0) {
-    if (text[i] === "{") {
-      braceLevel++
-    } else if (text[i] === "}") {
-      braceLevel--
-    }
-
-    if (braceLevel > 0) {
-      content += text[i]
-    }
-
-    i++
-  }
-
-  return { content, newIndex: i }
-}
-
-// Helper function to extract content inside brackets
-function extractBracketContent(text: string, startIndex: number): { content: string; newIndex: number } {
-  if (text[startIndex] !== "[") {
-    return { content: "", newIndex: startIndex }
-  }
-
-  let bracketLevel = 1
-  let content = ""
-  let i = startIndex + 1
-
-  while (i < text.length && bracketLevel > 0) {
-    if (text[i] === "[") {
-      bracketLevel++
-    } else if (text[i] === "]") {
-      bracketLevel--
-    }
-
-    if (bracketLevel > 0) {
-      content += text[i]
-    }
-
-    i++
-  }
-
-  return { content, newIndex: i }
 }

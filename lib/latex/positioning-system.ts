@@ -8,6 +8,7 @@
  */
 
 import { getCursorContext } from './latex-parser';
+import { parseLatex } from './latex-parser';
 import type { ParsedToken } from './latex-parser';
 
 /**
@@ -16,6 +17,19 @@ import type { ParsedToken } from './latex-parser';
 export interface Position {
   index: number;      // Character index (0-based)
   isValid: boolean;   // Whether this is a valid cursor position
+}
+
+/**
+ * Tab stops structure for organizing valid positions
+ */
+export interface TabStops {
+  allPositions: number[] // All valid tab stops in order
+  commandStarts: number[] // Start positions of commands
+  commandEnds: number[] // End positions of commands
+  argumentBoundaries: number[] // Boundaries of command arguments
+  wordBoundaries: number[] // Word boundaries in text
+  mathBoundaries: number[] // Math environment boundaries
+  otherValidPositions: number[] // Other valid cursor positions
 }
 
 /**
@@ -92,6 +106,18 @@ export function isValidPosition(text: string, index: number): boolean {
         return false;
       }
     }
+  }
+  
+  // Rule 3.1: Never allow cursor directly at a $ character or before an opening $
+  
+  // Position is directly at a $ - not allowed, regardless of context
+  if (index < text.length && text[index] === '$') {
+    return false;
+  }
+  
+  // Position is at the start of content with $ as first character - not allowed
+  if (index === 0 && text.length > 0 && text[0] === '$') {
+    return false;
   }
   
   // Rule 4: Valid at any other position
@@ -189,19 +215,161 @@ export function isBeforeMathClosing(text: string, index: number): boolean {
 }
 
 /**
+ * Get all possible tab stops in the document, prioritized by importance
+ */
+export function getTabStops(text: string): TabStops {
+  // We'll store all possible tab positions categorized by type
+  const commandStarts: number[] = []
+  const commandEnds: number[] = []
+  const argumentBoundaries: number[] = []
+  const wordBoundaries: number[] = []
+  const mathBoundaries: number[] = []
+  const otherValidPositions: number[] = []
+  
+  // Special case: Add positions between adjacent math environments
+  for (let i = 1; i < text.length; i++) {
+    if (text[i-1] === '$' && text[i] === '$') {
+      // Position between adjacent dollar signs is always valid and an important tab stop
+      mathBoundaries.push(i);
+    }
+  }
+
+  // Use the LaTeX parser to get a structured representation of the content
+  const tokens = parseLatex(text)
+
+  // Recursive function to find all command-related tab positions
+  function processTokens(tokenList: ParsedToken[]) {
+    for (const token of tokenList) {
+      // If this is a command, process it
+      if (token.type === "command") {
+        // Only add if the position is valid
+        if (isValidPosition(text, token.start)) {
+          commandStarts.push(token.start)
+        }
+        if (isValidPosition(text, token.end)) {
+          commandEnds.push(token.end)
+        }
+
+        // Find all argument tokens (both regular and optional)
+        const args =
+          token.children?.filter((child) => child.type === "command-args" || child.type === "command-optional") || []
+
+        // Add the start and end positions of each argument
+        for (const arg of args) {
+          // Only add if the positions are valid
+          if (isValidPosition(text, arg.start)) {
+            argumentBoundaries.push(arg.start)
+          }
+          if (isValidPosition(text, arg.end)) {
+            argumentBoundaries.push(arg.end)
+          }
+
+          // Process nested content inside this argument
+          if (arg.children && arg.children.length > 0) {
+            processTokens(arg.children)
+          }
+        }
+      }
+
+      // If this token is a math environment, add its boundaries
+      if (token.type === "math") {
+        if (isValidPosition(text, token.start)) {
+          mathBoundaries.push(token.start)
+        }
+        if (isValidPosition(text, token.end)) {
+          mathBoundaries.push(token.end)
+        }
+      }
+
+      // If this token has children (like math environments), process them recursively
+      if (token.children && token.type !== "command") {
+        processTokens(token.children)
+      }
+    }
+  }
+
+  // Start the recursive processing
+  processTokens(tokens)
+
+  // Now find word boundaries in text content
+  let inWord = false
+  let i = 0
+
+  while (i < text.length) {
+    // Skip positions inside commands
+    let insideCommand = false
+    for (let j = 0; j < commandStarts.length; j++) {
+      if (i >= commandStarts[j] && i <= commandEnds[j]) {
+        insideCommand = true
+        break
+      }
+    }
+    
+    if (!insideCommand) {
+      // In regular text, detect word boundaries
+      const isWordChar = /[\w]/.test(text[i])
+      
+      if (isWordChar && !inWord) {
+        // Start of a word
+        inWord = true
+        if (isValidPosition(text, i)) {
+          wordBoundaries.push(i)
+        }
+      } else if (!isWordChar && inWord) {
+        // End of a word
+        inWord = false
+        if (isValidPosition(text, i)) {
+          wordBoundaries.push(i)
+        }
+      }
+    }
+    
+    i++
+  }
+
+  // Find all other valid positions not covered by specific categories
+  for (let i = 0; i <= text.length; i++) {
+    if (isValidPosition(text, i) && 
+        !commandStarts.includes(i) && 
+        !commandEnds.includes(i) &&
+        !argumentBoundaries.includes(i) &&
+        !wordBoundaries.includes(i) &&
+        !mathBoundaries.includes(i)) {
+      otherValidPositions.push(i)
+    }
+  }
+
+  // Create combined list of all valid positions
+  const allPositions = [
+    ...argumentBoundaries,
+    ...commandStarts,
+    ...commandEnds,
+    ...mathBoundaries,
+    ...wordBoundaries,
+    ...otherValidPositions
+  ]
+
+  // Sort and remove duplicates
+  const uniquePositions = [...new Set(allPositions)].sort((a, b) => a - b)
+
+  return {
+    allPositions: uniquePositions,
+    commandStarts,
+    commandEnds,
+    argumentBoundaries,
+    wordBoundaries,
+    mathBoundaries,
+    otherValidPositions
+  }
+}
+
+/**
  * Find all valid positions for tabbing in the document
  */
 export function findTabStops(text: string): Position[] {
-  const validPositions: Position[] = [];
-  
-  // Check each position in the text
-  for (let i = 0; i <= text.length; i++) {
-    if (isValidPosition(text, i)) {
-      validPositions.push(createPosition(text, i));
-    }
-  }
-  
-  return validPositions;
+  // Reuse the getTabStops function and convert to Position objects
+  const tabStops = getTabStops(text);
+  return tabStops.allPositions.map(index => createPosition(text, index));
 }
 
 /**

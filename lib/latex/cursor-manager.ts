@@ -54,36 +54,6 @@ export function getCursorState(text: string, selectionStart: number, selectionEn
 }
 
 /**
- * Determine if a dollar sign at the given position is an opening delimiter
- * @param text The text content
- * @param position Position of the dollar sign
- * @returns True if it's an opening delimiter, false otherwise
- */
-function isDollarSignOpening(text: string, position: number): boolean {
-  if (text[position] !== '$') return false;
-  
-  // Count dollar signs before this position - if even, it's an opening delimiter
-  const textBefore = text.substring(0, position);
-  const mathEnvironmentsBefore = textBefore.split('$').length - 1;
-  return mathEnvironmentsBefore % 2 === 0;
-}
-
-/**
- * Determine if a dollar sign at the given position is a closing delimiter
- * @param text The text content
- * @param position Position of the dollar sign
- * @returns True if it's a closing delimiter, false otherwise
- */
-function isDollarSignClosing(text: string, position: number): boolean {
-  if (text[position] !== '$') return false;
-  
-  // Count dollar signs before this position - if odd, it's a closing delimiter
-  const textBefore = text.substring(0, position);
-  const mathEnvironmentsBefore = textBefore.split('$').length - 1;
-  return mathEnvironmentsBefore % 2 === 1;
-}
-
-/**
  * Check if a position is valid for cursor placement.
  * This is a wrapper around the positioning system's isValidPosition
  * @deprecated Use positioning-system.isValidPosition instead
@@ -217,6 +187,7 @@ export function findAllValidPositions(text: string): number[] {
 
 /**
  * Tab stops structure for organizing valid positions
+ * @deprecated Use positioning-system.TabStops instead
  */
 export interface TabStops {
   allPositions: number[] // All valid tab stops in order
@@ -230,151 +201,10 @@ export interface TabStops {
 
 /**
  * Get all possible tab stops in the document, prioritized by importance
+ * @deprecated Use positioning-system.getTabStops instead
  */
 export function getTabStops(text: string): TabStops {
-  // We'll store all possible tab positions categorized by type
-  const commandStarts: number[] = []
-  const commandEnds: number[] = []
-  const argumentBoundaries: number[] = []
-  const wordBoundaries: number[] = []
-  const mathBoundaries: number[] = []
-  const otherValidPositions: number[] = []
-  
-  // Special case: Add positions between adjacent math environments
-  for (let i = 1; i < text.length; i++) {
-    if (text[i-1] === '$' && text[i] === '$') {
-      // Position between adjacent dollar signs is always valid and an important tab stop
-      mathBoundaries.push(i);
-    }
-  }
-
-  // Use the LaTeX parser to get a structured representation of the content
-  const tokens = parseLatex(text)
-
-  // Recursive function to find all command-related tab positions
-  function processTokens(tokenList: ParsedToken[]) {
-    for (const token of tokenList) {
-      // If this is a command, process it
-      if (token.type === "command") {
-        // Only add if the position is valid
-        if (PS.isValidPosition(text, token.start)) {
-          commandStarts.push(token.start)
-        }
-        if (PS.isValidPosition(text, token.end)) {
-          commandEnds.push(token.end)
-        }
-
-        // Find all argument tokens (both regular and optional)
-        const args =
-          token.children?.filter((child) => child.type === "command-args" || child.type === "command-optional") || []
-
-        // Add the start and end positions of each argument
-        for (const arg of args) {
-          // Only add if the positions are valid
-          if (PS.isValidPosition(text, arg.start)) {
-            argumentBoundaries.push(arg.start)
-          }
-          if (PS.isValidPosition(text, arg.end)) {
-            argumentBoundaries.push(arg.end)
-          }
-
-          // Process nested content inside this argument
-          if (arg.children && arg.children.length > 0) {
-            processTokens(arg.children)
-          }
-        }
-      }
-
-      // If this token is a math environment, add its boundaries
-      if (token.type === "math") {
-        if (PS.isValidPosition(text, token.start)) {
-          mathBoundaries.push(token.start)
-        }
-        if (PS.isValidPosition(text, token.end)) {
-          mathBoundaries.push(token.end)
-        }
-      }
-
-      // If this token has children (like math environments), process them recursively
-      if (token.children && token.type !== "command") {
-        processTokens(token.children)
-      }
-    }
-  }
-
-  // Start the recursive processing
-  processTokens(tokens)
-
-  // Now find word boundaries in text content
-  let inWord = false
-  let i = 0
-
-  while (i < text.length) {
-    // Skip positions inside commands
-    let insideCommand = false
-    for (let j = 0; j < commandStarts.length; j++) {
-      if (i >= commandStarts[j] && i <= commandEnds[j]) {
-        insideCommand = true
-        break
-      }
-    }
-    
-    if (!insideCommand) {
-      // In regular text, detect word boundaries
-      const isWordChar = /[\w]/.test(text[i])
-      
-      if (isWordChar && !inWord) {
-        // Start of a word
-        inWord = true
-        if (PS.isValidPosition(text, i)) {
-          wordBoundaries.push(i)
-        }
-      } else if (!isWordChar && inWord) {
-        // End of a word
-        inWord = false
-        if (PS.isValidPosition(text, i)) {
-          wordBoundaries.push(i)
-        }
-      }
-    }
-    
-    i++
-  }
-
-  // Find all other valid positions not covered by specific categories
-  for (let i = 0; i <= text.length; i++) {
-    if (PS.isValidPosition(text, i) && 
-        !commandStarts.includes(i) && 
-        !commandEnds.includes(i) &&
-        !argumentBoundaries.includes(i) &&
-        !wordBoundaries.includes(i) &&
-        !mathBoundaries.includes(i)) {
-      otherValidPositions.push(i)
-    }
-  }
-
-  // Create combined list of all valid positions
-  const allPositions = [
-    ...argumentBoundaries,
-    ...commandStarts,
-    ...commandEnds,
-    ...mathBoundaries,
-    ...wordBoundaries,
-    ...otherValidPositions
-  ]
-
-  // Sort and remove duplicates
-  const uniquePositions = [...new Set(allPositions)].sort((a, b) => a - b)
-
-  return {
-    allPositions: uniquePositions,
-    commandStarts,
-    commandEnds,
-    argumentBoundaries,
-    wordBoundaries,
-    mathBoundaries,
-    otherValidPositions
-  }
+  return PS.getTabStops(text);
 }
 
 /**
@@ -522,4 +352,138 @@ export function useTabManagement(elementRef: React.RefObject<HTMLElement>, prior
   
   // Return no-op on server
   return { cleanup: () => {} };
+}
+
+/**
+ * Adjusts cursor positions after content normalization or other transformations
+ * @param originalText The original text before normalization
+ * @param newText The new text after normalization
+ * @param originalStart The original selection start position
+ * @param originalEnd The original selection end position
+ * @returns The adjusted cursor positions that are valid in the new text
+ */
+export function adjustCursorPositionsAfterTransformation(
+  originalText: string,
+  newText: string,
+  originalStart: number,
+  originalEnd: number
+): { start: number; end: number } {
+  // Calculate the difference in length
+  const lengthDiff = newText.length - originalText.length;
+  
+  // If no change in length, no adjustment needed (just validate positions)
+  if (lengthDiff === 0) {
+    return {
+      start: validateCursorPosition(newText, originalStart),
+      end: validateCursorPosition(newText, originalEnd)
+    };
+  }
+  
+  // Try to intelligently adjust positions based on context
+  let adjustedStart = originalStart;
+  let adjustedEnd = originalEnd;
+  
+  // Identify potential change points in the text
+  const changePoints = findTextChangePoints(originalText, newText);
+  
+  // Adjust positions based on change points
+  for (const change of changePoints) {
+    // If cursor position is after the change point, adjust it by the change amount
+    if (originalStart > change.position) {
+      adjustedStart += change.offset;
+    }
+    
+    if (originalEnd > change.position) {
+      adjustedEnd += change.offset;
+    }
+  }
+  
+  // Ensure positions don't exceed text boundaries
+  adjustedStart = Math.max(0, Math.min(newText.length, adjustedStart));
+  adjustedEnd = Math.max(0, Math.min(newText.length, adjustedEnd));
+  
+  // Make sure positions are valid in the new text
+  return {
+    start: validateCursorPosition(newText, adjustedStart),
+    end: validateCursorPosition(newText, adjustedEnd)
+  };
+}
+
+/**
+ * Validates and adjusts a cursor position to ensure it's at a valid location
+ * @param text The text content
+ * @param position The position to validate
+ * @returns A valid cursor position
+ */
+function validateCursorPosition(text: string, position: number): number {
+  if (PS.isValidPosition(text, position)) {
+    return position;
+  }
+  
+  // Find the nearest valid position
+  const nextPos = PS.nextValidPosition(text, position);
+  const prevPos = PS.prevValidPosition(text, position);
+  
+  // Choose the closer valid position
+  const nextDist = Math.abs(nextPos.index - position);
+  const prevDist = Math.abs(prevPos.index - position);
+  
+  return nextDist <= prevDist ? nextPos.index : prevPos.index;
+}
+
+/**
+ * Identifies points in the text where changes have occurred between versions
+ * This is a simplified change detection - for complex cases, a proper diff algorithm would be better
+ */
+function findTextChangePoints(originalText: string, newText: string): { position: number; offset: number }[] {
+  const changes: { position: number; offset: number }[] = [];
+  
+  // Simple case - check for common prefixes and suffixes
+  let prefixLength = 0;
+  const minLength = Math.min(originalText.length, newText.length);
+  
+  // Find common prefix length
+  while (prefixLength < minLength && originalText[prefixLength] === newText[prefixLength]) {
+    prefixLength++;
+  }
+  
+  // If we found a change point
+  if (prefixLength < minLength || originalText.length !== newText.length) {
+    changes.push({
+      position: prefixLength,
+      offset: newText.length - originalText.length
+    });
+  }
+  
+  return changes;
+}
+
+/**
+ * Determine if a dollar sign at the given position is an opening delimiter
+ * @param text The text content
+ * @param position Position of the dollar sign
+ * @returns True if it's an opening delimiter, false otherwise
+ */
+function isDollarSignOpening(text: string, position: number): boolean {
+  if (text[position] !== '$') return false;
+  
+  // Count dollar signs before this position - if even, it's an opening delimiter
+  const textBefore = text.substring(0, position);
+  const mathEnvironmentsBefore = textBefore.split('$').length - 1;
+  return mathEnvironmentsBefore % 2 === 0;
+}
+
+/**
+ * Determine if a dollar sign at the given position is a closing delimiter
+ * @param text The text content
+ * @param position Position of the dollar sign
+ * @returns True if it's a closing delimiter, false otherwise
+ */
+function isDollarSignClosing(text: string, position: number): boolean {
+  if (text[position] !== '$') return false;
+  
+  // Count dollar signs before this position - if odd, it's a closing delimiter
+  const textBefore = text.substring(0, position);
+  const mathEnvironmentsBefore = textBefore.split('$').length - 1;
+  return mathEnvironmentsBefore % 2 === 1;
 }

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import type { CursorState } from "@/lib/latex/cursor-manager"
 import { parseLatex, findCommandAtPosition } from "@/lib/latex/latex-parser"
 import { isValidCursorPosition } from "@/lib/latex/cursor-manager"
+import { ChevronRight, ChevronDown } from "lucide-react"
 
 interface EditorState {
   content: string
@@ -17,6 +18,72 @@ interface DebugPanelProps {
   lastKey?: string
 }
 
+// New interface for AST node display
+interface ASTNodeProps {
+  node: any
+  depth?: number
+  isLast?: boolean
+}
+
+// Component to render a single AST node with collapsible children
+function ASTNode({ node, depth = 0, isLast = false }: ASTNodeProps) {
+  const [isExpanded, setIsExpanded] = useState(depth < 2)
+  
+  // Handle undefined or null nodes
+  if (!node) return null
+  
+  const hasChildren = node.children && node.children.length > 0
+  
+  return (
+    <div className="text-xs">
+      <div 
+        className="flex items-start hover:bg-muted/50 rounded"
+        style={{ paddingLeft: `${depth * 16}px` }}
+      >
+        {hasChildren ? (
+          <button 
+            className="mr-1 mt-0.5 focus:outline-none" 
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : (
+              <ChevronRight className="h-3 w-3" />
+            )}
+          </button>
+        ) : (
+          <span className="w-4 h-4"></span>
+        )}
+        
+        <div className="flex-1">
+          <span className="font-semibold">{node.type}</span>
+          {node.content && (
+            <span className="ml-2 text-muted-foreground">
+              "{node.content.substring(0, 20)}{node.content.length > 20 ? '...' : ''}"
+            </span>
+          )}
+          <span className="ml-2 text-gray-500">
+            ({node.start}-{node.end})
+          </span>
+        </div>
+      </div>
+      
+      {isExpanded && hasChildren && (
+        <div>
+          {node.children.map((child: any, index: number) => (
+            <ASTNode 
+              key={`${child.type}-${index}-${child.start}`}
+              node={child}
+              depth={depth + 1}
+              isLast={index === node.children.length - 1}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function DebugPanel({ editorState, lastKey = "" }: DebugPanelProps) {
   const [lastKeyEvent, setLastKeyEvent] = useState<string>("None")
   const [commandContext, setCommandContext] = useState<string>("None")
@@ -25,6 +92,7 @@ export function DebugPanel({ editorState, lastKey = "" }: DebugPanelProps) {
   const [isValidPosition, setIsValidPosition] = useState<boolean>(true)
   const [lastShortcut, setLastShortcut] = useState<string>("None")
   const [argumentInfo, setArgumentInfo] = useState<string>("None")
+  const [parsedAst, setParsedAst] = useState<any[]>([])
 
   // Listen for key events globally
   useEffect(() => {
@@ -93,6 +161,9 @@ export function DebugPanel({ editorState, lastKey = "" }: DebugPanelProps) {
 
       // Parse the content to find tokens
       const tokens = parseLatex(content)
+      
+      // Set the parsed AST for visualization
+      setParsedAst(tokens)
 
       // Check if we're in a math environment
       let inMath = false
@@ -219,7 +290,7 @@ export function DebugPanel({ editorState, lastKey = "" }: DebugPanelProps) {
     <div className="p-4 bg-background border-t font-mono text-sm">
       <h3 className="font-semibold mb-2">Debug Panel</h3>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-4 gap-4 mb-4">
         <div>
           <h4 className="text-xs font-semibold mb-1">Cursor Position</h4>
           <div className="grid grid-cols-2 gap-2 text-xs">
@@ -295,6 +366,26 @@ export function DebugPanel({ editorState, lastKey = "" }: DebugPanelProps) {
               </>
             )}
           </div>
+        </div>
+      </div>
+      
+      {/* AST Visualization Section */}
+      <div>
+        <h4 className="text-xs font-semibold mb-2">LaTeX AST Structure</h4>
+        <div className="bg-muted/30 p-2 rounded-md max-h-60 overflow-auto">
+          {parsedAst.length > 0 ? (
+            <div className="ast-tree">
+              {parsedAst.map((node, index) => (
+                <ASTNode 
+                  key={`${node.type}-${index}-${node.start}`} 
+                  node={node}
+                  isLast={index === parsedAst.length - 1}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-xs text-muted-foreground">No AST available</div>
+          )}
         </div>
       </div>
     </div>

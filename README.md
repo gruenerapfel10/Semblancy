@@ -1,62 +1,143 @@
-<a href="https://chat.vercel.ai/">
-  <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
-  <h1 align="center">Chat SDK</h1>
-</a>
+# LaTeX Editing System
 
-<p align="center">
-    Chat SDK is a free, open-source template built with Next.js and the AI SDK that helps you quickly build powerful chatbot applications.
-</p>
+## Overview
 
-<p align="center">
-  <a href="https://chat-sdk.dev"><strong>Read Docs</strong></a> ·
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a>
-</p>
-<br/>
+This library provides a comprehensive LaTeX editing system designed for mathematical content editing. The system handles LaTeX parsing, command execution, rendering, cursor positioning, and keyboard interactions.
 
-## Features
+## System Architecture
 
-- [Next.js](https://nextjs.org) App Router
-  - Advanced routing for seamless navigation and performance
-  - React Server Components (RSCs) and Server Actions for server-side rendering and increased performance
-- [AI SDK](https://sdk.vercel.ai/docs)
-  - Unified API for generating text, structured objects, and tool calls with LLMs
-  - Hooks for building dynamic chat and generative user interfaces
-  - Supports xAI (default), OpenAI, Fireworks, and other model providers
-- [shadcn/ui](https://ui.shadcn.com)
-  - Styling with [Tailwind CSS](https://tailwindcss.com)
-  - Component primitives from [Radix UI](https://radix-ui.com) for accessibility and flexibility
-- Data Persistence
-  - [Neon Serverless Postgres](https://vercel.com/marketplace/neon) for saving chat history and user data
-  - [Vercel Blob](https://vercel.com/storage/blob) for efficient file storage
-- [Auth.js](https://authjs.dev)
-  - Simple and secure authentication
-
-## Model Providers
-
-This template ships with [xAI](https://x.ai) `grok-2-1212` as the default chat model. However, with the [AI SDK](https://sdk.vercel.ai/docs), you can switch LLM providers to [OpenAI](https://openai.com), [Anthropic](https://anthropic.com), [Cohere](https://cohere.com/), and [many more](https://sdk.vercel.ai/providers/ai-sdk-providers) with just a few lines of code.
-
-## Deploy Your Own
-
-You can deploy your own version of the Next.js AI Chatbot to Vercel with one click:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot&env=AUTH_SECRET&envDescription=Generate%20a%20random%20secret%20to%20use%20for%20authentication&envLink=https%3A%2F%2Fgenerate-secret.vercel.app%2F32&project-name=my-awesome-chatbot&repository-name=my-awesome-chatbot&demo-title=AI%20Chatbot&demo-description=An%20Open-Source%20AI%20Chatbot%20Template%20Built%20With%20Next.js%20and%20the%20AI%20SDK%20by%20Vercel&demo-url=https%3A%2F%2Fchat.vercel.ai&products=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22ai%22%2C%22productSlug%22%3A%22grok%22%2C%22integrationSlug%22%3A%22xai%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22productSlug%22%3A%22neon%22%2C%22integrationSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22blob%22%7D%5D)
-
-## Running locally
-
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js AI Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/projects/environment-variables) for this, but a `.env` file is all that is necessary.
-
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various AI and authentication provider accounts.
-
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
-
-```bash
-pnpm install
-pnpm dev
+```
+lib/latex/
+├── commands/                    # Command implementations
+│   ├── color-command.ts         # Color command implementation
+│   ├── command-registry.ts      # Registry for all available commands
+│   ├── command-types.ts         # TypeScript interfaces for commands
+│   ├── command-utils.ts         # Utility functions for commands
+│   ├── fraction-command.ts      # Fraction command implementation
+│   ├── generic-command.ts       # Default command implementation
+│   ├── index.ts                 # Entry point for commands module
+│   ├── matrix-command.ts        # Matrix command implementation
+│   ├── sqrt-command.ts          # Square root command implementation
+│   ├── subscript-command.ts     # Subscript command implementation
+│   └── superscript-command.ts   # Superscript command implementation
+├── command-manager.ts           # High-level command execution
+├── cursor-manager.ts            # Cursor position management
+├── editor-core.ts               # Core editor state management
+├── key-handler.ts               # Keyboard event handling
+├── latex-editor.ts              # Main editor implementation
+├── latex-markdown-renderer.ts   # LaTeX to HTML rendering
+├── latex-parser.ts              # LaTeX parsing functionality
+└── positioning-system.ts        # Position management system
 ```
 
-Your app template should now be running on [localhost:3000](http://localhost:3000).
+## Core Components
+
+### Editor Core (`editor-core.ts`)
+- Manages the editor state through a reducer pattern
+- Handles content, cursor position, and editing history
+- Provides state transitions for content changes and cursor movement
+
+### LaTeX Editor (`latex-editor.ts`)
+- Central component that coordinates all system functionality
+- Provides API for content manipulation and cursor control
+- Maintains editor state and delegates to specialized components
+
+### Positioning System (`positioning-system.ts`)
+- Manages cursor positions within LaTeX content
+- Ensures cursor is only placed at valid positions
+- Provides tabbing functionality to navigate between meaningful positions
+
+### LaTeX Parser (`latex-parser.ts`)
+- Parses LaTeX content into a structured token tree
+- Identifies math environments, commands, and arguments
+- Provides context information for any cursor position
+
+## Command System
+
+### Command Manager (`command-manager.ts`)
+- High-level API for executing LaTeX commands
+- Delegates to specific command implementations
+- Provides convenience methods for common commands
+
+### Command Registry (`commands/command-registry.ts`)
+- Maintains registry of all available commands
+- Resolves command names and patterns to implementations
+- Provides default command for unknown command handling
+
+### Command Implementations
+- Each command (like `fraction-command.ts`) implements the Command interface
+- Defines execution behavior for specific LaTeX commands
+- Can specify keyboard shortcuts and pattern recognition
+
+## User Interaction Flow
+
+1. **User Input**:
+   - User types or presses keyboard shortcuts
+   - `KeyHandler` captures keyboard events
+
+2. **Command Execution**:
+   - Key events are translated to commands
+   - `CommandManager` coordinates command execution
+   - Specific command implementation modifies content
+
+3. **State Update**:
+   - `LatexEditor` updates state with new content
+   - `PositioningSystem` ensures valid cursor positioning
+   - Editor UI is updated with new content and cursor position
+
+4. **Rendering**:
+   - `LatexMarkdownRenderer` converts content to HTML
+   - UI displays rendered content to the user
+
+## Key Features
+
+### Smart Cursor Positioning
+- Valid positions only (never inside command names)
+- Special handling around math delimiters
+- Tab navigation between meaningful positions
+
+### Command System
+- Extensible with new command implementations
+- Keyboard shortcuts for common commands
+- Pattern recognition for parsing
+
+### Math Support
+- Math environment handling (`$...$`, `$$...$$`)
+- Support for fractions, superscripts, subscripts, matrices, and more
+- Special cursor behavior in mathematical contexts
+
+### Editing Capabilities
+- Undo/redo history
+- Automatic brace completion
+- Smart command insertion
+
+## Extending the System
+
+### Adding New Commands
+1. Create a new command file implementing the Command interface
+2. Register the command in the CommandRegistry
+3. Add keyboard shortcuts if needed
+
+### Enhancing Parsing
+- Extend the parser to handle additional LaTeX constructs
+- Add token types for new constructs
+- Update positioning system for new token types
+
+## Usage Example
+
+```typescript
+// Create an editor instance
+const editor = new LatexEditor("\\frac{1}{2}", {
+  onContentChange: (content, start, end) => {
+    console.log("Content updated:", content);
+  }
+});
+
+// Insert a command at cursor position
+const commandManager = new CommandManager(editor);
+commandManager.insertCommand("sqrt", 0, ["x+y"]);
+
+// Access editor state
+const state = editor.getState();
+console.log(state.content); // "\sqrt{x+y}"
+```

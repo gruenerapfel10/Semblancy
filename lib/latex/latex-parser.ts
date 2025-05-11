@@ -9,6 +9,8 @@
  * - Token ranges (start/end) follow the same convention
  */
 
+import { defaultRegistry } from "./commands";
+
 export interface ParsedToken {
   type: "text" | "command" | "command-name" | "command-args" | "command-optional" | "math" | "math-content"
   start: number
@@ -29,16 +31,45 @@ export function parseLatex(text: string): ParsedToken[] {
     let j = startIndex
 
     while (j < endIndex) {
-      // Check for LaTeX commands inside math
+      // Check for backslash commands (like \frac)
       if (text[j] === "\\") {
         const cmdStart = j
+        const backslashPos = j
         j++ // Skip backslash
 
-        // Extract command name
+        // Extract potential command name
         let commandName = ""
+        const commandNameStart = j
         while (j < endIndex && /[a-zA-Z]/.test(text[j])) {
           commandName += text[j]
           j++
+        }
+
+        // Check if this is a valid registered command
+        const isValidCommand = commandName.length > 0 && defaultRegistry.getBackslashCommand(commandName);
+        
+        if (!isValidCommand) {
+          // Not a valid command - treat as regular text
+          mathTokens.push({
+            type: "text",
+            start: backslashPos,
+            end: backslashPos + 1,
+            content: "\\",
+            inMath: true,
+          });
+          
+          // If we extracted command characters, add them as text too
+          if (commandName.length > 0) {
+            mathTokens.push({
+              type: "text",
+              start: commandNameStart,
+              end: j,
+              content: commandName,
+              inMath: true,
+            });
+          }
+          
+          continue;
         }
 
         const commandNameToken: ParsedToken = {
@@ -128,11 +159,98 @@ export function parseLatex(text: string): ParsedToken[] {
         mathTokens.push(commandToken)
         continue
       }
+      
+      // Check for character commands - use registry to determine which characters are commands
+      const commandChars = defaultRegistry.getCommandCharacters();
+      const currentChar = text[j];
+      
+      if (commandChars.includes(currentChar)) {
+        const cmdStart = j;
+        j++; // Skip the operator character
+        
+        // Create command name token using the character
+        const commandNameToken: ParsedToken = {
+          type: "command-name",
+          start: cmdStart,
+          end: cmdStart + 1,
+          content: currentChar,
+          inMath: true,
+        }
+        
+        const args: ParsedToken[] = [];
+        
+        // Check for argument in curly braces
+        if (j < endIndex && text[j] === "{") {
+          const argStart = j;
+          j++; // Skip opening brace
+          
+          let braceCount = 1;
+          let argContent = "";
+          const argContentStart = j;
+          
+          while (j < endIndex && braceCount > 0) {
+            if (text[j] === "{") braceCount++;
+            else if (text[j] === "}") braceCount--;
+            
+            if (braceCount > 0) {
+              argContent += text[j];
+            }
+            j++;
+          }
+          
+          // Parse nested content inside the argument recursively
+          const nestedTokens = parseMathContent(argContentStart, j - 1);
+          
+          args.push({
+            type: "command-args",
+            start: argStart + 1, // Inside the braces
+            end: j - 1, // Before the closing brace
+            content: argContent,
+            inMath: true,
+            children: nestedTokens.length > 0 ? nestedTokens : undefined,
+          });
+        } else {
+          // Handle single character argument without braces (e.g., ^2 instead of ^{2})
+          if (j < endIndex) {
+            const argContent = text[j];
+            
+            args.push({
+              type: "command-args",
+              start: j,
+              end: j + 1,
+              content: argContent,
+              inMath: true
+            });
+            
+            j++;
+          }
+        }
+        
+        const commandToken: ParsedToken = {
+          type: "command",
+          start: cmdStart,
+          end: j,
+          content: text.substring(cmdStart, j),
+          children: [commandNameToken, ...args],
+          inMath: true,
+        };
+        
+        mathTokens.push(commandToken);
+        continue;
+      }
 
       // Regular math content (not part of a command)
-      const textStart = j
-      while (j < endIndex && text[j] !== "\\") {
-        j++
+      const textStart = j;
+      
+      // Skip text until we reach a potential command character
+      while (j < endIndex) {
+        // Check if current character is a backslash
+        if (text[j] === "\\") break;
+        
+        // Check if current character is a registered command character
+        if (commandChars.includes(text[j])) break;
+        
+        j++;
       }
 
       if (j > textStart) {
@@ -142,11 +260,11 @@ export function parseLatex(text: string): ParsedToken[] {
           end: j,
           content: text.substring(textStart, j),
           inMath: true,
-        })
+        });
       }
     }
 
-    return mathTokens
+    return mathTokens;
   }
 
   while (i < text.length) {
@@ -284,65 +402,18 @@ export function parseLatex(text: string): ParsedToken[] {
 
     // Check for LaTeX commands outside math (\command{...})
     if (text[i] === "\\") {
-      const start = i
-      i++ // Skip backslash
-
-      // Extract command name
-      let commandName = ""
-      while (i < text.length && /[a-zA-Z]/.test(text[i])) {
-        commandName += text[i]
-        i++
-      }
-
-      const commandNameToken: ParsedToken = {
-        type: "command-name",
-        start: start + 1, // Skip the backslash
-        end: i,
-        content: commandName,
+      // Outside of math environment, \ is just regular text
+      const textStart = i;
+      i++; // Move past the backslash
+      
+      tokens.push({
+        type: "text",
+        start: textStart,
+        end: textStart + 1,
+        content: "\\",
         inMath: false,
-      }
-
-      // Look for command arguments in curly braces
-      const args: ParsedToken[] = []
-
-      while (i < text.length && text[i] === "{") {
-        const argStart = i
-        i++ // Skip opening brace
-
-        let braceCount = 1
-        let argContent = ""
-
-        while (i < text.length && braceCount > 0) {
-          if (text[i] === "{") braceCount++
-          else if (text[i] === "}") braceCount--
-
-          if (braceCount > 0) {
-            argContent += text[i]
-          }
-          i++
-        }
-
-        // i is now after the closing brace
-        args.push({
-          type: "command-args",
-          start: argStart + 1, // Inside the braces
-          end: i - 1, // Before the closing brace
-          content: argContent,
-          inMath: false,
-        })
-      }
-
-      const commandToken: ParsedToken = {
-        type: "command",
-        start,
-        end: i,
-        content: text.substring(start, i),
-        children: [commandNameToken, ...args],
-        inMath: false,
-      }
-
-      tokens.push(commandToken)
-      continue
+      })
+      continue;
     }
 
     // Regular text
@@ -630,4 +701,206 @@ export function normalizeAdjacentMathEnvironments(text: string): string {
   }
   
   return result;
+}
+
+/**
+ * Finds an expression before cursor for potential inclusion in a command
+ * Useful for identifying text segments that could be arguments to LaTeX commands
+ * @param text The full text
+ * @param cursorPos The cursor position
+ * @returns The expression and its start position, or null if none found
+ */
+export function findExpressionBeforeCursor(
+  text: string, 
+  cursorPos: number,
+  context?: { context: string; inMath: boolean; token?: ParsedToken; command?: ParsedToken }
+): { expr: string; startPos: number } | null {
+  // Get context if not provided
+  if (!context) {
+    context = getCursorContext(text, cursorPos);
+  }
+  
+  // Define if we're in a command argument
+  const inCommandArgument = context.context === "command-args" || context.context === "command-optional";
+  
+  // If we're in a command argument, don't try to find expressions outside it
+  if (inCommandArgument && context.token) {
+    const argToken = context.token;
+    
+    // Check if we're in an empty argument
+    if (argToken.start === argToken.end && cursorPos === argToken.start) {
+      return null;
+    }
+    
+    // Ensure we're really inside the argument, not at its boundaries
+    if (cursorPos <= argToken.start || cursorPos > argToken.end) {
+      return null;
+    }
+    
+    // Check if there's whitespace immediately before the cursor
+    let i = cursorPos - 1;
+    
+    // If there's whitespace right before the cursor, don't grab any expression
+    if (i < argToken.start || /\s/.test(text[i])) {
+      return null;
+    }
+    
+    // Check if there's a parenthesized expression before the cursor
+    let parenCount = 0;
+    let foundClosingParen = false;
+    
+    // If we find a closing parenthesis, look for the matching opening one
+    if (i >= argToken.start && text[i] === ")") {
+      foundClosingParen = true;
+      parenCount = 1;
+      i--;
+      
+      while (i >= argToken.start && parenCount > 0) {
+        if (text[i] === ")") parenCount++;
+        else if (text[i] === "(") parenCount--;
+        i--;
+      }
+      
+      // If we found a matching opening parenthesis
+      if (parenCount === 0) {
+        const startPos = i + 1; // Position of the opening parenthesis
+        const expr = text.substring(startPos, cursorPos);
+        return { expr, startPos };
+      }
+    }
+    
+    // If no parenthesized expression, look for continuous text (no spaces)
+    if (!foundClosingParen) {
+      i = cursorPos - 1;
+      const endPos = i + 1;
+      
+      // Find the start of the continuous text (stopping at whitespace)
+      while (i >= argToken.start && !/\s/.test(text[i])) {
+        i--;
+      }
+      
+      const startPos = i + 1;
+      
+      if (startPos < endPos && startPos >= argToken.start) {
+        const expr = text.substring(startPos, endPos);
+        
+        // Only return if the expression isn't empty
+        if (expr.trim().length > 0) {
+          return { expr, startPos };
+        }
+      }
+    }
+    
+    return null;
+  } else {
+    // Regular text, not in a command argument
+    
+    // Check if there's whitespace immediately before the cursor
+    let i = cursorPos - 1;
+    
+    // If there's whitespace right before the cursor, don't grab any expression
+    if (i < 0 || /\s/.test(text[i])) {
+      return null;
+    }
+    
+    // Check if there's a parenthesized expression before the cursor
+    let parenCount = 0;
+    let foundClosingParen = false;
+    
+    // If we find a closing parenthesis, look for the matching opening one
+    if (i >= 0 && text[i] === ")") {
+      foundClosingParen = true;
+      parenCount = 1;
+      i--;
+      
+      while (i >= 0 && parenCount > 0) {
+        if (text[i] === ")") parenCount++;
+        else if (text[i] === "(") parenCount--;
+        i--;
+      }
+      
+      // If we found a matching opening parenthesis
+      if (parenCount === 0) {
+        const startPos = i + 1; // Position of the opening parenthesis
+        const expr = text.substring(startPos, cursorPos);
+        return { expr, startPos };
+      }
+    }
+    
+    // If no parenthesized expression, look for continuous text (no spaces)
+    if (!foundClosingParen) {
+      i = cursorPos - 1;
+      const endPos = i + 1;
+      
+      // Find the start of the continuous text (stopping at whitespace)
+      while (i >= 0 && !/\s/.test(text[i])) {
+        i--;
+      }
+      
+      const startPos = i + 1;
+      
+      if (startPos < endPos) {
+        const expr = text.substring(startPos, endPos);
+        
+        // Only return if the expression isn't empty
+        if (expr.trim().length > 0) {
+          return { expr, startPos };
+        }
+      }
+    }
+    
+    return null;
+  }
+}
+
+/**
+ * Finds a LaTeX command immediately before the cursor position
+ * @param text The full text
+ * @param position The cursor position
+ * @returns Command info or null if no command found
+ */
+export function findCommandBeforeCursor(
+  text: string, 
+  position: number
+): { command: string; startPos: number; endPos: number } | null {
+  const tokens = parseLatex(text);
+  
+  // Look for commands that end exactly at the cursor position
+  for (const token of tokens) {
+    if (token.type === "command" && token.end === position) {
+      return {
+        command: text.substring(token.start, token.end),
+        startPos: token.start,
+        endPos: token.end
+      };
+    }
+    
+    // If this token has children (e.g., math environment), check them too
+    if (token.children) {
+      for (const child of token.children) {
+        if (child.type === "command" && child.end === position) {
+          return {
+            command: text.substring(child.start, child.end),
+            startPos: child.start,
+            endPos: child.end
+          };
+        }
+        
+        // Go one level deeper if needed
+        if (child.children) {
+          for (const grandchild of child.children) {
+            if (grandchild.type === "command" && grandchild.end === position) {
+              return {
+                command: text.substring(grandchild.start, grandchild.end),
+                startPos: grandchild.start,
+                endPos: grandchild.end
+              };
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  return null;
 }
