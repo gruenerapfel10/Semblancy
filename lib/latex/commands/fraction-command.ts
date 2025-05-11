@@ -46,10 +46,26 @@ export class FractionCommand implements Command {
     if (options.isShortcutInvocation && currentArgs.length === 0) {
       const expressionInfo = findExpressionBeforeCursor(text, currentPosition, contextInfo);
       if (expressionInfo) {
-        currentArgs = [expressionInfo.expr];
+        // Check if we're wrapping a command that already has math delimiters
+        let expr = expressionInfo.expr;
+        let hadMathDelimiters = false;
+        
+        if (expr.startsWith('$') && expr.endsWith('$')) {
+          // Remove outer math delimiters
+          expr = expr.slice(1, -1);
+          hadMathDelimiters = true;
+        }
+        
+        currentArgs = [expr];
         textToReplace = expressionInfo.expr;
         replacementLength = currentPosition - expressionInfo.startPos;
         currentPosition = expressionInfo.startPos; // Insert fraction at the start of the expression
+        
+        // Force math wrapping if the expression had math delimiters
+        if (hadMathDelimiters) {
+          options.wrapWithMath = true;
+        }
+        
         // Ensure options will place cursor in denominator if not already set
         if (options.cursorArgumentIndex === undefined) {
           options.cursorArgumentIndex = 1;
@@ -62,10 +78,11 @@ export class FractionCommand implements Command {
     const commandStr = buildCommandString("frac", currentArgs);
     
     // Determine if we need to wrap with math
-    const requiresMathWrap = !posInfo.inMath && 
+    const requiresMathWrap = (!posInfo.inMath && 
                            !posInfo.isAfterOpeningMath && 
                            !posInfo.isBeforeClosingMath &&
-                           options.wrapWithMath !== false; // Default to true if not in math
+                           options.wrapWithMath !== false) || 
+                           options.wrapWithMath === true; // Default to true if not in math or explicitly forced
     
     // Insert command based on context
     let newContent: string;

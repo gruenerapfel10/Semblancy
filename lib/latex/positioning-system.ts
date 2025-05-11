@@ -54,6 +54,11 @@ export function isValidPosition(text: string, index: number): boolean {
     return true;
   }
   
+  // Rule 0: Never allow cursor at math delimiters
+  if (isAtMathDelimiter(text, index)) {
+    return false;
+  }
+  
   const context = getCursorContext(text, index);
   
   // Rule 1: Never inside command names
@@ -106,18 +111,6 @@ export function isValidPosition(text: string, index: number): boolean {
         return false;
       }
     }
-  }
-  
-  // Rule 3.1: Never allow cursor directly at a $ character or before an opening $
-  
-  // Position is directly at a $ - not allowed, regardless of context
-  if (index < text.length && text[index] === '$') {
-    return false;
-  }
-  
-  // Position is at the start of content with $ as first character - not allowed
-  if (index === 0 && text.length > 0 && text[0] === '$') {
-    return false;
   }
   
   // Rule 4: Valid at any other position
@@ -209,6 +202,55 @@ export function isBeforeMathClosing(text: string, index: number): boolean {
     const atContext = getCursorContext(text, index);
     const afterContext = getCursorContext(text, index + 1);
     return atContext.inMath && !afterContext.inMath;
+  }
+  
+  return false;
+}
+
+/**
+ * Checks if a position is at a math delimiter
+ * @param text The text content
+ * @param index The cursor position to check
+ * @returns True if the position is directly at a math delimiter
+ */
+export function isAtMathDelimiter(text: string, index: number): boolean {
+  // Nothing to check if index is out of bounds
+  if (index < 0 || index >= text.length) {
+    return false;
+  }
+  
+  // Get all math tokens
+  const tokens = parseLatex(text);
+  
+  // For each math token, check if our index matches its delimiters
+  for (const token of tokens) {
+    if (token.type === "math") {
+      // Check for opening delimiter positions
+      // Since positions are LEFT-BASED INCLUSIVE, the position of opening $ is token.start
+      if (index === token.start + 1) {
+        return true; // Position is at opening delimiter
+      }
+      
+      // Check for display math ($$) - the position of the second $ is token.start + 1
+      if (text.substring(token.start, token.start + 2) === '$$' && index === token.start + 1) {
+        return true; // Position is at second $ of opening $$
+      }
+      
+      // Check for closing delimiter positions
+      // For inline math ($), the position of closing $ is token.end - 1
+      if (text.substring(token.start, token.start + 2) !== '$$' && 
+          text.substring(token.end - 2, token.end) !== '$$' &&
+          index === token.end - 1) {
+        return true; // Position is at closing $ for inline math
+      }
+      
+      // For display math ($$), the positions of closing $$ are token.end - 2 and token.end - 1
+      if (text.substring(token.end - 2, token.end) === '$$') {
+        if (index === token.end - 2 || index === token.end - 1) {
+          return true; // Position is at first or second $ of closing $$
+        }
+      }
+    }
   }
   
   return false;
