@@ -10,6 +10,7 @@ export interface CommandOptions {
   positionInFirstArg?: boolean // Whether to position cursor in first arg (vs second)
   cursorArgumentIndex?: number // Index of argument to position cursor in (0-based, -1 for last)
   isShortcutInvocation?: boolean // True if the command was triggered by a shortcut
+  isSecondClassCommand?: boolean // True if handling a second-class command like ^ or _
 }
 
 /**
@@ -86,6 +87,11 @@ export type CommandPattern = {
   // - 'backslash' means it starts with \ (like \frac)
   // - 'character' means it's a direct character (like ^ or _)
   patternType: 'backslash' | 'character';
+  
+  // Command class that determines positioning and validation rules:
+  // - 'first' for commands that require explicit arguments (like \frac{}{})
+  // - 'second' for operators that may work with implicit args (like ^, _)
+  commandClass: 'first' | 'second';
   
   // Optional regex for more complex matching patterns (for future use)
   regex?: RegExp;

@@ -162,6 +162,7 @@ export function parseLatex(text: string): ParsedToken[] {
       
       // Check for character commands - use registry to determine which characters are commands
       const commandChars = defaultRegistry.getCommandCharacters();
+      const secondClassCommandChars = defaultRegistry.getSecondClassCommandCharacters();
       const currentChar = text[j];
       
       if (commandChars.includes(currentChar)) {
@@ -211,7 +212,8 @@ export function parseLatex(text: string): ParsedToken[] {
           });
         } else {
           // Handle single character argument without braces (e.g., ^2 instead of ^{2})
-          if (j < endIndex) {
+          // Only for second-class commands that can work without explicit braces
+          if (j < endIndex && secondClassCommandChars.includes(currentChar)) {
             const argContent = text[j];
             
             args.push({

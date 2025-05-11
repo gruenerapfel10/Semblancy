@@ -11,7 +11,8 @@ export class SqrtCommand implements Command {
   // Define how this command is recognized in LaTeX text
   pattern: CommandPattern = {
     identifier: 'sqrt',
-    patternType: 'backslash'
+    patternType: 'backslash',
+    commandClass: 'first'
   };
   
   shortcut: ShortcutConfig = {

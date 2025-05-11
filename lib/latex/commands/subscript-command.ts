@@ -11,7 +11,8 @@ export class SubscriptCommand implements Command {
   // Define how this command is recognized in LaTeX text
   pattern: CommandPattern = {
     identifier: '_',
-    patternType: 'character'
+    patternType: 'character',
+    commandClass: 'second'
   };
   
   shortcut: ShortcutConfig[] = [
@@ -48,6 +49,29 @@ export class SubscriptCommand implements Command {
                           !posInfo.isAfterOpeningMath && 
                           !posInfo.isBeforeClosingMath &&
                           defaultWrapMath;
+
+    // Special handling for second-class commands with direct invocation
+    if (options.isSecondClassCommand && position > 0) {
+      // Check if there's a character preceding the cursor that this should be applied to
+      const prevChar = text[position - 1];
+      
+      // If the previous character is a letter or number, just insert the command there
+      if (/[\w\d)]/.test(prevChar)) {
+        let newText: string;
+        let finalCursorPos: number;
+        
+        if (args.length > 0 && args[0]) {
+          newText = text.substring(0, position) + `_{${args[0]}}` + text.substring(position);
+          finalCursorPos = position + args[0].length + 3; // Position at the end of the argument
+        } else {
+          newText = text.substring(0, position) + "_{}" + text.substring(position);
+          finalCursorPos = position + 2; // Position inside the curly braces
+        }
+        
+        editor.setContent(newText, finalCursorPos, finalCursorPos);
+        return finalCursorPos;
+      }
+    }
 
     let newText: string;
     let finalCursorPos: number;

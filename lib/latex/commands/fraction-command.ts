@@ -11,7 +11,8 @@ export class FractionCommand implements Command {
   // Define how this command is recognized in LaTeX text
   pattern: CommandPattern = {
     identifier: 'frac',
-    patternType: 'backslash'
+    patternType: 'backslash',
+    commandClass: 'first'
   };
   
   shortcut: ShortcutConfig = {
@@ -19,9 +20,9 @@ export class FractionCommand implements Command {
     condition: (context: EditorShortcutContext) => {
       // Only trigger if not inside existing command arguments
       return true;
-    },
+    }
     // No getArgs needed, execute will handle it if isShortcutInvocation is true and args are empty
-    options: { cursorArgumentIndex: 1 } // Default to positioning in denominator for shortcut
+    // No cursorArgumentIndex set here - we'll determine that in the execute method
   };
 
   execute(
@@ -36,6 +37,7 @@ export class FractionCommand implements Command {
     let currentPosition = position;
     let textToReplace = "";
     let replacementLength = 0;
+    let contentWrapped = false;
 
     // Get insertion context
     // Note: If called by shortcut, position is selectionStart from KeyHandler
@@ -46,6 +48,9 @@ export class FractionCommand implements Command {
     if (options.isShortcutInvocation && currentArgs.length === 0) {
       const expressionInfo = findExpressionBeforeCursor(text, currentPosition, contextInfo);
       if (expressionInfo) {
+        // Content found to wrap - we'll set cursor to the denominator later
+        contentWrapped = true;
+        
         // Check if we're wrapping a command that already has math delimiters
         let expr = expressionInfo.expr;
         let hadMathDelimiters = false;
@@ -65,13 +70,15 @@ export class FractionCommand implements Command {
         if (hadMathDelimiters) {
           options.wrapWithMath = true;
         }
-        
-        // Ensure options will place cursor in denominator if not already set
-        if (options.cursorArgumentIndex === undefined) {
-          options.cursorArgumentIndex = 1;
-        }
       }
-      // If no expression found, it will proceed to insert a blank fraction at currentPosition
+    }
+    
+    // Set cursor position based on whether content was wrapped
+    // Only override if not explicitly set in options
+    if (options.cursorArgumentIndex === undefined) {
+      // If we wrapped content, position in denominator (second arg)
+      // If no content wrapped, position in numerator (first arg)
+      options.cursorArgumentIndex = contentWrapped ? 1 : 0;
     }
     
     // Build command string using currentArgs (which might have been populated by shortcut logic)
@@ -98,8 +105,8 @@ export class FractionCommand implements Command {
       
       newContent = beforeContent + prefix + commandStr + suffix + afterContent;
       
-      // Find the position for the denominator (second argument)
-      const targetArgIndex = options.cursorArgumentIndex || 1; // Default to denominator
+      // Find the position for the target argument
+      const targetArgIndex = options.cursorArgumentIndex ?? 0; // Default to numerator if not set
       let openBraceCount = 0;
       let argOpenPositions = [];
       

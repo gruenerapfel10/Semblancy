@@ -41,6 +41,19 @@ export class CommandManager {
       return newPos;
     }
 
+    // Check if this is a second-class command
+    const commandClass = this.registry.getCommandClass(commandName);
+    
+    // Special handling for second-class commands if needed
+    if (commandClass === 'second') {
+      // Second-class commands have more flexible argument handling
+      // For example, ^ and _ can work with or without explicit braces
+      return command.execute(this.editor, position, args, {
+        ...options,
+        isSecondClassCommand: true
+      });
+    }
+    
     // Check if the retrieved command is the default generic command.
     // If so, GenericCommand expects the actual commandName as its first argument.
     if (this.registry.isDefaultCommand(command) && command instanceof GenericCommand) {

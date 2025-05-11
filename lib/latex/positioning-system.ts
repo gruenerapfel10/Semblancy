@@ -10,6 +10,7 @@
 import { getCursorContext } from './latex-parser';
 import { parseLatex } from './latex-parser';
 import type { ParsedToken } from './latex-parser';
+import { defaultRegistry } from './commands';
 
 /**
  * Represents a position within LaTeX content
@@ -61,31 +62,50 @@ export function isValidPosition(text: string, index: number): boolean {
   
   const context = getCursorContext(text, index);
   
-  // Rule 1: Never inside command names
-  if (context.context === "command-name") {
-    return false;
+  // Rule 1: Never inside command names for first-class commands
+  // For second-class commands like ^ and _, allow positioning
+  if (context.context === "command-name" && context.token) {
+    const commandChar = context.token.content;
+    const commandClass = defaultRegistry.getCommandClass(commandChar);
+    
+    // If it's not a second-class command, disallow positioning inside the command name
+    if (commandClass !== 'second') {
+      return false;
+    }
   }
   
-  // Rule 2: Never between command and its arguments
+  // Rule 2: Never between command and its arguments for first-class commands
+  // For second-class commands like ^ and _, allow positioning
   if (context.command) {
     const command = context.command;
-    const cmdArgs = command.children?.filter(
-      child => child.type === "command-args" || child.type === "command-optional"
-    ) || [];
     
-    // Check if we're inside the command but not inside an argument
-    if (index > command.start && index < command.end) {
-      let insideArg = false;
-      for (const arg of cmdArgs) {
-        if (index >= arg.start && index <= arg.end) {
-          insideArg = true;
-          break;
-        }
-      }
+    // Check if this is a command with a command name
+    const commandNameToken = command.children?.find(child => child.type === "command-name");
+    if (commandNameToken) {
+      const commandName = commandNameToken.content;
+      const commandClass = defaultRegistry.getCommandClass(commandName);
       
-      // If not inside an argument but inside the command, we're between command and args
-      if (!insideArg && context.context === "command") {
-        return false;
+      // If it's a first-class command, apply the normal positioning rules
+      if (commandClass !== 'second') {
+        const cmdArgs = command.children?.filter(
+          child => child.type === "command-args" || child.type === "command-optional"
+        ) || [];
+        
+        // Check if we're inside the command but not inside an argument
+        if (index > command.start && index < command.end) {
+          let insideArg = false;
+          for (const arg of cmdArgs) {
+            if (index >= arg.start && index <= arg.end) {
+              insideArg = true;
+              break;
+            }
+          }
+          
+          // If not inside an argument but inside the command, we're between command and args
+          if (!insideArg && context.context === "command") {
+            return false;
+          }
+        }
       }
     }
   }

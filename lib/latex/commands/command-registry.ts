@@ -9,6 +9,8 @@ export class CommandRegistry {
   private defaultCommandInstance: Command | null = null
   private backslashCommands: Map<string, Command> = new Map()
   private characterCommands: Map<string, Command> = new Map()
+  private firstClassCommands: Set<Command> = new Set()
+  private secondClassCommands: Set<Command> = new Set()
   
   /**
    * Register a command with the registry
@@ -28,11 +30,20 @@ export class CommandRegistry {
         } else if (pattern.patternType === 'character') {
           this.characterCommands.set(pattern.identifier, command)
         }
+        
+        // Track command by its class
+        if (pattern.commandClass === 'first') {
+          this.firstClassCommands.add(command)
+        } else if (pattern.commandClass === 'second') {
+          this.secondClassCommands.add(command)
+        }
       }
     }
     // Fallback: if no pattern defined but name exists, assume backslash command
     else {
       this.backslashCommands.set(name, command)
+      // Default to first class if not specified
+      this.firstClassCommands.add(command)
     }
   }
   
@@ -131,5 +142,52 @@ export class CommandRegistry {
    */
   getCommandCharacters(): string[] {
     return Array.from(this.characterCommands.keys())
+  }
+  
+  /**
+   * Check if a command is a first-class command (requiring explicit arguments)
+   * @param command The command to check
+   * @returns True if it's a first-class command
+   */
+  isFirstClassCommand(command: Command): boolean {
+    return this.firstClassCommands.has(command);
+  }
+  
+  /**
+   * Check if a command is a second-class command (works with implicit arguments)
+   * @param command The command to check
+   * @returns True if it's a second-class command
+   */
+  isSecondClassCommand(command: Command): boolean {
+    return this.secondClassCommands.has(command);
+  }
+  
+  /**
+   * Get the command class for a character command
+   * @param char The character command (e.g., "^" or "_")
+   * @returns 'first', 'second', or undefined if not found
+   */
+  getCommandClass(char: string): 'first' | 'second' | undefined {
+    const command = this.getCharacterCommand(char) || this.getBackslashCommand(char);
+    
+    if (!command) return undefined;
+    
+    if (this.secondClassCommands.has(command)) {
+      return 'second';
+    } else if (this.firstClassCommands.has(command)) {
+      return 'first';
+    }
+    
+    return undefined;
+  }
+  
+  /**
+   * Get all registered second-class command characters
+   * @returns Array of second-class command characters
+   */
+  getSecondClassCommandCharacters(): string[] {
+    return Array.from(this.characterCommands.entries())
+      .filter(([_, command]) => this.secondClassCommands.has(command))
+      .map(([char, _]) => char);
   }
 } 

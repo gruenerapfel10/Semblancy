@@ -6,6 +6,7 @@ import type { ParsedToken } from "./latex-parser"
 import { CommandManager } from "./command-manager"
 import * as PS from "./positioning-system"
 import type { Command, EditorShortcutContext, ShortcutConfig } from "./commands/command-types"
+import { defaultRegistry } from "./commands"
 
 export interface KeyHandlerOptions {
   editor: LatexEditor
@@ -72,6 +73,15 @@ export class KeyHandler {
                 }
             }
         }
+    }
+
+    // Special handling for second-class commands (^ and _)
+    if ((key === "^" || key === "_") && cursorContext.inMath) {
+      // These are special second-class commands that need direct handling
+      const commandName = key;
+      event.preventDefault();
+      this.commandManager.insertCommand(commandName, selectionStart, [], { isShortcutInvocation: true });
+      return true;
     }
 
     // Auto-complete braces - keep this as a special case since it's not a formal command
