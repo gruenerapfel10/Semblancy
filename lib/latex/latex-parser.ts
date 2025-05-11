@@ -723,7 +723,7 @@ export function findExpressionBeforeCursor(
   }
   
   // Define if we're in a command argument
-  const inCommandArgument = context.context === "command-args" || context.context === "command-optional";
+  const inCommandArgument = context.context === "command-args" || context.context === "command-optional" || context.context === "command";
   
   // If we're in a command argument, don't try to find expressions outside it
   if (inCommandArgument && context.token) {

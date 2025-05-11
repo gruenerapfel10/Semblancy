@@ -46,7 +46,7 @@ export function isBeforeMathEnvironment(text: string, position: number): boolean
  * @returns True if inside a command argument
  */
 export function isInsideCommandArgument(context: string): boolean {
-  return context === "command-args" || context === "command-optional";
+  return context === "command-args" || context === "command-optional" || context === "command";
 }
 
 /**
