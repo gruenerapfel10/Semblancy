@@ -139,10 +139,10 @@ export class FractionCommand implements Command {
     } else {
       // Standard determination for requiring math wrap
       requiresMathWrap = (!posInfo.inMath && 
-                         !posInfo.isAfterOpeningMath && 
-                         !posInfo.isBeforeClosingMath &&
-                         !isBeforeOpeningMath &&
-                         options.wrapWithMath !== false) || 
+                           !posInfo.isAfterOpeningMath && 
+                           !posInfo.isBeforeClosingMath &&
+                           !isBeforeOpeningMath &&
+                           options.wrapWithMath !== false) || 
                          options.wrapWithMath === true;
     }
     
@@ -365,29 +365,29 @@ export class FractionCommand implements Command {
   ): { newContent: string, basePosition: number } {
     const beforeContent = text.substring(0, position);
     const afterContent = text.substring(position);
-    
-    // Move past the $ character
-    const mathContent = afterContent.substring(1);
-    // Find the closing $ if it exists
-    const closingMathIdx = mathContent.indexOf('$');
-    
-    if (closingMathIdx !== -1) {
-      // Insert fraction inside math environment
-      const beforeMath = beforeContent + '$';
-      const mathBeforeFraction = mathContent.substring(0, 0); // Nothing before fraction
-      const mathAfterFraction = mathContent.substring(0, closingMathIdx);
-      const afterMath = mathContent.substring(closingMathIdx);
       
+      // Move past the $ character
+      const mathContent = afterContent.substring(1);
+      // Find the closing $ if it exists
+      const closingMathIdx = mathContent.indexOf('$');
+      
+      if (closingMathIdx !== -1) {
+        // Insert fraction inside math environment
+        const beforeMath = beforeContent + '$';
+        const mathBeforeFraction = mathContent.substring(0, 0); // Nothing before fraction
+        const mathAfterFraction = mathContent.substring(0, closingMathIdx);
+        const afterMath = mathContent.substring(closingMathIdx);
+        
       const newContent = beforeMath + mathBeforeFraction + commandStr + mathAfterFraction + afterMath;
-      
+        
       return {
         newContent,
         basePosition: beforeMath.length + mathBeforeFraction.length
-      };
+        };
     }
     
-    // No closing math delimiter found, fall back to normal insertion
-    const result = insertAtPosition(
+        // No closing math delimiter found, fall back to normal insertion
+        const result = insertAtPosition(
       text, position, commandStr, false, options
     );
     

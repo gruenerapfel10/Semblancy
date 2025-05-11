@@ -182,24 +182,25 @@ function processInlineFormatting(text: string): string {
 
 // Process math expressions using the LaTeX parser
 function processMathExpressions(text: string): string {
-  // Parse the entire text to get math environments
-  const tokens = parseLatex(text)
-  
-  // Replace each math environment with its rendered HTML
-  let result = text
-  let offset = 0
+  const allTokens = parseLatex(text); // Get all tokens (text and math) for the line
 
-  for (const token of tokens) {
-    if (token.type === "math") {
-      const rendered = renderLatexToken(token)
-      const beforeMath = result.substring(0, token.start + offset)
-      const afterMath = result.substring(token.end + offset)
-      result = beforeMath + rendered
-      offset += rendered.length - (token.end - token.start)
-    }
+  // If parseLatex returns nothing or an empty list (e.g. for empty input string),
+  // return text to avoid issues, though parseLatex should ideally handle empty string gracefully.
+  if (!allTokens || allTokens.length === 0) {
+    return text;
   }
 
-  return result
+  let processedLine = "";
+  for (const token of allTokens) {
+    if (token.type === "math") {
+      processedLine += renderLatexToken(token); // Append rendered HTML for math
+    } else {
+      // For non-math tokens (e.g., type "text"), append their original content.
+      // This relies on `parseLatex` providing `content` that is the original text segment.
+      processedLine += token.content;
+    }
+  }
+  return processedLine;
 }
 
 // Component renderers for different LaTeX elements
