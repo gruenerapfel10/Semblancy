@@ -4,28 +4,34 @@ interface LatexFractionProps {
   numerator: React.ReactNode;
   denominator: React.ReactNode;
   displayStyle?: boolean;
+  nestingLevel?: number; // Track fraction nesting level for scaling
 }
 
 /**
  * A React component for rendering LaTeX-style fractions
  * 
- * The component uses Tailwind CSS to style fractions in a way that mimics LaTeX output
- * displayStyle prop controls whether to use display math style (larger) or inline style
+ * Implements MathJax-like structure and styling for high-quality fraction display
+ * with special handling for nested fractions through automatic scaling
  */
 const LatexFraction: React.FC<LatexFractionProps> = ({ 
   numerator, 
   denominator, 
-  displayStyle = false 
+  displayStyle = false,
+  nestingLevel = 0
 }) => {
+  // Calculate scaling factor based on nesting level
+  // First level (nestingLevel=0) keeps 100% size
+  // Each nesting level reduces font size proportionally
+  const scaleFactor = Math.max(0.85 - (nestingLevel * 0.1), 0.5);
+  
+  // Set a class that will be used to detect nesting in CSS
+  const nestingClass = `fraction-nesting-${nestingLevel}`;
+
   return (
-    <div className={`inline-block align-middle text-center mx-[0.1em] ${displayStyle ? 'latex-displaystyle' : ''}`}>
-      <div className={`block text-center ${displayStyle ? 'pb-[0.1em] text-[0.85em]' : ''}`}>
-        {numerator}
-      </div>
-      <div className="block h-[0.08em] bg-current min-w-[0.5em] my-[0.15em]" />
-      <div className={`block text-center ${displayStyle ? 'pt-[0.1em] text-[0.85em]' : ''}`}>
-        {denominator}
-      </div>
+    <div className="relative font-bold " style={{ fontSize: `${scaleFactor * 100}%` }}>
+      <div className="relative px-[0.3em] text-center leading-[1.1] min-h-0">{numerator}</div>
+      <div className="w-full h-[1px] bg-current my-[0.05em]"></div>
+      <div className="relative px-[0.3em] text-center leading-[1.1] min-h-0">{denominator}</div>
     </div>
   );
 };

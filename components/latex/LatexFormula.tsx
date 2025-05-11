@@ -48,15 +48,23 @@ const LatexFormula: React.FC<LatexFormulaProps> = ({
       'block text-center my-4 font-serif text-[1.2em]' : 
       'inline-block align-middle font-serif'
     }>
-      {renderLatexToken(mathContent, isDisplayMath)}
+      {renderLatexToken(mathContent, isDisplayMath, 0)}
     </div>
   );
 };
 
 /**
  * Recursively render a LaTeX token into React components
+ * 
+ * @param token - The LaTeX token to render
+ * @param displayStyle - Whether to use display math style
+ * @param nestingLevel - Current nesting level for fractions
  */
-function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.ReactNode {
+function renderLatexToken(
+  token: ParsedToken, 
+  displayStyle: boolean, 
+  nestingLevel: number = 0
+): React.ReactNode {
   // Handle null tokens
   if (!token) return null;
   
@@ -69,7 +77,7 @@ function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.Reac
     case 'math-content':
       return token.children.map((child, index) => 
         <React.Fragment key={index}>
-          {renderLatexToken(child, displayStyle)}
+          {renderLatexToken(child, displayStyle, nestingLevel)}
         </React.Fragment>
       );
       
@@ -81,11 +89,14 @@ function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.Reac
       switch (commandName) {
         case 'frac':
           if (args.length < 2) return token.content;
+          // For fractions, increment the nesting level for child elements
+          const fracNestingLevel = nestingLevel;
           return (
             <LatexFraction
-              numerator={renderLatexToken(args[0], displayStyle)}
-              denominator={renderLatexToken(args[1], displayStyle)}
+              numerator={renderLatexToken(args[0], displayStyle, fracNestingLevel + 1)}
+              denominator={renderLatexToken(args[1], displayStyle, fracNestingLevel + 1)}
               displayStyle={displayStyle}
+              nestingLevel={fracNestingLevel}
             />
           );
           
@@ -93,8 +104,8 @@ function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.Reac
           if (args.length < 1) return token.content;
           return (
             <LatexSqrt
-              content={renderLatexToken(args[0], displayStyle)}
-              index={optArgs[0] ? renderLatexToken(optArgs[0], displayStyle) : undefined}
+              content={renderLatexToken(args[0], displayStyle, nestingLevel)}
+              index={optArgs[0] ? renderLatexToken(optArgs[0], displayStyle, nestingLevel) : undefined}
               displayStyle={displayStyle}
             />
           );
@@ -106,7 +117,7 @@ function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.Reac
           return (
             <LatexScript
               base="x" // Placeholder - in a real implementation, find the base
-              superscript={renderLatexToken(args[0], displayStyle)}
+              superscript={renderLatexToken(args[0], displayStyle, nestingLevel)}
               displayStyle={displayStyle}
             />
           );
@@ -116,7 +127,7 @@ function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.Reac
           return (
             <LatexScript
               base="x" // Placeholder - in a real implementation, find the base
-              subscript={renderLatexToken(args[0], displayStyle)}
+              subscript={renderLatexToken(args[0], displayStyle, nestingLevel)}
               displayStyle={displayStyle}
             />
           );
@@ -127,8 +138,8 @@ function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.Reac
             return (
               <LatexOperator
                 symbol={commandName}
-                upperLimit={args[1] ? renderLatexToken(args[1], displayStyle) : undefined}
-                lowerLimit={args[0] ? renderLatexToken(args[0], displayStyle) : undefined}
+                upperLimit={args[1] ? renderLatexToken(args[1], displayStyle, nestingLevel) : undefined}
+                lowerLimit={args[0] ? renderLatexToken(args[0], displayStyle, nestingLevel) : undefined}
                 displayStyle={displayStyle}
               />
             );
@@ -147,7 +158,7 @@ function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.Reac
     case 'command-optional':
       return token.children.map((child, index) => 
         <React.Fragment key={index}>
-          {renderLatexToken(child, displayStyle)}
+          {renderLatexToken(child, displayStyle, nestingLevel)}
         </React.Fragment>
       );
       
@@ -158,7 +169,7 @@ function renderLatexToken(token: ParsedToken, displayStyle: boolean): React.Reac
       if (token.children && token.children.length > 0) {
         return token.children.map((child, index) => 
           <React.Fragment key={index}>
-            {renderLatexToken(child, displayStyle)}
+            {renderLatexToken(child, displayStyle, nestingLevel)}
           </React.Fragment>
         );
       }

@@ -724,6 +724,7 @@ export function findExpressionBeforeCursor(
   
   // Define if we're in a command argument
   const inCommandArgument = context.context === "command-args" || context.context === "command-optional" || context.context === "command";
+  console.log('inCommandArgument', inCommandArgument)
   
   // If we're in a command argument, don't try to find expressions outside it
   if (inCommandArgument && context.token) {
@@ -782,12 +783,13 @@ export function findExpressionBeforeCursor(
       }
       
       const startPos = i + 1;
-      
+
       if (startPos < endPos && startPos >= argToken.start) {
         const expr = text.substring(startPos, endPos);
         
         // Only return if the expression isn't empty
         if (expr.trim().length > 0) {
+          console.log('expr', expr)
           return { expr, startPos };
         }
       }
@@ -902,6 +904,82 @@ export function findCommandBeforeCursor(
         }
       }
     }
+  }
+  
+  return null;
+}
+
+/**
+ * Gets the exact boundaries of the innermost argument at a cursor position
+ * This is especially useful for nested commands to identify just the current argument
+ * 
+ * @param text The text content
+ * @param position The cursor position
+ * @returns Object with start and end indices of the argument, or null if not in an argument
+ */
+export function getArgumentScope(
+  text: string,
+  position: number
+): { start: number; end: number; type: string } | null {
+  const tokens = parseLatex(text);
+  
+  // Start with a recursive depth-first search to find the most specific argument
+  function findInnerMostArgument(
+    tokenList: ParsedToken[], 
+    pos: number, 
+    currentDepth: number = 0
+  ): { token: ParsedToken; depth: number } | null {
+    // Track the best match so far (innermost argument containing the position)
+    let bestMatch: { token: ParsedToken; depth: number } | null = null;
+    
+    for (const token of tokenList) {
+      // Skip if position is not in this token's range
+      if (pos < token.start || pos > token.end) continue;
+      
+      // Check if this is an argument token
+      if (token.type === "command-args" || token.type === "command-optional") {
+        // This is a potential match
+        if (!bestMatch || currentDepth > bestMatch.depth) {
+          bestMatch = { token, depth: currentDepth };
+        }
+      }
+      
+      // Recursively search in children
+      if (token.children) {
+        const childMatch = findInnerMostArgument(token.children, pos, currentDepth + 1);
+        
+        // Update best match if a deeper match was found
+        if (childMatch && (!bestMatch || childMatch.depth > bestMatch.depth)) {
+          bestMatch = childMatch;
+        }
+      }
+    }
+    
+    return bestMatch;
+  }
+  
+  // Find the innermost argument token containing the position
+  const match = findInnerMostArgument(tokens, position);
+  
+  if (match && match.token) {
+    return {
+      start: match.token.start,
+      end: match.token.end,
+      type: match.token.type
+    };
+  }
+  
+  // Special case for empty arguments
+  const context = getCursorContext(text, position);
+  if (context.token && 
+      (context.token.type === "command-args" || context.token.type === "command-optional") && 
+      context.token.start === context.token.end && 
+      position === context.token.start) {
+    return {
+      start: context.token.start,
+      end: context.token.end,
+      type: context.token.type
+    };
   }
   
   return null;
