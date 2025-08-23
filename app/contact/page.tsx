@@ -95,7 +95,7 @@ export default function ContactPage() {
                 </div>
                 <div className="pt-4 border-t">
                   <p className="text-xs text-muted-foreground">
-                    For urgent matters, please include "URGENT" in your email subject line for prioritized response.
+                    For urgent matters, please include &quot;URGENT&quot; in your email subject line for prioritized response.
                   </p>
                 </div>
               </div>
