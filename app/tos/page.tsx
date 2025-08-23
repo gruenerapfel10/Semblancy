@@ -145,8 +145,7 @@ export default function TermsPage() {
       title: "13. Contact Information",
       content: "For any questions about these Terms of Service, please contact us:",
       contact: {
-        email: "legal@semblancy.com",
-        address: "Semblancy Ltd, United Kingdom"
+        email: "gcsesimulator@gmail.com"
       }
     }
   ]
@@ -238,14 +237,12 @@ export default function TermsPage() {
                 {section.contact && (
                   <>
                     <p className="text-muted-foreground mb-4">{section.content}</p>
-                    <div className="space-y-3 bg-gradient-to-r from-[#0046FF]/5 dark:from-[#0046FF]/10 to-transparent rounded-2xl p-6">
+                    <div className="bg-gradient-to-r from-[#0046FF]/5 dark:from-[#0046FF]/10 to-transparent rounded-2xl p-6">
                       <div className="flex items-center">
                         <span className="text-foreground font-medium mr-2">Email:</span>
-                        <span className="text-[#0046FF]">{section.contact.email}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-foreground font-medium mr-2">Address:</span>
-                        <span className="text-muted-foreground">{section.contact.address}</span>
+                        <a href={`mailto:${section.contact.email}`} className="text-[#0046FF] hover:text-[#0046FF]/80 transition-colors">
+                          {section.contact.email}
+                        </a>
                       </div>
                     </div>
                   </>

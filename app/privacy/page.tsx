@@ -11,10 +11,7 @@ export default function PrivacyPage() {
       title: "1. Data Controller Information",
       content: "Semblancy Ltd is the data controller responsible for your personal data. We are a UK-based educational technology company committed to protecting your privacy in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.",
       contact: {
-        company: "Semblancy Ltd",
-        email: "privacy@semblancy.com",
-        dpo: "Data Protection Officer",
-        address: "United Kingdom"
+        email: "gcsesimulator@gmail.com"
       }
     },
     {
@@ -136,10 +133,7 @@ export default function PrivacyPage() {
       title: "14. Contact Us",
       content: "For any privacy concerns, questions, or to exercise your rights, please contact us:",
       contact: {
-        email: "privacy@semblancy.com",
-        dpo: "dpo@semblancy.com",
-        address: "Semblancy Ltd, United Kingdom",
-        ico: "UK Information Commissioner's Office: ico.org.uk"
+        email: "gcsesimulator@gmail.com"
       }
     }
   ]
@@ -230,37 +224,13 @@ export default function PrivacyPage() {
                 )}
 
                 {section.contact && (
-                  <div className="space-y-3 bg-gradient-to-r from-[#0046FF]/5 dark:from-[#0046FF]/10 to-transparent rounded-2xl p-6 mt-4">
-                    {section.contact.company && (
-                      <div className="flex items-center">
-                        <span className="text-foreground font-medium mr-2">Company:</span>
-                        <span className="text-muted-foreground">{section.contact.company}</span>
-                      </div>
-                    )}
-                    {section.contact.email && (
-                      <div className="flex items-center">
-                        <span className="text-foreground font-medium mr-2">Email:</span>
-                        <span className="text-[#0046FF]">{section.contact.email}</span>
-                      </div>
-                    )}
-                    {section.contact.dpo && (
-                      <div className="flex items-center">
-                        <span className="text-foreground font-medium mr-2">DPO Email:</span>
-                        <span className="text-[#0046FF]">{section.contact.dpo === "Data Protection Officer" ? section.contact.dpo : section.contact.dpo}</span>
-                      </div>
-                    )}
-                    {section.contact.address && (
-                      <div className="flex items-center">
-                        <span className="text-foreground font-medium mr-2">Address:</span>
-                        <span className="text-muted-foreground">{section.contact.address}</span>
-                      </div>
-                    )}
-                    {section.contact.ico && (
-                      <div className="flex items-center">
-                        <span className="text-foreground font-medium mr-2">Regulator:</span>
-                        <span className="text-muted-foreground">{section.contact.ico}</span>
-                      </div>
-                    )}
+                  <div className="bg-gradient-to-r from-[#0046FF]/5 dark:from-[#0046FF]/10 to-transparent rounded-2xl p-6 mt-4">
+                    <div className="flex items-center">
+                      <span className="text-foreground font-medium mr-2">Email:</span>
+                      <a href={`mailto:${section.contact.email}`} className="text-[#0046FF] hover:text-[#0046FF]/80 transition-colors">
+                        {section.contact.email}
+                      </a>
+                    </div>
                   </div>
                 )}
               </div>
