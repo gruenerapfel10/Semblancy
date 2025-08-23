@@ -145,7 +145,7 @@ export default function PrivacyPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto max-w-4xl px-6 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -155,7 +155,7 @@ export default function PrivacyPage() {
           <Link href="/">
             <Button 
               variant="ghost" 
-              className="mb-8 rounded-full px-6 hover:bg-blue-50 transition-all duration-200"
+              className="mb-8 rounded-full px-6 hover:bg-muted transition-all duration-200"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
@@ -163,13 +163,18 @@ export default function PrivacyPage() {
           </Link>
 
           <div className="mb-12 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0046FF]/10 to-[#0046FF]/5 mb-6">
-              <Shield className="h-8 w-8 text-[#0046FF]" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#0046FF]/10 to-[#0046FF]/5 dark:from-[#0046FF]/20 dark:to-[#0046FF]/10 mb-8"
+            >
+              <Shield className="h-10 w-10 text-[#0046FF]" />
+            </motion.div>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Privacy Policy
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-muted-foreground">
               Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
           </div>
@@ -179,9 +184,9 @@ export default function PrivacyPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-gradient-to-r from-[#0046FF]/10 to-[#0046FF]/5 rounded-3xl p-8 mb-8 border border-[#0046FF]/10"
+          className="bg-gradient-to-r from-[#0046FF]/10 to-[#0046FF]/5 dark:from-[#0046FF]/20 dark:to-[#0046FF]/10 rounded-3xl p-8 mb-8 border border-[#0046FF]/20 dark:border-[#0046FF]/30"
         >
-          <p className="text-gray-700 leading-relaxed">
+          <p className="text-muted-foreground leading-relaxed">
             This Privacy Policy explains how Semblancy Ltd collects, uses, and protects your personal data in compliance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018. We are committed to ensuring your privacy and giving you control over your personal information.
           </p>
         </motion.div>
@@ -194,12 +199,12 @@ export default function PrivacyPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 + index * 0.05 }}
             >
-              <div className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-100">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              <div className="bg-card rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-200 border">
+                <h2 className="text-xl font-semibold text-foreground mb-4">
                   {section.title}
                 </h2>
                 
-                <p className="text-gray-600 leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4">
                   {section.content}
                 </p>
 
@@ -208,7 +213,7 @@ export default function PrivacyPage() {
                     {section.items.map((item, itemIndex) => (
                       <li key={itemIndex} className="flex items-start">
                         <span className="inline-block w-2 h-2 rounded-full bg-[#0046FF] mt-2 mr-3 flex-shrink-0" />
-                        <span className="text-gray-600">{item}</span>
+                        <span className="text-muted-foreground">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -217,43 +222,43 @@ export default function PrivacyPage() {
                 {section.highlights && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
                     {section.highlights.map((highlight, hIndex) => (
-                      <div key={hIndex} className="bg-gradient-to-r from-[#0046FF]/5 to-transparent rounded-2xl p-4">
-                        <span className="text-gray-700 text-sm">{highlight}</span>
+                      <div key={hIndex} className="bg-gradient-to-r from-[#0046FF]/5 dark:from-[#0046FF]/10 to-transparent rounded-2xl p-4">
+                        <span className="text-muted-foreground text-sm">{highlight}</span>
                       </div>
                     ))}
                   </div>
                 )}
 
                 {section.contact && (
-                  <div className="space-y-3 bg-gradient-to-r from-[#0046FF]/5 to-transparent rounded-2xl p-6 mt-4">
+                  <div className="space-y-3 bg-gradient-to-r from-[#0046FF]/5 dark:from-[#0046FF]/10 to-transparent rounded-2xl p-6 mt-4">
                     {section.contact.company && (
                       <div className="flex items-center">
-                        <span className="text-gray-900 font-medium mr-2">Company:</span>
-                        <span className="text-gray-600">{section.contact.company}</span>
+                        <span className="text-foreground font-medium mr-2">Company:</span>
+                        <span className="text-muted-foreground">{section.contact.company}</span>
                       </div>
                     )}
                     {section.contact.email && (
                       <div className="flex items-center">
-                        <span className="text-gray-900 font-medium mr-2">Email:</span>
+                        <span className="text-foreground font-medium mr-2">Email:</span>
                         <span className="text-[#0046FF]">{section.contact.email}</span>
                       </div>
                     )}
                     {section.contact.dpo && (
                       <div className="flex items-center">
-                        <span className="text-gray-900 font-medium mr-2">DPO Email:</span>
+                        <span className="text-foreground font-medium mr-2">DPO Email:</span>
                         <span className="text-[#0046FF]">{section.contact.dpo === "Data Protection Officer" ? section.contact.dpo : section.contact.dpo}</span>
                       </div>
                     )}
                     {section.contact.address && (
                       <div className="flex items-center">
-                        <span className="text-gray-900 font-medium mr-2">Address:</span>
-                        <span className="text-gray-600">{section.contact.address}</span>
+                        <span className="text-foreground font-medium mr-2">Address:</span>
+                        <span className="text-muted-foreground">{section.contact.address}</span>
                       </div>
                     )}
                     {section.contact.ico && (
                       <div className="flex items-center">
-                        <span className="text-gray-900 font-medium mr-2">Regulator:</span>
-                        <span className="text-gray-600">{section.contact.ico}</span>
+                        <span className="text-foreground font-medium mr-2">Regulator:</span>
+                        <span className="text-muted-foreground">{section.contact.ico}</span>
                       </div>
                     )}
                   </div>

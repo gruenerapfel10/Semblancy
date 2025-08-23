@@ -152,7 +152,7 @@ export default function TermsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto max-w-4xl px-6 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -162,7 +162,7 @@ export default function TermsPage() {
           <Link href="/">
             <Button 
               variant="ghost" 
-              className="mb-8 rounded-full px-6 hover:bg-blue-50 transition-all duration-200"
+              className="mb-8 rounded-full px-6 hover:bg-muted transition-all duration-200"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
@@ -170,13 +170,18 @@ export default function TermsPage() {
           </Link>
 
           <div className="mb-12 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-[#0046FF]/10 to-[#0046FF]/5 mb-6">
-              <Scale className="h-8 w-8 text-[#0046FF]" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#0046FF]/10 to-[#0046FF]/5 dark:from-[#0046FF]/20 dark:to-[#0046FF]/10 mb-8"
+            >
+              <Scale className="h-10 w-10 text-[#0046FF]" />
+            </motion.div>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               Terms of Service
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-muted-foreground">
               Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </p>
           </div>
@@ -190,13 +195,13 @@ export default function TermsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
             >
-              <div className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-100">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              <div className="bg-card rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-200 border">
+                <h2 className="text-xl font-semibold text-foreground mb-4">
                   {section.title}
                 </h2>
                 
                 {section.content && !section.list && !section.subsections && !section.contact && (
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {section.content}
                   </p>
                 )}
@@ -204,11 +209,11 @@ export default function TermsPage() {
                 {section.subsections && (
                   <div className="space-y-4">
                     {section.subsections.map((sub, subIndex) => (
-                      <div key={subIndex} className="bg-gradient-to-r from-[#0046FF]/5 to-transparent rounded-2xl p-6">
-                        <h3 className="font-medium text-gray-900 mb-2">
+                      <div key={subIndex} className="bg-gradient-to-r from-[#0046FF]/5 dark:from-[#0046FF]/10 to-transparent rounded-2xl p-6">
+                        <h3 className="font-medium text-foreground mb-2">
                           {sub.subtitle}
                         </h3>
-                        <p className="text-gray-600 leading-relaxed">
+                        <p className="text-muted-foreground leading-relaxed">
                           {sub.content}
                         </p>
                       </div>
@@ -218,12 +223,12 @@ export default function TermsPage() {
 
                 {section.list && (
                   <>
-                    <p className="text-gray-600 mb-4">{section.content}</p>
+                    <p className="text-muted-foreground mb-4">{section.content}</p>
                     <ul className="space-y-2">
                       {section.list.map((item, listIndex) => (
                         <li key={listIndex} className="flex items-start">
                           <span className="inline-block w-2 h-2 rounded-full bg-[#0046FF] mt-2 mr-3 flex-shrink-0" />
-                          <span className="text-gray-600">{item}</span>
+                          <span className="text-muted-foreground">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -232,15 +237,15 @@ export default function TermsPage() {
 
                 {section.contact && (
                   <>
-                    <p className="text-gray-600 mb-4">{section.content}</p>
-                    <div className="space-y-3 bg-gradient-to-r from-[#0046FF]/5 to-transparent rounded-2xl p-6">
+                    <p className="text-muted-foreground mb-4">{section.content}</p>
+                    <div className="space-y-3 bg-gradient-to-r from-[#0046FF]/5 dark:from-[#0046FF]/10 to-transparent rounded-2xl p-6">
                       <div className="flex items-center">
-                        <span className="text-gray-900 font-medium mr-2">Email:</span>
+                        <span className="text-foreground font-medium mr-2">Email:</span>
                         <span className="text-[#0046FF]">{section.contact.email}</span>
                       </div>
                       <div className="flex items-center">
-                        <span className="text-gray-900 font-medium mr-2">Address:</span>
-                        <span className="text-gray-600">{section.contact.address}</span>
+                        <span className="text-foreground font-medium mr-2">Address:</span>
+                        <span className="text-muted-foreground">{section.contact.address}</span>
                       </div>
                     </div>
                   </>
