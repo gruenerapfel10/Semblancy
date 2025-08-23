@@ -251,7 +251,7 @@ export default function SupportPage() {
             </div>
 
             <div className="bg-gradient-to-br from-[#0046FF]/10 to-[#0046FF]/5 rounded-3xl p-6 border border-[#0046FF]/10">
-              <h3 className="font-semibold text-gray-900 mb-3">Can't find what you need?</h3>
+              <h3 className="font-semibold text-gray-900 mb-3">Can&apos;t find what you need?</h3>
               <p className="text-sm text-gray-600 mb-4">
                 Our support team is here to help you with any questions or issues.
               </p>

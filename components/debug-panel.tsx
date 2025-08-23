@@ -59,7 +59,7 @@ function ASTNode({ node, depth = 0, isLast = false }: ASTNodeProps) {
           <span className="font-semibold">{node.type}</span>
           {node.content && (
             <span className="ml-2 text-muted-foreground">
-              "{node.content.substring(0, 20)}{node.content.length > 20 ? '...' : ''}"
+              &quot;{node.content.substring(0, 20)}{node.content.length > 20 ? '...' : ''}&quot;
             </span>
           )}
           <span className="ml-2 text-gray-500">
@@ -352,7 +352,7 @@ export function DebugPanel({ editorState, lastKey = "" }: DebugPanelProps) {
               <>
                 <div>Current Char:</div>
                 <div>
-                  "{editorState.content[position.index]}" (Code: {editorState.content.charCodeAt(position.index)})
+                  &quot;{editorState.content[position.index]}&quot; (Code: {editorState.content.charCodeAt(position.index)})
                 </div>
               </>
             )}
@@ -360,7 +360,7 @@ export function DebugPanel({ editorState, lastKey = "" }: DebugPanelProps) {
               <>
                 <div>Previous Char:</div>
                 <div>
-                  "{editorState.content[position.index - 1]}" (Code:{" "}
+                  &quot;{editorState.content[position.index - 1]}&quot; (Code:{" "})
                   {editorState.content.charCodeAt(position.index - 1)})
                 </div>
               </>

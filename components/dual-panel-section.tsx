@@ -32,7 +32,7 @@ export function DualPanelSection({ className }: DualPanelProps) {
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl mb-4">Educational Research</h2>
               <p className="text-white/70 mb-8 max-w-md dark:text-black/70">
                 Semblancy pioneers research in AI-powered education, creating personalized learning experiences that
-                adapt to each student's needs.
+                adapt to each student&apos;s needs.
               </p>
               <Button
                 asChild
