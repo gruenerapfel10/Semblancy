@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import { parseLatex, ParsedToken } from "./latex-parser";
 import { LatexFormula } from '../../components/latex';
 
@@ -197,19 +196,15 @@ function processMathExpressions(text: string): string {
       // Use the LatexFormula component to render the math
       const isDisplay = token.content.startsWith("$$");
       
-      // Render the formula as React element and convert to HTML string
-      const reactElement = React.createElement(LatexFormula, {
-        formula: token.content,
-        displayMode: isDisplay
-      });
-      
-      const rendered = ReactDOMServer.renderToString(reactElement);
+      // Create a placeholder for client-side rendering
+      // We'll use a data attribute to store the formula for client-side processing
+      const placeholder = `<span class="latex-formula" data-formula="${token.content.replace(/"/g, '&quot;')}" data-display="${isDisplay}"></span>`;
       
       // Replace in the text
       const beforeMath = result.substring(0, token.start + offset);
       const afterMath = result.substring(token.end + offset);
-      result = beforeMath + rendered;
-      offset += rendered.length - (token.end - token.start);
+      result = beforeMath + placeholder + afterMath;
+      offset += placeholder.length - (token.end - token.start);
     }
   }
 

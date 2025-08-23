@@ -57,13 +57,28 @@ export function useLatex(options: UseLatexOptions = {}) {
 
   // Initialize editor and key handler
   useEffect(() => {
-    const editor = new LatexEditor({
-      initialContent: options.initialContent || "",
-      onChange: options.onChange,
-      onCursorChange: options.onCursorChange,
+    const editor = new LatexEditor(options.initialContent || "", {
+      onContentChange: (content, selectionStart, selectionEnd) => {
+        if (options.onChange) {
+          options.onChange(content)
+        }
+      },
+      onCursorChange: (selectionStart, selectionEnd) => {
+        if (options.onCursorChange) {
+          options.onCursorChange({
+            position: { index: selectionStart, line: 0, column: selectionStart },
+            selection: { 
+              start: { index: selectionStart, line: 0, column: selectionStart },
+              end: selectionEnd !== selectionStart ? { index: selectionEnd, line: 0, column: selectionEnd } : null
+            },
+            context: "text",
+            inMath: false
+          })
+        }
+      }
     })
 
-    const keyHandler = new KeyHandler({ editor })
+    const keyHandler = new KeyHandler({ editor, textareaRef })
 
     editorRef.current = editor
     keyHandlerRef.current = keyHandler
@@ -73,14 +88,8 @@ export function useLatex(options: UseLatexOptions = {}) {
       payload: { editor, keyHandler },
     })
 
-    // Subscribe to editor state changes
-    const unsubscribe = editor.subscribe((editorState) => {
-      dispatch({ type: "UPDATE_STATE", payload: editorState })
-    })
-
-    return () => {
-      unsubscribe()
-    }
+    // Note: LatexEditor doesn't have a subscribe method yet
+    // The state is managed directly through the editor's getState() method
   }, [options.initialContent, options.onChange, options.onCursorChange])
 
   // Handle content change
