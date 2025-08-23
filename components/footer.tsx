@@ -214,6 +214,16 @@ export function SiteFooter({ className }: FooterProps) {
                   Press Kit
                 </Link>
               </li>
+              <li>
+                <Link href="/contact" className="text-sm hover:underline">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/support" className="text-sm hover:underline">
+                  Support
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -238,7 +248,7 @@ export function SiteFooter({ className }: FooterProps) {
               <Link href="/privacy" className="hover:underline">
                 Privacy
               </Link>
-              <Link href="/terms" className="hover:underline">
+              <Link href="/tos" className="hover:underline">
                 Terms
               </Link>
               <Link href="/safety" className="hover:underline">

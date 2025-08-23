@@ -52,32 +52,6 @@ export interface ShortcutConfig {
   options?: Partial<CommandOptions>; 
 }
 
-/**
- * Base interface for all LaTeX commands
- */
-export interface Command {
-  /**
-   * Optional shortcut configuration for this command.
-   * Can be a single config or an array for multiple shortcuts.
-   */
-  shortcut?: ShortcutConfig | ShortcutConfig[];
-
-  /**
-   * Execute the command at the specified position
-   * @param editor The editor instance
-   * @param position Position to insert the command
-   * @param args Arguments for the command
-   * @param options Command options, including `isShortcutInvocation`
-   * @returns The new cursor position
-   */
-  execute(
-    editor: LatexEditor,
-    position: number,
-    args?: string[],
-    options?: CommandOptions
-  ): number
-}
-
 // Type to define how a command is recognized in text
 export type CommandPattern = {
   // The string that identifies this command (e.g., "frac" for \frac, "^" for superscript)
@@ -97,15 +71,27 @@ export type CommandPattern = {
   regex?: RegExp;
 }
 
-// Command interface with pattern support
+/**
+ * Base interface for all LaTeX commands
+ */
 export interface Command {
   // Pattern(s) for how this command appears in LaTeX
   pattern?: CommandPattern | CommandPattern[];
   
-  // Shortcut definition for the command
-  shortcut?: ShortcutConfig | ShortcutConfig[]
-  
-  // Execute the command
+  /**
+   * Optional shortcut configuration for this command.
+   * Can be a single config or an array for multiple shortcuts.
+   */
+  shortcut?: ShortcutConfig | ShortcutConfig[];
+
+  /**
+   * Execute the command at the specified position
+   * @param editor The editor instance
+   * @param position Position to insert the command
+   * @param args Arguments for the command
+   * @param options Command options, including `isShortcutInvocation`
+   * @returns The new cursor position
+   */
   execute(
     editor: LatexEditor,
     position: number,

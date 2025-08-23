@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // List of public paths that don't require authentication
-const PUBLIC_PATHS = ['/login', '/signup', '/check-email'];
+const PUBLIC_PATHS = ['/login', '/signup', '/check-email', '/privacy', '/tos', '/contact', '/support'];
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
@@ -30,20 +30,19 @@ export async function middleware(req: NextRequest) {
       data: { session },
     } = await supabase.auth.getSession();
 
-    // Check if the path is in our public paths list
+    // Check if the path is in our public paths list or is the landing page
     const isPublicPath = PUBLIC_PATHS.some(path => 
       req.nextUrl.pathname.startsWith(path)
-    );
+    ) || req.nextUrl.pathname === '/';
 
     // If user is not signed in and trying to access a protected route,
-    // redirect to login
+    // redirect to landing page
     if (!session && !isPublicPath) {
-      return NextResponse.redirect(new URL('/login', req.url));
+      return NextResponse.redirect(new URL('/', req.url));
     }
 
-    // If user is signed in and trying to access a public route,
-    // redirect to dashboard
-    if (session && isPublicPath) {
+    // If user is signed in and trying to access login/signup, redirect to dashboard
+    if (session && (req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/signup')) {
       return NextResponse.redirect(new URL('/dashboard/overview', req.url));
     }
 

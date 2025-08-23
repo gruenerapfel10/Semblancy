@@ -33,7 +33,7 @@ export function ShortcutHelp() {
                 If you use a math shortcut outside a math environment, the editor will automatically wrap it in inline
                 math delimiters ($...$).
               </p>
-              <p>The editor will show "Math Mode" when you're inside a math environment.</p>
+              <p>The editor will show &quot;Math Mode&quot; when you&apos;re inside a math environment.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
